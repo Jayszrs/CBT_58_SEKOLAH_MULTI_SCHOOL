@@ -1,0 +1,2552 @@
+<script>
+let quillEditor = null;
+let quillContextEditor = null;
+let soalList = [];
+let mapelSaatIni = ''; 
+let currentEditIdSoal = '';
+let modalAdminMode = 'create'; 
+let uploadedGambarUrl = null;
+
+function detectWebpSupport() {
+  const testCanvas = document.createElement('canvas');
+  testCanvas.width = 1;
+  testCanvas.height = 1;
+  return testCanvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+}
+
+const BROWSER_SUPPORTS_WEBP = detectWebpSupport();
+
+function compressImageToWebp(file, quality = 0.7, maxBase64Length = 1500000) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(event) {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = function() {
+        const MAX_WIDTH = 1024;
+        const MAX_HEIGHT = 1024;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const outputFormat = BROWSER_SUPPORTS_WEBP ? 'image/webp' : 'image/jpeg';
+        let currentQuality = quality;
+        let dataUrl = canvas.toDataURL(outputFormat, currentQuality);
+
+        while (dataUrl.length > maxBase64Length && currentQuality > 0.3) {
+          currentQuality -= 0.1;
+          dataUrl = canvas.toDataURL(outputFormat, currentQuality);
+        }
+
+        if (dataUrl.length > maxBase64Length) {
+          const scaleFactor = 0.7;
+          canvas.width = Math.round(width * scaleFactor);
+          canvas.height = Math.round(height * scaleFactor);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          dataUrl = canvas.toDataURL(outputFormat, 0.5);
+        }
+
+        resolve(dataUrl);
+      };
+      img.onerror = error => reject(error);
+    };
+    reader.onerror = error => reject(error);
+  });
+}
+
+/** Quill 1.x does not have native editable table support; use an atomic block blot. */
+function registerCbtTableBlot() {
+  if (!window.Quill || window.__cbtTableRegistered) return;
+  const BlockEmbed = Quill.import('blots/block/embed');
+  class CbtTableBlot extends BlockEmbed {
+    static create(value) {
+      const node = super.create();
+      const data = normalizeCbtTable(value);
+      node.setAttribute('data-cbt-table', JSON.stringify(data));
+      node.setAttribute('contenteditable', 'false');
+      node.setAttribute('draggable', 'true');
+      renderCbtTableNode(node, data);
+      return node;
+    }
+    static value(node) {
+      try { return normalizeCbtTable(JSON.parse(node.getAttribute('data-cbt-table') || '{}')); }
+      catch (e) { return normalizeCbtTable({}); }
+    }
+  }
+  CbtTableBlot.blotName = 'cbtTable';
+  CbtTableBlot.tagName = 'DIV';
+  CbtTableBlot.className = 'cbt-table-block';
+  Quill.register(CbtTableBlot);
+  window.__cbtTableRegistered = true;
+}
+function normalizeCbtTable(input) {
+  const value = input && typeof input === 'object' ? input : {};
+  const rows = Math.min(11, Math.max(1, Math.floor(Number(value.rows) || 3)));
+  const cols = Math.min(5, Math.max(1, Math.floor(Number(value.cols) || 3)));
+  const width = Math.min(100, Math.max(30, Math.floor(Number(value.width) || 100)));
+  const align = ['left', 'center', 'right'].includes(value.align) ? value.align : 'center';
+  const original = Array.isArray(value.cells) ? value.cells : [];
+  const cells = Array.from({length:rows}, (_,r) => Array.from({length:cols},(_,c)=>String(original[r] && original[r][c] || '').slice(0,1500)));
+  return { rows:rows, cols:cols, width:width, align:align, cells:cells };
+}
+function renderCbtTableNode(node, data) {
+  node.textContent = '';
+  node.style.width = data.width + '%';
+  node.style.marginLeft = data.align === 'left' ? '0' : 'auto';
+  node.style.marginRight = data.align === 'right' ? '0' : 'auto';
+  const table = document.createElement('table');
+  const tbody = document.createElement('tbody');
+  data.cells.forEach(function(row) {
+    const tr = document.createElement('tr');
+    row.forEach(function(value) { const td=document.createElement('td');td.textContent=value;tr.appendChild(td); });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);node.appendChild(table);
+  node.title = 'Seret ke posisi lain, atau klik dua kali untuk mengubah tabel';
+}
+function insertContextTable() { openContextTableDialog(null); }
+function enableCbtTableEditing(editor) {
+  editor.root.addEventListener('dblclick',function(e) {
+    const block = e.target.closest('.cbt-table-block');
+    if (block) { e.preventDefault();openContextTableDialog(block); }
+  });
+  let moving = null;
+  editor.root.addEventListener('dragstart',function(e) {
+    moving = e.target.closest('.cbt-table-block');
+    if (!moving) return;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', 'CBT_TABLE_MOVE');
+  });
+  editor.root.addEventListener('dragover',function(e) { if (moving) e.preventDefault(); });
+  editor.root.addEventListener('drop',function(e) {
+    if (!moving) return;
+    e.preventDefault();
+    const target = e.target.closest('.cbt-table-block, p, li, h1, h2, div.ql-align-center, div.ql-align-right') || e.target;
+    const targetBlot = Quill.find(target, true);
+    const sourceBlot = Quill.find(moving);
+    if (!sourceBlot || !targetBlot) {moving=null;return;}
+    const sourceIndex = editor.getIndex(sourceBlot);
+    const targetIndex = editor.getIndex(targetBlot);
+    const tableData = normalizeCbtTable(JSON.parse(moving.getAttribute('data-cbt-table') || '{}'));
+    if (sourceIndex === targetIndex) {moving=null;return;}
+    editor.deleteText(sourceIndex, 1, 'user');
+    editor.insertEmbed(targetIndex > sourceIndex ? targetIndex - 1 : targetIndex, 'cbtTable', tableData, 'user');
+    moving = null;
+  });
+  editor.root.addEventListener('dragend',function() {moving=null;});
+}
+function openContextTableDialog(existingNode) {
+  const prior = document.getElementById('cbt-table-config'); if (prior) prior.remove();
+  let data;
+  try {data=existingNode ? normalizeCbtTable(JSON.parse(existingNode.getAttribute('data-cbt-table'))) : normalizeCbtTable({});}
+  catch(e) {data=normalizeCbtTable({});}
+  const overlay=document.createElement('div');overlay.id='cbt-table-config';
+  overlay.innerHTML = `<div class="cbt-table-dialog" role="dialog" aria-modal="true" aria-label="Pengaturan tabel bacaan">
+    <h3 style="margin-bottom:12px">${existingNode ? 'Edit' : 'Sisipkan'} Tabel Bacaan</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+      <label>Kolom (1–5) <input id="cbt-t-cols" class="form-control" type="number" min="1" max="5" value="${data.cols}" style="width:85px"></label>
+      <label>Baris (1–11) <input id="cbt-t-rows" class="form-control" type="number" min="1" max="11" value="${data.rows}" style="width:85px"></label>
+      <label>Lebar (%) <input id="cbt-t-width" class="form-control" type="number" min="30" max="100" value="${data.width}" style="width:90px"></label>
+      <label>Posisi <select id="cbt-t-align" class="form-control"><option value="left">Kiri</option><option value="center">Tengah</option><option value="right">Kanan</option></select></label>
+      <button type="button" class="btn btn-outline" id="cbt-table-resize">Terapkan Ukuran</button>
+    </div>
+    <p style="font-size:12px;color:#4b5563;margin-top:10px">Isi sel tabel. Klik Simpan; seret tabel di dalam teks untuk memindahkan posisinya.</p>
+    <div class="cbt-cell-grid" id="cbt-cell-grid"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn btn-outline" id="cbt-table-cancel">Batal</button>
+      <button type="button" class="btn btn-primary" id="cbt-table-save">Simpan Tabel</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  const rowInput=overlay.querySelector('#cbt-t-rows'), colInput=overlay.querySelector('#cbt-t-cols');
+  const widthInput=overlay.querySelector('#cbt-t-width');
+  overlay.querySelector('#cbt-t-align').value=data.align;
+  const grid=overlay.querySelector('#cbt-cell-grid');
+  function syncCells(){
+    grid.querySelectorAll('textarea[data-row]').forEach(function(el) {
+      const row=Number(el.dataset.row),col=Number(el.dataset.col);
+      if(data.cells[row] && col < data.cells[row].length)data.cells[row][col]=el.value;
+    });
+  }
+  function redrawGrid(){
+    syncCells();const rows=Math.min(11,Math.max(1,Number(rowInput.value)||1));
+    const cols=Math.min(5,Math.max(1,Number(colInput.value)||1));
+    data=normalizeCbtTable({rows:rows,cols:cols,width:data.width,align:data.align,cells:data.cells});
+    rowInput.value=data.rows;colInput.value=data.cols;
+    grid.style.gridTemplateColumns='repeat('+cols+', minmax(85px,1fr))';
+    grid.textContent='';
+    data.cells.forEach(function(row,i){row.forEach(function(value,j){
+      const field=document.createElement('textarea');field.dataset.row=i;field.dataset.col=j;
+      field.setAttribute('aria-label','Baris '+(i+1)+' kolom '+(j+1));field.value=value;grid.appendChild(field);
+    });});
+  }
+  overlay.querySelector('#cbt-table-resize').onclick = redrawGrid;
+  overlay.querySelector('#cbt-table-cancel').onclick=function(){overlay.remove();};
+  overlay.querySelector('#cbt-table-save').onclick=function(){
+    syncCells();data.width=Math.min(100,Math.max(30,Number(widthInput.value)||100));
+    data.align=overlay.querySelector('#cbt-t-align').value;
+    const editor=quillContextEditor;
+    if(existingNode){
+      const blot=Quill.find(existingNode);
+      const index=editor.getIndex(blot);
+      editor.deleteText(index,1,'user');editor.insertEmbed(index,'cbtTable',data,'user');
+    }else{
+      const selection=editor.getSelection(true);
+      const index=selection ? selection.index : editor.getLength()-1;
+      editor.insertEmbed(index,'cbtTable',data,'user');
+    }
+    overlay.remove();
+  };
+  redrawGrid();
+}
+
+function initAdminSoal() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'ping', {}).then(res => {
+      console.log('Backend Ping:', res);
+  }).catch(e => console.error('Ping Failed', e));
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'getMapel', {}).then(res => {
+      const mapelSelect = document.getElementById('soal-mapel');
+      const paketFilterMapel = document.getElementById('paket-filter-mapel');
+      if (res) {
+          const optionsHtml = '<option value="">-- Tidak Ada --</option>' + 
+              res.map(m => `<option value="${m.nama}">${m.nama}</option>`).join('');
+          
+          if (mapelSelect) mapelSelect.innerHTML = optionsHtml;
+          if (paketFilterMapel) paketFilterMapel.innerHTML = '<option value="">Semua Mapel</option>' + 
+              res.map(m => `<option value="${m.nama}">${m.nama}</option>`).join('');
+          
+          AppStore.mapelList = res;
+      }
+  }).catch(e => console.warn('Gagal memuat mapel', e));
+  
+  const richToolbar = [
+    ['bold', 'italic', 'underline'],
+    [{ script: 'sub' }, { script: 'super' }],
+    [{ align: [] }],
+    ['formula'],
+    ['clean']
+  ];
+
+  registerCbtTableBlot();
+  quillEditor = new Quill('#quill-editor', {
+    theme: 'snow',
+    modules: { toolbar: richToolbar, formula: true }
+  });
+  quillEditor.root.style.fontFamily = 'Arial, sans-serif';
+
+  quillContextEditor = new Quill('#quill-context-editor', {
+    theme: 'snow',
+    modules: { toolbar: richToolbar, formula: true }
+  });
+  quillContextEditor.root.style.fontFamily = 'Arial, sans-serif';
+
+  installWordMathPasteSupport(quillEditor);
+  installWordMathPasteSupport(quillContextEditor);
+  quillContextEditor.clipboard.addMatcher('.cbt-table-block', function(node) {
+    try { return new (Quill.import('delta'))().insert({ cbtTable: normalizeCbtTable(JSON.parse(node.getAttribute('data-cbt-table') || '{}')) }); }
+    catch (error) { return new (Quill.import('delta'))().insert(''); }
+  });
+  enableCbtTableEditing(quillContextEditor);
+
+  const questionImageInput = document.getElementById('soal-gambar');
+  if (questionImageInput) {
+    questionImageInput.onchange = async function() {
+      const previewContainer = document.getElementById('soal-gambar-preview');
+      const previewImg = document.querySelector('#soal-gambar-preview img');
+      const file = this.files && this.files[0];
+
+      delete this.dataset.compressed;
+      if (!file) return;
+
+      if (!/^image\/(png|jpeg|webp)$/i.test(file.type)) {
+        showToast('Format gambar harus PNG, JPG, atau WEBP.', 'error');
+        this.value = '';
+        this.dataset.processing = 'false';
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        showToast('Ukuran gambar maksimal 2 MB sebelum kompresi.', 'error');
+        this.value = '';
+        this.dataset.processing = 'false';
+        return;
+      }
+
+      this.dataset.processing = 'true';
+      previewContainer.classList.remove('hidden');
+      previewImg.alt = 'Memproses gambar...';
+      try {
+        const compressedBase64 = await compressImageToWebp(file);
+        this.dataset.compressed = compressedBase64;
+        previewImg.src = compressedBase64;
+        previewImg.alt = 'Pratinjau gambar pendukung';
+      } catch (err) {
+        console.error('Gagal kompres gambar:', err);
+        showToast('Gagal memproses gambar.', 'error');
+        this.value = '';
+      } finally {
+        this.dataset.processing = 'false';
+      }
+    };
+  }
+
+  const optionsContainer = document.getElementById('soal-options-container');
+  if (optionsContainer) {
+    optionsContainer.onchange = handleOptionImageChange;
+  }
+
+  loadBankSoal();
+}
+
+
+function handleOptionImageChange(event) {
+  const input = event.target.closest('.option-image-input');
+  if (!input) return;
+
+  const file = input.files && input.files[0];
+  const field = input.closest('.option-image-field');
+  const preview = field ? field.querySelector('.option-image-preview') : null;
+  delete input.dataset.compressed;
+  if (!file) return;
+
+  if (!/^image\/(png|jpeg|webp)$/i.test(file.type)) {
+    showToast('Format gambar harus PNG, JPG, atau WEBP.', 'error');
+    input.value = '';
+    input.dataset.processing = 'false';
+    return;
+  }
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('Ukuran setiap gambar pilihan maksimal 2 MB sebelum kompresi.', 'error');
+    input.value = '';
+    input.dataset.processing = 'false';
+    return;
+  }
+
+  input.dataset.processing = 'true';
+  if (preview) {
+    preview.style.display = 'block';
+    preview.removeAttribute('src');
+    preview.alt = 'Memproses gambar...';
+  }
+
+  compressImageToWebp(file).then(function(dataUrl) {
+    input.dataset.compressed = dataUrl;
+    if (preview) {
+      preview.src = dataUrl;
+      preview.alt = 'Pratinjau gambar pilihan';
+    }
+  }).catch(function(error) {
+    console.error('Gagal memproses gambar pilihan:', error);
+    showToast('Gagal memproses gambar pilihan.', 'error');
+    input.value = '';
+  }).finally(function() {
+    input.dataset.processing = 'false';
+  });
+}
+
+function clearOptionImage(button) {
+  const field = button.closest('.option-image-field');
+  if (!field) return;
+  const input = field.querySelector('.option-image-input');
+  const preview = field.querySelector('.option-image-preview');
+  if (input) {
+    input.value = '';
+    delete input.dataset.compressed;
+    input.dataset.existingImage = '';
+    input.dataset.processing = 'false';
+  }
+  if (preview) {
+    preview.removeAttribute('src');
+    preview.style.display = 'none';
+  }
+}
+
+
+function setOptionImageRef(input, ref) {
+  if (!input) return;
+  input.dataset.existingImage = ref || '';
+}
+
+function getAdminImageBatch(refs) {
+  return new Promise(function(resolve, reject) {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(reject)
+      .getMultipleImageBase64(refs);
+  });
+}
+
+async function loadAdminOptionImagePreviews() {
+  const inputs = Array.from(document.querySelectorAll('#soal-options-container .option-image-input'))
+    .filter(input => input.dataset.existingImage);
+  const refs = Array.from(new Set(inputs.map(input => input.dataset.existingImage)));
+  if (!refs.length) return;
+
+  const resultMap = {};
+  try {
+    for (let start = 0; start < refs.length; start += 4) {
+      const batch = await getAdminImageBatch(refs.slice(start, start + 4));
+      Object.assign(resultMap, batch || {});
+    }
+    inputs.forEach(function(input) {
+      const ref = input.dataset.existingImage;
+      const field = input.closest('.option-image-field');
+      const preview = field && field.querySelector('.option-image-preview');
+      if (preview && resultMap[ref]) {
+        preview.src = resultMap[ref];
+        preview.style.display = 'block';
+        preview.alt = 'Gambar pilihan tersimpan';
+      }
+    });
+  } catch (error) {
+    console.warn('Gagal memuat pratinjau gambar pilihan:', error);
+  }
+}
+
+function imageOnlyToken(type, index) {
+  return `__CBT_IMAGE_${type}_${index + 1}__`;
+}
+
+function isImageOnlyToken(value) {
+  return /^__CBT_IMAGE_(OPTION|MATCH_LEFT|MATCH_RIGHT)_\d+__$/.test(String(value || ''));
+}
+
+function visibleOptionText(value) {
+  return isImageOnlyToken(value) ? '' : String(value == null ? '' : value);
+}
+
+function getOptionImageAt(soal, index, side) {
+  const images = Array.isArray(soal && soal.opsi_gambar) ? soal.opsi_gambar : [];
+  const item = images[index];
+  if (item && typeof item === 'object') {
+    return side === 'left' ? (item.kunci || '') : side === 'right' ? (item.nilai || '') : (item.url || '');
+  }
+  return typeof item === 'string' ? item : '';
+}
+
+function loadBankSoal() {
+  api.call('executeAdminAction', AppStore.user.data.token, 'getAllSoal', { bypassCache: true }).then(res => {
+    AppStore.soalList = res;
+    renderTabelSoal();
+  }).catch(err => {
+    showToast('Gagal memuat bank soal', 'error');
+  });
+}
+
+function renderTabelSoal() {
+  if ($.fn.DataTable.isDataTable('#tbl-soal')) {
+    $('#tbl-soal').DataTable().destroy();
+  }
+
+  const tbody = document.querySelector('#tbl-soal tbody');
+  tbody.innerHTML = '';
+
+  if (AppStore.soalList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(6, 'Belum ada soal tersimpan.', 'fa-file-alt');
+    return;
+  }
+
+  const imageRefs = [];
+  const imageTargetMap = {};
+
+  AppStore.soalList.forEach((soal, idx) => {
+    const safeHtmlPertanyaan = FrontendSecurity.renderSafeHtml(soal.pertanyaan);
+    
+    let cleanPertanyaan = safeHtmlPertanyaan
+        .replace(/<img[^>]*>/gi, ' [Gambar] ')
+        .replace(/<\/?(p|div|h[1-6]|ul|ol|li|blockquote|table|tr|td|th|tbody|thead|pre)[^>]*>/gi, ' ')
+        .replace(/<br\s*\/?>/gi, ' ');
+
+    let txt = `<div style="max-width: 350px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">${cleanPertanyaan.trim()}</div>`;
+
+    let tipeFormat = `<span style="background-color: #F0FDFA; color: var(--primary); padding: 2px 6px; border-radius: 4px; font-size: 11px;">${soal.tipe}</span>`;
+
+    let imgCellId = 'img-cell-' + idx;
+    const hasOptionImage = Array.isArray(soal.opsi_gambar) && soal.opsi_gambar.some(function(item) {
+      if (typeof item === 'string') return !!item;
+      return !!(item && typeof item === 'object' && Object.keys(item).some(key => !!item[key]));
+    });
+    let imgV = soal.url_gambar
+      ? `<span id="${imgCellId}"><i class="fas fa-spinner fa-spin" style="color:#10B981"></i></span>`
+      : hasOptionImage
+        ? `<span title="Gambar tersedia pada pilihan jawaban"><i class="fas fa-images" style="color:#10B981"></i> Opsi</span>`
+        : `<span style="color:#9CA3AF">-</span>`;
+
+    if (soal.url_gambar) {
+      imageRefs.push(soal.url_gambar);
+      imageTargetMap[soal.url_gambar] = imgCellId;
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:center;"><input type="checkbox" class="chk-soal" value="${soal.id}" onchange="toggleBtnHapusTerpilih()"></td>
+      <td>${idx + 1}</td>
+      <td>${tipeFormat}</td>
+      <td>${txt}</td>
+      <td><span style="font-size: 0.85rem; color: #6B7280;">${soal.mapel || '-'}</span></td>
+      <td>${soal.bobot}</td>
+      <td style="text-align:center;">${imgV}</td>
+      <td style="white-space:nowrap; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:0.25rem;">
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="editSoal('${soal.id}')"><i class="fas fa-edit" style="color:var(--primary)"></i></button>
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="deleteThisSoal('${soal.id}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  $('#tbl-soal').DataTable({
+    language: {
+      search: 'Cari:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data tersedia',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan data yang sesuai'
+    },
+    columnDefs: [
+      { orderable: false, targets: [0, 1, 6, 7] }
+    ],
+    pageLength: 10
+  });
+
+  if (imageRefs.length > 0) {
+    const thumbnailTimeoutId = setTimeout(function() {
+      Object.keys(imageTargetMap).forEach(function(ref) {
+        const el = document.getElementById(imageTargetMap[ref]);
+        if (el && el.querySelector('.fa-spinner')) {
+          el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
+        }
+      });
+    }, 15000);
+
+    google.script.run
+      .withSuccessHandler(function(resultMap) {
+        clearTimeout(thumbnailTimeoutId);
+        Object.keys(resultMap).forEach(function(ref) {
+          const targetId = imageTargetMap[ref];
+          const el = document.getElementById(targetId);
+          if (el && resultMap[ref]) {
+            el.innerHTML = '<img src="' + resultMap[ref] + '" style="max-height:40px; max-width:60px; border-radius:4px; border:1px solid #E5E7EB;">';
+          } else if (el) {
+            el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
+          }
+        });
+      })
+      .withFailureHandler(function() {
+        clearTimeout(thumbnailTimeoutId);
+        Object.keys(imageTargetMap).forEach(function(ref) {
+          const el = document.getElementById(imageTargetMap[ref]);
+          if (el) {
+            el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
+          }
+        });
+      })
+      .getMultipleImageBase64(imageRefs);
+  }
+
+  const chkAll = document.getElementById('chk-all-soal');
+  if (chkAll) chkAll.checked = false;
+  toggleBtnHapusTerpilih();
+  
+  $('#tbl-soal').on('draw.dt', function() {
+      toggleBtnHapusTerpilih();
+  });
+}
+
+function openSoalModal() {
+  modalAdminMode = 'create';
+  document.getElementById('modal-soal-title').innerText = 'Tambah Soal Baru';
+  document.getElementById('frm-soal').reset();
+
+  document.getElementById('soal-id').value = '';
+  document.getElementById('soal-petunjuk').value = '';
+  quillEditor.root.innerHTML = '';
+  quillContextEditor.root.innerHTML = '';
+  clearGambarPreview();
+
+  document.getElementById('soal-tipe').value = 'PG';
+  document.getElementById('soal-bobot').value = '1';
+  document.getElementById('soal-mapel').value = mapelSaatIni;
+
+  renderSoalOptionsUI();
+
+  document.getElementById('modal-soal').style.display = 'flex';
+  document.getElementById('modal-soal').classList.remove('hidden');
+}
+
+function closeSoalModal() {
+  document.getElementById('modal-soal').style.display = 'none';
+}
+
+function clearGambarPreview() {
+  const fileInput = document.getElementById('soal-gambar');
+  if (fileInput) {
+    fileInput.value = '';
+    delete fileInput.dataset.compressed;
+    fileInput.dataset.processing = 'false';
+  }
+  const oldUrlInput = document.getElementById('soal-gambar-url-old');
+  if (oldUrlInput) oldUrlInput.value = '';
+
+  const loadingIndicator = document.getElementById('img-loading-indicator');
+  if (loadingIndicator) loadingIndicator.remove();
+
+  const previewContainer = document.getElementById('soal-gambar-preview');
+  const previewImg = document.querySelector('#soal-gambar-preview img');
+  if (previewContainer) previewContainer.classList.add('hidden');
+  if (previewImg) {
+    previewImg.removeAttribute('src');
+    previewImg.alt = 'Pratinjau gambar pendukung';
+  }
+}
+
+function renderSoalOptionsUI() {
+  const container = document.getElementById('soal-options-container');
+  const tipe = document.getElementById('soal-tipe').value;
+  container.innerHTML = '';
+
+  if (tipe === 'PG') {
+    container.innerHTML = `
+      <label class="modal-label">Pilihan Ganda (Teks dan/atau Gambar)</label>
+      <small class="soal-section-note">Centang radio untuk menentukan satu jawaban benar. Setiap opsi boleh berupa teks, gambar, atau keduanya.</small>
+      <div id="pg-options">
+        ${generatePOption(0)}
+        ${generatePOption(1)}
+        ${generatePOption(2)}
+        ${generatePOption(3)}
+        ${generatePOption(4)}
+      </div>
+      <button type="button" class="btn btn-outline btn-sm mt-2" onclick="addOptionDynamic('pg')"><i class="fas fa-plus"></i> Tambah Opsi</button>
+    `;
+  }
+  else if (tipe === 'PG Kompleks') {
+    container.innerHTML = `
+      <label class="modal-label">Pilihan Ganda Kompleks (Bisa lebih dari 1 jawaban benar)</label>
+      <small class="soal-section-note">Centang semua jawaban benar. Setiap opsi boleh berupa teks, gambar, atau keduanya.</small>
+      <div id="pgc-options">
+        ${generatePCOption(0)}
+        ${generatePCOption(1)}
+        ${generatePCOption(2)}
+        ${generatePCOption(3)}
+        ${generatePCOption(4)}
+      </div>
+      <button type="button" class="btn btn-outline btn-sm mt-2" onclick="addOptionDynamic('pgc')"><i class="fas fa-plus"></i> Tambah Opsi</button>
+    `;
+  }
+  else if (tipe === 'Isian Singkat') {
+    container.innerHTML = `
+      <label class="modal-label">Kunci Jawaban Tepat (Abaikan Huruf Besar/Kecil)</label>
+      <input type="text" class="form-control" name="isian_kunci" required placeholder="Contoh: Jakarta">
+    `;
+  }
+  else if (tipe === 'Benar Salah' || tipe === 'Sesuai Tidak Sesuai') {
+    const isSesuai = tipe === 'Sesuai Tidak Sesuai';
+    const bsHelpTemplate = document.getElementById('tmpl-benarsalah-help');
+    const bsHelpHtml = bsHelpTemplate ? bsHelpTemplate.innerHTML : '';
+    container.innerHTML = `
+      <label class="modal-label">Tabel Pernyataan ${isSesuai ? 'Sesuai / Tidak Sesuai' : 'Benar / Salah'}</label>
+      ${isSesuai ? '' : bsHelpHtml}
+      <small class="soal-section-note">Pernyataan dapat ditulis sebagai teks, menggunakan gambar, atau gabungan teks dan gambar.</small>
+      <div class="bs-admin-table-wrap">
+        <table class="bs-admin-table" style="width:100%; border-collapse:collapse;">
+          <thead><tr>
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #D1D5DB;">No.</th>
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #D1D5DB;">Pernyataan / Gambar</th>
+            <th style="padding:8px; text-align:left; border-bottom:1px solid #D1D5DB; width:150px;">Kunci</th>
+          </tr></thead>
+          <tbody>
+            ${generateBenarSalahAdminRow(0, isSesuai ? 'Sesuai' : 'Benar', isSesuai)}
+            ${generateBenarSalahAdminRow(1, isSesuai ? 'Tidak Sesuai' : 'Benar', isSesuai)}
+            ${generateBenarSalahAdminRow(2, isSesuai ? 'Sesuai' : 'Salah', isSesuai)}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+  else if (tipe === 'Menjodohkan') {
+    container.innerHTML = `
+      <label class="modal-label" style="margin-bottom:0.25rem;">Pasangan Menjodohkan (Teks dan/atau Gambar)</label>
+      <small class="soal-section-note">Isi kolom kiri dan kanan menggunakan teks, gambar, atau keduanya. Sistem akan mengacak kolom kanan saat ujian.</small>
+      <div id="jodoh-options">
+        ${generateJodohOption(0)}
+        ${generateJodohOption(1)}
+        ${generateJodohOption(2)}
+      </div>
+      <button type="button" class="btn btn-outline mt-2" onclick="addJodohOption()"><i class="fas fa-plus"></i> Tambah Pasangan</button>
+    `;
+  }
+
+  container.onchange = handleOptionImageChange;
+}
+
+function generateBenarSalahAdminRow(idx, defaultKey, isSesuai) {
+  return `
+    <tr class="bs-admin-row">
+      <td style="padding:8px; border-bottom:1px solid #E5E7EB; font-weight:700;">${idx + 1}</td>
+      <td style="padding:8px; border-bottom:1px solid #E5E7EB;">
+        <input type="text" class="form-control bs-statement-input" name="bs_statement" maxlength="1000"
+          placeholder="Tulis pernyataan ${idx + 1}" style="margin:0 0 6px;">
+        ${optionImageField('bs-statement', 'pernyataan ' + (idx + 1))}
+      </td>
+      <td style="padding:8px; border-bottom:1px solid #E5E7EB;">
+        <select class="form-control bs-key-select" name="bs_key" style="margin:0;">
+          ${isSesuai ? `<option value="Sesuai" ${defaultKey === 'Sesuai' ? 'selected' : ''}>Sesuai</option><option value="Tidak Sesuai" ${defaultKey === 'Tidak Sesuai' ? 'selected' : ''}>Tidak Sesuai</option>` : `<option value="Benar" ${defaultKey === 'Benar' ? 'selected' : ''}>Benar</option><option value="Salah" ${defaultKey === 'Salah' ? 'selected' : ''}>Salah</option>`}
+        </select>
+      </td>
+    </tr>
+  `;
+}
+
+function buildChoiceEditor(name, label) {
+  return `<div class="option-rich-toolbar" role="toolbar" aria-label="Pemformatan pilihan ${label}">
+    <button type="button" onmousedown="event.preventDefault()" onclick="formatChoiceText(this, 'bold')" title="Bold"><b>B</b></button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="formatChoiceText(this, 'italic')" title="Italic"><i>I</i></button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="formatChoiceText(this, 'underline')" title="Underline"><u>U</u></button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="insertChoiceMath(this, 'fraction')" title="Pecahan bertingkat">a⁄b</button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="insertChoiceMath(this, 'script')" title="Pangkat atau indeks">xⁿ</button>
+    <button type="button" onmousedown="event.preventDefault()" onclick="insertChoiceMath(this, 'radical')" title="Akar">√x</button>
+  </div><div contenteditable="true" role="textbox" aria-multiline="true" name="${name}" class="option-rich-text" data-placeholder="Teks pilihan ${label}" aria-label="Teks pilihan ${label}"></div>`;
+}
+function formatChoiceText(button, command) {
+  const editor = button.closest('.option-rich-toolbar').nextElementSibling;
+  editor.focus(); document.execCommand(command, false, null);
+}
+function getChoiceEditorValue(editor) {
+  if (!editor) return '';
+  // Simpan formula sebagai LaTeX di data-value, bukan hasil renderer KaTeX.
+  const clone = editor.cloneNode(true);
+  const formulas = clone.querySelectorAll('.ql-formula[data-value]');
+  const hasFormula = formulas.length > 0;
+  formulas.forEach(function(node) { node.textContent = '∑'; });
+  const isNotEmpty = String(clone.textContent || '').trim() || hasFormula;
+  return isNotEmpty ? FrontendSecurity.renderSafeHtml(clone.innerHTML).trim() : '';
+}
+function insertChoiceMath(button, mode) {
+  const editor = button.closest('.option-rich-toolbar').nextElementSibling;
+  let latex = '';
+  if (mode === 'fraction') {
+    const a = prompt('Pembilang:', '1'); if (a === null) return;
+    const b = prompt('Penyebut:', '2'); if (b === null) return;
+    latex = '\\frac{' + a + '}{' + b + '}';
+  } else if (mode === 'script') {
+    const a = prompt('Variabel dasar:', 'x'); if (a === null) return;
+    const b = prompt('Pangkat / indeks:', '2'); if (b === null) return;
+    const index = confirm('Gunakan indeks bawah? Tekan OK untuk indeks, Cancel untuk pangkat.');
+    latex = '{' + a + '}' + (index ? '_{' : '^{') + b + '}';
+  } else {
+    const a = prompt('Bilangan di dalam akar:', 'x'); if (a === null) return;
+    const degree = prompt('Indeks akar (boleh kosong):', ''); if (degree === null) return;
+    latex = '\\sqrt' + (degree.trim() ? '[' + degree + ']' : '') + '{' + a + '}';
+  }
+  const safeLatex = latex.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const spanHtml = `<span class="ql-formula" data-value="${safeLatex}" contenteditable="false">∑</span>&nbsp;`;
+  editor.focus();document.execCommand('insertHTML', false, spanHtml);
+  renderCbtMathTokens(editor);
+}
+
+function generatePOption(idx) {
+  const label = String.fromCharCode(65 + idx);
+  return `
+    <div style="display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; background:#f9fafb; padding:8px; border-radius:6px; border:1px solid #E5E7EB;" class="pg-row option-editor-row">
+      <input type="radio" name="pg_kunci" value="${idx}" required style="transform:scale(1.2); cursor:pointer; margin-top:10px;">
+      <b style="width:20px; color:#374151; margin-top:8px;" class="opt-label">${label}</b>
+      <div style="flex:1; min-width:180px;">
+        ${buildChoiceEditor('pg_opsiText', label)}
+        ${optionImageField('pg-option', 'pilihan ' + label)}
+      </div>
+      <button type="button" class="btn btn-outline" style="border:none; color:var(--danger); padding:4px 8px;" onclick="removeOptionDynamic(this, 'pg')" title="Hapus"><i class="fas fa-times"></i></button>
+    </div>
+  `;
+}
+
+function generatePCOption(idx) {
+  const label = String.fromCharCode(65 + idx);
+  return `
+    <div style="display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; background:#f9fafb; padding:8px; border-radius:6px; border:1px solid #E5E7EB;" class="pgc-row option-editor-row">
+      <input type="checkbox" name="pgc_kunci" value="${idx}" style="transform:scale(1.2); cursor:pointer; margin-top:10px;">
+      <b style="width:20px; color:#374151; margin-top:8px;" class="opt-label">${label}</b>
+      <div style="flex:1; min-width:180px;">
+        ${buildChoiceEditor('pgc_opsiText', label)}
+        ${optionImageField('pgc-option', 'pilihan ' + label)}
+      </div>
+      <button type="button" class="btn btn-outline" style="border:none; color:var(--danger); padding:4px 8px;" onclick="removeOptionDynamic(this, 'pgc')" title="Hapus"><i class="fas fa-times"></i></button>
+    </div>
+  `;
+}
+
+function addOptionDynamic(tipe) {
+  const container = document.getElementById(tipe + '-options');
+  const count = container.querySelectorAll('.' + tipe + '-row').length;
+  if (count >= 26) return;
+
+  const div = document.createElement('div');
+  div.innerHTML = tipe === 'pg' ? generatePOption(count) : generatePCOption(count);
+  container.appendChild(div.firstElementChild);
+}
+
+function removeOptionDynamic(btn, tipe) {
+  const container = document.getElementById(tipe + '-options');
+  if (container.querySelectorAll('.' + tipe + '-row').length <= 2) return;
+
+  btn.closest('.' + tipe + '-row').remove();
+  const rows = container.querySelectorAll('.' + tipe + '-row');
+  rows.forEach((row, idx) => {
+    const label = String.fromCharCode(65 + idx);
+    row.querySelector('.opt-label').innerText = label;
+    row.querySelector('input[type=radio], input[type=checkbox]').value = idx;
+    const editor = row.querySelector('.option-rich-text');
+    if (editor) editor.setAttribute('aria-label', 'Teks pilihan ' + label);
+  });
+}
+
+function optionImageField(role, label) {
+  return `
+    <div class="option-image-field">
+      <input type="file" class="option-image-input" data-option-role="${role}" data-existing-image=""
+        accept="image/png, image/jpeg, image/jpg, image/webp" aria-label="Upload gambar ${label || 'pilihan'}">
+      <img class="option-image-preview" alt="Pratinjau gambar ${label || 'pilihan'}">
+      <button type="button" class="option-image-clear" onclick="clearOptionImage(this)" title="Hapus gambar" aria-label="Hapus gambar">
+        <i class="fas fa-times-circle"></i>
+      </button>
+    </div>
+  `;
+}
+
+let jodohCounter = 3;
+function generateJodohOption(idx) {
+  return `
+    <div style="display:flex; gap:10px; margin-bottom:8px; align-items:flex-start; background:#f9fafb; padding:10px; border-radius:6px; border:1px solid #E5E7EB; flex-wrap:wrap;" class="jodoh-row">
+      <div style="flex:1; min-width:190px;">
+        <label style="font-size:12px; font-weight:600; color:#475569;">Kolom Kiri</label>
+        <input type="text" class="form-control" name="jodoh_kunci" placeholder="Teks kolom kiri" style="margin-bottom:6px;">
+        ${optionImageField('match-left', 'kolom kiri')}
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center; color:#9CA3AF; padding-top:25px;"><i class="fas fa-arrows-left-right"></i></div>
+      <div style="flex:1; min-width:190px;">
+        <label style="font-size:12px; font-weight:600; color:#475569;">Kolom Kanan</label>
+        <input type="text" class="form-control" name="jodoh_nilai" placeholder="Teks kolom kanan" style="margin-bottom:6px;">
+        ${optionImageField('match-right', 'kolom kanan')}
+      </div>
+      <button type="button" class="btn btn-outline" style="border:none; color:var(--danger); padding:4px 8px;" onclick="this.closest('.jodoh-row').remove()" title="Hapus"><i class="fas fa-times"></i></button>
+    </div>
+  `;
+}
+function addJodohOption() {
+  const cont = document.getElementById('jodoh-options');
+  const div = document.createElement('div');
+  div.innerHTML = generateJodohOption(jodohCounter++);
+  cont.appendChild(div.firstElementChild);
+}
+
+function editSoal(id) {
+  const soal = AppStore.soalList.find(item => item.id === id);
+  if (!soal) return;
+  if (soal.tipe === 'Esai') {
+    showToast('Soal esai lama tetap tersimpan, tetapi pembuatan dan pengeditannya sudah ditutup.', 'error');
+    return;
+  }
+
+  openSoalModal();
+  modalAdminMode = 'edit';
+  document.getElementById('modal-soal-title').innerText = 'Edit Soal';
+
+  document.getElementById('soal-id').value = soal.id;
+  document.getElementById('soal-tipe').value = soal.tipe;
+  document.getElementById('soal-bobot').value = soal.bobot;
+  document.getElementById('soal-gambar-url-old').value = soal.url_gambar || '';
+  document.getElementById('soal-mapel').value = soal.mapel || '';
+  document.getElementById('soal-petunjuk').value = soal.petunjuk || '';
+
+  quillContextEditor.clipboard.dangerouslyPasteHTML(FrontendSecurity.renderSafeHtml(soal.teks_pendukung || ''), 'silent');
+  quillEditor.root.innerHTML = FrontendSecurity.renderSafeHtml(soal.pertanyaan || '');
+
+  if (soal.url_gambar) {
+    const previewContainer = document.getElementById('soal-gambar-preview');
+    const previewImg = document.querySelector('#soal-gambar-preview img');
+    previewContainer.classList.remove('hidden');
+    previewImg.alt = 'Memuat gambar pendukung...';
+
+    google.script.run
+      .withSuccessHandler(function(dataUri) {
+        if (document.getElementById('soal-id').value !== soal.id) return;
+        if (dataUri) {
+          previewImg.src = dataUri;
+          previewImg.alt = 'Gambar pendukung tersimpan';
+        } else {
+          previewImg.alt = 'Gambar tidak dapat dimuat';
+        }
+      })
+      .withFailureHandler(function(error) {
+        console.warn('Gagal memuat gambar pendukung:', error);
+        previewImg.alt = 'Gambar tidak dapat dimuat';
+      })
+      .getImageBase64(soal.url_gambar);
+  }
+
+  renderSoalOptionsUI();
+
+  setTimeout(function() {
+    const optionImages = Array.isArray(soal.opsi_gambar) ? soal.opsi_gambar : [];
+
+    if (soal.tipe === 'PG') {
+      const cont = document.getElementById('pg-options');
+      if (cont && Array.isArray(soal.opsi) && soal.opsi.length) {
+        cont.innerHTML = '';
+        soal.opsi.forEach((value, index) => {
+          const div = document.createElement('div');
+          div.innerHTML = generatePOption(index);
+          cont.appendChild(div.firstElementChild);
+        });
+      }
+
+      const inputs = document.querySelectorAll('#pg-options .option-rich-text');
+      const radios = document.getElementsByName('pg_kunci');
+      soal.opsi.forEach((value, index) => {
+        if (inputs[index]) { inputs[index].innerHTML = FrontendSecurity.renderSafeHtml(visibleOptionText(value)); renderCbtMathTokens(inputs[index]); }
+        if (String(value) === String(soal.kunci_jawaban) && radios[index]) radios[index].checked = true;
+        if (inputs[index]) {
+          const imageInput = inputs[index].closest('.pg-row').querySelector('.option-image-input');
+          setOptionImageRef(imageInput, getOptionImageAt(soal, index));
+        }
+      });
+    }
+    else if (soal.tipe === 'PG Kompleks') {
+      const cont = document.getElementById('pgc-options');
+      if (cont && Array.isArray(soal.opsi) && soal.opsi.length) {
+        cont.innerHTML = '';
+        soal.opsi.forEach((value, index) => {
+          const div = document.createElement('div');
+          div.innerHTML = generatePCOption(index);
+          cont.appendChild(div.firstElementChild);
+        });
+      }
+
+      const inputs = document.querySelectorAll('#pgc-options .option-rich-text');
+      const checks = document.getElementsByName('pgc_kunci');
+      soal.opsi.forEach((value, index) => {
+        if (inputs[index]) { inputs[index].innerHTML = FrontendSecurity.renderSafeHtml(visibleOptionText(value)); renderCbtMathTokens(inputs[index]); }
+        if ((soal.kunci_jawaban || []).map(String).includes(String(value)) && checks[index]) checks[index].checked = true;
+        if (inputs[index]) {
+          const imageInput = inputs[index].closest('.pgc-row').querySelector('.option-image-input');
+          setOptionImageRef(imageInput, getOptionImageAt(soal, index));
+        }
+      });
+    }
+    else if (soal.tipe === 'Isian Singkat') {
+      const field = document.getElementsByName('isian_kunci')[0];
+      if (field) field.value = soal.kunci_jawaban || '';
+    }
+    else if (soal.tipe === 'Benar Salah' || soal.tipe === 'Sesuai Tidak Sesuai') {
+      const statements = Array.isArray(soal.opsi) ? soal.opsi : [];
+      const keys = Array.isArray(soal.kunci_jawaban) ? soal.kunci_jawaban : [];
+      const statementInputs = document.getElementsByName('bs_statement');
+      const keySelects = document.getElementsByName('bs_key');
+      for (let index = 0; index < 3; index++) {
+        if (statementInputs[index]) {
+          statementInputs[index].value = visibleOptionText(statements[index] || '');
+          const row = statementInputs[index].closest('.bs-admin-row');
+          const imageInput = row && row.querySelector('.option-image-input');
+          setOptionImageRef(imageInput, getOptionImageAt(soal, index));
+        }
+        if (keySelects[index]) keySelects[index].value = keys[index] || (index < 2 ? 'Benar' : 'Salah');
+      }
+    }
+    else if (soal.tipe === 'Menjodohkan') {
+      const cont = document.getElementById('jodoh-options');
+      cont.innerHTML = '';
+
+      (soal.opsi || []).forEach((pair, index) => {
+        const parts = String(pair).split(':::');
+        const leftValue = parts[0] || '';
+        const rightValue = parts.slice(1).join(':::') || '';
+
+        const div = document.createElement('div');
+        div.innerHTML = generateJodohOption(index);
+        const row = div.firstElementChild;
+
+        row.querySelector('[name=jodoh_kunci]').value = visibleOptionText(leftValue);
+        row.querySelector('[name=jodoh_nilai]').value = visibleOptionText(soal.kunci_jawaban && soal.kunci_jawaban[leftValue] !== undefined ? soal.kunci_jawaban[leftValue] : rightValue);
+
+        const imageObject = optionImages[index] && typeof optionImages[index] === 'object' ? optionImages[index] : {};
+        const imageInputs = row.querySelectorAll('.option-image-input');
+        setOptionImageRef(imageInputs[0], imageObject.kunci || '');
+        setOptionImageRef(imageInputs[1], imageObject.nilai || '');
+        cont.appendChild(row);
+      });
+    }
+
+    loadAdminOptionImagePreviews();
+  }, 80);
+}
+
+async function uploadImageInput(input, fallbackRef, filenamePrefix) {
+  if (!input) return fallbackRef || '';
+  if (input.dataset.processing === 'true') {
+    throw new Error('Mohon tunggu sampai proses kompresi gambar selesai.');
+  }
+
+  const file = input.files && input.files[0];
+  if (!file) return input.dataset.existingImage || fallbackRef || '';
+
+  const compressedBase64 = input.dataset.compressed;
+  if (!compressedBase64) {
+    throw new Error('Gambar belum selesai diproses. Silakan pilih ulang gambar.');
+  }
+
+  const originalName = String(file.name || 'gambar').replace(/[^a-zA-Z0-9._-]/g, '_');
+  const extension = compressedBase64.indexOf('data:image/webp') === 0 ? '.webp' : '.jpg';
+  const cleanPrefix = String(filenamePrefix || 'soal').replace(/[^a-zA-Z0-9_-]/g, '_');
+  const filename = cleanPrefix + '_' + Date.now() + '_' + originalName.replace(/\.[^.]+$/, '') + extension;
+
+  const response = await api.call('executeAdminAction', AppStore.user.data.token, 'uploadImage', { base64Data: compressedBase64, filename: filename });
+  if (!response || !response.success || !response.url) {
+    throw new Error(response && response.message ? response.message : 'Gagal mengunggah gambar ke Google Drive.');
+  }
+  return response.url;
+}
+
+// ----- Editor matematika: pecahan, pangkat, akar, dan paste persamaan Word -----
+function getQuestionEditor(target) {
+  return target === 'context' ? quillContextEditor : quillEditor;
+}
+
+function hasRichEditorContent(editor) {
+  if (!editor || !editor.root) return false;
+  if (String(editor.getText() || '').replace(/\u200B/g, '').trim()) return true;
+  return !!editor.root.querySelector('.ql-formula, img, .cbt-table-block');
+}
+
+function insertMathLatex(target, latex) {
+  const editor = getQuestionEditor(target);
+  if (!editor || !window.katex) {
+    showToast('Komponen matematika belum termuat. Muat ulang halaman lalu coba lagi.', 'error');
+    return;
+  }
+  const range = editor.getSelection(true) || { index: Math.max(0, editor.getLength() - 1), length: 0 };
+  editor.insertEmbed(range.index, 'formula', String(latex || ''), 'user');
+  editor.setSelection(range.index + 1, 0, 'silent');
+  editor.focus();
+}
+
+function formatEditorParagraph(target, alignment) {
+  const editor = getQuestionEditor(target);
+  if (!editor) return;
+  const range = editor.getSelection(true) || { index: Math.max(0, editor.getLength() - 1), length: 0 };
+  editor.formatLine(range.index, Math.max(1, range.length), 'align', alignment === 'left' ? false : alignment, 'user');
+  editor.focus();
+}
+
+function insertMathFraction(target) {
+  const numerator = prompt('Masukkan pembilang pecahan (gunakan sintaks matematika bila diperlukan):', 'a');
+  if (numerator === null) return;
+  const denominator = prompt('Masukkan penyebut pecahan:', 'b');
+  if (denominator === null) return;
+  insertMathLatex(target, '\\frac{' + numerator + '}{' + denominator + '}');
+}
+
+function insertMathScript(target) {
+  const base = prompt('Masukkan bilangan / variabel dasar:', 'x');
+  if (base === null) return;
+  const exponent = prompt('Masukkan pangkat / indeks:', '2');
+  if (exponent === null) return;
+  const mode = prompt('Ketik "pangkat" atau "indeks":', 'pangkat');
+  if (mode === null) return;
+  insertMathLatex(target, mode.toLowerCase().indexOf('indeks') === 0 ? '{' + base + '}_{' + exponent + '}' : '{' + base + '}^{' + exponent + '}');
+}
+
+function insertMathRadical(target) {
+  const radicand = prompt('Masukkan bilangan di dalam akar:', 'x');
+  if (radicand === null) return;
+  const degree = prompt('Indeks akar (kosongkan untuk akar kuadrat):', '');
+  if (degree === null) return;
+  insertMathLatex(target, degree.trim() ? '\\sqrt[' + degree + ']{' + radicand + '}' : '\\sqrt{' + radicand + '}');
+}
+
+function mathNodeName(node) {
+  return String(node && (node.localName || node.nodeName) || '').split(':').pop().toLowerCase();
+}
+
+function mathChildren(node) {
+  return Array.from(node && node.children ? node.children : []);
+}
+
+function mathText(node) {
+  return String(node && node.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+function mathMlNodeToLatex(node) {
+  const name = mathNodeName(node);
+  const children = mathChildren(node);
+  const child = i => mathMlNodeToLatex(children[i]);
+  if (name === 'math' || name === 'mrow' || name === 'semantics' || name === 'mstyle' || name === 'mpadded' || name === 'mphantom') return children.map(mathMlNodeToLatex).join('');
+  if (name === 'mi' || name === 'mn' || name === 'mtext') return mathText(node);
+  if (name === 'mo') {
+    const op = mathText(node);
+    const map = { '×': '\\times ', '÷': '\\div ', '−': '-', '≤': '\\le ', '≥': '\\ge ', '≠': '\\ne ', 'π': '\\pi ', '∞': '\\infty ', '·': '\\cdot ' };
+    return map[op] || op;
+  }
+  if (name === 'mfrac') return '\\frac{' + child(0) + '}{' + child(1) + '}';
+  if (name === 'msqrt') return '\\sqrt{' + children.map(mathMlNodeToLatex).join('') + '}';
+  if (name === 'mroot') return '\\sqrt[' + child(1) + ']{' + child(0) + '}';
+  if (name === 'msup') return '{' + child(0) + '}^{' + child(1) + '}';
+  if (name === 'msub') return '{' + child(0) + '}_{' + child(1) + '}';
+  if (name === 'msubsup') return '{' + child(0) + '}_{' + child(1) + '}^{' + child(2) + '}';
+  if (name === 'mfenced') {
+    const open = node.getAttribute('open') || '(';
+    const close = node.getAttribute('close') || ')';
+    return '\\left' + open + children.map(mathMlNodeToLatex).join(',') + '\\right' + close;
+  }
+  if (name === 'mtable') return '\\begin{matrix}' + children.map(mathMlNodeToLatex).join('\\\\') + '\\end{matrix}';
+  if (name === 'mtr') return children.map(mathMlNodeToLatex).join(' & ');
+  if (name === 'mtd') return children.map(mathMlNodeToLatex).join('');
+  return children.length ? children.map(mathMlNodeToLatex).join('') : mathText(node);
+}
+
+function ommlNodeToLatex(node) {
+  const name = mathNodeName(node);
+  const children = mathChildren(node);
+  const find = wanted => children.find(c => mathNodeName(c) === wanted);
+  const inner = n => n ? mathChildren(n).map(ommlNodeToLatex).join('') : '';
+  if (name === 't') return mathText(node);
+  if (name === 'r') return children.filter(c => mathNodeName(c) === 't').map(ommlNodeToLatex).join('');
+  if (name === 'oMath' || name === 'oMathPara' || name === 'e' || name === 'num' || name === 'den' || name === 'sub' || name === 'sup' || name === 'deg' || name === 'fName') return children.map(ommlNodeToLatex).join('');
+  if (name === 'f') return '\\frac{' + inner(find('num')) + '}{' + inner(find('den')) + '}';
+  if (name === 'rad') {
+    const e = inner(find('e'));
+    const deg = inner(find('deg'));
+    return deg ? '\\sqrt[' + deg + ']{' + e + '}' : '\\sqrt{' + e + '}';
+  }
+  if (name === 'sSup') return '{' + inner(find('e')) + '}^{' + inner(find('sup')) + '}';
+  if (name === 'sSub') return '{' + inner(find('e')) + '}_{' + inner(find('sub')) + '}';
+  if (name === 'sSubSup') return '{' + inner(find('e')) + '}_{' + inner(find('sub')) + '}^{' + inner(find('sup')) + '}';
+  if (name === 'd') {
+    const begin = find('begChr'), end = find('endChr'), e = find('e');
+    return '\\left' + (begin ? begin.getAttribute('val') || '(' : '(') + inner(e) + '\\right' + (end ? end.getAttribute('val') || ')' : ')');
+  }
+  if (name === 'nary') {
+    const chr = find('naryPr');
+    const symbol = chr && chr.querySelector ? chr.querySelector('[val]') : null;
+    return (symbol ? symbol.getAttribute('val') : '\\sum') + inner(find('sub')) + inner(find('sup')) + inner(find('e'));
+  }
+  return children.map(ommlNodeToLatex).join('');
+}
+
+function installWordMathPasteSupport(editor) {
+  if (!editor || !editor.clipboard || !window.katex) return;
+  const Delta = Quill.import('delta');
+  editor.root.addEventListener('paste', function (event) {
+    const clipboard = event.clipboardData;
+    const html = clipboard && clipboard.getData ? clipboard.getData('text/html') : '';
+    if (!html || !/(<math\b|oMath|m:oMath)/i.test(html)) return;
+
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+    const allElements = Array.from(parsed.body.querySelectorAll('*'));
+    const candidates = allElements.filter(function (node) {
+      const name = mathNodeName(node);
+      return name === 'math' || name === 'omathpara' || name === 'omath';
+    });
+    const topLevelMathNodes = candidates.filter(function (node) {
+      let parent = node.parentElement;
+      while (parent && parent !== parsed.body) {
+        const parentName = mathNodeName(parent);
+        if (parentName === 'math' || parentName === 'omathpara' || parentName === 'omath') return false;
+        parent = parent.parentElement;
+      }
+      return true;
+    });
+    if (!topLevelMathNodes.length) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    const formulas = {};
+    topLevelMathNodes.forEach(function (node, index) {
+      const name = mathNodeName(node);
+      const latex = name === 'math' ? mathMlNodeToLatex(node) : ommlNodeToLatex(node);
+      if (!latex) return;
+      const token = 'CBT_MATH_TOKEN_' + index + '_END';
+      formulas[token] = latex;
+      node.replaceWith(parsed.createTextNode(token));
+    });
+
+    const pasted = editor.clipboard.convert(parsed.body.innerHTML);
+    const rebuilt = new Delta();
+    (pasted.ops || []).forEach(function (op) {
+      if (typeof op.insert !== 'string') {
+        rebuilt.insert(op.insert, op.attributes);
+        return;
+      }
+      const tokenPattern = /(CBT_MATH_TOKEN_\d+_END)/g;
+      const parts = op.insert.split(tokenPattern);
+      parts.forEach(function (part) {
+        if (!part) return;
+        if (Object.prototype.hasOwnProperty.call(formulas, part)) rebuilt.insert({ formula: formulas[part] });
+        else rebuilt.insert(part, op.attributes);
+      });
+    });
+
+    const range = editor.getSelection(true) || { index: Math.max(0, editor.getLength() - 1), length: 0 };
+    const change = new Delta().retain(range.index).delete(range.length).concat(rebuilt);
+    editor.updateContents(change, 'user');
+    editor.setSelection(range.index + rebuilt.length(), 0, 'silent');
+  }, true);
+
+  // Matcher cadangan untuk aplikasi Office yang menyalin MathML sebagai node langsung.
+  editor.clipboard.addMatcher(Node.ELEMENT_NODE, function (node, delta) {
+    const name = mathNodeName(node);
+    if (name === 'math') {
+      const latex = mathMlNodeToLatex(node);
+      return latex ? new Delta().insert({ formula: latex }) : delta;
+    }
+    if (name === 'omath' || name === 'omathpara') {
+      const latex = ommlNodeToLatex(node);
+      return latex ? new Delta().insert({ formula: latex }) : delta;
+    }
+    return delta;
+  });
+}
+
+async function saveSoal() {
+  const btn = document.getElementById('btn-save-soal');
+  if (btn.disabled) return;
+
+  btn.disabled = true;
+  btn.innerText = 'Memeriksa soal...';
+
+  try {
+    const idValue = document.getElementById('soal-id').value;
+    const tipe = document.getElementById('soal-tipe').value;
+    const pertanyaan = quillEditor.root.innerHTML;
+    const teksPendukung = hasRichEditorContent(quillContextEditor) ? quillContextEditor.root.innerHTML : '';
+    const petunjuk = document.getElementById('soal-petunjuk').value.trim();
+    const bobot = Number(document.getElementById('soal-bobot').value);
+    const mapel = document.getElementById('soal-mapel').value;
+
+    if (!hasRichEditorContent(quillEditor)) {
+      throw new Error('Kolom pertanyaan wajib diisi.');
+    }
+    if (!Number.isFinite(bobot) || bobot < 1) {
+      throw new Error('Bobot soal minimal 1.');
+    }
+
+    const allImageInputs = Array.from(document.querySelectorAll('#soal-gambar, #soal-options-container .option-image-input'));
+    if (allImageInputs.some(input => input.dataset.processing === 'true')) {
+      throw new Error('Tunggu sampai semua gambar selesai diproses.');
+    }
+
+    let opsiArray = [];
+    let kunciJawaban = null;
+    let opsiGambar = [];
+    const uploadTasks = [];
+
+    const addImageUploadTask = (input, fallback, prefix, setter) => {
+      uploadTasks.push(async function() {
+        const url = await uploadImageInput(input, fallback, prefix);
+        setter(url || '');
+      });
+    };
+
+    if (tipe === 'PG' || tipe === 'PG Kompleks') {
+      const isComplex = tipe === 'PG Kompleks';
+      const rowSelector = isComplex ? '.pgc-row' : '.pg-row';
+      const rows = Array.from(document.querySelectorAll('#' + (isComplex ? 'pgc-options' : 'pg-options') + ' ' + rowSelector));
+      if (rows.length < 2) throw new Error('Minimal harus ada dua pilihan jawaban.');
+
+      kunciJawaban = isComplex ? [] : null;
+      rows.forEach((row, index) => {
+        const textInput = row.querySelector('.option-rich-text');
+        const imageInput = row.querySelector('.option-image-input');
+        const text = textInput ? getChoiceEditorValue(textInput) : '';
+        const existingImage = imageInput ? (imageInput.dataset.existingImage || '') : '';
+        const hasNewImage = !!(imageInput && imageInput.files && imageInput.files[0]);
+        if (!text && !existingImage && !hasNewImage) {
+          throw new Error('Pilihan ' + String.fromCharCode(65 + index) + ' harus diisi teks atau gambar.');
+        }
+
+        const optionValue = text || imageOnlyToken('OPTION', index);
+        opsiArray.push(optionValue);
+        opsiGambar.push('');
+        addImageUploadTask(imageInput, existingImage, 'opsi_' + (index + 1), url => { opsiGambar[index] = url; });
+
+        if (isComplex) {
+          const check = row.querySelector('input[name="pgc_kunci"]');
+          if (check && check.checked) kunciJawaban.push(optionValue);
+        } else {
+          const radio = row.querySelector('input[name="pg_kunci"]');
+          if (radio && radio.checked) kunciJawaban = optionValue;
+        }
+      });
+
+      if (isComplex && kunciJawaban.length === 0) {
+        throw new Error('Pilih minimal satu jawaban benar untuk Pilihan Ganda Kompleks.');
+      }
+      if (!isComplex && !kunciJawaban) {
+        throw new Error('Tentukan satu kunci jawaban yang benar.');
+      }
+    }
+    else if (tipe === 'Isian Singkat') {
+      const field = document.getElementsByName('isian_kunci')[0];
+      kunciJawaban = field ? field.value.trim() : '';
+      if (!kunciJawaban) throw new Error('Kunci jawaban isian singkat wajib diisi.');
+    }
+    else if (tipe === 'Menjodohkan') {
+      const rows = Array.from(document.querySelectorAll('#jodoh-options .jodoh-row'));
+      if (rows.length < 2) throw new Error('Soal menjodohkan minimal memiliki dua pasangan.');
+
+      kunciJawaban = {};
+      rows.forEach((row, index) => {
+        const leftInput = row.querySelector('[name="jodoh_kunci"]');
+        const rightInput = row.querySelector('[name="jodoh_nilai"]');
+        const imageInputs = row.querySelectorAll('.option-image-input');
+        const leftText = leftInput ? leftInput.value.trim() : '';
+        const rightText = rightInput ? rightInput.value.trim() : '';
+        const leftExisting = imageInputs[0] ? imageInputs[0].dataset.existingImage || '' : '';
+        const rightExisting = imageInputs[1] ? imageInputs[1].dataset.existingImage || '' : '';
+        const leftNew = !!(imageInputs[0] && imageInputs[0].files && imageInputs[0].files[0]);
+        const rightNew = !!(imageInputs[1] && imageInputs[1].files && imageInputs[1].files[0]);
+
+        if ((!leftText && !leftExisting && !leftNew) || (!rightText && !rightExisting && !rightNew)) {
+          throw new Error('Setiap pasangan harus memiliki isi pada kolom kiri dan kanan, berupa teks atau gambar.');
+        }
+
+        const leftValue = leftText || imageOnlyToken('MATCH_LEFT', index);
+        const rightValue = rightText || imageOnlyToken('MATCH_RIGHT', index);
+        opsiArray.push(leftValue + ':::' + rightValue);
+        kunciJawaban[leftValue] = rightValue;
+
+        const imageObject = { kunci: '', nilai: '' };
+        opsiGambar.push(imageObject);
+        addImageUploadTask(imageInputs[0], leftExisting, 'jodoh_kiri_' + (index + 1), url => { opsiGambar[index].kunci = url; });
+        addImageUploadTask(imageInputs[1], rightExisting, 'jodoh_kanan_' + (index + 1), url => { opsiGambar[index].nilai = url; });
+      });
+    }
+    else if (tipe === 'Benar Salah' || tipe === 'Sesuai Tidak Sesuai') {
+      const isSesuai = tipe === 'Sesuai Tidak Sesuai';
+      const rows = Array.from(document.querySelectorAll('#soal-options-container .bs-admin-row'));
+      const keys = [];
+      if (rows.length !== 3) throw new Error('Soal kategori harus memiliki tepat tiga pernyataan.');
+
+      rows.forEach((row, index) => {
+        const statementInput = row.querySelector('[name="bs_statement"]');
+        const imageInput = row.querySelector('.option-image-input');
+        const text = statementInput ? statementInput.value.trim() : '';
+        const existingImage = imageInput ? imageInput.dataset.existingImage || '' : '';
+        const hasNewImage = !!(imageInput && imageInput.files && imageInput.files[0]);
+        if (!text && !existingImage && !hasNewImage) {
+          throw new Error('Pernyataan nomor ' + (index + 1) + ' harus diisi teks atau gambar.');
+        }
+
+        opsiArray.push(text || imageOnlyToken('OPTION', index));
+        opsiGambar.push('');
+        addImageUploadTask(imageInput, existingImage, 'pernyataan_' + (index + 1), url => { opsiGambar[index] = url; });
+
+        const keySelect = row.querySelector('[name="bs_key"]');
+        keys.push(keySelect ? keySelect.value : '');
+      });
+
+      const benarCount = keys.filter(value => value === 'Benar').length;
+      const salahCount = keys.filter(value => value === 'Salah').length;
+      if (!isSesuai && (benarCount !== 2 || salahCount !== 1)) {
+        throw new Error('Kunci Benar/Salah wajib terdiri dari tepat 2 jawaban Benar dan 1 jawaban Salah.');
+      }
+      kunciJawaban = keys;
+    }
+    else if (tipe === 'Esai') {
+      throw new Error('Pembuatan soal esai telah dinonaktifkan.');
+    }
+
+    const questionImageInput = document.getElementById('soal-gambar');
+    const oldQuestionImage = document.getElementById('soal-gambar-url-old').value || '';
+    let questionImageUrl = oldQuestionImage;
+
+    const payload = {
+      tipe: tipe,
+      pertanyaan: pertanyaan,
+      petunjuk: petunjuk,
+      teks_pendukung: teksPendukung,
+      opsi: opsiArray,
+      opsi_gambar: opsiGambar,
+      kunci_jawaban: kunciJawaban,
+      bobot: bobot,
+      url_gambar: oldQuestionImage,
+      mapel: mapel
+    };
+
+    btn.innerText = 'Mengunggah gambar...';
+    questionImageUrl = await uploadImageInput(questionImageInput, oldQuestionImage, 'gambar_pendukung');
+    payload.url_gambar = questionImageUrl;
+
+    for (let index = 0; index < uploadTasks.length; index++) {
+      await uploadTasks[index]();
+    }
+
+    btn.innerText = 'Menyimpan soal...';
+    submitSoalToBackend(idValue, payload, btn);
+  } catch (error) {
+    console.error('Gagal menyimpan soal:', error);
+    showToast(error && error.message ? error.message : 'Terjadi kesalahan saat menyimpan soal.', 'error');
+    btn.disabled = false;
+    btn.innerText = 'Simpan Soal';
+  }
+}
+
+function submitSoalToBackend(id, payload, btn) {
+  let callPromise;
+  if(id) {
+    callPromise = api.call('executeAdminAction', AppStore.user.data.token, 'updateSoal', { id: id, data: payload });
+  } else {
+    mapelSaatIni = payload.mapel; 
+    callPromise = api.call('executeAdminAction', AppStore.user.data.token, 'createSoal', { data: payload });
+  }
+  
+  callPromise.then(res => {
+    if (res.success) {
+      showToast(res.message, 'success');
+      closeSoalModal();
+      loadBankSoal();
+    } else {
+      showToast(res.message || 'Soal gagal disimpan.', 'error');
+    }
+  }).catch(error => {
+    console.error('Backend gagal menyimpan soal:', error);
+    showToast('Terjadi gangguan saat menyimpan soal ke database.', 'error');
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Simpan Soal';
+  });
+}
+
+function deleteThisSoal(id) {
+  openConfirmModal(
+    'Hapus Soal',
+    'Yakin ingin menghapus soal ini?',
+    '<i class="fas fa-trash"></i> Hapus Soal',
+    () => {
+      api.call('executeAdminAction', AppStore.user.data.token, 'deleteSoal', { id: id }).then(res => {
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadBankSoal();
+        } else {
+          showToast(res.message, 'error');
+        }
+      });
+    }
+  );
+}
+
+function toggleAllSoal(checkbox) {
+  const checkboxes = document.querySelectorAll('.chk-soal');
+  checkboxes.forEach(chk => {
+    chk.checked = checkbox.checked;
+  });
+  toggleBtnHapusTerpilih();
+}
+
+function toggleBtnHapusTerpilih() {
+  const btn = document.getElementById('btn-hapus-terpilih');
+  const checkedBoxes = document.querySelectorAll('.chk-soal:checked');
+  if (checkedBoxes.length > 0) {
+    btn.style.display = 'inline-block';
+  } else {
+    btn.style.display = 'none';
+  }
+  
+  const masterChk = document.getElementById('chk-all-soal');
+  const allBoxes = document.querySelectorAll('.chk-soal');
+  if (masterChk && allBoxes.length > 0) {
+      masterChk.checked = (checkedBoxes.length === allBoxes.length);
+  }
+}
+
+function deleteSelectedSoal() {
+  const checkboxes = document.querySelectorAll('.chk-soal:checked');
+  if (checkboxes.length === 0) return;
+  
+  const ids = Array.from(checkboxes).map(chk => chk.value);
+  
+  openConfirmModal(
+    'Hapus Beberapa Soal',
+    `Yakin ingin menghapus ${ids.length} soal yang dipilih?`,
+    '<i class="fas fa-trash"></i> Hapus Terpilih',
+    () => {
+      api.call('executeAdminAction', AppStore.user.data.token, 'deleteMultipleSoal', { ids: ids }).then(res => {
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadBankSoal();
+        } else {
+          showToast(res.message, 'error');
+        }
+      });
+    }
+  );
+}
+
+function loadThumbnail(urlRef, targetId) {
+  google.script.run
+    .withSuccessHandler(function(dataUri) {
+      var el = document.getElementById(targetId);
+      if (el && dataUri) {
+        el.innerHTML = '<img src="' + dataUri + '" style="max-height:40px; max-width:60px; border-radius:4px; border:1px solid #E5E7EB;">';
+      } else if (el) {
+        el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
+      }
+    })
+    .withFailureHandler(function() {
+      var el = document.getElementById(targetId);
+      if (el) {
+        el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
+      }
+    })
+    .getImageBase64(urlRef);
+}
+
+let parsedImportData = [];
+let questionImportHasErrors = false;
+
+function openImportSoalModal() {
+  const fileInput = document.getElementById('import-file-input');
+  if (fileInput) fileInput.value = '';
+  document.getElementById('import-soal-preview').classList.add('hidden');
+  document.getElementById('btn-import-soal').disabled = true;
+  document.getElementById('preview-filename').innerText = '';
+  parsedImportData = [];
+  questionImportHasErrors = false;
+  
+  
+  const dropzone = document.getElementById('import-dropzone');
+  if (dropzone) {
+    
+    dropzone.removeEventListener('dragover', handleDragOver);
+    dropzone.removeEventListener('dragleave', handleDragLeave);
+    dropzone.removeEventListener('drop', handleFileDrop);
+    
+    dropzone.addEventListener('dragover', handleDragOver, false);
+    dropzone.addEventListener('dragleave', handleDragLeave, false);
+    dropzone.addEventListener('drop', handleFileDrop, false);
+  }
+  
+  document.getElementById('modal-import-soal').classList.remove('hidden');
+}
+
+function closeImportSoalModal() {
+  document.getElementById('modal-import-soal').classList.add('hidden');
+}
+
+const QUESTION_EXCEL_HEADERS = [
+  'Tipe',
+  'Petunjuk',
+  'Teks Pendukung',
+  'Pertanyaan',
+  'Link Gambar Soal',
+  'Opsi',
+  'Link Gambar Opsi',
+  'Kunci Jawaban',
+  'Bobot',
+  'Mata Pelajaran'
+];
+
+function questionWorkbookSheet(rows, name) {
+  const sheet = XLSX.utils.aoa_to_sheet(rows);
+  sheet['!cols'] = [
+    { wch: 18 }, { wch: 32 }, { wch: 42 }, { wch: 48 }, { wch: 42 },
+    { wch: 48 }, { wch: 48 }, { wch: 32 }, { wch: 10 }, { wch: 22 }
+  ];
+  if (rows.length > 1 && normalizeQuestionExcelHeader(rows[0][0]) === 'tipe') sheet['!autofilter'] = { ref: 'A1:J' + rows.length };
+  return sheet;
+}
+
+function downloadImportTemplate() {
+  if (typeof XLSX === 'undefined') {
+    showToast('Library Excel belum berhasil dimuat. Muat ulang halaman.', 'error');
+    return;
+  }
+
+  const workbook = XLSX.utils.book_new();
+  const guideRows = [
+    ['PANDUAN IMPORT BANK SOAL CBT-GAS'],
+    ['Isi data pada sheet Template_Soal mulai baris kedua. Sheet Contoh hanya sebagai referensi dan tidak akan dipilih otomatis saat import.'],
+    ['Kolom wajib: Tipe dan Pertanyaan. Bobot minimal 1. Mata Pelajaran harus sesuai dengan nama mapel pada menu administrator.'],
+    ['Tipe yang didukung: PG, PG Kompleks, Isian Singkat, Menjodohkan, Benar Salah, Sesuai Tidak Sesuai.'],
+    ['PG: Opsi dipisahkan dengan |. Kunci Jawaban diisi teks opsi yang benar atau huruf A/B/C/D/E.'],
+    ['PG Kompleks: Opsi dipisahkan dengan |. Kunci Jawaban berisi beberapa jawaban benar yang dipisahkan dengan |.'],
+    ['Isian Singkat: Kunci Jawaban diisi jawaban singkat.'],
+    ['Menjodohkan: Opsi dan Kunci Jawaban menggunakan format KIRI:::KANAN, setiap pasangan dipisahkan dengan |.'],
+    ['Benar Salah: isi tepat 3 pernyataan pada Opsi dan 3 kunci pada Kunci Jawaban. Kunci wajib 2 Benar dan 1 Salah.'],
+    ['Link Gambar Soal: isi dengan tautan file gambar Google Drive, misalnya https://drive.google.com/file/d/ID_FILE/view?usp=sharing.'],
+    ['Link Gambar Opsi: urutannya harus sama dengan Opsi dan dipisahkan dengan |. Untuk Menjodohkan, gunakan LINK_KIRI:::LINK_KANAN dan pisahkan pasangan dengan |.'],
+    ['Untuk gambar saja tanpa teks, kosongkan bagian teks opsi tetapi tetap isi link gambarnya. Posisi opsi harus tetap dipisahkan dengan |.'],
+    ['Pastikan akun Google pemilik aplikasi memiliki akses ke file gambar sumber saat import. File akan disalin ke folder media privat CBT-GAS; tidak perlu mengaktifkan tautan publik.'],
+    ['Teks Pendukung dan Pertanyaan dapat berisi teks biasa atau HTML sederhana. Jangan mengubah nama header kolom.'],
+    ['Simpan file sebagai Excel Workbook (*.xlsx).']
+  ];
+  XLSX.utils.book_append_sheet(workbook, questionWorkbookSheet(guideRows, 'Panduan'), 'Panduan');
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    questionWorkbookSheet([QUESTION_EXCEL_HEADERS], 'Template_Soal'),
+    'Template_Soal'
+  );
+
+  const exampleRows = [
+    QUESTION_EXCEL_HEADERS,
+    ['PG', 'Pilih satu jawaban yang benar.', '', 'Apa ibu kota Indonesia?', '', 'Jakarta|Surabaya|Bandung|Medan', '', 'Jakarta', 1, 'IPS'],
+    ['PG Kompleks', '', '', 'Manakah bilangan genap?', '', '2|3|4|5|6', '', '2|4|6', 2, 'Matematika'],
+    ['Isian Singkat', '', '', 'Siapa presiden pertama Republik Indonesia?', '', '', '', 'Soekarno', 1, 'Sejarah'],
+    ['Menjodohkan', 'Hubungkan pasangan yang tepat.', '', 'Pasangkan negara dengan ibu kotanya.', '', 'Indonesia:::Jakarta|Jepang:::Tokyo', '', 'Indonesia:::Jakarta|Jepang:::Tokyo', 2, 'IPS'],
+    ['Benar Salah', '', '', 'Tentukan benar atau salah.', '', 'Jakarta ibu kota Indonesia|Indonesia berada di Asia|Matahari mengelilingi bumi', '', 'Benar|Benar|Salah', 2, 'IPA'],
+    ['Sesuai Tidak Sesuai', '', '', 'Tentukan kesesuaian pernyataan.', '', 'Daun menyerap cahaya|Akar menyerap air|Bulan menghasilkan cahaya sendiri', '', 'Sesuai|Sesuai|Tidak Sesuai', 1, 'IPA']
+  ];
+  XLSX.utils.book_append_sheet(workbook, questionWorkbookSheet(exampleRows, 'Contoh'), 'Contoh');
+  XLSX.writeFile(workbook, 'Template_Import_Bank_Soal_CBT.xlsx');
+}
+
+function normalizeQuestionExcelHeader(value) {
+  return String(value == null ? '' : value).trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function findQuestionHeaderIndex(rows) {
+  for (let i = 0; i < Math.min(rows.length, 15); i++) {
+    const normalized = (rows[i] || []).map(normalizeQuestionExcelHeader);
+    if (normalized.includes('tipe') && normalized.includes('pertanyaan')) return i;
+  }
+  return -1;
+}
+
+function getQuestionColumnIndex(headers, aliases) {
+  for (let i = 0; i < headers.length; i++) {
+    if (aliases.includes(headers[i])) return i;
+  }
+  return -1;
+}
+
+function normalizeExcelDriveReference(value) {
+  const raw = String(value == null ? '' : value).trim();
+  if (!raw) return '';
+  if (raw.indexOf('DRIVE_ID:') === 0) return raw;
+  let match = raw.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i);
+  if (!match) match = raw.match(/[?&]id=([a-zA-Z0-9_-]+)/i);
+  if (!match && /^[a-zA-Z0-9_-]{10,}$/.test(raw)) return 'DRIVE_ID:' + raw;
+  if (match && /(^https?:\/\/)?(www\.)?drive\.google\.com/i.test(raw)) return 'DRIVE_ID:' + match[1];
+  throw new Error('Tautan gambar harus berupa tautan file Google Drive yang valid: ' + raw);
+}
+
+function driveReferenceToExcelLink(reference) {
+  const raw = String(reference == null ? '' : reference).trim();
+  if (!raw) return '';
+  if (raw.indexOf('DRIVE_ID:') === 0) {
+    const id = raw.substring('DRIVE_ID:'.length);
+    return id ? 'https://drive.google.com/file/d/' + id + '/view?usp=sharing' : '';
+  }
+  if (/^https?:\/\/drive\.google\.com/i.test(raw)) return raw;
+  if (/^[a-zA-Z0-9_-]{10,}$/.test(raw)) return 'https://drive.google.com/file/d/' + raw + '/view?usp=sharing';
+  return raw;
+}
+
+function splitQuestionPipe(value) {
+  const text = String(value == null ? '' : value);
+  return text === '' ? [] : text.split('|').map(item => item.trim());
+}
+
+function normalizeQuestionType(value) {
+  const text = String(value == null ? '' : value).trim().toLowerCase().replace(/[\/_-]/g, ' ').replace(/\s+/g, ' ');
+  if (text === 'pg' || text === 'pilihan ganda') return 'PG';
+  if (text === 'pg kompleks' || text === 'pilihan ganda kompleks') return 'PG Kompleks';
+  if (text === 'isian singkat' || text === 'isian') return 'Isian Singkat';
+  if (text === 'menjodohkan' || text === 'matching') return 'Menjodohkan';
+  if (text === 'benar salah' || text === 'true false' || text === 'true/false') return 'Benar Salah';
+  if (text === 'sesuai tidak sesuai' || text === 'sesuai/tidak sesuai') return 'Sesuai Tidak Sesuai';
+  return '';
+}
+
+function questionKeyFromExcel(rawKey, options, allowMultiple) {
+  const rawKeys = allowMultiple ? splitQuestionPipe(rawKey) : [String(rawKey == null ? '' : rawKey).trim()];
+  const mapOne = function(key) {
+    const value = String(key == null ? '' : key).trim();
+    if (!value) return '';
+    if (/^[A-E]$/i.test(value)) {
+      const index = value.toUpperCase().charCodeAt(0) - 65;
+      return options[index] || value;
+    }
+    return value;
+  };
+  return allowMultiple ? rawKeys.map(mapOne).filter(Boolean) : mapOne(rawKeys[0]);
+}
+
+function parseQuestionRowFromExcel(row, col, excelRowNumber) {
+  const get = function(key) {
+    const index = col[key];
+    return index >= 0 && row[index] != null ? String(row[index]).trim() : '';
+  };
+
+  const tipe = normalizeQuestionType(get('tipe'));
+  const pertanyaan = get('pertanyaan');
+  const bobot = get('bobot') === '' ? 1 : Number(get('bobot'));
+  const mapel = get('mapel');
+  const petunjuk = get('petunjuk');
+  const teksPendukung = get('teks_pendukung');
+  const urlGambar = normalizeExcelDriveReference(get('url_gambar'));
+  const opsiRaw = get('opsi');
+  const gambarOpsiRaw = get('opsi_gambar');
+  const kunciRaw = get('kunci_jawaban');
+
+  if (!tipe) throw new Error('Baris ' + excelRowNumber + ': tipe soal tidak dikenali.');
+  if (!pertanyaan) throw new Error('Baris ' + excelRowNumber + ': pertanyaan wajib diisi.');
+  if (!Number.isFinite(bobot) || bobot < 1) throw new Error('Baris ' + excelRowNumber + ': bobot minimal 1.');
+
+  let opsi = [];
+  let opsiGambar = [];
+  let kunciJawaban = null;
+
+  if (tipe === 'PG' || tipe === 'PG Kompleks' || tipe === 'Benar Salah' || tipe === 'Sesuai Tidak Sesuai') {
+    opsi = splitQuestionPipe(opsiRaw);
+    const imageLinks = splitQuestionPipe(gambarOpsiRaw).map(normalizeExcelDriveReference);
+    const total = Math.max(opsi.length, imageLinks.length);
+    for (let i = 0; i < total; i++) {
+      const text = opsi[i] || '';
+      const image = imageLinks[i] || '';
+      if (!text && !image) throw new Error('Baris ' + excelRowNumber + ': opsi ke-' + (i + 1) + ' kosong (isi teks atau link gambar).');
+      opsi[i] = text || '__CBT_IMAGE_OPTION_' + (i + 1) + '__';
+      opsiGambar[i] = image;
+    }
+
+    if (tipe === 'PG') {
+      if (opsi.length < 2) throw new Error('Baris ' + excelRowNumber + ': PG minimal memiliki 2 opsi.');
+      kunciJawaban = questionKeyFromExcel(kunciRaw, opsi, false);
+      if (!kunciJawaban || !opsi.includes(kunciJawaban)) throw new Error('Baris ' + excelRowNumber + ': kunci PG harus sama dengan salah satu opsi atau berupa huruf A-E.');
+    } else if (tipe === 'PG Kompleks') {
+      if (opsi.length < 2) throw new Error('Baris ' + excelRowNumber + ': PG Kompleks minimal memiliki 2 opsi.');
+      kunciJawaban = questionKeyFromExcel(kunciRaw, opsi, true);
+      if (!kunciJawaban.length || kunciJawaban.some(key => !opsi.includes(key))) throw new Error('Baris ' + excelRowNumber + ': kunci PG Kompleks tidak sesuai dengan opsi.');
+    } else {
+      if (opsi.length !== 3) throw new Error('Baris ' + excelRowNumber + ': kategori pernyataan harus tepat 3.');
+      if (tipe === 'Sesuai Tidak Sesuai') {
+        kunciJawaban = splitQuestionPipe(kunciRaw).map(value => value.toLowerCase() === 'sesuai' ? 'Sesuai' : value.toLowerCase() === 'tidak sesuai' ? 'Tidak Sesuai' : '');
+        if (kunciJawaban.length !== 3 || kunciJawaban.some(value => !value)) throw new Error('Baris ' + excelRowNumber + ': kunci harus Sesuai atau Tidak Sesuai.');
+      } else {
+        kunciJawaban = splitQuestionPipe(kunciRaw).map(value => {
+          const normalized = value.toLowerCase();
+          if (normalized === 'true') return 'Benar';
+          if (normalized === 'false') return 'Salah';
+          return normalized === 'benar' ? 'Benar' : normalized === 'salah' ? 'Salah' : '';
+        });
+        if (kunciJawaban.length !== 3 || kunciJawaban.some(value => !value) ||
+            kunciJawaban.filter(value => value === 'Benar').length !== 2 ||
+            kunciJawaban.filter(value => value === 'Salah').length !== 1) {
+          throw new Error('Baris ' + excelRowNumber + ': kunci Benar/Salah harus terdiri dari 2 Benar dan 1 Salah.');
+        }
+      }
+    }
+  } else if (tipe === 'Menjodohkan') {
+    const pairValues = splitQuestionPipe(opsiRaw);
+    const imagePairs = splitQuestionPipe(gambarOpsiRaw);
+    const total = Math.max(pairValues.length, imagePairs.length);
+    for (let i = 0; i < total; i++) {
+      const parts = (pairValues[i] || ':::').split(':::');
+      const imageParts = (imagePairs[i] || ':::').split(':::');
+      let left = (parts[0] || '').trim();
+      let right = parts.slice(1).join(':::').trim();
+      const leftImage = normalizeExcelDriveReference(imageParts[0] || '');
+      const rightImage = normalizeExcelDriveReference(imageParts.slice(1).join(':::') || '');
+      if (!left && !leftImage) throw new Error('Baris ' + excelRowNumber + ': sisi kiri pasangan ' + (i + 1) + ' kosong.');
+      if (!right && !rightImage) throw new Error('Baris ' + excelRowNumber + ': sisi kanan pasangan ' + (i + 1) + ' kosong.');
+      if (!left) left = '__CBT_IMAGE_MATCH_LEFT_' + (i + 1) + '__';
+      if (!right) right = '__CBT_IMAGE_MATCH_RIGHT_' + (i + 1) + '__';
+      opsi.push(left + ':::' + right);
+      opsiGambar.push({ kunci: leftImage, nilai: rightImage });
+    }
+
+    const keyPairs = splitQuestionPipe(kunciRaw).filter(function(pair) {
+      const parts = String(pair).split(':::');
+      return String(parts[0] || '').trim() && String(parts.slice(1).join(':::') || '').trim();
+    });
+    kunciJawaban = {};
+    const sourcePairs = keyPairs.length ? keyPairs : opsi;
+    sourcePairs.forEach(function(pair) {
+      const parts = String(pair).split(':::');
+      const left = (parts[0] || '').trim();
+      const right = parts.slice(1).join(':::').trim();
+      if (left && right) kunciJawaban[left] = right;
+    });
+    if (Object.keys(kunciJawaban).length < 2) throw new Error('Baris ' + excelRowNumber + ': Menjodohkan minimal memiliki 2 pasangan kunci dengan format kiri:::kanan.');
+  } else if (tipe === 'Isian Singkat') {
+    opsi = [];
+    opsiGambar = [];
+    kunciJawaban = kunciRaw;
+    if (tipe === 'Isian Singkat' && !String(kunciJawaban || '').trim()) {
+      throw new Error('Baris ' + excelRowNumber + ': kunci jawaban Isian Singkat wajib diisi.');
+    }
+  }
+
+  return {
+    tipe: tipe,
+    pertanyaan: pertanyaan,
+    petunjuk: petunjuk,
+    teks_pendukung: teksPendukung,
+    opsi: opsi,
+    opsi_gambar: opsiGambar,
+    kunci_jawaban: kunciJawaban,
+    bobot: bobot,
+    url_gambar: urlGambar,
+    mapel: mapel
+  };
+}
+
+function parseImportedXlsxWorkbook(workbook) {
+  const preferredNames = ['Template_Soal', 'Bank_Soal'];
+  let selectedSheetName = preferredNames.find(name => workbook.Sheets[name]);
+  let rows = null;
+  let headerIndex = -1;
+
+  const candidates = selectedSheetName
+    ? [selectedSheetName].concat(workbook.SheetNames.filter(name => name !== selectedSheetName))
+    : workbook.SheetNames;
+
+  for (const name of candidates) {
+    const candidateRows = XLSX.utils.sheet_to_json(workbook.Sheets[name], {
+      header: 1, raw: false, defval: '', blankrows: false
+    });
+    const candidateHeader = findQuestionHeaderIndex(candidateRows);
+    if (candidateHeader >= 0) {
+      selectedSheetName = name;
+      rows = candidateRows;
+      headerIndex = candidateHeader;
+      break;
+    }
+  }
+  if (!rows || headerIndex < 0) {
+    throw new Error('Header soal tidak ditemukan. Gunakan template Excel CBT-GAS.');
+  }
+
+  const headers = rows[headerIndex].map(normalizeQuestionExcelHeader);
+  const aliases = {
+    tipe: ['tipe', 'jenissoal', 'type'],
+    petunjuk: ['petunjuk', 'perintah', 'instruksi'],
+    teks_pendukung: ['tekspendukung', 'bacaan', 'pengantar'],
+    pertanyaan: ['pertanyaan', 'soal'],
+    url_gambar: ['linkgambarsoal', 'urlgambar', 'gambarsoal'],
+    opsi: ['opsi', 'pilihanjawaban'],
+    opsi_gambar: ['linkgambaropsi', 'gambaropsi', 'opsigambar'],
+    kunci_jawaban: ['kuncijawaban', 'kunci', 'jawabanbenar'],
+    bobot: ['bobot', 'nilai'],
+    mapel: ['matapelajaran', 'mapel', 'subject']
+  };
+  const col = {};
+  Object.keys(aliases).forEach(key => {
+    col[key] = getQuestionColumnIndex(headers, aliases[key]);
+  });
+  if (col.tipe < 0 || col.pertanyaan < 0) {
+    throw new Error('Kolom Tipe dan Pertanyaan wajib tersedia.');
+  }
+
+  parsedImportData = [];
+  const errors = [];
+  const preview = [];
+  let counts = { PG: 0, 'PG Kompleks': 0, 'Isian Singkat': 0, 'Benar Salah': 0, 'Menjodohkan': 0, 'Sesuai Tidak Sesuai': 0 };
+
+  for (let i = headerIndex + 1; i < rows.length; i++) {
+    const row = rows[i] || [];
+    if (!row.some(value => String(value == null ? '' : value).trim() !== '')) continue;
+    try {
+      const question = parseQuestionRowFromExcel(row, col, i + 1);
+      parsedImportData.push(question);
+      counts[question.tipe] = (counts[question.tipe] || 0) + 1;
+      if (preview.length < 5) preview.push({ question: question, error: '' });
+    } catch (error) {
+      errors.push(error.message);
+      if (preview.length < 5) preview.push({ question: { tipe: String(row[col.tipe] || 'Tidak diketahui'), pertanyaan: String(row[col.pertanyaan] || '') }, error: error.message });
+    }
+  }
+
+  questionImportHasErrors = errors.length > 0;
+  document.getElementById('preview-total').innerText = 'Total Valid: ' + parsedImportData.length;
+  document.getElementById('preview-pg').innerText = 'PG: ' + (counts.PG || 0);
+  document.getElementById('preview-pgc').innerText = 'PG Kompleks: ' + (counts['PG Kompleks'] || 0);
+  document.getElementById('preview-isian').innerText = 'Isian Singkat: ' + (counts['Isian Singkat'] || 0);
+  document.getElementById('preview-benarsalah').innerText = 'Benar/Salah: ' + (counts['Benar Salah'] || 0);
+  document.getElementById('preview-menjodohkan').innerText = 'Menjodohkan: ' + (counts.Menjodohkan || 0);
+  document.getElementById('preview-sesuai').innerText = 'Sesuai/Tidak Sesuai: ' + (counts['Sesuai Tidak Sesuai'] || 0);
+
+  const errorBadge = document.getElementById('preview-error');
+  if (errors.length) {
+    errorBadge.innerText = 'Error: ' + errors.length;
+    errorBadge.style.display = 'inline-block';
+  } else {
+    errorBadge.style.display = 'none';
+  }
+
+  const previewBody = document.getElementById('import-preview-tbody');
+  previewBody.innerHTML = '';
+  preview.forEach(function(item) {
+    const tr = document.createElement('tr');
+    if (item.error) tr.style.background = '#FEE2E2';
+    [item.question.tipe, String(item.question.pertanyaan || '').replace(/<[^>]*>/g, ' ').slice(0, 120),
+      item.error ? item.error : (item.question.opsi || []).map(value => String(value).replace(/<[^>]*>/g, '')).join(' | '),
+      item.error ? 'Perlu diperbaiki' : (Array.isArray(item.question.kunci_jawaban) ? item.question.kunci_jawaban.join(' | ') : typeof item.question.kunci_jawaban === 'object' ? 'Pasangan' : String(item.question.kunci_jawaban || '-'))]
+      .forEach(function(value) {
+        const td = document.createElement('td');
+        td.style.cssText = 'padding:8px; border-bottom:1px solid #E5E7EB; max-width:220px; overflow:hidden; text-overflow:ellipsis;';
+        td.textContent = value;
+        tr.appendChild(td);
+      });
+    previewBody.appendChild(tr);
+  });
+  if (parsedImportData.length > 5) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 4;
+    td.style.cssText = 'padding:8px; text-align:center; color:#64748B;';
+    td.textContent = 'Dan ' + (parsedImportData.length - 5) + ' soal valid lainnya.';
+    tr.appendChild(td);
+    previewBody.appendChild(tr);
+  }
+
+  if (errors.length) {
+    showToast(errors.slice(0, 3).join(' '), 'error');
+  } else if (!parsedImportData.length) {
+    showToast('Tidak ada baris soal yang dapat diimpor pada sheet ' + selectedSheetName + '.', 'error');
+  }
+  document.getElementById('import-soal-preview').classList.remove('hidden');
+  document.getElementById('btn-import-soal').disabled = parsedImportData.length === 0 || questionImportHasErrors;
+}
+
+function questionKeyToExcel(value, options) {
+  const token = String(value == null ? '' : value).match(/^__CBT_IMAGE_OPTION_(\d+)__$/);
+  if (token) return String.fromCharCode(64 + Number(token[1]));
+  return String(value == null ? '' : value);
+}
+
+function exportBankSoalExcel() {
+  if (typeof XLSX === 'undefined') {
+    showToast('Library Excel belum berhasil dimuat. Muat ulang halaman.', 'error');
+    return;
+  }
+  const button = document.querySelector('.page-header-actions button[onclick="exportBankSoalExcel()"]');
+  const originalText = button ? button.innerHTML : '';
+  if (button) {
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyiapkan...';
+  }
+
+  api.call('executeAdminAction', AppStore.user.data.token, 'exportSoal', {}).then(function(questions) {
+    if (!Array.isArray(questions)) throw new Error((questions && questions.message) || 'Bank soal tidak dapat diakses.');
+    const rows = [QUESTION_EXCEL_HEADERS];
+    (Array.isArray(questions) ? questions : []).forEach(function(question) {
+      const type = question.tipe || '';
+      const options = Array.isArray(question.opsi) ? question.opsi : [];
+      const images = Array.isArray(question.opsi_gambar) ? question.opsi_gambar : [];
+      let optionsCell = '';
+      let imagesCell = '';
+      let keysCell = '';
+
+      if (type === 'Menjodohkan') {
+        optionsCell = options.map(function(pair) {
+          const parts = String(pair || '').split(':::');
+          return [visibleOptionText(parts[0] || ''), visibleOptionText(parts.slice(1).join(':::'))].join(':::');
+        }).join('|');
+        imagesCell = images.map(function(image) {
+          const item = image && typeof image === 'object' ? image : {};
+          return driveReferenceToExcelLink(item.kunci || '') + ':::' + driveReferenceToExcelLink(item.nilai || '');
+        }).join('|');
+        const keyObject = question.kunci_jawaban && typeof question.kunci_jawaban === 'object' ? question.kunci_jawaban : {};
+        keysCell = Object.keys(keyObject).map(key => visibleOptionText(key) + ':::' + visibleOptionText(keyObject[key])).join('|');
+      } else {
+        optionsCell = options.map(value => visibleOptionText(value)).join('|');
+        imagesCell = images.map(value => driveReferenceToExcelLink(typeof value === 'string' ? value : '')).join('|');
+        if (Array.isArray(question.kunci_jawaban)) {
+          keysCell = question.kunci_jawaban.map(value => questionKeyToExcel(value, options)).join('|');
+        } else {
+          keysCell = questionKeyToExcel(question.kunci_jawaban, options);
+        }
+      }
+
+      rows.push([
+        type,
+        question.petunjuk || '',
+        question.teks_pendukung || '',
+        question.pertanyaan || '',
+        driveReferenceToExcelLink(question.url_gambar || ''),
+        optionsCell,
+        imagesCell,
+        keysCell,
+        Number(question.bobot || 1),
+        question.mapel || ''
+      ]);
+    });
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, questionWorkbookSheet(rows, 'Bank_Soal'), 'Bank_Soal');
+    const guideRows = [
+      ['PANDUAN FILE EXPORT BANK SOAL'],
+      ['File ini berisi seluruh soal pada bank soal. Untuk mengimpor kembali, gunakan sheet Bank_Soal.'],
+      ['Tautan gambar diekspor sebagai tautan Google Drive. Pastikan file tetap dapat diakses oleh akun pemilik aplikasi.'],
+      ['Jangan mengubah struktur header kolom.']
+    ];
+    XLSX.utils.book_append_sheet(workbook, questionWorkbookSheet(guideRows, 'Panduan'), 'Panduan');
+    const dateTag = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(workbook, 'Export_Bank_Soal_CBT_' + dateTag + '.xlsx');
+    showToast(rows.length - 1 + ' soal berhasil diekspor.', 'success');
+  }).catch(function(error) {
+    console.error('Export bank soal gagal:', error);
+    showToast(error && error.message ? error.message : 'Gagal mengambil data bank soal untuk diekspor.', 'error');
+  }).finally(function() {
+    if (button) {
+      button.disabled = false;
+      button.innerHTML = originalText;
+    }
+  });
+}
+
+function handleDragOver(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+  document.getElementById('import-dropzone').style.backgroundColor = '#E5E7EB';
+}
+
+function handleDragLeave(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  document.getElementById('import-dropzone').style.backgroundColor = '#F9FAFB';
+}
+
+function handleFileDrop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  document.getElementById('import-dropzone').style.backgroundColor = '#F9FAFB';
+  
+  const files = e.dataTransfer.files;
+  if (files && files.length > 0) {
+    document.getElementById('import-file-input').files = files;
+    handleImportFileSelected({ target: { files: files } });
+  }
+}
+
+function handleImportFileSelected(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  parsedImportData = [];
+  questionImportHasErrors = true;
+  document.getElementById('btn-import-soal').disabled = true;
+  document.getElementById('import-soal-preview').classList.add('hidden');
+
+  if (file.size > 10 * 1024 * 1024) {
+    showToast('Ukuran file maksimal 10 MB.', 'error');
+    return;
+  }
+
+  document.getElementById('preview-filename').innerText = file.name;
+  if (/\.xlsx$/i.test(file.name)) {
+    if (typeof XLSX === 'undefined') {
+      showToast('Library Excel belum berhasil dimuat. Muat ulang halaman.', 'error');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(loadEvent) {
+      try {
+        const workbook = XLSX.read(loadEvent.target.result, { type: 'array', cellText: true, cellDates: false });
+        parseImportedXlsxWorkbook(workbook);
+      } catch (error) {
+        console.error('Gagal membaca workbook soal:', error);
+        showToast(error.message || 'File Excel tidak dapat dibaca.', 'error');
+      }
+    };
+    reader.onerror = function() {
+      showToast('Gagal membaca file Excel.', 'error');
+    };
+    reader.readAsArrayBuffer(file);
+    return;
+  }
+
+  if (/\.csv$/i.test(file.name) || file.type === 'text/csv' || file.type === 'application/vnd.ms-excel') {
+    const reader = new FileReader();
+    reader.onload = function(loadEvent) {
+      parseImportedCsvText(loadEvent.target.result);
+    };
+    reader.onerror = function() {
+      showToast('Gagal membaca file CSV.', 'error');
+    };
+    reader.readAsText(file);
+    return;
+  }
+
+  showToast('Format file harus .xlsx atau .csv.', 'error');
+}
+
+function parseImportedCsvText(text) {
+  questionImportHasErrors = false;
+  const lines = text.split('\n');
+  parsedImportData = [];
+  const previewRows = [];
+  let errorCount = 0;
+  
+  let pg = 0, pgc = 0, isian = 0, benarsalah = 0, sesuai = 0, total = 0;
+  
+  let startIndex = 0;
+  if (lines.length > 0 && lines[0].toLowerCase().includes('tipe') && lines[0].toLowerCase().includes('pertanyaan')) {
+    startIndex = 1;
+  }
+  
+  for (let i = startIndex; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    
+    let cols = [];
+    if (line.includes('\t')) {
+      cols = line.split('\t');
+    } else {
+      let inQuotes = false;
+      let currentWord = '';
+      for (let j = 0; j < line.length; j++) {
+        let char = line[j];
+        if (char === '"') {
+           if (inQuotes && line[j + 1] === '"') {
+             currentWord += '"';
+             j++;
+           } else {
+             inQuotes = !inQuotes;
+           }
+        } else if (char === ',' && !inQuotes) {
+           cols.push(currentWord.trim());
+           currentWord = '';
+        } else {
+           currentWord += char;
+        }
+      }
+      cols.push(currentWord.trim());
+    }
+    
+    if (cols.length < 2) continue;
+    
+    let tipeStr = cols[0].toLowerCase();
+    let tipe = '';
+    
+    if (tipeStr === 'pg' || tipeStr === 'pilihan ganda') tipe = 'PG';
+    else if (tipeStr === 'pg kompleks' || tipeStr === 'pilihan ganda kompleks') tipe = 'PG Kompleks';
+    else if (tipeStr === 'isian singkat') tipe = 'Isian Singkat';
+    else if (tipeStr === 'benar salah' || tipeStr === 'benar/salah' || tipeStr === 'true false') tipe = 'Benar Salah';
+    else if (tipeStr === 'sesuai tidak sesuai' || tipeStr === 'sesuai/tidak sesuai') tipe = 'Sesuai Tidak Sesuai';
+    
+    const pertanyaan = cols[1] ? cols[1] : '';
+    const opsiRaw = cols[2] ? cols[2] : '';
+    const kunciRaw = cols[3] ? cols[3] : '';
+    const bobot = cols[4] ? (Number(cols[4]) || 1) : 1;
+    const mapel = cols[5] ? cols[5] : '';
+    
+    let hasError = false;
+    let errMsg = '';
+    
+    if (!tipe) {
+      hasError = true;
+      errMsg = 'Tipe tidak valid';
+    } else if (!pertanyaan) {
+      hasError = true;
+      errMsg = 'Pertanyaan kosong';
+    }
+    
+    let opsiArray = [];
+    let kunciJawaban = null;
+    
+    if (!hasError) {
+      if (tipe === 'PG') {
+        if (opsiRaw) opsiArray = opsiRaw.split('|').map(s => s.trim());
+        kunciJawaban = kunciRaw;
+        pg++;
+      } 
+      else if (tipe === 'PG Kompleks') {
+        if (opsiRaw) opsiArray = opsiRaw.split('|').map(s => s.trim());
+        if (kunciRaw) kunciJawaban = kunciRaw.split('|').map(s => s.trim());
+        else kunciJawaban = [];
+        pgc++;
+      }
+      else if (tipe === 'Isian Singkat') {
+        opsiArray = [];
+        kunciJawaban = kunciRaw;
+        isian++;
+      }
+      else if (tipe === 'Benar Salah') {
+        opsiArray = opsiRaw.split('|').map(s => s.trim());
+        kunciJawaban = kunciRaw.split('|').map(s => s.trim());
+        const validKeys = kunciJawaban.map(s => s.toLowerCase());
+        if (opsiArray.length !== 3 || opsiArray.some(s => !s) || validKeys.length !== 3 || validKeys.filter(s => s === 'benar').length !== 2 || validKeys.filter(s => s === 'salah').length !== 1) {
+          hasError = true;
+          errMsg = 'Benar Salah harus 3 pernyataan, 2 kunci Benar, dan 1 kunci Salah';
+        } else {
+          kunciJawaban = validKeys.map(s => s === 'benar' ? 'Benar' : 'Salah');
+          benarsalah++;
+        }
+      }
+      else if (tipe === 'Sesuai Tidak Sesuai') {
+        opsiArray = opsiRaw.split('|').map(s => s.trim());
+        kunciJawaban = kunciRaw.split('|').map(s => s.trim().toLowerCase() === 'sesuai' ? 'Sesuai' : s.trim().toLowerCase() === 'tidak sesuai' ? 'Tidak Sesuai' : '');
+        if (opsiArray.length !== 3 || opsiArray.some(s => !s) || kunciJawaban.length !== 3 || kunciJawaban.some(s => !s)) {
+          hasError = true; errMsg = 'Sesuai/Tidak Sesuai membutuhkan 3 pernyataan dan 3 kunci valid.';
+        } else sesuai++;
+      }
+
+      
+      if (hasError) {
+        errorCount++;
+      } else {
+        parsedImportData.push({
+          tipe: tipe,
+          pertanyaan: pertanyaan,
+          opsi: opsiArray,
+          kunci_jawaban: kunciJawaban,
+          bobot: bobot,
+          mapel: mapel
+        });
+        total++;
+      }
+    } else {
+      errorCount++;
+    }
+    
+    if (previewRows.length < 5) {
+      previewRows.push(`
+        <tr style="${hasError ? 'background-color: #FEE2E2;' : ''}">
+          <td style="padding: 8px; border-bottom: 1px solid #E5E7EB; font-size: 0.75rem;">${hasError ? `<span style="color:red" title="${errMsg}">⚠ ${tipeStr}</span>` : tipe}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #E5E7EB; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${typeof FrontendSecurity !== 'undefined' ? FrontendSecurity.renderSafeHtml(pertanyaan) : pertanyaan}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #E5E7EB; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${opsiRaw || '-'}</td>
+          <td style="padding: 8px; border-bottom: 1px solid #E5E7EB; max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${kunciRaw || '-'}</td>
+        </tr>
+      `);
+    }
+  }
+  
+  if (total > 5) {
+    previewRows.push(`
+      <tr>
+        <td colspan="4" style="padding: 8px; text-align: center; color: #6B7280; font-style: italic;">... dan ${total - 5} baris valid lainnya</td>
+      </tr>
+    `);
+  }
+  
+  document.getElementById('preview-total').innerText = 'Total Valid: ' + total;
+  document.getElementById('preview-pg').innerText = 'PG: ' + pg;
+  document.getElementById('preview-pgc').innerText = 'PG Kompleks: ' + pgc;
+  document.getElementById('preview-isian').innerText = 'Isian Singkat: ' + isian;
+  const bsBadge = document.getElementById('preview-benarsalah');
+  if (bsBadge) bsBadge.innerText = 'Benar/Salah: ' + benarsalah;
+  document.getElementById('preview-sesuai').innerText = 'Sesuai/Tidak Sesuai: ' + sesuai;
+  
+  const errBadge = document.getElementById('preview-error');
+  if (errorCount > 0) {
+    errBadge.innerText = 'Error (Dilewati): ' + errorCount;
+    errBadge.style.display = 'inline-block';
+  } else {
+    errBadge.style.display = 'none';
+  }
+  
+  document.getElementById('import-preview-tbody').innerHTML = previewRows.join('') || '<tr><td colspan="4" style="text-align:center; padding: 10px;">Tidak ada data</td></tr>';
+  document.getElementById('import-soal-preview').classList.remove('hidden');
+  
+  questionImportHasErrors = errorCount > 0;
+  document.getElementById('btn-import-soal').disabled = total === 0 || questionImportHasErrors;
+}
+
+async function processImportFromFile() {
+  if (parsedImportData.length === 0 || questionImportHasErrors) {
+    showToast('Perbaiki kesalahan pada file sebelum melakukan import.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-import-soal');
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+  let imported = 0;
+  try {
+    for (let start = 0; start < parsedImportData.length; start += 50) {
+      const chunk = parsedImportData.slice(start, start + 50);
+      const result = await api.call('executeAdminAction', AppStore.user.data.token, 'importSoal', { dataArray: chunk });
+      if (!result || !result.success) {
+        throw new Error((result && result.message) || 'Server menolak data soal.');
+      }
+      imported += Number(result.count || 0);
+    }
+    showToast(imported + ' soal berhasil diimport dan disimpan ke Bank Soal.', 'success');
+    closeImportSoalModal();
+    loadBankSoal();
+  } catch (error) {
+    console.error('Import soal gagal:', error);
+    showToast('Import berhenti. ' + error.message + ' Soal yang sudah berhasil diproses: ' + imported + '.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
+}
+
+function switchTab(tab) {
+  const btnBank = document.getElementById('tab-bank-soal');
+  const btnPaket = document.getElementById('tab-paket-soal');
+  const contBank = document.getElementById('container-bank-soal');
+  const contPaket = document.getElementById('container-paket-soal');
+  const actionsBank = document.getElementById('bank-soal-actions');
+  const actionsPaket = document.getElementById('paket-soal-actions');
+
+  if (tab === 'bank') {
+    btnBank.classList.add('active');
+    btnPaket.classList.remove('active');
+    contBank.classList.remove('hidden');
+    contPaket.classList.add('hidden');
+    actionsBank.classList.remove('hidden');
+    actionsPaket.classList.add('hidden');
+    loadBankSoal();
+  } else {
+    btnBank.classList.remove('active');
+    btnPaket.classList.add('active');
+    contBank.classList.add('hidden');
+    contPaket.classList.remove('hidden');
+    actionsBank.classList.add('hidden');
+    actionsPaket.classList.remove('hidden');
+    loadPaketSoal();
+  }
+}
+
+function loadPaketSoal() {
+  api.call('executeAdminAction', AppStore.user.data.token, 'getAllPaketSoal', { bypassCache: true }).then(res => {
+    console.log('GetAllPaketSoal Response:', res);
+    if (Array.isArray(res)) {
+      AppStore.paketList = res;
+    } else if (res && res.success === false) {
+      showToast('Gagal: ' + res.message, 'error');
+      AppStore.paketList = [];
+    } else {
+      AppStore.paketList = [];
+    }
+    renderTabelPaket();
+  }).catch(err => {
+    console.error('GetAllPaketSoal Error:', err);
+    showToast('Gagal memuat daftar paket soal', 'error');
+  });
+}
+
+function renderTabelPaket() {
+  if ($.fn.DataTable.isDataTable('#tbl-paket')) {
+    $('#tbl-paket').DataTable().destroy();
+  }
+
+  const tbody = document.querySelector('#tbl-paket tbody');
+  tbody.innerHTML = '';
+
+  if (!AppStore.paketList || AppStore.paketList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(6, 'Belum ada paket soal tersimpan.', 'fa-layer-group');
+    return;
+  }
+
+  AppStore.paketList.forEach((paket, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><strong>${paket.nama_paket}</strong></td>
+      <td><span class="badge badge-info">${(paket.soal_ids || []).length}</span></td>
+      <td><span style="font-size: 0.85rem; color: #6B7280;">${paket.deskripsi || '-'}</span></td>
+      <td><span style="font-size: 0.8rem;">${paket.dibuat_pada || '-'}</span></td>
+      <td style="white-space:nowrap; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:0.25rem;">
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="editPaket('${paket.id_paket}')"><i class="fas fa-edit" style="color:var(--primary)"></i></button>
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="deletePaket('${paket.id_paket}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  $('#tbl-paket').DataTable({
+    language: {
+      search: 'Cari:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data tersedia',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan data yang sesuai'
+    },
+    columnDefs: [
+      { orderable: false, targets: [0, 5] }
+    ],
+    pageLength: 10
+  });
+}
+
+let currentSelectedSoalIds = [];
+
+function openPaketModal() {
+  document.getElementById('modal-paket-title').innerText = 'Buat Paket Soal Baru';
+  document.getElementById('frm-paket').reset();
+  document.getElementById('paket-id').value = '';
+  document.getElementById('paket-count-terpilih').innerText = '0';
+  document.getElementById('paket-filter-mapel').value = '';
+  document.getElementById('chk-all-pilihan-soal').checked = false;
+  
+  currentSelectedSoalIds = [];
+  renderPilihanSoal();
+  
+  document.getElementById('modal-paket').style.display = 'flex';
+  document.getElementById('modal-paket').classList.remove('hidden');
+}
+
+function closePaketModal() {
+  document.getElementById('modal-paket').style.display = 'none';
+}
+
+function renderPilihanSoal() {
+  const tbody = document.getElementById('pilihan-soal-tbody');
+  const filterMapel = document.getElementById('paket-filter-mapel').value;
+  
+  tbody.innerHTML = '';
+  
+  if (!AppStore.soalList || AppStore.soalList.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:10px;">Bank soal kosong. Buat soal terlebih dahulu.</td></tr>';
+    return;
+  }
+  
+  const filteredSoal = filterMapel 
+    ? AppStore.soalList.filter(s => s.mapel === filterMapel)
+    : AppStore.soalList;
+    
+  filteredSoal.forEach(soal => {
+    const isChecked = currentSelectedSoalIds.includes(soal.id);
+    const safePertanyaan = FrontendSecurity.renderSafeHtml(soal.pertanyaan)
+        .replace(/<[^>]*>/g, ' ')
+        .substring(0, 100) + '...';
+        
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="padding: 8px; border-bottom: 1px solid #E5E7EB;"><input type="checkbox" class="chk-pilih-soal" value="${soal.id}" ${isChecked ? 'checked' : ''} onchange="toggleSoalSelection('${soal.id}', this.checked)"></td>
+      <td style="padding: 8px; border-bottom: 1px solid #E5E7EB;">${safePertanyaan}</td>
+      <td style="padding: 8px; border-bottom: 1px solid #E5E7EB;">${soal.mapel || '-'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  
+  updateSelectedCount();
+}
+
+function toggleSoalSelection(id, isChecked) {
+  if (isChecked) {
+    if (!currentSelectedSoalIds.includes(id)) {
+      currentSelectedSoalIds.push(id);
+    }
+  } else {
+    currentSelectedSoalIds = currentSelectedSoalIds.filter(val => val !== id);
+  }
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  document.getElementById('paket-count-terpilih').innerText = currentSelectedSoalIds.length;
+}
+
+function toggleAllPilihanSoal(master) {
+  const checkboxes = document.querySelectorAll('.chk-pilih-soal');
+  checkboxes.forEach(chk => {
+    chk.checked = master.checked;
+    toggleSoalSelection(chk.value, master.checked);
+  });
+}
+
+function savePaket() {
+  const btn = document.getElementById('btn-save-paket');
+  btn.disabled = true;
+  btn.innerText = 'Menyimpan...';
+  
+  const id = document.getElementById('paket-id').value;
+  const nama = document.getElementById('paket-nama').value;
+  const deskripsi = document.getElementById('paket-deskripsi').value;
+  
+  if (currentSelectedSoalIds.length === 0) {
+    showToast('Pilih minimal satu soal untuk paket ini.', 'error');
+    btn.disabled = false;
+    btn.innerText = 'Simpan Paket';
+    return;
+  }
+  
+  const payload = {
+    nama_paket: nama,
+    deskripsi: deskripsi,
+    soal_ids: currentSelectedSoalIds
+  };
+  
+  let promise;
+  if (id) {
+    promise = api.call('executeAdminAction', AppStore.user.data.token, 'updatePaketSoal', { idPaket: id, data: payload });
+  } else {
+    promise = api.call('executeAdminAction', AppStore.user.data.token, 'createPaketSoal', { data: payload });
+  }
+  
+  promise.then(res => {
+    if (res.success) {
+      showToast(res.message, 'success');
+      closePaketModal();
+      loadPaketSoal();
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Simpan Paket';
+  });
+}
+
+function editPaket(id) {
+  const paket = AppStore.paketList.find(p => p.id_paket === id);
+  if (!paket) return;
+  
+  openPaketModal();
+  document.getElementById('modal-paket-title').innerText = 'Edit Paket Soal';
+  document.getElementById('paket-id').value = paket.id_paket;
+  document.getElementById('paket-nama').value = paket.nama_paket;
+  document.getElementById('paket-deskripsi').value = paket.deskripsi || '';
+  
+  currentSelectedSoalIds = Array.isArray(paket.soal_ids) ? [...paket.soal_ids] : [];
+  renderPilihanSoal();
+}
+
+function deletePaket(id) {
+  openConfirmModal(
+    'Hapus Paket Soal',
+    'Yakin ingin menghapus paket soal ini? Tindakan ini tidak akan menghapus soal-soal di bank soal.',
+    '<i class="fas fa-trash"></i> Hapus Paket',
+    () => {
+      api.call('executeAdminAction', AppStore.user.data.token, 'deletePaketSoal', { idPaket: id }).then(res => {
+        if (res.success) {
+          showToast(res.message, 'success');
+          loadPaketSoal();
+        } else {
+          showToast(res.message, 'error');
+        }
+      });
+    }
+  );
+}
+</script>

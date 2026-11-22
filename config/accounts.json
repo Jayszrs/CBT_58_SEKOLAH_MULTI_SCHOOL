@@ -1,0 +1,114 @@
+[
+  {
+    "account_id": "AKUN-01",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_01",
+    "schools": "SCH001–SCH004",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-02",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_02",
+    "schools": "SCH005–SCH008",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-03",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_03",
+    "schools": "SCH009–SCH012",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-04",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_04",
+    "schools": "SCH013–SCH016",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-05",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_05",
+    "schools": "SCH017–SCH020",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-06",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_06",
+    "schools": "SCH021–SCH024",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-07",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_07",
+    "schools": "SCH025–SCH028",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-08",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_08",
+    "schools": "SCH029–SCH032",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-09",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_09",
+    "schools": "SCH033–SCH036",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-10",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_10",
+    "schools": "SCH037–SCH040",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-11",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_11",
+    "schools": "SCH041–SCH044",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-12",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_12",
+    "schools": "SCH045–SCH048",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-13",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_13",
+    "schools": "SCH049–SCH052",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-14",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_14",
+    "schools": "SCH053–SCH056",
+    "count": 4
+  },
+  {
+    "account_id": "AKUN-15",
+    "role": "OPERASIONAL",
+    "email": "ISI_EMAIL_AKUN_15",
+    "schools": "SCH057–SCH058",
+    "count": 3
+  },
+  {
+    "account_id": "AKUN-16",
+    "role": "ADMIN_PUSAT",
+    "email": "ISI_EMAIL_ADMIN_PUSAT",
+    "schools": "MONITORING",
+    "count": 0
+  }
+]

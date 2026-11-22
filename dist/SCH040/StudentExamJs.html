@@ -1,0 +1,1020 @@
+<script>
+
+
+let examState = {
+  soalList:[],
+  jawaban: {},
+  ragu: {},
+  currentIndex: 0,
+  endTime: null,
+  violations: 0,
+  timerInterval: null,
+  pendingViolation: null
+};
+
+let matchState = {
+  activeItem: null,
+  connections: {},
+  boardContainer: null,
+  svgCanvas: null
+};
+
+function drawMatchLine(leftId, rightId) {
+  if (!matchState.boardContainer || !matchState.svgCanvas) return;
+  const dotLeft = document.getElementById(`dot-${leftId}`);
+  const dotRight = document.getElementById(`dot-${rightId}`);
+  if (!dotLeft || !dotRight) return;
+
+  const containerRect = matchState.boardContainer.getBoundingClientRect();
+  const rectLeft = dotLeft.getBoundingClientRect();
+  const rectRight = dotRight.getBoundingClientRect();
+
+  const x1 = rectLeft.left - containerRect.left + (rectLeft.width / 2);
+  const y1 = rectLeft.top - containerRect.top + (rectLeft.height / 2);
+  const x2 = rectRight.left - containerRect.left + (rectRight.width / 2);
+  const y2 = rectRight.top - containerRect.top + (rectRight.height / 2);
+
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('x1', x1);
+  line.setAttribute('y1', y1);
+  line.setAttribute('x2', x2);
+  line.setAttribute('y2', y2);
+  line.setAttribute('stroke', 'var(--primary, #4f46e5)');
+  line.setAttribute('stroke-width', '3');
+  line.setAttribute('id', `line-${leftId}-${rightId}`);
+  
+  matchState.svgCanvas.appendChild(line);
+}
+
+function removeMatchLine(leftId, rightId) {
+  const line = document.getElementById(`line-${leftId}-${rightId}`);
+  if (line) line.remove();
+  const lEl = document.querySelector(`[data-id="${leftId}"]`);
+  const rEl = document.querySelector(`[data-id="${rightId}"]`);
+  if (lEl) lEl.classList.remove('connected');
+  if (rEl) rEl.classList.remove('connected');
+}
+
+function redrawMatchLines() {
+  if (!matchState.svgCanvas) return;
+  matchState.svgCanvas.innerHTML = '';
+  for (let leftId in matchState.connections) {
+    drawMatchLine(leftId, matchState.connections[leftId]);
+  }
+}
+
+function updateMatchAnswer(soalId) {
+  const ansObj = {};
+  for (let lId in matchState.connections) {
+    const rId = matchState.connections[lId];
+    const lNode = document.querySelector(`[data-id="${lId}"]`);
+    const rNode = document.querySelector(`[data-id="${rId}"]`);
+    if (lNode && rNode) {
+      ansObj[lNode.dataset.text] = rNode.dataset.text;
+    }
+  }
+  saveAnswer(soalId, ansObj);
+}
+
+window.addEventListener('resize', redrawMatchLines);
+
+function initStudentExam() {
+  if (!AppStore.user || AppStore.user.role !== 'student') {
+    navigateTo('student-login');
+    return;
+  }
+  
+  if (examState && examState.timerInterval) {
+    clearInterval(examState.timerInterval);
+  }
+  
+  examState = {
+    soalList:[],
+    jawaban: {},
+    ragu: {},
+    currentIndex: 0,
+    endTime: null,
+    violations: 0,
+    timerInterval: null,
+    pendingViolation: null
+  };
+  
+  document.getElementById('exam-student-name').innerText = `| ${AppStore.user.data.nama} (${AppStore.user.data.kelas})`;
+  const mobileStudent = document.getElementById('mobile-card-student-name');
+  if (mobileStudent) mobileStudent.innerText = `${AppStore.user.data.nama} (${AppStore.user.data.kelas})`;
+  document.getElementById('fs-overlay').style.display = 'flex';
+  
+  setupAntiCheat();
+}
+
+function enterFullscreen() {
+  let elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
+  }
+  
+  document.getElementById('fs-overlay').style.display = 'none';
+  
+  startExamData();
+}
+
+function startExamData() {
+  api.call('startUjian', AppStore.user.data.nisn).then(res => {
+    if (res.success) {
+      if (res.data.namaUjian) {
+        document.getElementById('exam-name').innerText = `| ${res.data.namaUjian}`;
+      } else {
+        document.getElementById('exam-name').innerText = `| Ujian Online`;
+      }
+      
+      const mobileExam = document.getElementById('mobile-card-exam-name');
+      if (mobileExam) {
+          mobileExam.innerText = res.data.namaUjian || 'Ujian Online';
+      }
+
+      const logoEl = document.getElementById('student-exam-logo');
+      const textHeader = document.getElementById('text-cbt-gas-header');
+      if (typeof APP_GLOBAL_CONFIG !== 'undefined' && APP_GLOBAL_CONFIG.logo_url && logoEl) {
+         logoEl.src = APP_GLOBAL_CONFIG.logo_url;
+         logoEl.onerror = function() {
+             logoEl.style.display = 'none';
+             if(textHeader) textHeader.style.display = '';
+         };
+         logoEl.style.display = '';
+         if(textHeader) textHeader.style.display = 'none'; 
+      }
+
+      examState.soalList = res.data.soal;
+      
+      if (res.data.acakSoal) {
+        for (let i = examState.soalList.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [examState.soalList[i], examState.soalList[j]] = [examState.soalList[j], examState.soalList[i]];
+        }
+      }
+      
+      const saved = localStorage.getItem('CBT_ANSWERS_' + AppStore.user.data.nisn);
+      if (saved) {
+        examState.jawaban = JSON.parse(saved);
+      } else {
+        examState.jawaban = {};
+      }
+      
+      const savedRagu = localStorage.getItem('CBT_RAGU_' + AppStore.user.data.nisn);
+      if (savedRagu) {
+        examState.ragu = JSON.parse(savedRagu);
+      } else {
+        examState.ragu = {};
+      }
+      
+      examState.endTime = res.data.serverTime + (res.data.durasiMenit * 60 * 1000);
+      
+      examState.currentIndex = 0;
+      renderPalette();
+      renderQuestion();
+      startTimer();
+    } else {
+      showToast(res.message, 'error');
+      navigateTo('student-login');
+    }
+  });
+}
+
+function setupAntiCheat() {
+  removeAntiCheat();
+  
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('blur', handleWindowBlur);
+  window.addEventListener('focus', handleWindowFocus);
+
+  document.addEventListener('touchstart', handleScreenReturn, { passive: true });
+  document.addEventListener('pointerdown', handleScreenReturn);
+  
+  document.addEventListener('contextmenu', handleContextMenuCheat);
+  
+  document.addEventListener('keydown', handleKeyDownCheat);
+
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+  document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+}
+
+function removeAntiCheat() {
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
+  window.removeEventListener('blur', handleWindowBlur);
+  window.removeEventListener('focus', handleWindowFocus);
+  document.removeEventListener('touchstart', handleScreenReturn);
+  document.removeEventListener('pointerdown', handleScreenReturn);
+  document.removeEventListener('contextmenu', handleContextMenuCheat);
+  document.removeEventListener('keydown', handleKeyDownCheat);
+  document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+  document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+}
+
+function handleContextMenuCheat(e) {
+  if (AppStore.activeComponent === 'student-exam') {
+    e.preventDefault();
+  }
+}
+
+function handleKeyDownCheat(e) {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  if (e.key === 'F12') { e.preventDefault(); }
+  if (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 'p')) {
+    e.preventDefault();
+  }
+  if (e.key === 'PrintScreen') {
+    triggerViolation('Mencoba melakukan screenshot');
+  }
+}
+
+function handleVisibilityChange() {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  if (document.hidden) {
+    examState.pendingViolation = 'Berpindah tab atau minimize browser';
+  } else if (examState.pendingViolation) {
+    triggerViolation(examState.pendingViolation);
+    examState.pendingViolation = null;
+  }
+}
+
+function handleWindowBlur() {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  if (!document.hidden && !examState.pendingViolation) {
+    examState.pendingViolation = 'Layar kehilangan fokus (Split Screen/Pop-up)';
+  }
+}
+
+function handleWindowFocus() {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  if (examState.pendingViolation) {
+    setTimeout(() => {
+      if (examState.pendingViolation) {
+        triggerViolation(examState.pendingViolation);
+        examState.pendingViolation = null;
+      }
+    }, 200);
+  }
+}
+
+function handleScreenReturn() {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  if (examState.pendingViolation) {
+    const violation = examState.pendingViolation;
+    examState.pendingViolation = null;
+    triggerViolation(violation);
+  }
+}
+
+function handleFullscreenChange() {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  
+  if (!isFullscreen) {
+    document.getElementById('fs-overlay').style.display = 'flex';
+    setTimeout(() => {
+      triggerViolation('Keluar dari mode layar penuh');
+    }, 300);
+  }
+}
+
+function triggerViolation(reason) {
+  if (AppStore.activeComponent !== 'student-exam') return;
+  
+  examState.violations++;
+  
+  if (examState.violations >= 3) {
+    showToast(`PELANGGARAN: ${reason}. Ujian dihentikan paksa.`, 'error');
+    setTimeout(() => {
+      alert("Pelanggaran maksimal telah tercapai. Ujian Anda diakhiri paksa.");
+      forceSubmit("Dihentikan Paksa (3 Pelanggaran)");
+    }, 1500);
+  } else {
+    showToast(`PELANGGARAN: ${reason}. Peringatan ${examState.violations}/3`, 'error');
+  }
+}
+
+function startTimer() {
+  if (examState.timerInterval) clearInterval(examState.timerInterval);
+  
+  let warn10Triggered = false;
+  let warn5Triggered = false;
+  let lastAutoSave = new Date().getTime();
+  
+  examState.timerInterval = setInterval(() => {
+    if (AppStore.activeComponent !== 'student-exam') {
+      clearInterval(examState.timerInterval);
+      return;
+    }
+
+    const timerElem = document.getElementById('exam-timer');
+    if (!timerElem) {
+      clearInterval(examState.timerInterval);
+      return;
+    }
+
+    const now = new Date().getTime();
+    const distance = examState.endTime - now;
+    
+    if (distance <= 0) {
+      clearInterval(examState.timerInterval);
+      timerElem.innerText = "WAKTU HABIS";
+      timerElem.classList.remove('warning');
+      forceSubmit("Waktu Habis");
+      return;
+    }
+    
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    timerElem.innerText = 
+      String(h).padStart(2, '0') + ":" + 
+      String(m).padStart(2, '0') + ":" + 
+      String(s).padStart(2, '0');
+      
+    if (distance <= 10 * 60 * 1000 && !warn10Triggered) {
+      warn10Triggered = true;
+      showToast('Waktu sisa 10 menit!', 'info');
+    }
+    
+    if (distance <= 5 * 60 * 1000 && !warn5Triggered) {
+      warn5Triggered = true;
+      showToast('Waktu tinggal 5 menit! Segera selesaikan ujian Anda.', 'error');
+      timerElem.classList.add('warning');
+    }
+    
+    if (now - lastAutoSave >= 120000) {
+      lastAutoSave = now;
+      if (Object.keys(examState.jawaban).length > 0) {
+        api.call('pingSimpanJawaban', AppStore.user.data.nisn, JSON.stringify(examState.jawaban), { silent: true })
+           .then(res => { if(!res.success) console.warn('Auto-save gagal'); })
+           .catch(() => {});
+      }
+    }
+      
+  }, 1000);
+}
+
+function isQuestionAnswered(soal, answer) {
+  if (!soal || answer === null || typeof answer === 'undefined' || answer === '') return false;
+  if (soal.tipe === 'Benar Salah' || soal.tipe === 'Sesuai Tidak Sesuai') {
+    const choices = soal.tipe === 'Benar Salah' ? ['Benar', 'Salah'] : ['Sesuai', 'Tidak Sesuai'];
+    return Array.isArray(answer) && answer.length === 3 && answer.every(v => choices.includes(v));
+  }
+  if (Array.isArray(answer)) return answer.length > 0;
+  if (typeof answer === 'object') return Object.keys(answer).length > 0;
+  return String(answer).trim().length > 0;
+}
+
+function renderPalette() {
+  const container = document.getElementById('question-palette');
+  container.innerHTML = '';
+  
+  examState.soalList.forEach((soal, idx) => {
+    const btn = document.createElement('div');
+    btn.innerText = idx + 1;
+    btn.style.width = '100%';
+    btn.style.aspectRatio = '1';
+    btn.style.display = 'flex';
+    btn.style.alignItems = 'center';
+    btn.style.justifyContent = 'center';
+    btn.style.borderRadius = '4px';
+    btn.style.cursor = 'pointer';
+    btn.style.fontWeight = 'bold';
+    btn.style.border = '1px solid #D1D5DB';
+    btn.style.background = 'white';
+    
+    const currentAnswer = examState.jawaban[soal.id];
+    if (isQuestionAnswered(soal, currentAnswer)) {
+      btn.style.background = 'var(--primary)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--primary)';
+    }
+    
+    if (examState.ragu[soal.id]) {
+      btn.style.background = '#FCD34D';
+      btn.style.color = '#111827';
+      btn.style.borderColor = '#F59E0B';
+    }
+    
+    if (idx === examState.currentIndex) {
+      btn.style.boxShadow = '0 0 0 3px rgba(79, 70, 229, 0.4)';
+    }
+    
+    btn.onclick = () => {
+      examState.currentIndex = idx;
+      renderQuestion();
+      renderPalette(); 
+    };
+    
+    container.appendChild(btn);
+  });
+}
+
+function isStudentImageOnlyToken(value) {
+  return /^__CBT_IMAGE_(OPTION|MATCH_LEFT|MATCH_RIGHT)_\d+__$/.test(String(value || ''));
+}
+
+function studentVisibleOptionText(value) {
+  return isStudentImageOnlyToken(value) ? '' : String(value == null ? '' : value);
+}
+
+function appendStudentOptionContent(parent, text, imageRef, altText) {
+  const content = document.createElement('div');
+  content.className = 'student-option-content';
+
+  const visibleText = studentVisibleOptionText(text);
+  if (visibleText) {
+    const textNode = document.createElement('div');
+    if (/<[a-z][^>]*>/i.test(visibleText)) {
+      textNode.innerHTML = FrontendSecurity.renderSafeHtml(visibleText);
+      if (typeof renderCbtMathTokens === 'function') renderCbtMathTokens(textNode);
+    } else textNode.textContent = visibleText;
+    content.appendChild(textNode);
+  }
+
+  if (imageRef) {
+    const image = document.createElement('img');
+    image.className = 'student-option-image';
+    image.alt = altText || 'Gambar pilihan jawaban';
+    image.dataset.driveRef = imageRef;
+    image.style.display = 'none';
+    content.appendChild(image);
+  }
+
+  parent.appendChild(content);
+}
+
+function getStudentImageBatch(refs) {
+  return new Promise(function(resolve, reject) {
+    google.script.run
+      .withSuccessHandler(resolve)
+      .withFailureHandler(reject)
+      .getMultipleImageBase64(refs);
+  });
+}
+
+async function loadStudentQuestionImages(questionId) {
+  const currentQuestion = examState.soalList[examState.currentIndex];
+  if (!currentQuestion || currentQuestion.id !== questionId) return;
+
+  const imageElements = Array.from(document.querySelectorAll(
+    '#question-image-container img[data-drive-ref], #options-container img[data-drive-ref]'
+  ));
+  const refs = Array.from(new Set(imageElements.map(image => image.dataset.driveRef).filter(Boolean)));
+  if (!refs.length) return;
+
+  const resultMap = {};
+  try {
+    for (let start = 0; start < refs.length; start += 4) {
+      const batch = await getStudentImageBatch(refs.slice(start, start + 4));
+      Object.assign(resultMap, batch || {});
+    }
+  } catch (error) {
+    console.warn('Gagal memuat gambar soal:', error);
+  }
+
+  const activeQuestion = examState.soalList[examState.currentIndex];
+  if (!activeQuestion || activeQuestion.id !== questionId) return;
+
+  imageElements.forEach(function(image) {
+    const dataUri = resultMap[image.dataset.driveRef];
+    if (dataUri) {
+      image.onload = function() {
+        const latestQuestion = examState.soalList[examState.currentIndex];
+        if (latestQuestion && latestQuestion.id === questionId && latestQuestion.tipe === 'Menjodohkan') {
+          redrawMatchLines();
+        }
+      };
+      image.src = dataUri;
+      image.style.display = 'block';
+    } else {
+      image.style.display = 'none';
+      image.alt = 'Gambar tidak dapat dimuat';
+    }
+  });
+
+  if (activeQuestion.tipe === 'Menjodohkan') {
+    setTimeout(redrawMatchLines, 120);
+  }
+}
+
+function renderQuestion() {
+  const soal = examState.soalList[examState.currentIndex];
+  if (!soal) return;
+
+  document.getElementById('question-number').innerText = `Soal No. ${examState.currentIndex + 1}`;
+  document.getElementById('question-type').innerText = soal.tipe;
+
+  const instructionContainer = document.getElementById('question-instruction-container');
+  const instructionText = String(soal.petunjuk || '').trim();
+  if (instructionText) {
+    instructionContainer.textContent = instructionText;
+    instructionContainer.classList.remove('hidden');
+  } else {
+    instructionContainer.textContent = '';
+    instructionContainer.classList.add('hidden');
+  }
+
+  const contextContainer = document.getElementById('question-context');
+  if (soal.teks_pendukung) {
+    contextContainer.innerHTML = FrontendSecurity.renderSafeHtml(soal.teks_pendukung);
+    contextContainer.classList.remove('hidden');
+  } else {
+    contextContainer.innerHTML = '';
+    contextContainer.classList.add('hidden');
+  }
+
+  const imgCont = document.getElementById('question-image-container');
+  const imgElem = document.getElementById('question-image');
+  imgElem.removeAttribute('src');
+  imgElem.removeAttribute('data-drive-ref');
+  if (soal.url_gambar) {
+    imgElem.dataset.driveRef = soal.url_gambar;
+    imgElem.style.display = 'none';
+    imgCont.classList.remove('hidden');
+  } else {
+    imgElem.style.display = 'none';
+    imgCont.classList.add('hidden');
+  }
+
+  document.getElementById('question-text').innerHTML = FrontendSecurity.renderSafeHtml(soal.pertanyaan);
+
+  const optCont = document.getElementById('options-container');
+  optCont.innerHTML = '';
+  const jaw = examState.jawaban[soal.id];
+  const optionImages = Array.isArray(soal.opsi_gambar) ? soal.opsi_gambar : [];
+
+  if (soal.tipe === 'PG') {
+    (soal.opsi || []).forEach((option, index) => {
+      const lbl = document.createElement('label');
+      lbl.className = 'student-option-label';
+      lbl.style.cssText = 'display:flex; padding:1rem; border:1px solid #D1D5DB; border-radius:6px; cursor:pointer; align-items:flex-start;';
+
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'opt_' + soal.id;
+      radio.value = option;
+      radio.checked = (jaw === option);
+      radio.style.marginTop = '4px';
+      radio.onchange = event => saveAnswer(soal.id, event.target.value);
+
+      lbl.appendChild(radio);
+      appendStudentOptionContent(lbl, option, typeof optionImages[index] === 'string' ? optionImages[index] : '', 'Gambar pilihan ' + String.fromCharCode(65 + index));
+      optCont.appendChild(lbl);
+    });
+  }
+  else if (soal.tipe === 'PG Kompleks') {
+    const selectedValues = Array.isArray(jaw) ? jaw : [];
+    (soal.opsi || []).forEach((option, index) => {
+      const lbl = document.createElement('label');
+      lbl.className = 'student-option-label';
+      lbl.style.cssText = 'display:flex; padding:1rem; border:1px solid #D1D5DB; border-radius:6px; cursor:pointer; align-items:flex-start;';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.name = 'opt_' + soal.id;
+      checkbox.value = option;
+      checkbox.checked = selectedValues.includes(option);
+      checkbox.style.marginTop = '4px';
+
+      checkbox.onchange = event => {
+        let current = Array.isArray(examState.jawaban[soal.id]) ? examState.jawaban[soal.id] : [];
+        if (event.target.checked) {
+          if (!current.includes(event.target.value)) current.push(event.target.value);
+        } else {
+          current = current.filter(value => value !== event.target.value);
+        }
+        saveAnswer(soal.id, current);
+      };
+
+      lbl.appendChild(checkbox);
+      appendStudentOptionContent(lbl, option, typeof optionImages[index] === 'string' ? optionImages[index] : '', 'Gambar pilihan ' + String.fromCharCode(65 + index));
+      optCont.appendChild(lbl);
+    });
+  }
+  else if (soal.tipe === 'Benar Salah' || soal.tipe === 'Sesuai Tidak Sesuai') {
+    const statementChoices = soal.tipe === 'Benar Salah' ? ['Benar', 'Salah'] : ['Sesuai', 'Tidak Sesuai'];
+    const currentAnswers = [0, 1, 2].map(index => Array.isArray(jaw) ? (jaw[index] || '') : '');
+    const table = document.createElement('table');
+    table.className = 'student-bs-table';
+    table.style.cssText = 'width:100%; border-collapse:collapse; margin-top:0.75rem;';
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = `<tr><th style="text-align:left; padding:10px; border:1px solid #D1D5DB; background:#F3F4F6;">Pernyataan</th><th style="padding:10px; border:1px solid #D1D5DB; background:#F3F4F6; width:110px;">${statementChoices[0]}</th><th style="padding:10px; border:1px solid #D1D5DB; background:#F3F4F6; width:110px;">${statementChoices[1]}</th></tr>`;
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    (soal.opsi || []).slice(0, 3).forEach((statement, index) => {
+      const tr = document.createElement('tr');
+      const statementCell = document.createElement('td');
+      statementCell.style.cssText = 'padding:12px; border:1px solid #D1D5DB; vertical-align:top;';
+      const statementWrap = document.createElement('div');
+      statementWrap.style.fontFamily = 'Arial, sans-serif';
+      const number = document.createElement('strong');
+      number.textContent = (index + 1) + '. ';
+      statementWrap.appendChild(number);
+      appendStudentOptionContent(statementWrap, statement, typeof optionImages[index] === 'string' ? optionImages[index] : '', 'Gambar pernyataan ' + (index + 1));
+      statementCell.appendChild(statementWrap);
+      tr.appendChild(statementCell);
+
+      statementChoices.forEach(value => {
+        const td = document.createElement('td');
+        td.style.cssText = 'padding:12px; border:1px solid #D1D5DB; text-align:center;';
+        const label = document.createElement('label');
+        label.style.cssText = 'display:inline-flex; align-items:center; gap:6px; cursor:pointer;';
+
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'bs_' + soal.id + '_' + index;
+        radio.value = value;
+        radio.checked = currentAnswers[index] === value;
+        radio.onchange = () => {
+          currentAnswers[index] = value;
+          saveAnswer(soal.id, currentAnswers.slice());
+        };
+
+        label.appendChild(radio);
+        label.appendChild(document.createTextNode(value));
+        td.appendChild(label);
+        tr.appendChild(td);
+      });
+
+      tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    optCont.appendChild(table);
+
+    const hint = document.createElement('p');
+    hint.style.cssText = 'margin-top:8px; color:#6B7280; font-size:0.85rem;';
+    hint.textContent = 'Pilih satu jawaban untuk setiap pernyataan.';
+    optCont.appendChild(hint);
+  }
+  else if (soal.tipe === 'Isian Singkat') {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control';
+    input.placeholder = 'Ketik jawaban Anda...';
+    input.value = jaw || '';
+    input.onblur = event => saveAnswer(soal.id, event.target.value);
+    input.onkeypress = event => {
+      if (event.key === 'Enter') {
+        event.target.blur();
+        nextQuestion();
+      }
+    };
+    optCont.appendChild(input);
+  }
+  else if (soal.tipe === 'Esai') {
+    const textarea = document.createElement('textarea');
+    textarea.className = 'form-control';
+    textarea.rows = 5;
+    textarea.placeholder = 'Ketik jawaban uraian Anda...';
+    textarea.value = jaw || '';
+    textarea.onblur = event => saveAnswer(soal.id, event.target.value);
+    optCont.appendChild(textarea);
+  }
+  else if (soal.tipe === 'Menjodohkan') {
+    const answerObject = (typeof jaw === 'object' && jaw !== null && !Array.isArray(jaw)) ? jaw : {};
+    matchState.activeItem = null;
+    matchState.connections = {};
+
+    const leftItems = [];
+    const rightItems = [];
+
+    (soal.opsi || []).forEach((pair, index) => {
+      const parts = String(pair).split(':::');
+      const leftText = parts[0] || '';
+      const rightText = parts.slice(1).join(':::') || '';
+      const imageObject = optionImages[index] && typeof optionImages[index] === 'object' ? optionImages[index] : {};
+
+      leftItems.push({ id: 'L' + index, text: leftText, image: imageObject.kunci || '' });
+      rightItems.push({ id: 'R' + index, text: rightText, image: imageObject.nilai || '' });
+    });
+
+    const shuffledRightItems = [...rightItems];
+    for (let index = shuffledRightItems.length - 1; index > 0; index--) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffledRightItems[index], shuffledRightItems[randomIndex]] = [shuffledRightItems[randomIndex], shuffledRightItems[index]];
+    }
+
+    Object.keys(answerObject).forEach(key => {
+      const leftItem = leftItems.find(item => item.text === key);
+      const rightItem = rightItems.find(item => item.text === answerObject[key]);
+      if (leftItem && rightItem) matchState.connections[leftItem.id] = rightItem.id;
+    });
+
+    const boardContainer = document.createElement('div');
+    boardContainer.className = 'board-container';
+    boardContainer.id = 'match-board';
+
+    const svgCanvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgCanvas.id = 'svg-canvas';
+    boardContainer.appendChild(svgCanvas);
+
+    matchState.boardContainer = boardContainer;
+    matchState.svgCanvas = svgCanvas;
+
+    const board = document.createElement('div');
+    board.className = 'board';
+
+    const createMatchItem = function(item, side) {
+      const div = document.createElement('div');
+      const connected = side === 'left'
+        ? !!matchState.connections[item.id]
+        : Object.values(matchState.connections).includes(item.id);
+      div.className = 'item-match' + (connected ? ' connected' : '');
+      div.dataset.side = side;
+      div.dataset.id = item.id;
+      div.dataset.text = item.text;
+
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.id = 'dot-' + item.id;
+
+      if (side === 'left') {
+        appendStudentOptionContent(div, item.text, item.image, 'Gambar pasangan kolom kiri');
+        div.appendChild(dot);
+      } else {
+        div.appendChild(dot);
+        appendStudentOptionContent(div, item.text, item.image, 'Gambar pasangan kolom kanan');
+      }
+      return div;
+    };
+
+    const colLeft = document.createElement('div');
+    colLeft.className = 'column-match column-left';
+    leftItems.forEach(item => colLeft.appendChild(createMatchItem(item, 'left')));
+
+    const colRight = document.createElement('div');
+    colRight.className = 'column-match column-right';
+    shuffledRightItems.forEach(item => colRight.appendChild(createMatchItem(item, 'right')));
+
+    board.appendChild(colLeft);
+    board.appendChild(colRight);
+    boardContainer.appendChild(board);
+    optCont.appendChild(boardContainer);
+
+    const resetButton = document.createElement('button');
+    resetButton.className = 'btn btn-outline';
+    resetButton.style.marginTop = '15px';
+    resetButton.innerHTML = '<i class="fas fa-undo"></i> Reset Pasangan';
+    resetButton.onclick = () => {
+      matchState.svgCanvas.innerHTML = '';
+      matchState.connections = {};
+      matchState.activeItem = null;
+      document.querySelectorAll('.item-match').forEach(element => element.classList.remove('active', 'connected'));
+      saveAnswer(soal.id, {});
+    };
+    optCont.appendChild(resetButton);
+
+    board.querySelectorAll('.item-match').forEach(item => {
+      item.addEventListener('click', () => {
+        const side = item.dataset.side;
+        const id = item.dataset.id;
+
+        if (!matchState.activeItem) {
+          if (side === 'left') {
+            matchState.activeItem = item;
+            item.classList.add('active');
+            if (matchState.connections[id]) {
+              removeMatchLine(id, matchState.connections[id]);
+              delete matchState.connections[id];
+              updateMatchAnswer(soal.id);
+            }
+          }
+        } else if (side === 'right') {
+          const existingLeftId = Object.keys(matchState.connections).find(key => matchState.connections[key] === id);
+          if (existingLeftId) {
+            removeMatchLine(existingLeftId, id);
+            delete matchState.connections[existingLeftId];
+          }
+
+          const leftId = matchState.activeItem.dataset.id;
+          matchState.connections[leftId] = id;
+          matchState.activeItem.classList.remove('active');
+          matchState.activeItem.classList.add('connected');
+          item.classList.add('connected');
+          drawMatchLine(leftId, id);
+          matchState.activeItem = null;
+          updateMatchAnswer(soal.id);
+        } else if (side === 'left') {
+          matchState.activeItem.classList.remove('active');
+          matchState.activeItem = item;
+          item.classList.add('active');
+        }
+      });
+    });
+
+    setTimeout(redrawMatchLines, 50);
+  }
+
+  loadStudentQuestionImages(soal.id);
+
+  document.getElementById('btn-prev').style.visibility = examState.currentIndex === 0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').style.visibility = examState.currentIndex === examState.soalList.length - 1 ? 'hidden' : 'visible';
+
+  const btnRagu = document.getElementById('btn-ragu');
+  if (btnRagu) btnRagu.checked = !!examState.ragu[soal.id];
+}
+
+
+function prevQuestion() {
+  if (examState.currentIndex > 0) {
+    examState.currentIndex--;
+    renderQuestion();
+    renderPalette();
+  }
+}
+
+function nextQuestion() {
+  if (examState.currentIndex < examState.soalList.length - 1) {
+    examState.currentIndex++;
+    renderQuestion();
+    renderPalette();
+  }
+}
+
+function toggleExamPalette() {
+  const palette = document.getElementById('exam-palette-panel');
+  if (palette) {
+    palette.classList.toggle('open');
+  }
+}
+
+function toggleRagu() {
+  const soal = examState.soalList[examState.currentIndex];
+  if (!soal) return;
+  
+  const isChecked = document.getElementById('btn-ragu').checked;
+  if (isChecked) {
+    examState.ragu[soal.id] = true;
+  } else {
+    delete examState.ragu[soal.id];
+  }
+  
+  localStorage.setItem('CBT_RAGU_' + AppStore.user.data.nisn, JSON.stringify(examState.ragu));
+  renderPalette();
+}
+
+function saveAnswer(soalId, ans) {
+  if (!examState.timerInterval) return;
+  
+  if (ans === undefined || ans === null || ans === '' || 
+      (Array.isArray(ans) && ans.length === 0) || 
+      (typeof ans === 'object' && !Array.isArray(ans) && Object.keys(ans).length === 0)) {
+    delete examState.jawaban[soalId];
+  } else {
+    examState.jawaban[soalId] = ans;
+  }
+  localStorage.setItem('CBT_ANSWERS_' + AppStore.user.data.nisn, JSON.stringify(examState.jawaban));
+  renderPalette(); 
+}
+
+function confirmSubmit() {
+  const tot = examState.soalList.length;
+  const jwb = examState.soalList.filter(soal => isQuestionAnswered(soal, examState.jawaban[soal.id])).length;
+  let msg = '';
+  
+  if (jwb < tot) {
+    msg = `Anda baru menjawab ${jwb} dari ${tot} soal. Yakin ingin menyelesaikan ujian?`;
+  } else {
+    msg = `Anda yakin ingin mengakhiri ujian ini?`;
+  }
+  
+  const modal = document.getElementById('custom-confirm-modal');
+  const msgElem = document.getElementById('custom-confirm-message');
+  
+  if (modal && msgElem) {
+    msgElem.innerText = msg;
+    modal.style.display = 'flex';
+  } else {
+    const c = confirm(msg);
+    if (c) forceSubmit("Selesai Normal");
+  }
+}
+
+function closeCustomConfirm() {
+  const modal = document.getElementById('custom-confirm-modal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+}
+
+function executeSubmit() {
+  closeCustomConfirm();
+  forceSubmit("Selesai Normal");
+}
+
+function showStudentFinalResult(result, nisn) {
+  const old = document.getElementById('cbt-result-screen');
+  if (old) old.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'cbt-result-screen';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:10001;background:#102C62;display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto';
+  const card = document.createElement('section');
+  card.style.cssText = 'max-width:460px;width:100%;padding:32px 24px;background:#fff;color:#152847;border-radius:18px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2)';
+  const header = document.createElement('h2'); header.textContent = 'Ujian Berhasil Diselesaikan';
+  header.style.cssText = 'font-size:1.35rem;margin-bottom:14px;color:#123269';card.appendChild(header);
+  const caption = document.createElement('p'); caption.textContent = 'Nilai akhir sementara Anda'; caption.style.cssText = 'margin-bottom:4px';card.appendChild(caption);
+  const score = document.createElement('div');
+  score.textContent = typeof result.nilaiAkhir === 'number' && isFinite(result.nilaiAkhir) ? result.nilaiAkhir.toFixed(2) : '—';
+  score.style.cssText = 'font-size:3.5rem;line-height:1.3;font-weight:800;color:#0b6e6e';card.appendChild(score);
+  const desc = document.createElement('p');
+  desc.textContent = result.butuhKoreksiEsai ? 'Nilai dapat berubah setelah koreksi jawaban isian atau esai oleh guru.' : 'Semua jawaban telah dinilai secara otomatis.';
+  desc.style.cssText = 'font-size:.92rem;line-height:1.6;margin:10px 0 20px;color:#44556b';card.appendChild(desc);
+  const end = document.createElement('button');end.className = 'btn btn-primary';end.textContent = 'Kembali ke Halaman Login';
+  end.style.cssText = 'width:100%;padding:12px';
+  end.onclick = function() {overlay.remove();AppStore.user = null;localStorage.removeItem('CBT_SESSION');navigateTo('student-login');};
+  card.appendChild(end);overlay.appendChild(card);document.body.appendChild(overlay);end.focus();
+}
+
+function forceSubmit(reason) {
+  if (examState.timerInterval) clearInterval(examState.timerInterval);
+  
+  removeAntiCheat();
+  
+  showLoading();
+  document.querySelector('#global-loading p').innerText = "Menyimpan Hasil Ujian...";
+  
+  let log = `${reason} (Pelanggaran: ${examState.violations})`;
+  let jawabanStr = JSON.stringify(examState.jawaban);
+  let nisn = AppStore.user.data.nisn;
+  
+  let attempt = 0;
+  let maxRetries = 7; 
+
+  function trySubmit() {
+    attempt++;
+    if (attempt > 1) {
+      
+      document.querySelector('#global-loading p').innerText = `Menyelaraskan data dengan server (${attempt}/${maxRetries})...`;
+    }
+
+    api.call('submitUjian', nisn, jawabanStr, log, JSON.stringify(examState.soalList.map(q => String(q.id))))
+      .then(res => {
+        if (res.success) {
+            localStorage.removeItem('CBT_ANSWERS_' + nisn);
+            localStorage.removeItem('CBT_RAGU_' + nisn);
+            
+            if (document.fullscreenElement && document.exitFullscreen) {
+              document.exitFullscreen().catch(err => console.log(err));
+            }
+            
+            hideLoading();
+            // Menunjukkan nilai dari server sesaat setelah pengiriman dinyatakan berhasil.
+            showStudentFinalResult(res, nisn);
+        } else {
+            
+            alert("Gagal: " + res.message);
+            hideLoading();
+            if (res.message && res.message.includes('Sesi')) {
+                navigateTo('student-login');
+            }
+        }
+      })
+      .catch(err => {
+        
+        if (attempt < maxRetries) {
+          
+          
+          let baseDelayMilliseconds = Math.pow(2, attempt) * 1000;
+          let randomJitterMilliseconds = Math.floor(Math.random() * 2000);
+          let totalDelayWaitTime = baseDelayMilliseconds + randomJitterMilliseconds;
+          
+          
+          if (totalDelayWaitTime > 15000) {
+              totalDelayWaitTime = 15000;
+          }
+
+          console.warn(`[Sistem Klien] Percobaan ke-${attempt} antre. Menunggu ${totalDelayWaitTime}ms sebelum mencoba lagi secara otomatis.`);
+          
+          
+          setTimeout(trySubmit, totalDelayWaitTime);
+        } else {
+          
+          alert('Gagal mengirim hasil secara otomatis ke server utama.\n\nJangan khawatir, seluruh jawaban Anda MASIH TERSIMPAN AMAN di perangkat ini. Silakan refresh halaman, login kembali, lalu tekan "Selesai Ujian" sekali lagi.');
+          hideLoading();
+        }
+      });
+  }
+
+  trySubmit();
+}
+</script>

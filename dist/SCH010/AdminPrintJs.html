@@ -1,0 +1,236 @@
+<script>
+let printAnalysisIndex = [];
+let printAnalysisIndexFiltered = [];
+
+function loadPrintAnalysisIndex() {
+  const select = document.getElementById('analysis-student-select');
+  if (!select || !AppStore.user || AppStore.user.role !== 'admin') return;
+  select.innerHTML = '<option value="">Memuat daftar peserta...</option>';
+  api.call('executeAdminAction', AppStore.user.data.token, 'getPrintAnalysisIndex', { mapelFilter: currentFilterMapel || '' }, { silent: true })
+    .then(function (rows) {
+      printAnalysisIndex = Array.isArray(rows) ? rows : [];
+      filterPrintAnalysisStudents(document.getElementById('analysis-student-search') ? document.getElementById('analysis-student-search').value : '');
+    })
+    .catch(function () {
+      select.innerHTML = '<option value="">Gagal memuat daftar peserta</option>';
+    });
+}
+
+function filterPrintAnalysisStudents(query) {
+  const select = document.getElementById('analysis-student-select');
+  if (!select) return;
+  const q = String(query || '').trim().toLowerCase();
+  printAnalysisIndexFiltered = printAnalysisIndex.filter(function (item) {
+    return !q || String(item.nisn).toLowerCase().includes(q) || String(item.nama).toLowerCase().includes(q) || String(item.kelas).toLowerCase().includes(q);
+  });
+  select.innerHTML = '';
+  if (!printAnalysisIndexFiltered.length) {
+    const option = document.createElement('option');
+    option.value = '';
+    option.textContent = printAnalysisIndex.length ? 'Peserta tidak ditemukan' : 'Belum ada peserta mengirim jawaban';
+    select.appendChild(option);
+    return;
+  }
+  printAnalysisIndexFiltered.forEach(function (item) {
+    const option = document.createElement('option');
+    option.value = item.nisn;
+    option.textContent = item.nisn + ' — ' + item.nama + ' (' + item.kelas + ')';
+    option.title = [item.mapel, item.timestamp, item.status].join(' | ');
+    select.appendChild(option);
+  });
+  select.selectedIndex = 0;
+}
+
+function getPrintPaperSize() {
+  const select = document.getElementById('analysis-paper-size');
+  return select && select.value === 'F4' ? 'F4' : 'A4';
+}
+
+function openPrintWindowLoading() {
+  const win = window.open('', '_blank');
+  if (!win) {
+    showToast('Pop-up diblokir browser. Izinkan pop-up untuk aplikasi CBT-GAS lalu coba kembali.', 'error');
+    return null;
+  }
+  win.document.open();
+  win.document.write('<!doctype html><html><head><title>Menyiapkan Cetak</title></head><body style="font-family:Arial;padding:30px">Menyiapkan dokumen cetak...</body></html>');
+  win.document.close();
+  return win;
+}
+
+function writePrintDocument(win, html) {
+  if (!win || win.closed) return;
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  const printAction = function () {try { if (!win.closed) win.print(); } catch (e) { console.warn('Cetak otomatis tidak tersedia, gunakan Ctrl+P pada tab hasil.', e); }};
+  setTimeout(printAction, 900);
+}
+
+function escapePrintHtml(value) {
+  const raw = value == null ? '' : String(value);
+  const decoder = document.createElement('textarea');
+  decoder.innerHTML = raw;
+  const decoded = decoder.value;
+  return decoded.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function getAdminPrintCss(paperSize, cardMode) {
+  const template = document.getElementById('tmpl-admin-print-styles');
+  const baseCss = template ? template.innerHTML : '';
+  const pageSize = cardMode ? 'A4 portrait' : (paperSize === 'F4' ? '210mm 330mm' : 'A4 portrait');
+  const margins = cardMode ? '8mm' : '10mm';
+  return baseCss + '<style>@page{size:' + pageSize + ';margin:' + margins + ';} @media print{html,body{background:#fff!important;padding:0!important;margin:0!important}.print-document{max-width:none!important;margin:0!important;padding:0!important;box-shadow:none!important}.no-print{display:none!important}}</style>';
+}
+
+function renderAnalysisReport(report, index, total) {
+  const student = report.siswa || {};
+  const questionRows = (report.questions || []).map(function (q) {
+    const safeQuestion = typeof FrontendSecurity !== 'undefined' ? FrontendSecurity.renderSafeHtml(q.pertanyaan || '') : escapePrintHtml(q.pertanyaan || '');
+    let subDetails = '';
+    if (Array.isArray(q.subDetails) && q.subDetails.length) {
+      subDetails = '<table class="bs-detail"><tbody>' + q.subDetails.map(function (detail, i) {
+        return '<tr><td>' + (i + 1) + '. ' + escapePrintHtml(detail.statement) + '</td><td>Jawaban: <b>' + escapePrintHtml(detail.answer) + '</b></td><td>Kunci: <b>' + escapePrintHtml(detail.key) + '</b></td></tr>';
+      }).join('') + '</tbody></table>';
+    }
+    const resultClass = q.hasil === 'Benar' ? 'status-good' : (q.hasil === 'Salah' || q.hasil === 'Tidak dijawab' ? 'status-bad' : '');
+    return '<tr>' +
+      '<td class="question-cell"><b>Soal ' + q.nomor + ' — ' + escapePrintHtml(q.tipe) + '</b><div class="question-html">' + safeQuestion + '</div>' + subDetails + '</td>' +
+      '<td class="answer-cell">' + escapePrintHtml(q.jawaban) + '</td>' +
+      '<td class="key-cell">' + escapePrintHtml(q.kunci) + '</td>' +
+      '<td class="result-cell ' + resultClass + '">' + escapePrintHtml(q.hasil) + '</td>' +
+      '<td class="score-cell">' + escapePrintHtml(q.skor) + ' / ' + escapePrintHtml(q.bobot) + '</td>' +
+      '</tr>';
+  }).join('');
+
+  return '<section class="analysis-student">' +
+    '<div class="analysis-heading"><h2>Analisis Hasil Ujian</h2><div><b>' + escapePrintHtml(report.mapel) + '</b> &nbsp;|&nbsp; Waktu pengiriman: ' + escapePrintHtml(report.waktu) + '</div></div>' +
+    '<div class="identity-grid">' +
+      '<div class="identity-item"><b>Nama Peserta</b>' + escapePrintHtml(student.nama) + '</div>' +
+      '<div class="identity-item"><b>Nomor Peserta / NISN</b>' + escapePrintHtml(student.nisn) + '</div>' +
+      '<div class="identity-item"><b>Kelas</b>' + escapePrintHtml(student.kelas) + '</div>' +
+      '<div class="identity-item"><b>Status Koreksi</b>' + escapePrintHtml(report.status) + '</div>' +
+    '</div>' +
+    '<div class="score-grid">' +
+      '<div class="score-box"><span>Jawaban Benar</span><strong>' + escapePrintHtml(report.jumlahBenar || 0) + '</strong></div>' +
+      '<div class="score-box"><span>Jawaban Salah</span><strong>' + escapePrintHtml(report.jumlahSalah || 0) + '</strong></div>' +
+      '<div class="score-box"><span>Nilai Objektif (0–100)</span><strong>' + escapePrintHtml(report.nilaiObjektif100 == null ? '—' : report.nilaiObjektif100) + '</strong></div>' +
+      '<div class="score-box"><span>Jumlah Soal</span><strong>' + escapePrintHtml(report.totalSoal) + '</strong></div>' +
+    '</div>' +
+    '<div class="learning-analysis-grid">' +
+      '<div class="learning-analysis strength"><b>Kelebihan</b><ul>' + (report.kelebihan || []).map(function (item) { return '<li>' + escapePrintHtml(item) + '</li>'; }).join('') + '</ul></div>' +
+      '<div class="learning-analysis improvement"><b>Perlu Ditingkatkan</b><ul>' + (report.perluDitingkatkan || []).map(function (item) { return '<li>' + escapePrintHtml(item) + '</li>'; }).join('') + '</ul></div>' +
+    '</div>' +
+    '<div style="margin-top:3mm;font-size:8.5pt;color:#475569">Penilaian soal objektif menggunakan skor biner: benar = 1 poin dan salah/tidak dijawab = 0 poin. Nilai objektif dihitung dari persentase jawaban benar. Esai tetap mengikuti skor koreksi guru.</div>' +
+    '<div style="margin-top:3mm"><b>Analisis Jawaban Per Soal</b></div>' +
+    (questionRows ? '<table class="analysis-table"><thead><tr><th class="question-cell">Soal / Pernyataan</th><th class="answer-cell">Jawaban Siswa</th><th class="key-cell">Kunci Jawaban</th><th class="result-cell">Hasil</th><th class="score-cell">Skor</th></tr></thead><tbody>' + questionRows + '</tbody></table>' : '<div class="empty-print">Tidak ada detail soal yang dapat ditampilkan untuk data ini.</div>') +
+    '<div class="print-footer"><span>Log pengawasan: ' + escapePrintHtml(report.logPelanggaran || 'Aman') + '</span><span>Dokumen ' + (index + 1) + ' dari ' + total + '</span></div>' +
+    '</section>';
+}
+
+function buildAnalysisPrintHtml(reports, paperSize) {
+  const title = 'LAPORAN ANALISIS HASIL UJIAN';
+  const body = reports.map(function (report, i) { return renderAnalysisReport(report, i, reports.length); }).join('');
+  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + title + '</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">' + getAdminPrintCss(paperSize, false) + '</head><body><main class="print-document"><h1 class="print-title">' + title + '</h1><p class="print-subtitle">CBT-GAS • Dicetak pada ' + escapePrintHtml(new Date().toLocaleString('id-ID')) + ' • Ukuran kertas ' + escapePrintHtml(paperSize) + '</p>' + body + '</main></body></html>';
+}
+
+/** Matriks yang ramah A4/F4: tabel lebar otomatis dipecah per 18–22 nomor. */
+function buildScoreMatrixGroup(reportGroup, paperSize) {
+  const limit = paperSize === 'F4' ? 22 : 18;
+  const questionCount = (reportGroup.soalIds || []).length;
+  const students = reportGroup.siswa || [];
+  if (!questionCount) return '<section><h2>' + escapePrintHtml(reportGroup.mapel) + '</h2><p>Belum ada soal yang dapat dianalisis untuk mata pelajaran ini.</p></section>';
+  const sections = [];
+  for (let start = 0; start < questionCount; start += limit) {
+    const finish = Math.min(questionCount, start + limit);
+    const indexes = Array.from({ length: finish-start }, (_,i) => i+start);
+    let html = '<section class="matrix-page"><h2>REKAP ANALISIS JAWABAN: ' + escapePrintHtml(reportGroup.mapel) +
+      '</h2><p class="matrix-caption">Nomor soal ' + (start+1) + '–' + finish + ' dari ' + questionCount +
+      ' | Benar = 1, Salah / Kosong = 0 | Nilai akhir (0–100) dari server.</p>' +
+      '<table class="score-matrix"><thead><tr><th class="matrix-no">No</th><th class="matrix-nisn">NISN</th><th class="matrix-name">Nama Siswa / Kelas</th>' +
+      indexes.map(i => '<th class="matrix-q">' + (i+1) + '</th>').join('') +
+      '<th>Benar</th><th>Nilai</th></tr></thead><tbody>';
+    html += students.map(function(s,i) {
+      const values = indexes.map(function(k) {return Number((s.poin||[])[k])===1 ? 1 : 0;});
+      return '<tr><td>'+(i+1)+'</td><td>'+escapePrintHtml(s.nisn)+'</td><td class="matrix-name">'+escapePrintHtml(s.nama)+'<small>'+escapePrintHtml(s.kelas)+' • '+escapePrintHtml(s.status)+'</small></td>'+
+        values.map(function(v){return '<td class="matrix-point '+(v?'matrix-correct':'')+'">'+v+'</td>';}).join('') +
+        '<td>'+escapePrintHtml(s.benar)+'/'+escapePrintHtml(s.total)+'</td><td>'+
+        (s.nilaiAkhir == null ? '—' : escapePrintHtml(s.nilaiAkhir))+'</td></tr>';
+    }).join('');
+    html += '</tbody></table><p class="matrix-caption">Menampilkan '+students.length+' siswa. Status “Belum mengerjakan” diberi poin 0 sebagai penanda belum ada jawaban, bukan hasil koreksi.</p></section>';
+    sections.push(html);
+  }
+  return sections.join('');
+}
+function buildScoreMatrixDocument(groups,paperSize) {
+  const css = getAdminPrintCss(paperSize, false);
+  const extra = '<style>@page{size:'+(paperSize==='F4'?'330mm 210mm':'A4 landscape')+';margin:8mm}body{font-family:Arial,Helvetica,sans-serif}.print-document{max-width:none!important;padding:0!important}.matrix-page{page-break-after:always;break-after:page}.matrix-page:last-child{page-break-after:auto}.matrix-page h2{font-size:12pt;margin:4mm 0 2mm;color:#15366b}.matrix-caption{font-size:8pt;margin:2mm 0 3mm;color:#40516a}.score-matrix{width:100%;border-collapse:collapse;table-layout:fixed;font-size:7pt}.score-matrix th,.score-matrix td{border:1px solid #7c92ab;padding:3px 2px;text-align:center;overflow-wrap:anywhere}.score-matrix th{background:#dfeaff;color:#173963}.score-matrix .matrix-no{width:5mm}.score-matrix .matrix-nisn{width:21mm}.score-matrix .matrix-name{width:40mm;text-align:left}.score-matrix td.matrix-name small{display:block;font-size:6pt;color:#64748b}.matrix-point{font-weight:700}.matrix-correct{background:#e4f5e8}@media print{.score-matrix th{print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style>';
+  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Matriks Analisis CBT</title>'+css+extra+'</head><body><main class="print-document">'+groups.map(g=>buildScoreMatrixGroup(g,paperSize)).join('')+'</main></body></html>';
+}
+function matrixFromStudentReports(reports) {
+  return reports.map(function(report) {
+    const questions = report.questions || [];
+    const points = questions.map(function(q) {return Number(q.bobot)>0 && Number(q.skor)>=Number(q.bobot) ? 1 : 0;});
+    return {mapel:report.mapel,soalIds:questions.map(q=>String(q.id)),siswa:[{
+      nisn:report.siswa.nisn,nama:report.siswa.nama,kelas:report.siswa.kelas,
+      poin:points,benar:points.reduce((a,b)=>a+b,0),total:points.length,
+      nilaiAkhir:report.skorEsai>0?report.nilaiAkhir:report.nilaiAkhir,status:report.status
+    }]};
+  });
+}
+function printSelectedAnalysis() {
+  const select = document.getElementById('analysis-student-select');
+  const nisn = select ? select.value : '';
+  if (!nisn) {showToast('Pilih nomor peserta terlebih dahulu.', 'error');return;}
+  const win=openPrintWindowLoading();if(!win)return;
+  const paperSize=getPrintPaperSize();
+  api.call('executeAdminAction',AppStore.user.data.token,'getPrintAnalysisReport',{nisn:nisn,mapelFilter:currentFilterMapel||''})
+    .then(function(res) {
+      const reports=res && Array.isArray(res.reports)?res.reports:res && res.report?[res.report]:[];
+      if(!res || !res.success || !reports.length) throw new Error(res && res.message || 'Data analisis belum tersedia.');
+      writePrintDocument(win,buildScoreMatrixDocument(matrixFromStudentReports(reports),paperSize));
+    }).catch(function(error){writePrintDocument(win,'<!doctype html><html><body style="font-family:Arial;padding:20px">'+escapePrintHtml(error.message||'Gagal memuat data analisis.')+'</body></html>');});
+}
+function printAllAnalysis() {
+  const win=openPrintWindowLoading();if(!win)return;
+  const paperSize=getPrintPaperSize();
+  api.call('executeAdminAction',AppStore.user.data.token,'getPrintAnalysisMatrix',{mapelFilter:currentFilterMapel||''})
+    .then(function(res) {
+      if(!res || !res.success || !res.groups || !res.groups.length) throw new Error('Belum tersedia data mata pelajaran untuk dicetak.');
+      writePrintDocument(win,buildScoreMatrixDocument(res.groups,paperSize));
+    }).catch(function(error){writePrintDocument(win,'<!doctype html><html><body style="font-family:Arial;padding:20px">'+escapePrintHtml(error.message||'Gagal memuat rekap seluruh siswa.')+'</body></html>');});
+}
+
+function printParticipantCards() {
+  if (!Array.isArray(siswaList) || !siswaList.length) {
+    showToast('Data peserta belum termuat. Tekan Refresh lalu coba kembali.', 'error');
+    return;
+  }
+  const win = openPrintWindowLoading();
+  if (!win) return;
+  const schoolTitle = (typeof APP_GLOBAL_CONFIG !== 'undefined' && APP_GLOBAL_CONFIG.nama_ujian) ? APP_GLOBAL_CONFIG.nama_ujian : 'CBT-GAS';
+  const cards = siswaList.slice().sort(function (a, b) { return String(a.nisn).localeCompare(String(b.nisn), 'id', { numeric: true }); });
+  const pages = [];
+  for (let i = 0; i < cards.length; i += 10) {
+    const chunk = cards.slice(i, i + 10);
+    const cardHtml = chunk.map(function (s) {
+      const hasPassword = String(s.password || '').trim().length > 0;
+      const passwordText = hasPassword ? escapePrintHtml(s.password) : 'BELUM DIATUR';
+      const instruction = hasPassword ? 'Login menggunakan NISN dan password akun di atas.' : 'Password akun belum diatur. Minta token ujian kepada pengawas.';
+      return '<article class="participant-card">' +
+        '<p class="card-school">' + escapePrintHtml(schoolTitle) + '</p>' +
+        '<h2 class="card-title">KARTU PESERTA UJIAN</h2>' +
+        '<div class="card-row"><span class="card-label">Nama</span><span class="card-value">' + escapePrintHtml(s.nama) + '</span></div>' +
+        '<div class="card-row"><span class="card-label">NISN</span><span class="card-value">' + escapePrintHtml(s.nisn) + '</span></div>' +
+        '<div class="card-row"><span class="card-label">Kelas</span><span class="card-value">' + escapePrintHtml(s.kelas) + '</span></div>' +
+        '<div class="card-password"><b>Password:</b> ' + passwordText + '</div>' +
+        '<div class="card-instruction">' + escapePrintHtml(instruction) + '</div>' +
+        '</article>';
+    }).join('');
+    pages.push('<section class="card-page"><div class="participant-card-grid">' + cardHtml + '</div></section>');
+  }
+  const html = '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kartu Peserta Ujian</title>' + getAdminPrintCss('A4', true) + '</head><body><main class="print-document">' + pages.join('') + '</main></body></html>';
+  writePrintDocument(win, html);
+}
+</script>

@@ -1,0 +1,522 @@
+<script>
+let nilaiList = [];
+let currentKoreksiNisn = null;
+let currentFilterMapel = '';
+
+function filterMapelChange(val) {
+  currentFilterMapel = val;
+  renderTabelNilai();
+  if (typeof loadPrintAnalysisIndex === 'function') loadPrintAnalysisIndex();
+}
+
+function toggleInfoPenilaian() {
+  const box = document.getElementById('info-penilaian-box');
+  if (box) {
+    if (box.style.display === 'none') {
+      box.style.display = 'flex';
+      event.currentTarget.innerHTML = '<i class="fas fa-times"></i> Tutup Informasi';
+    } else {
+      box.style.display = 'none';
+      event.currentTarget.innerHTML = '<i class="fas fa-info-circle"></i> Lihat Cara Penghitungan Nilai';
+    }
+  }
+}
+
+function initAdminNilai() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  loadNilai();
+}
+
+function loadNilai() {
+  api.call('executeAdminAction', AppStore.user.data.token, 'getRekapNilai', {}).then(res => {
+    nilaiList = res || [];
+    
+    const selMapel = document.getElementById('filter-mapel');
+    if (selMapel) {
+      const uniqueMapel = [...new Set(nilaiList.map(item => item.mapel).filter(Boolean))].sort();
+      selMapel.innerHTML = '<option value="">Semua Mata Pelajaran</option>';
+      uniqueMapel.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.innerText = m;
+        if (m === currentFilterMapel) opt.selected = true;
+        selMapel.appendChild(opt);
+      });
+    }
+
+    renderTabelNilai();
+    if (typeof loadPrintAnalysisIndex === 'function') loadPrintAnalysisIndex();
+  }).catch(() => showToast('Gagal memuat rekap nilai', 'error'));
+}
+
+function renderTabelNilai() {
+  if ($.fn.DataTable.isDataTable('#tbl-nilai')) {
+    $('#tbl-nilai').DataTable().clear().destroy();
+  }
+
+  const tbody = document.querySelector('#tbl-nilai tbody');
+  tbody.innerHTML = '';
+  
+  let filteredList = [...nilaiList];
+  if (currentFilterMapel) {
+    filteredList = filteredList.filter(n => n.mapel === currentFilterMapel);
+  }
+  
+  if (filteredList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(8, 'Tidak ada respon ujian sesuai filter.', 'fa-chart-bar');
+    return;
+  }
+  
+  const reversed = filteredList.reverse();
+  
+  reversed.forEach(n => {
+    const tr = document.createElement('tr');
+    
+    let statusLabel = n.status;
+    let stStyle = '';
+    if(statusLabel === 'Belum Dikoreksi') stStyle = 'color: var(--danger); font-weight:bold;';
+    else if(statusLabel === 'Selesai') stStyle = 'color: var(--success); font-weight:bold;';
+    
+    let btnHTML = '';
+    if(statusLabel === 'Belum Dikoreksi') {
+      btnHTML = `<button class="btn btn-primary" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="bukaKoreksi('${n.nisn}')">Koreksi Esai</button>`;
+    } else {
+      if (n.adaEsai) {
+        btnHTML = `<button class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="bukaKoreksi('${n.nisn}')">Re-Koreksi</button>`;
+      } else {
+        btnHTML = `<button class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.75rem; opacity:0.5; cursor:not-allowed;" title="Tidak ada soal Esai pada Ujian ini" disabled>Tidak Ada Esai</button>`;
+      }
+    }
+    
+    let logTitle = n.logP !== 'Aman' ? `title="${n.logP}" style="color:red;"` : `title="Aman"`;
+    let logIcon = (n.logP !== 'Aman' && statusLabel !== 'Selesai') ? `<i class="fas fa-exclamation-triangle cursor-help" ${logTitle}></i>` : '';
+    
+    tr.innerHTML = `
+      <td style="font-size:0.875rem;">${n.timestamp}</td>
+      <td>${n.nisn}</td>
+      <td>${n.nama} <br><small style="color:gray;">Kelas: ${n.kelas}</small></td>
+      <td>${n.mapel}</td>
+      <td>${n.skorObjektif}</td>
+      <td>${n.skorEsai}</td>
+      <td style="font-weight:bold; font-size:1.1rem;">${n.nilaiAkhir}</td>
+      <td>
+        <div style="margin-bottom:0.25rem; font-size:0.875rem; ${stStyle}">${statusLabel} ${logIcon}</div>
+        ${btnHTML}
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  $('#tbl-nilai').DataTable({
+    destroy: true,
+    order: [],
+    language: {
+      search: 'Cari:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data tersedia',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan data yang sesuai'
+    },
+    columnDefs: [
+      { orderable: false, targets: [7] }
+    ],
+    pageLength: 10
+  });
+}
+
+function exportExcel() {
+  let filteredList = [...nilaiList];
+  if (currentFilterMapel) filteredList = filteredList.filter(n => n.mapel === currentFilterMapel);
+  if (!filteredList.length) {
+    showToast('Tidak ada data untuk diekspor.', 'error');
+    return;
+  }
+  if (typeof XLSX === 'undefined') {
+    showToast('Komponen Excel belum termuat. Muat ulang halaman lalu coba kembali.', 'error');
+    return;
+  }
+
+  const rows = filteredList.map(n => ({
+    'Waktu Selesai': n.timestamp || '-',
+    'NISN': String(n.nisn || ''),
+    'Nama Lengkap': n.nama || '',
+    'Kelas': n.kelas || '',
+    'Mata Pelajaran': n.mapel || '',
+    'Skor Objektif': Number(n.skorObjektif) || 0,
+    'Skor Esai': Number(n.skorEsai) || 0,
+    'Nilai Akhir': Number(n.nilaiAkhir) || 0,
+    'Status': n.status || '',
+    'Log Pelanggaran': n.logP || 'Aman'
+  }));
+  const worksheet = XLSX.utils.json_to_sheet(rows);
+  worksheet['!cols'] = [
+    { wch: 21 }, { wch: 16 }, { wch: 30 }, { wch: 14 }, { wch: 24 },
+    { wch: 15 }, { wch: 12 }, { wch: 13 }, { wch: 18 }, { wch: 32 }
+  ];
+  if (worksheet['!ref']) worksheet['!autofilter'] = { ref: worksheet['!ref'] };
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Rekap Nilai');
+  const fileNameMapel = currentFilterMapel ? '_' + currentFilterMapel.replace(/[^a-zA-Z0-9_-]/g, '_') : '';
+  XLSX.writeFile(workbook, 'Rekap_Nilai_CBT' + fileNameMapel + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+  showToast('File Excel (.xlsx) berhasil disiapkan.', 'success');
+}
+
+function arsipkanData() {
+  let msg = 'Apakah Anda yakin ingin MENGARSIPKAN SELURUH DATA JAWABAN saat ini? Data yang diarsipkan tidak akan tampil lagi di tabel ini secara default untuk menjaga kecepatan aplikasi.';
+  if (currentFilterMapel) {
+    msg = `Apakah Anda yakin ingin MENGARSIPKAN SELURUH DATA JAWABAN KHUSUS MATA PELAJARAN "${currentFilterMapel}"?`;
+  }
+  
+  if (!confirm(msg)) return;
+  
+  showToast('Sedang memproses arsip... harap tunggu.', 'info');
+  api.call('executeAdminAction', AppStore.user.data.token, 'archiveJawaban', { mapelFilter: currentFilterMapel })
+    .then(res => {
+      if(res.success) {
+        showToast(res.message, 'success');
+        currentFilterMapel = '';
+        const selMapel = document.getElementById('filter-mapel');
+        if (selMapel) selMapel.value = '';
+        loadNilai(); 
+      } else {
+        showToast(res.message, 'error');
+      }
+    })
+    .catch(err => {
+      showToast('Terjadi kesalahan koneksi saat mengarsipkan data.', 'error');
+    });
+}
+
+function unarchiveData() {
+  let msg = 'Apakah Anda yakin ingin MENGEMBALIKAN SELURUH DATA JAWABAN DARI ARSIP ke tabel utama?';
+  if (currentFilterMapel) {
+    msg = `Apakah Anda yakin ingin MENGEMBALIKAN ARSIP KHUSUS MATA PELAJARAN "${currentFilterMapel}" ke tabel utama?`;
+  }
+  
+  if (!confirm(msg)) return;
+  
+  showToast('Sedang memproses pengembalian arsip... harap tunggu.', 'info');
+  api.call('executeAdminAction', AppStore.user.data.token, 'unarchiveJawaban', { mapelFilter: currentFilterMapel })
+    .then(res => {
+      if(res.success) {
+        showToast(res.message, 'success');
+        currentFilterMapel = '';
+        const selMapel = document.getElementById('filter-mapel');
+        if (selMapel) selMapel.value = '';
+        loadNilai(); 
+      } else {
+        showToast(res.message, 'error');
+      }
+    })
+    .catch(err => {
+      showToast('Terjadi kesalahan koneksi saat mengembalikan arsip.', 'error');
+    });
+}
+
+function cekStatusArsip() {
+  const modal = document.getElementById('modal-arsip');
+  const container = document.getElementById('arsip-container');
+  
+  if (!modal || !container) return;
+  
+  modal.classList.remove('hidden');
+  container.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Memuat status arsip...</div>';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'getArsipStats', {})
+    .then(res => {
+      if (res.success) {
+        let statsHtml = '';
+        const mapelKeys = Object.keys(res.stats);
+        
+        if (mapelKeys.length === 0) {
+          statsHtml = '<div style="text-align:center; padding:2rem; color:#6B7280;"><i class="fas fa-folder-open mb-2" style="font-size:2rem; color:#9CA3AF;"></i><br>Tidak ada satupun jawaban yang diarsipkan saat ini.</div>';
+        } else {
+          statsHtml = '<table style="width:100%; border-collapse:collapse; margin-top:0.5rem;">';
+          statsHtml += '<thead><tr style="background:#F3F4F6; border-bottom:2px solid #E5E7EB; text-align:left;">';
+          statsHtml += '<th style="padding:0.75rem; font-weight:600; color:#4B5563;">Mata Pelajaran</th>';
+          statsHtml += '<th style="padding:0.75rem; font-weight:600; color:#4B5563; text-align:right;">Jumlah Data</th>';
+          statsHtml += '</tr></thead><tbody>';
+          
+          let totalData = 0;
+          mapelKeys.forEach(mapel => {
+            const count = res.stats[mapel];
+            totalData += count;
+            statsHtml += `<tr style="border-bottom:1px solid #E5E7EB;">
+              <td style="padding:0.75rem; color:#1F2937;">${mapel}</td>
+              <td style="padding:0.75rem; text-align:right; font-weight:bold; color:#047857;">${count} Data</td>
+            </tr>`;
+          });
+          
+          statsHtml += `<tr style="background:#F9FAFB; font-weight:bold;">
+            <td style="padding:0.75rem; color:#111827;">Total Keseluruhan</td>
+            <td style="padding:0.75rem; text-align:right; color:#111827;">${totalData} Data</td>
+          </tr>`;
+          
+          statsHtml += '</tbody></table>';
+        }
+        
+        container.innerHTML = statsHtml;
+      } else {
+        container.innerHTML = `<div style="color:red; text-align:center;">Gagal memuat status arsip: ${res.message}</div>`;
+      }
+    })
+    .catch(err => {
+      container.innerHTML = `<div style="color:red; text-align:center;">Terjadi kesalahan koneksi saat memuat arsip.</div>`;
+    });
+}
+
+function tutupModalArsip() {
+  const modal = document.getElementById('modal-arsip');
+  if (modal) modal.classList.add('hidden');
+}
+
+function bukaKoreksi(nisn) {
+  currentKoreksiNisn = nisn;
+  const reversed = [...nilaiList].reverse();
+  const dataSiswa = reversed.find(x => String(x.nisn) === String(nisn));
+  if(!dataSiswa) return;
+  
+  document.getElementById('koreksi-nama').innerText = dataSiswa.nama;
+  document.getElementById('koreksi-nisn').innerText = dataSiswa.nisn;
+  document.getElementById('koreksi-skorobj').innerText = dataSiswa.skorObjektif;
+  
+  const container = document.getElementById('esai-container');
+  container.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Memuat data jawaban...</div>';
+  document.getElementById('modal-koreksi').classList.remove('hidden');
+  
+  Promise.all([
+    api.call('executeAdminAction', AppStore.user.data.token, 'getAllSoal', { bypassCache: false }), 
+    api.call('executeAdminAction', AppStore.user.data.token, 'getJawabanSiswa', { nisn: nisn }),
+    api.call('executeAdminAction', AppStore.user.data.token, 'getConfig', {})
+  ]).then(results => {
+    let soalList = results[0];
+    const fetchRespon = results[1] || {}; 
+    const config = results[2] || {};
+    
+    if (config.mapel_ujian) {
+      soalList = soalList.filter(s => s.mapel === config.mapel_ujian);
+    }
+    
+    const rawRespon = fetchRespon.jawaban || {};
+    const detailSkor = fetchRespon.detailSkor || {};
+    
+    if(Object.keys(rawRespon).length > 0) {
+        renderFormKoreksi(soalList, rawRespon, detailSkor, dataSiswa.skorEsai);
+    } else {
+        container.innerHTML = `Jawaban mentah tidak termuat. 
+        <br><br>
+        <div class="form-group">
+          <label>Override Skor Esai Manual:</label>
+          <input type="number" id="in-skor-esai" class="form-control" style="font-size:1.25rem; font-weight:bold" value="${dataSiswa.skorEsai}" onfocus="this.select()">
+        </div>`;
+    }
+    
+  }).catch(err => {
+    container.innerHTML = `<div class="text-center" style="color:red;">Gagal memuat jawaban mentah: ${err}</div>`;
+  });
+}
+
+function renderFormKoreksi(soalList, jawabanObj, detailSkorObj, currentSkorEsai) {
+  const container = document.getElementById('esai-container');
+  container.innerHTML = '';
+  
+  const soalIsian = soalList.filter(s => s.tipe === 'Isian Singkat');
+  const soalEsai = soalList.filter(s => s.tipe === 'Esai');
+  
+  if(soalIsian.length === 0 && soalEsai.length === 0) {
+    container.innerHTML = `<div class="mb-4">Tidak ada soal Esai / Isian Singkat pada Ujian ini.</div>
+    <div class="form-group"><label>Skor Tambahan / Bonus (Opsional):</label>
+    <input type="number" id="in-skor-esai" class="form-control" value="0" onfocus="this.select()"></div>`;
+    return;
+  }
+  
+  container.innerHTML = `
+    <div class="mb-4 text-right">
+      <strong>Total Bobot Keseluruhan Esai & Isian:</strong> <span id="total-bobot-esai"></span>
+    </div>
+  `;
+  
+  let totalBobotIsian = 0;
+  let totalBobotEsai = 0;
+
+  const renderSoalGroup = (list, title, isEsai, subtitle = '') => {
+    if(list.length === 0) return;
+    const header = document.createElement('h4');
+    header.style.cssText = 'margin-top:1.5rem; margin-bottom:0.5rem; border-bottom:2px solid #E5E7EB; padding-bottom:0.5rem; color:#374151;';
+    header.innerText = title;
+    container.appendChild(header);
+
+    if (subtitle) {
+      const sub = document.createElement('div');
+      sub.style.cssText = 'font-size:0.875rem; color:#4B5563; margin-bottom:1rem; background:#F3F4F6; padding:0.5rem; border-left:3px solid var(--primary);';
+      sub.innerHTML = subtitle;
+      container.appendChild(sub);
+    }
+
+    list.forEach((s, idx) => {
+      const b = (s.bobot || 1);
+      if (isEsai) totalBobotEsai += b; else totalBobotIsian += b;
+
+      const jwbRaw = jawabanObj[s.id];
+      const jwbTampil = jwbRaw ? FrontendSecurity.renderSafeHtml(String(jwbRaw)) : '<span style="color:gray;"><i>Siswa tidak menjawab</i></span>';
+      
+      const skorSebelumnya = detailSkorObj[s.id] !== undefined ? detailSkorObj[s.id] : 0;
+      
+      
+      let imgHtml = '';
+      if (s.url_gambar) {
+        imgHtml = `
+          <div id="koreksi-img-container-${s.id}" style="margin-bottom:1rem; text-align:center;">
+            <div id="koreksi-img-loading-${s.id}" style="color:var(--primary); font-size:14px; margin-bottom:8px;">
+              <i class="fas fa-spinner fa-spin"></i> Memuat gambar soal...
+            </div>
+            <img id="koreksi-img-${s.id}" style="max-width:100%; max-height:250px; border-radius:6px; display:none; border: 1px solid #E5E7EB;" alt="Gambar Soal">
+          </div>
+        `;
+      }
+      
+      let divSoal = document.createElement('div');
+      divSoal.style.padding = '1rem';
+      divSoal.style.border = '1px solid #D1D5DB';
+      divSoal.style.borderRadius = '8px';
+      divSoal.style.marginBottom = '1.5rem';
+      
+      divSoal.innerHTML = `
+        <div style="font-weight:bold; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+          <span>Soal ${idx + 1}</span>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="color:var(--primary); font-size:0.875rem;">Bobot Maks: ${b}</span>
+            <input type="number" class="form-control skor-item" data-id="${s.id}" data-bobot="${b}" min="0" max="${b}" value="${skorSebelumnya}" style="width:80px; text-align:center; padding:0.25rem; font-weight:bold;" placeholder="Skor" oninput="validasiSkorInput(this)" onfocus="this.select()">
+          </div>
+        </div>
+        <div style="background:#F9FAFB; padding:0.75rem; border-radius:4px; font-size:0.9rem; margin-bottom:1rem;">
+          ${imgHtml}
+          ${FrontendSecurity.renderSafeHtml(s.pertanyaan)}
+        </div>
+        <div style="font-weight:600; margin-bottom:0.5rem;">Jawaban Siswa:</div>
+        <div style="padding:1rem; border:1px solid #E5E7EB; border-radius:4px; background:white; min-height:80px; white-space:pre-wrap; margin-bottom:1rem;">${jwbTampil}</div>
+        
+        <div style="background:#F0FDFA; padding:0.75rem; border-radius:4px; font-size:0.875rem; margin-bottom:1rem;">
+          <strong>Pedoman Guru / Kunci:</strong><br>
+          ${FrontendSecurity.renderSafeHtml(s.kunci_jawaban || '-')}
+        </div>
+      `;
+      container.appendChild(divSoal);
+
+      
+      if (s.url_gambar) {
+        google.script.run
+          .withSuccessHandler(function(dataUri) {
+            const loadEl = document.getElementById('koreksi-img-loading-' + s.id);
+            const imgEl = document.getElementById('koreksi-img-' + s.id);
+            if (loadEl) loadEl.remove();
+            if (imgEl && dataUri) {
+              imgEl.src = dataUri;
+              imgEl.style.display = 'inline-block';
+            } else if (imgEl) {
+              imgEl.alt = 'Gambar tidak dapat dimuat';
+              imgEl.style.display = 'inline-block';
+            }
+          })
+          .withFailureHandler(function() {
+            const loadEl = document.getElementById('koreksi-img-loading-' + s.id);
+            const imgEl = document.getElementById('koreksi-img-' + s.id);
+            if (loadEl) loadEl.remove();
+            if (imgEl) {
+              imgEl.alt = 'Gagal memuat gambar';
+              imgEl.style.display = 'inline-block';
+            }
+          })
+          .getImageBase64(s.url_gambar);
+      }
+    });
+  };
+
+  renderSoalGroup(soalIsian, 'Bagian Isian Singkat', false, '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:4px;"></i> Informasi: Teks isian singkat sudah dikoreksi otomatis. Namun guru dapat menyesuaikan ulang skor secara manual untuk memberikan toleransi jika ada salah ketik (typo) atau ejaan yang masih bernilai benar.');
+  renderSoalGroup(soalEsai, 'Bagian Esai', true);
+  
+  document.getElementById('total-bobot-esai').innerText = (totalBobotIsian + totalBobotEsai);
+  
+  const inpDiv = document.createElement('div');
+  inpDiv.className = 'form-group mt-4 p-4';
+  inpDiv.style.background = '#FFFBEB';
+  inpDiv.style.border = '1px dashed #F59E0B';
+  inpDiv.innerHTML = `
+    <div style="color:#B45309; font-size:0.875rem; margin-bottom:1rem;">
+      *Catatan: Masukkan skor pada masing-masing kotak soal di atas. Total skor akan dikalkulasi secara otomatis saat Anda menyimpan. Batas maksimal skor gabungan adalah <b>${totalBobotIsian + totalBobotEsai}</b>.
+    </div>
+  `;
+  container.appendChild(inpDiv);
+}
+
+function closeKoreksiModal() {
+  currentKoreksiNisn = null;
+  document.getElementById('modal-koreksi').classList.add('hidden');
+}
+
+function simpanKoreksi() {
+  const inputs = document.querySelectorAll('.skor-item');
+  let skorTotal = 0;
+  let detailSkor = {};
+  
+  for(let inp of inputs) {
+    const s = parseInt(inp.value, 10) || 0;
+    const b = parseInt(inp.getAttribute('data-bobot'), 10) || 0;
+    const id = inp.getAttribute('data-id');
+    
+    if(s < 0) {
+      alert('Skor tidak valid. Harus angka positif.');
+      return;
+    }
+    if(s > b) {
+      alert(`Skor untuk soal tidak boleh melebihi bobot maksimal (${b}).`);
+      return;
+    }
+    
+    skorTotal += s;
+    detailSkor[id] = s;
+  }
+  
+  const reversed = [...nilaiList].reverse();
+  const dataSiswa = reversed.find(x => String(x.nisn) === String(currentKoreksiNisn));
+  if (dataSiswa) {
+    const totalPoin = Number(dataSiswa.skorObjektif) + skorTotal;
+    if (!confirm('Perhatian: Total poin yang diperoleh siswa menjadi: ' + totalPoin + ' (Objektif: ' + dataSiswa.skorObjektif + ' + Esai: ' + skorTotal + '). Nilai akhir (0-100) akan dihitung otomatis oleh sistem berdasarkan total bobot maksimal ujian. Lanjutkan?')) {
+      return;
+    }
+  }
+  
+  const btn = document.getElementById('btn-save-koreksi');
+  btn.disabled = true; btn.innerText = 'Menyimpan...';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'saveEssayScore', { nisn: currentKoreksiNisn, skor: skorTotal, detailSkor: detailSkor }).then(res => {
+    if(res.success) {
+      showToast('Koreksi berhasil disimpan', 'success');
+      closeKoreksiModal();
+      loadNilai(); 
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).finally(() => {
+    btn.disabled = false; btn.innerText = 'Simpan Skor Esai';
+  });
+}
+
+function validasiSkorInput(el) {
+  let val = parseInt(el.value, 10);
+  const max = parseInt(el.getAttribute('data-bobot'), 10) || 0;
+  
+  if (isNaN(val)) return;
+  
+  if (val > max) {
+    showToast(`Peringatan: Skor tidak boleh melebihi bobot maksimal (${max})!`, 'error');
+    el.value = max;
+  } else if (val < 0) {
+    el.value = 0;
+  }
+}
+</script>

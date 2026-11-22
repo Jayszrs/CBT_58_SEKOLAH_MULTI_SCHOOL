@@ -1,0 +1,58 @@
+<div class="dashboard-layout">
+  
+  <div class="sidebar-container-slot"></div>
+  
+  <div class="main-content">
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn btn-outline btn-hamburger hidden-desktop" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar"><i class="fas fa-bars"></i></button>
+        <div class="page-header-info">
+          <nav class="breadcrumb">Admin <span><i class="fas fa-chevron-right"></i></span> Kelas</nav>
+          <h2>Manajemen Daftar Kelas</h2>
+        </div>
+      </div>
+      <div class="page-header-actions">
+        <button class="btn btn-primary" onclick="openKelasModal()"><i class="fas fa-plus"></i> Tambah Kelas</button>
+      </div>
+    </div>
+    
+    <div class="table-container" style="overflow-x: auto;">
+      <table id="tbl-kelas">
+        <thead>
+          <tr>
+            <th width="10%">No</th>
+            <th width="30%">Kode/ID Kelas</th>
+            <th width="40%">Nama Kelas</th>
+            <th width="20%">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div id="modal-kelas" class="hidden" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; display:flex; justify-content:center; align-items:center;">
+  <div class="glass-panel" style="background:white; width:90%; max-width:500px; padding:2rem;">
+    <h3 class="mb-4" id="modal-kelas-title">Tambah Kelas</h3>
+    
+    <form id="frm-kelas" onsubmit="event.preventDefault(); saveKelasAction();">
+      <div class="form-group mb-4">
+        <label>Kode / ID Kelas (Unik - Otomatis)</label>
+        <input type="text" id="kelas-id" class="form-control" required readonly style="background-color: #f3f4f6; color: #6b7280; cursor: not-allowed;" placeholder="Dihasilkan Otomatis">
+      </div>
+      <div class="form-group mb-4">
+        <label>Nama Kelas (Opsional/Deskripsi)</label>
+        <input type="text" id="kelas-nama" class="form-control" placeholder="Contoh: Kelas 10 MIPA A">
+      </div>
+      
+      <div class="flex justify-between mt-4 border-t pt-4">
+        <button type="button" class="btn btn-outline" onclick="closeKelasModal()">Batal</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-kelas">Simpan Kelas</button>
+      </div>
+    </form>
+  </div>
+</div>

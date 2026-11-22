@@ -1,0 +1,167 @@
+<script>
+let kelasMode = 'create';
+let kelasList = [];
+let currentEditIdKelas = '';
+
+function initAdminKelas() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  loadDataKelas();
+}
+
+function loadDataKelas() {
+  const tbody = document.querySelector('#tbl-kelas tbody');
+  if ($.fn.DataTable.isDataTable('#tbl-kelas')) {
+    $('#tbl-kelas').DataTable().destroy();
+  }
+  tbody.innerHTML = '<tr><td colspan="4" class="text-center" style="padding: 2rem;"><i class="fas fa-spinner fa-spin text-2xl" style="color:var(--primary)"></i><br><span style="margin-top:0.5rem;display:inline-block;">Memuat data kelas...</span></td></tr>';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'getKelas', {}).then(res => {
+    kelasList = res || [];
+    renderTabelKelas();
+  }).catch(() => {
+    tbody.innerHTML = '<tr><td colspan="4" class="text-center text-red-500">Gagal memuat data kelas.</td></tr>';
+    showToast('Gagal memuat data kelas', 'error');
+  });
+}
+
+function renderTabelKelas() {
+  const tbody = document.querySelector('#tbl-kelas tbody');
+  
+  if ($.fn.DataTable.isDataTable('#tbl-kelas')) {
+    $('#tbl-kelas').DataTable().clear().destroy();
+  }
+
+  tbody.innerHTML = '';
+  
+  if (kelasList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(4, 'Belum ada data kelas terdaftar.', 'fa-chalkboard');
+    return;
+  }
+  
+  kelasList.forEach((k, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><strong>${k.id}</strong></td>
+      <td>${k.nama}</td>
+      <td style="white-space:nowrap; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:0.25rem;">
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="editKelas('${k.id}')"><i class="fas fa-edit" style="color:var(--primary)"></i></button>
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="deleteThisKelas('${k.id}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  $('#tbl-kelas').DataTable({
+    destroy: true,
+    language: {
+      search: 'Cari Kelas:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan kelas'
+    },
+    columnDefs: [
+      { orderable: false, targets: [0, 3] }
+    ],
+    pageLength: 10
+  });
+}
+
+function generateRandomKelasId() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = 'KLS-';
+  for (let i = 0; i < 5; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function openKelasModal() {
+  kelasMode = 'create';
+  document.getElementById('modal-kelas-title').innerText = 'Tambah Kelas';
+  document.getElementById('frm-kelas').reset();
+  document.getElementById('kelas-id').value = generateRandomKelasId();
+  document.getElementById('modal-kelas').classList.remove('hidden');
+}
+
+function closeKelasModal() {
+  document.getElementById('modal-kelas').classList.add('hidden');
+}
+
+function editKelas(idKelas) {
+  const k = kelasList.find(x => String(x.id) === String(idKelas));
+  if (!k) return;
+  
+  kelasMode = 'edit';
+  currentEditIdKelas = String(idKelas);
+  document.getElementById('modal-kelas-title').innerText = 'Edit Kelas';
+  document.getElementById('kelas-id').value = k.id;
+  document.getElementById('kelas-nama').value = k.nama;
+  
+  document.getElementById('modal-kelas').classList.remove('hidden');
+}
+
+function saveKelasAction() {
+  const elId = document.getElementById('kelas-id');
+  const elNama = document.getElementById('kelas-nama');
+  
+  const isIdValid = validateField(elId, { required: true, minLength: 3 });
+  const isNamaValid = validateField(elNama, { required: true, minLength: 3 });
+  
+  if (!isIdValid || !isNamaValid) return;
+
+  const payload = {
+    id: elId.value.trim(),
+    nama: elNama.value.trim()
+  };
+  
+  const btn = document.getElementById('btn-save-kelas');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+  
+  const targetId = kelasMode === 'edit' ? currentEditIdKelas : '';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'saveKelas', { idLama: targetId, data: payload }).then(res => {
+    if (res.success) {
+      showToast('Data kelas disimpan', 'success');
+      closeKelasModal();
+      loadDataKelas(); 
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Simpan Kelas';
+  });
+}
+
+function deleteThisKelas(idKelas) {
+  openConfirmModal(
+    'Hapus Kelas', 
+    `Yakin hapus kelas <strong>${idKelas}</strong>?<br><small style="color:gray;">Siswa di kelas ini tidak akan dihapus, tetapi relasi kelasnya mungkin bermasalah jika diedit nantinya.</small>`,
+    '<i class="fas fa-trash"></i> Hapus Kelas',
+    () => {
+      const originalText = document.body.style.cursor;
+      document.body.style.cursor = 'wait';
+      
+      api.call('executeAdminAction', AppStore.user.data.token, 'deleteKelas', { id: idKelas }).then(res => {
+        if (res.success) {
+          showToast('Kelas berhasil dihapus', 'success');
+          loadDataKelas();
+        } else {
+          showToast('Gagal menghapus kelas', 'error');
+        }
+      }).finally(() => {
+        document.body.style.cursor = originalText;
+      });
+    }
+  );
+}
+</script>

@@ -1,0 +1,37 @@
+<script>
+function initAdminDashboard() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  
+  loadStatistik();
+}
+
+function loadStatistik() {
+  api.call('executeAdminAction', AppStore.user.data.token, 'getStatistik', {}).then(res => {
+    document.getElementById('stat-siswa').innerText = res.totalSiswa || 0;
+    document.getElementById('stat-soal').innerText = res.totalSoal || 0;
+    document.getElementById('stat-ujian').innerText = res.sudahUjian || 0;
+    document.getElementById('stat-koreksi').innerText = res.belumKoreksi || 0;
+  }).catch(() => {
+    showToast('Gagal memuat statistik. Sesi mungkin berakhir.', 'error');
+    navigateTo('admin-login');
+  });
+}
+
+function doAdminLogout() {
+  AppStore.user = null;
+  localStorage.removeItem('CBT_SESSION');
+  navigateTo('admin-login');
+}
+
+function confirmAdminLogout() {
+  openConfirmModal(
+    'Konfirmasi Logout',
+    'Apakah Anda yakin ingin keluar dari sesi admin?',
+    'Keluar',
+    doAdminLogout
+  );
+}
+</script>

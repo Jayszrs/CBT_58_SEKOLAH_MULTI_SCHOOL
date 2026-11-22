@@ -1,0 +1,165 @@
+<style>
+  .student-login-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #102C62; /* Biru tua solid: tanpa pola atau gradien */
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .student-login-card {
+    background: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .student-login-card h2 {
+    color: #1F2937;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+  
+  .student-login-card p.subtitle {
+    color: #4B5563;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .student-login-card .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .student-login-card label {
+    display: block;
+    color: #374151;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  
+  .student-login-card .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #111827;
+    background-color: #fff;
+    transition: all 0.2s;
+  }
+  
+  .student-login-card .form-control:focus {
+    outline: none;
+    border-color: #007A7C;
+    box-shadow: 0 0 0 3px rgba(0, 122, 124, 0.1);
+  }
+  
+  .student-login-card .form-control::placeholder {
+    color: #9CA3AF;
+  }
+  
+  .student-login-card .btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007A7C;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 122, 124, 0.2), 0 2px 4px -1px rgba(0, 122, 124, 0.1);
+  }
+  
+  .student-login-card .btn-login:hover {
+    background-color: #006668;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(0, 122, 124, 0.3), 0 3px 6px -1px rgba(0, 122, 124, 0.2);
+  }
+  
+  .student-login-card .footer-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6B7280;
+    margin-top: 1.5rem;
+  }
+  
+  .student-login-card .admin-link {
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  
+  .student-login-card .admin-link:hover {
+    color: #4B5563;
+  }
+</style>
+
+<noscript>
+  <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #102C62; z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; font-family: sans-serif; padding: 20px;">
+    <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #F59E0B; margin-bottom: 2rem;"></i>
+    <h1 style="font-size: 2rem; margin-bottom: 1rem;">JavaScript Dinonaktifkan</h1>
+    <p style="font-size: 1.1rem; color: #9CA3AF; max-width: 600px; line-height: 1.6;">
+      Sistem ujian ini memerlukan JavaScript untuk berfungsi dengan benar. 
+      Fitur keamanan dan anti-curang tidak dapat dijalankan jika JavaScript dimatikan.
+    </p>
+    <div style="margin-top: 2rem; padding: 1.5rem; border: 1px dashed #4B5563; border-radius: 8px; background: rgba(255,255,255,0.05);">
+      <p style="margin-bottom: 0;">Silakan aktifkan JavaScript di pengaturan browser Anda dan muat ulang halaman ini untuk melanjutkan.</p>
+    </div>
+  </div>
+</noscript>
+
+<div class="student-login-bg">
+  <div class="student-login-card fade-in">
+    <div id="student-login-logo-container" style="text-align: center; margin-bottom: 1rem; display: none;">
+      <img id="student-login-logo" src="" alt="Logo" style="max-height: 80px; width: auto; object-fit: contain;">
+    </div>
+    <h2>CBT-GAS</h2>
+    <p class="subtitle">Portal Ujian Siswa</p>
+    
+    <form id="frm-student-login" onsubmit="event.preventDefault(); doStudentLogin();">
+      <div class="form-group">
+        <label for="nisn">NISN</label>
+        <input type="text" id="nisn" class="form-control" required placeholder="Masukkan NISN Anda" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <label for="token">Password Akun / Token Ujian</label>
+        <input type="password" id="token" class="form-control" required placeholder="Masukkan password pada kartu peserta" autocomplete="off">
+      </div>
+      
+      <button type="submit" id="btn-student-login" class="btn-login">
+        Masuk Ujian <i class="fas fa-sign-in-alt"></i>
+      </button>
+    </form>
+    
+    <div class="footer-text">
+      Sistem diawasi. Dilarang melakukan kecurangan.
+      <div>
+        <a href="#" onclick="event.preventDefault(); navigateTo('admin-login');" class="admin-link">
+          <i class="fas fa-user-shield"></i> Login Admin
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

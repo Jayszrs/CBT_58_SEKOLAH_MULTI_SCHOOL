@@ -1,0 +1,419 @@
+<div class="dashboard-layout">
+  
+  <div class="sidebar-container-slot"></div>
+  
+  <div class="main-content">
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn btn-outline btn-hamburger hidden-desktop" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar"><i class="fas fa-bars"></i></button>
+        <div class="page-header-info">
+          <nav class="breadcrumb">Admin <span><i class="fas fa-chevron-right"></i></span> Bank Soal</nav>
+          <h2>Manajemen Bank Soal</h2>
+        </div>
+      </div>
+      <div class="page-header-actions" id="bank-soal-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-outline" id="btn-hapus-terpilih" style="display: none; color: var(--danger); border-color: var(--danger);" onclick="deleteSelectedSoal()"><i class="fas fa-trash"></i> Hapus Terpilih</button>
+        <button class="btn btn-outline" onclick="downloadImportTemplate()"><i class="fas fa-file-excel"></i> Template Excel</button>
+        <button class="btn btn-outline" onclick="openImportSoalModal()"><i class="fas fa-file-import"></i> Import Excel</button>
+        <button class="btn btn-outline" onclick="exportBankSoalExcel()"><i class="fas fa-file-export"></i> Export Excel</button>
+        <button class="btn btn-primary" onclick="openSoalModal()"><i class="fas fa-plus"></i> Tambah Soal</button>
+      </div>
+      <div class="page-header-actions hidden" id="paket-soal-actions" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button class="btn btn-primary" onclick="openPaketModal()"><i class="fas fa-plus"></i> Buat Paket Baru</button>
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #E5E7EB; display: flex; gap: 1rem;">
+      <button class="btn btn-tab active" id="tab-bank-soal" onclick="switchTab('bank')">Bank Soal</button>
+      <button class="btn btn-tab" id="tab-paket-soal" onclick="switchTab('paket')">Paket Soal</button>
+    </div>
+
+    <div id="container-bank-soal">
+      <div class="table-container">
+        <table id="tbl-soal">
+          <thead>
+            <tr>
+              <th width="5%"><input type="checkbox" id="chk-all-soal" onchange="toggleAllSoal(this)"></th>
+              <th width="5%">No</th>
+              <th width="10%">Tipe</th>
+              <th width="30%">Pertanyaan</th>
+              <th width="15%">Mata Pelajaran</th>
+              <th width="10%">Bobot</th>
+              <th width="15%">Gambar</th>
+              <th width="15%">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="container-paket-soal" class="hidden">
+      <div class="table-container">
+        <table id="tbl-paket">
+          <thead>
+            <tr>
+              <th width="5%">No</th>
+              <th width="25%">Nama Paket</th>
+              <th width="10%">Jml Soal</th>
+              <th width="35%">Deskripsi</th>
+              <th width="15%">Dibuat</th>
+              <th width="10%">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #6B7280;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.2s;
+  }
+  .btn-tab:hover {
+    color: var(--primary);
+  }
+  .btn-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .soal-modal-panel {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .soal-modal-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #E5E7EB;
+    flex-shrink: 0;
+    background: #fdfdfd;
+  }
+  .soal-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
+  .soal-modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background: #fdfdfd;
+    flex-shrink: 0;
+  }
+  .modal-inputs-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .modal-inputs-row > div {
+    flex: 1 1 200px;
+  }
+  .modal-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: #374151;
+  }
+  #soal-petunjuk { font-family:Arial,sans-serif !important; }
+  #quill-editor, #quill-context-editor { background:#fff; border-radius:0 0 6px 6px; }
+  .soal-editor-tools { display:flex; flex-wrap:wrap; gap:6px; padding:7px; border:1px solid #d1d5db; border-bottom:0; border-radius:6px 6px 0 0; background:#f8fafc; }
+  .soal-editor-tools button { border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:5px; padding:5px 9px; font-size:12px; cursor:pointer; }
+  .soal-editor-tools button:hover { background:#e2e8f0; }
+  .soal-editor-tools .math-tool { font-weight:700; min-width:36px; }
+  .soal-math-note { font-size:11px; color:#64748b; margin:4px 0 7px; }
+  #quill-editor .ql-editor, #quill-context-editor .ql-editor {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .soal-rich-toolbar { background:#F8FAFC; border-radius:6px 6px 0 0; }
+  .option-image-field { display:flex; align-items:center; gap:6px; flex-wrap:wrap; min-width:150px; }
+  .option-image-field input[type=file] { max-width:190px; font-size:11px; }
+  .option-image-preview { display:none; max-width:86px; max-height:64px; object-fit:contain; border:1px solid #D1D5DB; border-radius:5px; background:#fff; padding:2px; }
+  .option-image-clear { border:0; background:transparent; color:#DC2626; cursor:pointer; padding:3px 5px; }
+  .option-editor-row { flex-wrap:wrap; }
+  .soal-section-note { display:block; color:#64748B; font-size:12px; margin-top:4px; line-height:1.45; }
+  @media (max-width: 640px) {
+    .soal-modal-panel {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      border-radius: 0;
+    }
+    .soal-modal-header, .soal-modal-body, .soal-modal-footer {
+      padding: 1rem;
+    }
+    .modal-inputs-row > div {
+      flex: 1 1 100%;
+    }
+    .form-group {
+      margin-bottom: 1rem !important;
+    }
+  }
+</style>
+
+<div id="modal-soal" class="hidden" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; display:flex; justify-content:center; align-items:center;">
+  <div class="soal-modal-panel">
+    <div class="soal-modal-header">
+      <h3 style="margin:0; font-size:1.25rem; font-weight:600; color:#111827;" id="modal-soal-title">Tambah Soal Baru</h3>
+    </div>
+    
+    <form id="frm-soal" onsubmit="event.preventDefault(); saveSoal();" style="display:flex; flex-direction:column; overflow:hidden; flex-grow:1; margin:0;">
+      <div class="soal-modal-body">
+        <input type="hidden" id="soal-id">
+        
+        <div class="form-group modal-inputs-row mb-4">
+          <div>
+            <label class="modal-label">Tipe Soal</label>
+          <select id="soal-tipe" class="form-control" onchange="renderSoalOptionsUI()">
+            <option value="PG">Pilihan Ganda</option>
+            <option value="PG Kompleks">Pilihan Ganda Kompleks</option>
+            <option value="Isian Singkat">Isian Singkat</option>
+            <option value="Menjodohkan">Menjodohkan</option>
+            <option value="Benar Salah">Benar / Salah (Tabel 3 Pernyataan)</option>
+            <option value="Sesuai Tidak Sesuai">Sesuai / Tidak Sesuai (3 Pernyataan)</option>
+          </select>
+        </div>
+          <div>
+            <label class="modal-label">Bobot Soal</label>
+            <input type="number" id="soal-bobot" class="form-control" value="1" min="1" required onfocus="this.select()">
+          </div>
+          <div>
+            <label class="modal-label">Mata Pelajaran</label>
+            <select id="soal-mapel" class="form-control">
+              <option value="">-- Tidak Ada --</option>
+              
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group mb-4">
+          <label class="modal-label" for="soal-petunjuk">Perintah / Petunjuk Pengerjaan</label>
+          <textarea id="soal-petunjuk" class="form-control" rows="2" maxlength="2000"
+            placeholder="Contoh: Bacalah teks berikut dengan saksama, kemudian jawablah pertanyaan nomor 1–5."></textarea>
+          <small class="soal-section-note">Instruksi ini akan ditampilkan kepada siswa sebelum teks dan pertanyaan.</small>
+        </div>
+
+        <div class="form-group mb-4">
+          <label class="modal-label">Teks Pendukung / Bacaan / Pengantar (Opsional)</label>
+          <div class="soal-editor-tools" aria-label="Format teks bacaan">
+            <button type="button" onclick="formatEditorParagraph('context','left')" title="Rata kiri">Rata kiri</button>
+            <button type="button" onclick="formatEditorParagraph('context','center')" title="Rata tengah">Tengah</button>
+            <button type="button" onclick="formatEditorParagraph('context','right')" title="Rata kanan">Rata kanan</button>
+            <button type="button" onclick="formatEditorParagraph('context','justify')" title="Rata kiri-kanan">Justify</button>
+            <button type="button" class="math-tool" onclick="insertMathFraction('context')" title="Pecahan bertingkat">a⁄b</button>
+            <button type="button" class="math-tool" onclick="insertMathScript('context')" title="Pangkat / indeks">xⁿ</button>
+            <button type="button" class="math-tool" onclick="insertMathRadical('context')" title="Akar">√x</button>
+            <button type="button" onclick="insertContextTable()" title="Sisipkan tabel bacaan maksimal 5 kolom x 11 baris">▦ Tabel</button>
+          </div>
+          <div id="quill-context-editor" style="height:130px;"></div>
+          <small class="soal-section-note">Mendukung format Word, rumus, serta tabel (maksimal 5 kolom × 11 baris). Klik dua kali tabel untuk mengubah ukuran/isi dan seret untuk memindahkan posisinya.</small>
+        </div>
+
+        <div class="form-group mb-4">
+          <label class="modal-label">Gambar Pendukung (Opsional)</label>
+          <input type="file" id="soal-gambar" class="form-control" accept="image/png, image/jpeg, image/jpg, image/webp" style="padding: 0.5rem; height: auto;">
+          <small class="soal-section-note">Gambar disimpan di Google Drive dan ditampilkan pada halaman siswa. Maksimal 2 MB sebelum kompresi.</small>
+          <div id="soal-gambar-preview" class="hidden mt-2" style="display:flex; flex-direction:column; align-items:flex-start; gap:8px;">
+            <img src="" alt="Pratinjau gambar pendukung" style="max-height:180px; max-width:100%; object-fit:contain; border:1px solid #ccc; border-radius:4px; padding:4px;">
+            <button type="button" class="btn btn-outline" style="padding:4px 8px; font-size:12px; color:#dc3545; border-color:#dc3545;" onclick="clearGambarPreview()">
+              <i class="fas fa-trash-alt"></i> Hapus Gambar
+            </button>
+          </div>
+          <input type="hidden" id="soal-gambar-url-old">
+        </div>
+
+        <div class="form-group mb-4">
+          <label class="modal-label">Pertanyaan</label>
+          <div class="soal-editor-tools" aria-label="Format pertanyaan">
+            <button type="button" onclick="formatEditorParagraph('question','left')" title="Rata kiri">Rata kiri</button>
+            <button type="button" onclick="formatEditorParagraph('question','center')" title="Rata tengah">Tengah</button>
+            <button type="button" onclick="formatEditorParagraph('question','right')" title="Rata kanan">Rata kanan</button>
+            <button type="button" onclick="formatEditorParagraph('question','justify')" title="Rata kiri-kanan">Justify</button>
+            <button type="button" class="math-tool" onclick="insertMathFraction('question')" title="Pecahan bertingkat">a⁄b</button>
+            <button type="button" class="math-tool" onclick="insertMathScript('question')" title="Pangkat / indeks">xⁿ</button>
+            <button type="button" class="math-tool" onclick="insertMathRadical('question')" title="Akar">√x</button>
+          </div>
+          <div id="quill-editor" style="height:150px;"></div>
+          <small class="soal-section-note">Ketik atau tempel dari Word. Gunakan tombol pecahan, pangkat, dan akar untuk notasi matematika terstruktur (bukan garis miring biasa).</small>
+        </div>
+
+      <div id="soal-options-container" class="mb-4">
+        
+      </div>
+      </div>
+      
+      <div class="soal-modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeSoalModal()">Batal</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-soal">Simpan Soal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="modal-import-soal" class="hidden" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; display:flex; justify-content:center; align-items:center;">
+  <div class="soal-modal-panel" style="max-width: 800px;">
+    <div class="soal-modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+      <h3 style="margin:0; font-size:1.25rem; font-weight:600; color:#111827;">Import Data Soal dari Excel</h3>
+      <button type="button" class="btn btn-outline btn-sm" onclick="downloadImportTemplate()">
+        <i class="fas fa-download"></i> Download Template Excel (.xlsx)
+      </button>
+    </div>
+    
+    <div class="soal-modal-body" style="padding: 1.5rem;">
+      <div style="background-color: #F3F4F6; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem;">
+        <h4 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 0.95rem;">Panduan Import:</h4>
+        <ul style="font-size: 0.85rem; color: #4B5563; padding-left: 1.5rem; margin-bottom: 0;">
+          <li>Unduh template Excel (.xlsx), lalu isi data pada sheet <strong>Template_Soal</strong>. Sheet Contoh hanya sebagai panduan dan tidak diimpor.</li>
+          <li>Kolom <strong>Tipe</strong> dapat berisi: PG, PG Kompleks, Isian Singkat, Menjodohkan, Benar Salah, atau Sesuai Tidak Sesuai.</li>
+          <li>Kolom <strong>Opsi</strong> dan <strong>Kunci Jawaban</strong> menggunakan pemisah <code>|</code>. Khusus Menjodohkan, setiap pasangan ditulis <code>kiri:::kanan</code>.</li>
+          <li>Kolom gambar diisi dengan tautan file Google Drive. Pastikan akun pemilik aplikasi memiliki akses dan file dapat dilihat melalui tautan.</li>
+          <li>Untuk gambar pilihan, urutan tautan pada <strong>Link Gambar Opsi</strong> harus sama dengan urutan opsi. Untuk Menjodohkan gunakan format <code>linkKiri:::linkKanan</code>.</li>
+          <li>Nama Mata Pelajaran harus sama dengan nama yang terdaftar pada menu Mata Pelajaran.</li>
+          <li>Benar/Salah harus berisi tepat 3 pernyataan dengan 2 kunci <strong>Benar</strong> dan 1 kunci <strong>Salah</strong>. Sesuai/Tidak Sesuai memiliki 3 pernyataan dengan kunci sesuai kategorinya.</li>
+          <li>Format <strong>.xlsx</strong> didukung. File CSV lama tetap dapat diimpor untuk menjaga kompatibilitas.</li>
+        </ul>
+      </div>
+      
+      <div id="import-dropzone" style="border: 2px dashed #D1D5DB; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s ease; background-color: #F9FAFB;" onclick="document.getElementById('import-file-input').click()">
+        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #9CA3AF; margin-bottom: 1rem;"></i>
+        <p style="margin: 0 0 0.5rem 0; font-weight: 500; color: #374151;">Seret file Excel (.xlsx) ke sini atau klik untuk memilih file</p>
+        <p style="margin: 0; font-size: 0.85rem; color: #6B7280;">Maksimal 10 MB</p>
+        <input type="file" id="import-file-input" accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" style="display: none;" onchange="handleImportFileSelected(event)">
+      </div>
+      
+      <div id="import-soal-preview" class="mt-4 hidden" style="font-size: 0.9rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <p style="margin: 0; font-weight: 600;">Ringkasan Data:</p>
+          <span id="preview-filename" style="font-size: 0.8rem; color: #6B7280; background: #E5E7EB; padding: 2px 6px; border-radius: 4px;"></span>
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <span style="background: #E5E7EB; padding: 4px 8px; border-radius: 4px;" id="preview-total">Total: 0</span>
+          <span style="background: #DBEAFE; color: #1D4ED8; padding: 4px 8px; border-radius: 4px;" id="preview-pg">PG: 0</span>
+          <span style="background: #D1FAE5; color: #047857; padding: 4px 8px; border-radius: 4px;" id="preview-pgc">PG Kompleks: 0</span>
+          <span style="background: #FEF3C7; color: #B45309; padding: 4px 8px; border-radius: 4px;" id="preview-isian">Isian Singkat: 0</span>
+          <span style="background: #E0E7FF; color: #3730A3; padding: 4px 8px; border-radius: 4px;" id="preview-benarsalah">Benar/Salah: 0</span>
+          <span style="background: #EDE9FE; color: #6D28D9; padding: 4px 8px; border-radius: 4px;" id="preview-menjodohkan">Menjodohkan: 0</span>
+          <span style="background: #E0F2FE; color: #0369A1; padding: 4px 8px; border-radius: 4px;" id="preview-sesuai">Sesuai/Tidak Sesuai: 0</span>
+          <span style="background: #FEE2E2; color: #B91C1C; padding: 4px 8px; border-radius: 4px; display: none;" id="preview-error">Error: 0</span>
+        </div>
+        <div style="max-height: 200px; overflow-y: auto; border: 1px solid #E5E7EB; border-radius: 6px;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
+            <thead style="background-color: #F9FAFB; position: sticky; top: 0;">
+              <tr>
+                <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">Tipe</th>
+                <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">Pertanyaan</th>
+                <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">Opsi</th>
+                <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">Kunci</th>
+              </tr>
+            </thead>
+            <tbody id="import-preview-tbody">
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="soal-modal-footer">
+      <button type="button" class="btn btn-outline" onclick="closeImportSoalModal()">Batal</button>
+      <button type="button" class="btn btn-primary" id="btn-import-soal" onclick="processImportFromFile()" disabled>Import Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-paket" class="hidden" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; display:flex; justify-content:center; align-items:center;">
+  <div class="soal-modal-panel">
+    <div class="soal-modal-header">
+      <h3 style="margin:0; font-size:1.25rem; font-weight:600; color:#111827;" id="modal-paket-title">Buat Paket Soal Baru</h3>
+    </div>
+    
+    <form id="frm-paket" onsubmit="event.preventDefault(); savePaket();" style="display:flex; flex-direction:column; overflow:hidden; flex-grow:1; margin:0;">
+      <div class="soal-modal-body">
+        <input type="hidden" id="paket-id">
+        
+        <div class="form-group mb-4">
+          <label class="modal-label">Nama Paket Soal</label>
+          <input type="text" id="paket-nama" class="form-control" required placeholder="Contoh: Paket A - UTS Semester 1">
+        </div>
+        
+        <div class="form-group mb-4">
+          <label class="modal-label">Deskripsi Singkat</label>
+          <textarea id="paket-deskripsi" class="form-control" rows="2" placeholder="Keterangan mengenai paket ini..."></textarea>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <label class="modal-label" style="margin-bottom: 0;">Pilih Soal untuk Paket (<span id="paket-count-terpilih">0</span> soal dipilih)</label>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+               <select id="paket-filter-mapel" class="form-control" style="padding: 0.25rem 0.5rem; font-size: 0.85rem;" onchange="renderPilihanSoal()">
+                 <option value="">Semua Mapel</option>
+               </select>
+            </div>
+          </div>
+          
+          <div style="max-height: 300px; overflow-y: auto; border: 1px solid #E5E7EB; border-radius: 6px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+              <thead style="background-color: #F9FAFB; position: sticky; top: 0; z-index: 10;">
+                <tr>
+                  <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left; width: 40px;"><input type="checkbox" id="chk-all-pilihan-soal" onchange="toggleAllPilihanSoal(this)"></th>
+                  <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left;">Pertanyaan</th>
+                  <th style="padding: 8px; border-bottom: 1px solid #E5E7EB; text-align: left; width: 100px;">Mapel</th>
+                </tr>
+              </thead>
+              <tbody id="pilihan-soal-tbody">
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      <div class="soal-modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closePaketModal()">Batal</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-paket">Simpan Paket</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<style>
+ .option-rich-text { background:#fff; border:1px solid #cbd5e1; border-radius:0 0 6px 6px; padding:9px; min-height:46px; line-height:1.6; overflow-wrap:anywhere; }
+ .option-rich-text:focus { outline:2px solid #0d71c7; outline-offset:1px; }
+ .option-rich-toolbar { display:flex; flex-wrap:wrap; gap:4px; background:#eef4fc; padding:5px; border:1px solid #cbd5e1; border-radius:6px 6px 0 0; }
+ .option-rich-toolbar button { background:white; border:1px solid #b8c8df; border-radius:4px; cursor:pointer; min-width:30px; min-height:28px; font-size:12px; }
+ .option-rich-text .ql-formula { display:inline-block; padding:0 2px; }
+ .cbt-table-block { position:relative; width:max-content; max-width:100%; margin:12px auto; padding:4px; border:1px dashed #6692ca; background:#f8fbff; overflow-x:auto; cursor:grab; }
+ .cbt-table-block table { border-collapse:collapse; max-width:100%; width:100%; background:white; }
+ .cbt-table-block td, .cbt-table-block th { border:1px solid #8198b3; padding:6px; min-width:36px; }
+ .cbt-table-block::before { content:'↕ Seret / klik dua kali untuk edit'; display:block; font-size:10px; color:#335c94; text-align:center; padding:2px 0 5px; }
+ .student-question-context .cbt-table-block::before { display:none; }
+ #cbt-table-config { position:fixed;inset:0;z-index:2000;background:rgba(8,25,55,.65);display:flex;justify-content:center;align-items:center;padding:12px; }
+ #cbt-table-config .cbt-table-dialog { width:min(760px,100%);max-height:94vh;overflow:auto;background:white;padding:20px;border-radius:12px; }
+ #cbt-table-config .cbt-cell-grid { overflow:auto;display:grid;gap:3px;margin:10px 0; }
+ #cbt-table-config .cbt-cell-grid textarea { min-width:60px;resize:vertical;padding:6px;min-height:45px; }
+ @media(max-width:640px){.cbt-table-block { max-width:100%; }.option-rich-text { min-height:62px; }}
+</style>

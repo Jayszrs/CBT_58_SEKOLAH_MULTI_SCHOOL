@@ -1,0 +1,167 @@
+<script>
+let mapelMode = 'create';
+let mapelList = [];
+let currentEditIdMapel = '';
+
+function initAdminMapel() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  loadDataMapel();
+}
+
+function loadDataMapel() {
+  const tbody = document.querySelector('#tbl-mapel tbody');
+  if ($.fn.DataTable.isDataTable('#tbl-mapel')) {
+    $('#tbl-mapel').DataTable().destroy();
+  }
+  tbody.innerHTML = '<tr><td colspan="4" class="text-center" style="padding: 2rem;"><i class="fas fa-spinner fa-spin text-2xl" style="color:var(--primary)"></i><br><span style="margin-top:0.5rem;display:inline-block;">Memuat data mapel...</span></td></tr>';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'getMapel', {}).then(res => {
+    mapelList = res || [];
+    renderTabelMapel();
+  }).catch(() => {
+    tbody.innerHTML = '<tr><td colspan="4" class="text-center text-red-500">Gagal memuat data mapel.</td></tr>';
+    showToast('Gagal memuat data mapel', 'error');
+  });
+}
+
+function renderTabelMapel() {
+  const tbody = document.querySelector('#tbl-mapel tbody');
+  
+  if ($.fn.DataTable.isDataTable('#tbl-mapel')) {
+    $('#tbl-mapel').DataTable().clear().destroy();
+  }
+
+  tbody.innerHTML = '';
+  
+  if (mapelList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(4, 'Belum ada data mata pelajaran terdaftar.', 'fa-book');
+    return;
+  }
+  
+  mapelList.forEach((m, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><strong>${m.id}</strong></td>
+      <td>${m.nama}</td>
+      <td style="white-space:nowrap; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:0.25rem;">
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="editMapel('${m.id}')"><i class="fas fa-edit" style="color:var(--primary)"></i></button>
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="deleteThisMapel('${m.id}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  $('#tbl-mapel').DataTable({
+    destroy: true,
+    language: {
+      search: 'Cari Mapel:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan mapel'
+    },
+    columnDefs: [
+      { orderable: false, targets: [0, 3] }
+    ],
+    pageLength: 10
+  });
+}
+
+function generateRandomMapelId() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = 'MPL-';
+  for (let i = 0; i < 5; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function openMapelModal() {
+  mapelMode = 'create';
+  document.getElementById('modal-mapel-title').innerText = 'Tambah Mata Pelajaran';
+  document.getElementById('frm-mapel').reset();
+  document.getElementById('mapel-id').value = generateRandomMapelId();
+  document.getElementById('modal-mapel').classList.remove('hidden');
+}
+
+function closeMapelModal() {
+  document.getElementById('modal-mapel').classList.add('hidden');
+}
+
+function editMapel(idMapel) {
+  const m = mapelList.find(x => String(x.id) === String(idMapel));
+  if (!m) return;
+  
+  mapelMode = 'edit';
+  currentEditIdMapel = String(idMapel);
+  document.getElementById('modal-mapel-title').innerText = 'Edit Mapel';
+  document.getElementById('mapel-id').value = m.id;
+  document.getElementById('mapel-nama').value = m.nama;
+  
+  document.getElementById('modal-mapel').classList.remove('hidden');
+}
+
+function saveMapelAction() {
+  const elId = document.getElementById('mapel-id');
+  const elNama = document.getElementById('mapel-nama');
+  
+  const isIdValid = validateField(elId, { required: true, minLength: 3 });
+  const isNamaValid = validateField(elNama, { required: true, minLength: 3 });
+  
+  if (!isIdValid || !isNamaValid) return;
+
+  const payload = {
+    id: elId.value.trim(),
+    nama: elNama.value.trim()
+  };
+  
+  const btn = document.getElementById('btn-save-mapel');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+  
+  const targetId = mapelMode === 'edit' ? currentEditIdMapel : '';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'saveMapel', { idLama: targetId, data: payload }).then(res => {
+    if (res.success) {
+      showToast('Data mata pelajaran disimpan', 'success');
+      closeMapelModal();
+      loadDataMapel(); 
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Simpan Mapel';
+  });
+}
+
+function deleteThisMapel(idMapel) {
+  openConfirmModal(
+    'Hapus Mapel', 
+    `Yakin hapus mata pelajaran <strong>${idMapel}</strong>?<br><small style="color:gray;">Soal-soal yang menggunakan mapel ini tidak akan dihapus, tetapi mapel pada soal menjadi tidak berelasi.</small>`,
+    '<i class="fas fa-trash"></i> Hapus Mapel',
+    () => {
+      const originalText = document.body.style.cursor;
+      document.body.style.cursor = 'wait';
+      
+      api.call('executeAdminAction', AppStore.user.data.token, 'deleteMapel', { id: idMapel }).then(res => {
+        if (res.success) {
+          showToast('Mata pelajaran berhasil dihapus', 'success');
+          loadDataMapel();
+        } else {
+          showToast('Gagal menghapus mata pelajaran', 'error');
+        }
+      }).finally(() => {
+        document.body.style.cursor = originalText;
+      });
+    }
+  );
+}
+</script>

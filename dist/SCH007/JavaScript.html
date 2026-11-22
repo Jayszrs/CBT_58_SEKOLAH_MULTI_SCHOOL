@@ -1,0 +1,402 @@
+<script>
+  class FrontendSecurity {
+    static renderSafeHtml(dirtyHtmlString) {
+      if (!dirtyHtmlString) return '';
+      return DOMPurify.sanitize(dirtyHtmlString, {
+        ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'u', 'a', 'p', 'br', 'ul', 'ol', 'li', 'span', 'div', 'img', 'table', 'tr', 'td', 'th', 'tbody', 'thead', 'sub', 'sup'],
+        ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'style', 'width', 'height', 'data-value', 'aria-label', 'aria-hidden', 'role', 'contenteditable', 'data-cbt-table', 'draggable', 'colspan', 'rowspan']
+      });
+    }
+  }
+
+
+  function renderCbtMathTokens(root) {
+    if (!root || typeof katex === 'undefined') return;
+    Array.from(root.querySelectorAll('.ql-formula[data-value]')).forEach(function(node) {
+      try { katex.render(node.getAttribute('data-value'), node, { throwOnError: false, output: 'html' }); }
+      catch (error) { node.textContent = node.getAttribute('data-value') || ''; }
+    });
+  }
+
+  const AppStore = {
+    user: null,
+    examConfig: null,
+    activeComponent: null,
+    soalList: [],
+    jawabanSiswa: {},
+
+    state: {}
+  };
+
+
+  try {
+    const savedSession = localStorage.getItem('CBT_SESSION');
+    if (savedSession) {
+      AppStore.user = JSON.parse(savedSession);
+    }
+  } catch (e) { }
+
+
+  function showLoading() {
+    document.getElementById('global-loading').classList.remove('hidden');
+  }
+
+  function hideLoading() {
+    document.getElementById('global-loading').classList.add('hidden');
+    const loaderText = document.querySelector('#global-loading p');
+    if (loaderText) {
+      loaderText.innerText = 'Memproses...';
+    }
+  }
+
+  function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+
+    let icon = 'info-circle';
+    let duration = 3000;
+
+    if (type === 'success') { icon = 'check-circle'; duration = 3000; }
+    if (type === 'error') { icon = 'exclamation-triangle'; duration = 6000; }
+
+    toast.innerHTML = `
+<i class="fas fa-${icon}"></i>
+<span style="flex:1;">${message}</span>
+<button class="toast-close" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>
+<div class="toast-progress" style="animation-duration: ${duration}ms;"></div>
+`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      if (document.body.contains(toast)) {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => { if (document.body.contains(toast)) toast.remove(); }, 300);
+      }
+    }, duration);
+  }
+
+
+  function navigateTo(componentId) {
+
+    if (AppStore.state.examTimer) {
+      clearInterval(AppStore.state.examTimer);
+    }
+
+    const container = document.getElementById('app');
+    const template = document.getElementById(`tmpl-${componentId}`);
+
+    if (!template) {
+      console.error('Template not found:', componentId);
+      return;
+    }
+
+    container.innerHTML = template.innerHTML;
+    AppStore.activeComponent = componentId;
+
+
+    container.classList.remove('fade-in');
+    void container.offsetWidth;
+    container.classList.add('fade-in');
+
+
+    if (componentId.startsWith('admin-') && componentId !== 'admin-login') {
+      const slot = container.querySelector('.sidebar-container-slot');
+      const sidebarTmpl = document.getElementById('tmpl-admin-sidebar');
+      if (slot && sidebarTmpl) {
+        slot.innerHTML = sidebarTmpl.innerHTML;
+        var sidebarLogoImg = slot.querySelector('#sidebar-logo-img');
+        if (sidebarLogoImg && typeof APP_GLOBAL_CONFIG !== 'undefined' && APP_GLOBAL_CONFIG.logo_url) {
+          sidebarLogoImg.src = APP_GLOBAL_CONFIG.logo_url;
+          sidebarLogoImg.style.display = '';
+        }
+      }
+    }
+
+    
+    document.querySelectorAll('.sidebar-menu a').forEach(a => {
+      a.classList.remove('active');
+      if (a.getAttribute('data-path') === componentId) {
+        a.classList.add('active');
+      }
+    });
+
+
+    if (componentId === 'student-login') initStudentLogin();
+    else if (componentId === 'student-exam') initStudentExam();
+    else if (componentId === 'admin-login') initAdminLogin();
+    else if (componentId === 'admin-dashboard') initAdminDashboard();
+    else if (componentId === 'admin-kelas') initAdminKelas();
+    else if (componentId === 'admin-mapel') initAdminMapel();
+    else if (componentId === 'admin-soal') initAdminSoal();
+    else if (componentId === 'admin-siswa') initAdminSiswa();
+    else if (componentId === 'admin-ujian') initAdminUjian();
+    else if (componentId === 'admin-nilai') initAdminNilai();
+  }
+
+
+  const api = {
+    call: function (serverFunction, ...args) {
+
+      const isSilent = args.length > 0 && typeof args[args.length - 1] === 'object' && args[args.length - 1] !== null && args[args.length - 1].silent === true;
+
+
+      if (isSilent) {
+        args.pop();
+      }
+
+      return new Promise((resolve, reject) => {
+        if (!isSilent) showLoading();
+        google.script.run
+          .withSuccessHandler((result) => {
+            if (!isSilent) hideLoading();
+            resolve(result);
+          })
+          .withFailureHandler((error) => {
+            if (!isSilent) hideLoading();
+
+            if (!isSilent) {
+              showToast(error.message || 'Terjadi kesalahan sistem', 'error');
+            }
+            reject(error);
+          })
+        [serverFunction](...args);
+      });
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    const isAdminUrl = INITIAL_URL_PARAMS && (INITIAL_URL_PARAMS.admin === '1' || String(INITIAL_URL_PARAMS.page || '').toLowerCase() === 'admin');
+
+    if (AppStore.user) {
+      if (AppStore.user.role === 'admin') {
+        navigateTo('admin-dashboard');
+        return;
+      } else if (AppStore.user.role === 'student') {
+        navigateTo('student-exam');
+        return;
+      }
+    }
+
+    if (isAdminUrl) {
+      navigateTo('admin-login');
+    } else {
+      navigateTo('student-login');
+    }
+  });
+
+
+  function initStudentLogin() { }
+  function initStudentExam() { }
+  function initAdminLogin() { }
+  function initAdminDashboard() { }
+  function initAdminKelas() { }
+  function initAdminMapel() { }
+  function initAdminSoal() { }
+  function initAdminSiswa() { }
+  function initAdminUjian() { }
+  function initAdminNilai() { }
+
+  let confirmCallbackGlobal = null;
+  let currentFocusTrap = null;
+
+  function trapFocus(element) {
+    const focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    currentFocusTrap = function (e) {
+      const isTabPressed = (e.key === 'Tab' || e.keyCode === 9);
+
+      if (!isTabPressed) {
+        return;
+      }
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusableEl) {
+          lastFocusableEl.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastFocusableEl) {
+          firstFocusableEl.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    element.addEventListener('keydown', currentFocusTrap);
+    if (firstFocusableEl) {
+      setTimeout(() => firstFocusableEl.focus(), 100);
+    }
+  }
+
+  function untrapFocus(element) {
+    if (currentFocusTrap) {
+      element.removeEventListener('keydown', currentFocusTrap);
+      currentFocusTrap = null;
+    }
+  }
+
+  function openConfirmModal(title, message, btnText, callback) {
+    document.getElementById('confirm-modal-title').innerText = title;
+    document.getElementById('confirm-modal-msg').innerHTML = message;
+    document.getElementById('btn-confirm-action').innerHTML = btnText || 'Ya, Lanjutkan';
+    confirmCallbackGlobal = callback;
+    const modal = document.getElementById('global-confirm-modal');
+    modal.classList.remove('hidden');
+    trapFocus(modal);
+  }
+
+  function closeConfirmModal() {
+    const modal = document.getElementById('global-confirm-modal');
+    modal.classList.add('hidden');
+    untrapFocus(modal);
+    confirmCallbackGlobal = null;
+  }
+
+  function executeConfirmAction() {
+    if (confirmCallbackGlobal) {
+      confirmCallbackGlobal();
+    }
+    closeConfirmModal();
+  }
+
+  function getEmptyStateHtml(colspan, message, iconStr) {
+    const icon = iconStr || 'fa-folder-open';
+    return `<tr>
+<td colspan="${colspan}">
+<div class="empty-state">
+<i class="fas ${icon}"></i>
+<p>${message}</p>
+</div>
+</td>
+</tr>`;
+  }
+
+
+  function showFieldError(inputEl, message) {
+    inputEl.classList.add('invalid');
+    let errEl = inputEl.parentNode.querySelector('.form-error-msg');
+    if (!errEl) {
+      errEl = document.createElement('div');
+      errEl.className = 'form-error-msg';
+      inputEl.parentNode.appendChild(errEl);
+    }
+    errEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+  }
+
+  function clearFieldError(inputEl) {
+    inputEl.classList.remove('invalid');
+    const errEl = inputEl.parentNode.querySelector('.form-error-msg');
+    if (errEl) errEl.remove();
+  }
+
+  function validateField(inputEl, rules) {
+    clearFieldError(inputEl);
+    const val = inputEl.value.trim();
+
+    if (rules.required && !val) {
+      showFieldError(inputEl, rules.messages?.required || 'Kolom ini wajib diisi');
+      return false;
+    }
+    if (rules.minLength && val.length < rules.minLength) {
+      showFieldError(inputEl, rules.messages?.minLength || `Minimal ${rules.minLength} karakter`);
+      return false;
+    }
+    if (rules.maxLength && val.length > rules.maxLength) {
+      showFieldError(inputEl, rules.messages?.maxLength || `Maksimal ${rules.maxLength} karakter`);
+      return false;
+    }
+    if (rules.pattern && !rules.pattern.test(val)) {
+      showFieldError(inputEl, rules.messages?.pattern || 'Format tidak valid');
+      return false;
+    }
+
+    return true;
+  }
+
+
+  function toggleSidebar() {
+    const sidebar = document.getElementById('admin-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (backdrop) backdrop.classList.toggle('show');
+  }
+
+  function closeSidebar() {
+    const sidebar = document.getElementById('admin-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (sidebar) sidebar.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('show');
+  }
+
+  function openAdminPasswordModal() {
+    document.getElementById('global-old-admin-password').value = '';
+    document.getElementById('global-new-admin-password').value = '';
+    document.getElementById('admin-password-modal').classList.remove('hidden');
+}
+
+  function closeAdminPasswordModal() {
+    document.getElementById('admin-password-modal').classList.add('hidden');
+  }
+
+  function submitGlobalAdminPassword(btn) {
+    const oldPass = document.getElementById('global-old-admin-password').value;
+    const newPass = document.getElementById('global-new-admin-password').value;
+
+    if (!oldPass || !newPass) {
+      showToast('Password lama dan baru harus diisi!', 'error');
+      return;
+    }
+
+    if (newPass.length < 6) {
+      showToast('Password baru minimal 6 karakter!', 'error');
+      return;
+    }
+
+    const originText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+
+    api.call('executeAdminAction', AppStore.user.data.token, 'changePassword', { oldPassword: oldPass, newPassword: newPass }).then(res => {
+      btn.disabled = false;
+      btn.innerHTML = originText;
+
+      if (res.success) {
+        showToast('Password berhasil diubah! Silakan login kembali.', 'success');
+        closeAdminPasswordModal();
+
+        setTimeout(() => {
+          AppStore.user = null;
+          localStorage.removeItem('CBT_SESSION');
+          navigateTo('admin-login');
+        }, 1500);
+      } else {
+        showToast(res.message || 'Gagal mengubah password', 'error');
+      }
+    }).catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = originText;
+      showToast('Gagal terhubung ke server', 'error');
+    });
+  }
+  function togglePasswordVisibility(iconElement) {
+    const wrapper = iconElement.closest('.password-wrapper');
+    if (!wrapper) return;
+    const input = wrapper.querySelector('input');
+    if (!input) return;
+
+    if (input.type === 'password') {
+      input.type = 'text';
+      iconElement.classList.remove('fa-eye');
+      iconElement.classList.add('fa-eye-slash');
+    } else {
+      input.type = 'password';
+      iconElement.classList.remove('fa-eye-slash');
+      iconElement.classList.add('fa-eye');
+    }
+  }
+</script>

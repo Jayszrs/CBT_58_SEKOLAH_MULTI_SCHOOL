@@ -1,0 +1,17 @@
+<script>
+(function () {
+  'use strict';
+  var cfg = (typeof APP_GLOBAL_CONFIG !== 'undefined') ? APP_GLOBAL_CONFIG : {};
+  var theme = cfg.schoolTheme || {};
+  var hex = /^#[0-9a-fA-F]{6}$/;
+  if (hex.test(theme.primary || '')) {
+    document.documentElement.style.setProperty('--primary', theme.primary);
+  }
+  if (hex.test(theme.hover || '')) {
+    document.documentElement.style.setProperty('--primary-hover', theme.hover);
+  }
+  if (typeof cfg.schoolName === 'string' && cfg.schoolName.length < 200) {
+    document.title = 'CBT | ' + cfg.schoolName;
+  }
+})();
+</script>

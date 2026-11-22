@@ -1,0 +1,129 @@
+<div class="dashboard-layout">
+  
+  <div class="sidebar-container-slot"></div>
+  
+  <div class="main-content">
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn btn-outline btn-hamburger hidden-desktop" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar"><i class="fas fa-bars"></i></button>
+        <div class="page-header-info">
+          <nav class="breadcrumb">Admin <span><i class="fas fa-chevron-right"></i></span> Siswa</nav>
+          <h2>Data Siswa Peserta Ujian</h2>
+        </div>
+      </div>
+      <div class="page-header-actions">
+        <button id="btn-refresh-siswa" class="btn btn-outline" onclick="refreshDataSiswa()"><i class="fas fa-sync-alt"></i> Refresh</button>
+        <button class="btn btn-outline" onclick="downloadTemplateSiswaExcel()"><i class="fas fa-file-excel"></i> Template Excel</button>
+        <button class="btn btn-outline" onclick="openImportSiswaModal()"><i class="fas fa-file-import"></i> Import Excel</button>
+        <button class="btn btn-outline" onclick="exportDataSiswaExcel()"><i class="fas fa-file-export"></i> Export Excel</button>
+        <button class="btn btn-outline" onclick="printParticipantCards()"><i class="fas fa-id-card"></i> Cetak Kartu Peserta (6/A4)</button>
+        <button class="btn btn-outline" style="color:var(--danger); border-color:var(--danger);" onclick="resetAllStatus()"><i class="fas fa-redo"></i> Reset Semua</button>
+        <button class="btn btn-primary" onclick="openSiswaModal()"><i class="fas fa-plus"></i> Tambah Siswa</button>
+      </div>
+    </div>
+    
+    <div class="table-container">
+      <table id="tbl-siswa">
+        <thead>
+          <tr>
+            <th width="5%">No</th>
+            <th width="15%">NISN / Username</th>
+            <th width="30%">Nama Lengkap</th>
+            <th width="15%">Kelas</th>
+            <th width="15%">Status / Info</th>
+            <th width="20%">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div id="modal-siswa" class="hidden" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:1000; display:flex; justify-content:center; align-items:center;">
+  <div class="glass-panel" style="background:white; width:90%; max-width:500px; padding:2rem;">
+    <h3 class="mb-4" id="modal-siswa-title">Tambah Siswa</h3>
+    
+    <form id="frm-siswa" onsubmit="event.preventDefault(); saveSiswa();">
+      <div class="form-group">
+        <label>NISN (Unik)</label>
+        <input type="text" id="siswa-nisn" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" id="siswa-nama" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Kelas</label>
+        <select id="siswa-kelas" class="form-control" required>
+          <option value="">-- Pilih Kelas --</option>
+          
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Password Akun (untuk login individual)</label>
+        <div class="password-wrapper">
+          <input type="password" id="siswa-password" class="form-control" placeholder="Isi agar tercetak pada kartu peserta">
+          <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+        </div>
+        <small style="display:block; color:#64748B; margin-top:5px;">Jika dikosongkan, peserta tetap dapat menggunakan token ujian harian dari pengawas.</small>
+      </div>
+      <div class="flex justify-between mt-4 border-t pt-4">
+        <button type="button" class="btn btn-outline" onclick="closeSiswaModal()">Batal</button>
+        <button type="submit" class="btn btn-primary" id="btn-save-siswa">Simpan Siswa</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="modal-import-siswa" class="hidden" style="position:fixed; inset:0; width:100vw; height:100vh; background:rgba(0,0,0,0.55); z-index:1100; display:flex; justify-content:center; align-items:center; padding:16px;">
+  <div class="glass-panel" style="background:white; width:100%; max-width:760px; max-height:90vh; display:flex; flex-direction:column; overflow:hidden;">
+    <div style="padding:1.25rem 1.5rem; border-bottom:1px solid #E5E7EB; display:flex; justify-content:space-between; align-items:center; gap:12px;">
+      <div>
+        <h3 style="margin:0;">Import Data Peserta dari Excel</h3>
+        <small style="color:#64748B;">Format file .xlsx</small>
+      </div>
+      <button type="button" class="btn btn-outline" onclick="closeImportSiswaModal()" aria-label="Tutup">&times;</button>
+    </div>
+    <div style="padding:1.5rem; overflow-y:auto;">
+      <div style="background:#F1F5F9; border-radius:8px; padding:12px 14px; margin-bottom:16px; font-size:13px; color:#475569;">
+        <strong>Format kolom wajib:</strong> NISN, NAMA SISWA, KELAS, PASSWORD.
+        <br>Gunakan format teks pada kolom NISN agar angka nol di depan tidak hilang. Peserta dengan NISN yang sudah ada di database akan dilewati, bukan dibuat ganda. Kelas yang belum terdaftar akan ditambahkan otomatis ke daftar kelas.
+      </div>
+      <input type="file" id="import-siswa-file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display:none" onchange="handleImportSiswaFile(event)">
+      <div id="import-siswa-dropzone" onclick="document.getElementById('import-siswa-file').click()" style="border:2px dashed #CBD5E1; border-radius:10px; padding:28px 16px; text-align:center; cursor:pointer; background:#F8FAFC;">
+        <i class="fas fa-file-excel" style="font-size:34px; color:#0F766E; margin-bottom:8px;"></i>
+        <div style="font-weight:600; color:#334155;">Klik untuk memilih file Excel atau seret file ke sini</div>
+        <small style="color:#64748B;">Maksimal 10 MB</small>
+      </div>
+      <div id="import-siswa-preview" class="hidden" style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <strong id="import-siswa-filename">File:</strong>
+          <span id="import-siswa-count" style="font-size:13px; color:#475569;"></span>
+        </div>
+        <div id="import-siswa-errors" class="hidden" style="padding:10px; margin-bottom:10px; background:#FEF2F2; color:#991B1B; border-radius:6px; font-size:12px;"></div>
+        <div style="max-height:220px; overflow:auto; border:1px solid #E2E8F0; border-radius:6px;">
+          <table style="width:100%; border-collapse:collapse; font-size:12px;">
+            <thead style="position:sticky; top:0; background:#F8FAFC;">
+              <tr>
+                <th style="padding:8px; text-align:left;">NISN</th>
+                <th style="padding:8px; text-align:left;">Nama Siswa</th>
+                <th style="padding:8px; text-align:left;">Kelas</th>
+                <th style="padding:8px; text-align:left;">Password</th>
+              </tr>
+            </thead>
+            <tbody id="import-siswa-preview-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="padding:1rem 1.5rem; border-top:1px solid #E5E7EB; display:flex; justify-content:flex-end; gap:8px;">
+      <button type="button" class="btn btn-outline" onclick="closeImportSiswaModal()">Batal</button>
+      <button type="button" class="btn btn-primary" id="btn-process-import-siswa" onclick="processImportSiswaExcel()" disabled><i class="fas fa-file-import"></i> Import Peserta</button>
+    </div>
+  </div>
+</div>

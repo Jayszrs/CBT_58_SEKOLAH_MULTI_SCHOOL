@@ -1,0 +1,190 @@
+<style>
+  .admin-login-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0A192F; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='200' viewBox='0 0 120 200'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.07'%3E%3Cpath d='M0 50 L60 20 L120 50 L120 150 L60 180 L0 150 Z'/%3E%3Cpath d='M60 20 L60 80 M0 50 L60 80 L120 50 M60 80 L60 180'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 150px;
+    background-attachment: fixed;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .admin-login-card {
+    background: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .admin-login-card h2 {
+    color: #1F2937;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    text-align: center;
+  }
+  
+  .admin-login-card p.subtitle {
+    color: #4B5563;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .admin-login-card .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .admin-login-card label {
+    display: block;
+    color: #374151;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  
+  .admin-login-card .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #111827;
+    background-color: #fff;
+    transition: all 0.2s;
+  }
+  
+  .admin-login-card .form-control:focus {
+    outline: none;
+    border-color: #007A7C;
+    box-shadow: 0 0 0 3px rgba(0, 122, 124, 0.1);
+  }
+  
+  .admin-login-card .form-control::placeholder {
+    color: #9CA3AF;
+  }
+  
+  .admin-login-card .btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007A7C;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 122, 124, 0.2), 0 2px 4px -1px rgba(0, 122, 124, 0.1);
+  }
+  
+  .admin-login-card .btn-login:hover {
+    background-color: #006668;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(0, 122, 124, 0.3), 0 3px 6px -1px rgba(0, 122, 124, 0.2);
+  }
+  
+  .admin-login-card .footer-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6B7280;
+    margin-top: 1.5rem;
+  }
+  
+  .admin-login-card .student-link {
+    color: #9CA3AF;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  
+  .admin-login-card .student-link:hover {
+    color: #4B5563;
+  }
+  
+  .admin-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-icon {
+    font-size: 2.5rem;
+    color: #007A7C;
+  }
+  
+  .admin-login-card .alert {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .admin-login-card .alert-danger {
+    background-color: #FEF2F2;
+    border-left: 4px solid #EF4444;
+    color: #B91C1C;
+  }
+</style>
+
+<div class="admin-login-bg">
+  <div class="admin-login-card fade-in">
+    <div class="admin-icon-wrapper">
+      <img id="admin-login-logo" src="" alt="Logo" style="max-height: 80px; width: auto; object-fit: contain; display: none;">
+      <i id="admin-login-icon" class="fas fa-users-cog admin-icon"></i>
+    </div>
+    <h2>CBT-GAS</h2>
+    <p class="subtitle">Portal Guru / Admin</p>
+    
+    <div id="admin-rate-limit-alert" class="alert alert-danger" style="display: none;">
+      <i class="fas fa-ban"></i>
+      <span id="admin-rate-limit-msg">Login diblokir sementara.</span>
+    </div>
+    
+    <form id="frm-admin-login" onsubmit="event.preventDefault(); doAdminLogin();">
+      <div id="admin-login-inputs">
+        <div class="form-group">
+          <label for="admin-username">Username (opsional)</label>
+          <input type="text" id="admin-username" class="form-control" placeholder="admin / superadmin" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password Administrator</label>
+          <div class="password-wrapper">
+            <input type="password" id="admin-password" class="form-control" required placeholder="Masukkan Password" autocomplete="current-password">
+            <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+          </div>
+        </div>
+        
+        <button type="submit" id="btn-admin-login" class="btn-login">
+          <i class="fas fa-lock-open"></i> Login Dashboard
+        </button>
+      </div>
+      
+      <div class="footer-text">
+        <div>
+          <a href="#" onclick="event.preventDefault(); navigateTo('student-login');" class="student-link">
+            &larr; Kembali ke Portal Siswa
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<script>
+function initStudentLogin() {
+  
+  AppStore.user = null;
+  localStorage.removeItem('CBT_SESSION');
+  localStorage.removeItem('CBT_ANSWERS');
+
+  
+  if (typeof APP_GLOBAL_CONFIG !== 'undefined' && APP_GLOBAL_CONFIG.logo_url) {
+    const c = document.getElementById('student-login-logo-container');
+    const i = document.getElementById('student-login-logo');
+    if (c && i) {
+      i.src = APP_GLOBAL_CONFIG.logo_url;
+      i.onerror = function() {
+          c.style.display = 'none';
+      };
+      c.style.display = 'block';
+    }
+  }
+}
+
+function doStudentLogin() {
+  const nisn = document.getElementById('nisn').value.trim();
+  const token = document.getElementById('token').value.trim();
+  
+  if (!nisn || !token) {
+    showToast('NISN dan password atau token ujian wajib diisi', 'error');
+    return;
+  }
+  
+  const btn = document.getElementById('btn-student-login');
+  const oriText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+  
+  api.call('loginSiswa', nisn, token).then(res => {
+    btn.disabled = false;
+    btn.innerHTML = oriText;
+    if (res.success) {
+      AppStore.user = { role: 'student', data: res.data };
+      localStorage.setItem('CBT_SESSION', JSON.stringify(AppStore.user));
+      showToast(`Selamat datang, ${res.data.nama}`, 'success');
+      
+      navigateTo('student-exam');
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).catch(() => {
+    btn.disabled = false;
+    btn.innerHTML = oriText;
+    showToast('Gagal terhubung ke server', 'error');
+  });
+}
+</script>

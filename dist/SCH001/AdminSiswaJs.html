@@ -1,0 +1,591 @@
+<script>
+let siswaMode = 'create';
+let siswaList = [];
+let currentEditNisn = ''; 
+let dropdownKelasData = []; 
+
+function initAdminSiswa() {
+  if (!AppStore.user || AppStore.user.role !== 'admin') {
+    navigateTo('admin-login');
+    return;
+  }
+  loadDataSiswa();
+  fetchDropdownKelas();
+}
+
+function fetchDropdownKelas() {
+  api.call('executeAdminAction', AppStore.user.data.token, 'getKelas', {}).then(res => {
+    dropdownKelasData = res || [];
+    renderDropdownKelas();
+  }).catch(() => {
+    console.error('Gagal mengambil daftar kelas');
+  });
+}
+
+function renderDropdownKelas() {
+  const select = document.getElementById('siswa-kelas');
+  if(!select) return;
+  
+  const oldVal = select.value;
+  select.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+  
+  dropdownKelasData.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k.nama; 
+    opt.innerText = k.nama;
+    select.appendChild(opt);
+  });
+  
+  if (oldVal) select.value = oldVal;
+}
+
+function refreshDataSiswa() {
+  const btn = document.getElementById('btn-refresh-siswa');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refresh...';
+  }
+  loadDataSiswa(true);
+}
+
+function loadDataSiswa(bypassCache = false) {
+  const tbody = document.querySelector('#tbl-siswa tbody');
+  if ($.fn.DataTable.isDataTable('#tbl-siswa')) {
+    $('#tbl-siswa').DataTable().destroy();
+  }
+  tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="padding: 2rem;"><i class="fas fa-spinner fa-spin text-2xl" style="color:var(--primary)"></i><br><span style="margin-top:0.5rem;display:inline-block;">Memuat data...</span></td></tr>';
+  
+  api.call('executeAdminAction', AppStore.user.data.token, 'getSiswa', { bypassCache: bypassCache }).then(res => {
+    siswaList = res || [];
+    renderTabelSiswa();
+  }).catch(() => {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-red-500">Gagal memuat data.</td></tr>';
+    showToast('Gagal memuat data siswa', 'error');
+  }).finally(() => {
+    const btnRefresh = document.getElementById('btn-refresh-siswa');
+    if (btnRefresh) {
+      btnRefresh.disabled = false;
+      btnRefresh.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+    }
+  });
+}
+
+function renderTabelSiswa() {
+  const tbody = document.querySelector('#tbl-siswa tbody');
+  
+  
+  if ($.fn.DataTable.isDataTable('#tbl-siswa')) {
+    $('#tbl-siswa').DataTable().clear().destroy();
+  }
+
+  tbody.innerHTML = '';
+  
+  if (siswaList.length === 0) {
+    tbody.innerHTML = getEmptyStateHtml(6, 'Belum ada data siswa.', 'fa-user-graduate');
+    return;
+  }
+  
+  siswaList.forEach((s, idx) => {
+    const tr = document.createElement('tr');
+    let stTag = s.status === 'Aktif' ? `<span style="color:var(--success);font-weight:bold;">Sedang Login</span>` : s.status;
+    
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><strong>${s.nisn}</strong></td>
+      <td>${s.nama}</td>
+      <td>${s.kelas}</td>
+      <td>${stTag}</td>
+      <td style="white-space:nowrap; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:0.25rem;">
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="editSiswa('${s.nisn}')"><i class="fas fa-edit" style="color:var(--primary)"></i></button>
+          <button class="btn btn-outline" style="padding:0.25rem 0.5rem;" onclick="deleteThisSiswa('${s.nisn}')"><i class="fas fa-trash" style="color:var(--danger)"></i></button>
+          ${s.status === 'Aktif' ? `<button class="btn btn-outline" style="padding:0.25rem 0.5rem;" title="Logout Paksa" onclick="forceLogout('${s.nisn}')"><i class="fas fa-sign-out-alt" style="color:orange;"></i></button>` : ''}
+          ${s.status === 'Selesai' ? `<button class="btn btn-outline" style="padding:0.25rem 0.5rem;" title="Reset Ujian (Bisa Login Lagi)" onclick="forceLogout('${s.nisn}')"><i class="fas fa-redo" style="color:var(--primary);"></i></button>` : ''}
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  
+  $('#tbl-siswa').DataTable({
+    destroy: true,
+    language: {
+      search: 'Cari:',
+      lengthMenu: 'Tampilkan _MENU_ data',
+      info: 'Menampilkan _START_ sampai _END_ dari _TOTAL_ data',
+      infoEmpty: 'Tidak ada data tersedia',
+      paginate: { first: 'Pertama', last: 'Terakhir', next: '&rsaquo;', previous: '&lsaquo;' },
+      zeroRecords: 'Tidak ditemukan data yang sesuai'
+    },
+    columnDefs: [
+      { orderable: false, targets: [0, 5] }
+    ],
+    pageLength: 10
+  });
+}
+
+function openSiswaModal() {
+  siswaMode = 'create';
+  document.getElementById('modal-siswa-title').innerText = 'Tambah Siswa';
+  document.getElementById('frm-siswa').reset();
+  document.getElementById('siswa-nisn').readOnly = false;
+  document.getElementById('modal-siswa').classList.remove('hidden');
+}
+
+function closeSiswaModal() {
+  document.getElementById('modal-siswa').classList.add('hidden');
+}
+
+function editSiswa(nisn) {
+  const s = siswaList.find(x => String(x.nisn) === String(nisn));
+  if (!s) return;
+  
+  siswaMode = 'edit';
+  currentEditNisn = String(nisn); 
+  document.getElementById('modal-siswa-title').innerText = 'Edit Siswa';
+  document.getElementById('siswa-nisn').value = s.nisn;
+  document.getElementById('siswa-nisn').readOnly = false; 
+  document.getElementById('siswa-nama').value = s.nama;
+  document.getElementById('siswa-kelas').value = s.kelas;
+  document.getElementById('siswa-password').value = s.password || '';
+  
+  document.getElementById('modal-siswa').classList.remove('hidden');
+}
+
+function saveSiswa() {
+  const elNisn = document.getElementById('siswa-nisn');
+  const elNama = document.getElementById('siswa-nama');
+  const elKelas = document.getElementById('siswa-kelas');
+  const elPassword = document.getElementById('siswa-password');
+  
+  const isNisnValid = validateField(elNisn, { required: true, minLength: 3 });
+  const isNamaValid = validateField(elNama, { required: true, minLength: 3 });
+  const isKelasValid = validateField(elKelas, { required: true });
+  
+  if (!isNisnValid || !isNamaValid || !isKelasValid) return;
+
+  const payload = {
+    nisn: elNisn.value.trim(),
+    nama: elNama.value.trim(),
+    kelas: elKelas.value.trim(),
+    password: elPassword.value.trim(),
+    status: 'Offline'
+  };
+  
+  
+  if (siswaMode === 'edit' && payload.nisn !== currentEditNisn) {
+    const isConfirmed = confirm('Peringatan: Kamu mencoba mengubah NISN/NIK siswa. Apakah kamu yakin ingin melanjutkan?');
+    if (!isConfirmed) return;
+  }
+  
+  const btn = document.getElementById('btn-save-siswa');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+  
+  let act = siswaMode === 'create' ? 'createSiswa' : 'updateSiswa';
+  
+  
+  const targetNisn = siswaMode === 'edit' ? currentEditNisn : payload.nisn;
+  
+  api.call('executeAdminAction', AppStore.user.data.token, act, { nisn: targetNisn, data: payload, newNisn: payload.nisn }).then(res => {
+    if (res.success) {
+      showToast('Data siswa disimpan', 'success');
+      closeSiswaModal();
+      
+      
+      if (siswaMode === 'create') {
+        siswaList.push(payload);
+      } else {
+        const idx = siswaList.findIndex(s => String(s.nisn) === String(currentEditNisn));
+        if (idx > -1) {
+          payload.status = siswaList[idx].status || 'Offline';
+          siswaList[idx] = payload;
+        }
+      }
+      renderTabelSiswa();
+    } else {
+      showToast(res.message, 'error');
+    }
+  }).finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Simpan Siswa';
+  });
+}
+
+function deleteThisSiswa(nisn) {
+  openConfirmModal(
+    'Hapus Siswa',
+    `Yakin hapus siswa dengan NISN <strong>${nisn}</strong>?`,
+    '<i class="fas fa-trash"></i> Hapus Siswa',
+    () => {
+      const originalText = document.body.style.cursor;
+      document.body.style.cursor = 'wait';
+      
+      api.call('executeAdminAction', AppStore.user.data.token, 'deleteSiswa', { nisn: nisn }).then(res => {
+        if (res.success) {
+          showToast('Siswa berhasil dihapus', 'success');
+          
+          
+          siswaList = siswaList.filter(s => String(s.nisn) !== String(nisn));
+          renderTabelSiswa();
+        } else {
+          showToast('Gagal menghapus siswa', 'error');
+        }
+      }).finally(() => {
+        document.body.style.cursor = originalText;
+      });
+    }
+  );
+}
+
+function forceLogout(nisn) {
+  if (confirm(`Paksa logout NISN ${nisn}? Ini berguna jika sesi mereka tersangkut di server.`)) {
+    const originalText = document.body.style.cursor;
+    document.body.style.cursor = 'wait';
+    
+    
+    api.call('executeAdminAction', AppStore.user.data.token, 'logoutSiswa', { nisn: nisn }).then(() => {
+        showToast('Telah dilogout.', 'success');
+        
+        
+        const idx = siswaList.findIndex(s => String(s.nisn) === String(nisn));
+        if (idx > -1) {
+          siswaList[idx].status = 'Offline';
+        }
+        renderTabelSiswa();
+    }).finally(() => {
+      document.body.style.cursor = originalText;
+    });
+  }
+}
+
+function resetAllStatus() {
+  openConfirmModal(
+    'Reset Semua Status',
+    'Yakin ingin mereset status <strong>Semua Siswa</strong> menjadi Offline? (Siswa yang sedang Aktif atau Selesai akan bisa login lagi)',
+    '<i class="fas fa-redo"></i> Lanjutkan Reset',
+    () => {
+      const originalText = document.body.style.cursor;
+      document.body.style.cursor = 'wait';
+      
+      api.call('executeAdminAction', AppStore.user.data.token, 'resetAllSiswaStatus', {}).then(res => {
+        if (res.success) {
+          showToast('Status semua siswa berhasil direset', 'success');
+          loadDataSiswa(true); 
+        } else {
+          showToast('Gagal mereset status siswa', 'error');
+        }
+      }).finally(() => {
+        document.body.style.cursor = originalText;
+      });
+    }
+  );
+}
+
+let parsedSiswaImport = [];
+let siswaImportErrors = [];
+
+function ensureXlsxLibrary() {
+  if (typeof XLSX === 'undefined') {
+    showToast('Library Excel belum berhasil dimuat. Muat ulang halaman atau periksa koneksi internet.', 'error');
+    return false;
+  }
+  return true;
+}
+
+function buildSiswaWorkbook(rows, sheetName) {
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet(rows);
+  worksheet['!cols'] = [{ wch: 18 }, { wch: 30 }, { wch: 18 }, { wch: 22 }];
+  if (rows.length > 1) {
+    worksheet['!autofilter'] = { ref: 'A1:D' + rows.length };
+    for (let r = 2; r <= rows.length; r++) {
+      ['A', 'B', 'C', 'D'].forEach(col => {
+        const cell = worksheet[col + r];
+        if (cell) cell.t = 's';
+      });
+    }
+  }
+  XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+  return workbook;
+}
+
+function downloadTemplateSiswaExcel() {
+  if (!ensureXlsxLibrary()) return;
+  const workbook = XLSX.utils.book_new();
+  const templateSheet = XLSX.utils.aoa_to_sheet([['NISN', 'NAMA SISWA', 'KELAS', 'PASSWORD']]);
+  templateSheet['!cols'] = [{ wch: 18 }, { wch: 30 }, { wch: 18 }, { wch: 22 }];
+  XLSX.utils.book_append_sheet(workbook, templateSheet, 'Template_Peserta');
+
+  const guideRows = [
+    ['PANDUAN TEMPLATE IMPORT PESERTA'],
+    ['Isi data peserta pada sheet Template_Peserta mulai baris kedua.'],
+    ['Kolom wajib: NISN, NAMA SISWA, KELAS, PASSWORD.'],
+    ['NISN harus unik. Atur kolom NISN menjadi format Text sebelum mengisi agar angka nol di depan tetap tersimpan.'],
+    ['Password digunakan untuk login individual peserta.'],
+    ['NISN yang sudah ada di database akan dilewati dan tidak dibuat ganda.'],
+    ['Kelas yang belum ada akan ditambahkan otomatis ke daftar kelas.'],
+    ['Simpan file dalam format Excel Workbook (*.xlsx).']
+  ];
+  const guideSheet = XLSX.utils.aoa_to_sheet(guideRows);
+  guideSheet['!cols'] = [{ wch: 105 }];
+  XLSX.utils.book_append_sheet(workbook, guideSheet, 'Panduan');
+  XLSX.writeFile(workbook, 'Template_Import_Peserta_CBT.xlsx');
+}
+
+function exportDataSiswaExcel() {
+  if (!ensureXlsxLibrary()) return;
+  const btn = document.querySelector('.page-header-actions button[onclick="exportDataSiswaExcel()"]');
+  const oldText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyiapkan...';
+  }
+
+  api.call('executeAdminAction', AppStore.user.data.token, 'exportSiswa', {}).then(function(result) {
+    if (!Array.isArray(result)) throw new Error((result && result.message) || 'Data peserta tidak dapat diakses.');
+    const list = result;
+    const rows = [['NISN', 'NAMA SISWA', 'KELAS', 'PASSWORD']];
+    list.forEach(function(student) {
+      rows.push([
+        String(student.nisn == null ? '' : student.nisn),
+        String(student.nama == null ? '' : student.nama),
+        String(student.kelas == null ? '' : student.kelas),
+        String(student.password == null ? '' : student.password)
+      ]);
+    });
+    const workbook = buildSiswaWorkbook(rows, 'Data_Peserta');
+    const dateTag = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(workbook, 'Data_Peserta_CBT_' + dateTag + '.xlsx');
+    showToast(list.length + ' data peserta berhasil diekspor.', 'success');
+  }).catch(function(error) {
+    console.error('Export siswa gagal:', error);
+    showToast(error && error.message ? error.message : 'Gagal mengambil data peserta untuk diekspor.', 'error');
+  }).finally(function() {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = oldText;
+    }
+  });
+}
+
+function openImportSiswaModal() {
+  if (!ensureXlsxLibrary()) return;
+  parsedSiswaImport = [];
+  siswaImportErrors = [];
+  const fileInput = document.getElementById('import-siswa-file');
+  fileInput.value = '';
+  document.getElementById('import-siswa-preview').classList.add('hidden');
+  document.getElementById('import-siswa-errors').classList.add('hidden');
+  document.getElementById('import-siswa-count').innerText = '';
+  document.getElementById('import-siswa-filename').innerText = '';
+  document.getElementById('import-siswa-preview-body').innerHTML = '';
+  document.getElementById('btn-process-import-siswa').disabled = true;
+
+  const dropzone = document.getElementById('import-siswa-dropzone');
+  if (dropzone) {
+    dropzone.ondragover = function(event) {
+      event.preventDefault();
+      dropzone.style.background = '#E2E8F0';
+    };
+    dropzone.ondragleave = function() {
+      dropzone.style.background = '#F8FAFC';
+    };
+    dropzone.ondrop = function(event) {
+      event.preventDefault();
+      dropzone.style.background = '#F8FAFC';
+      const file = event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0];
+      if (file) readSiswaExcelFile(file);
+    };
+  }
+  document.getElementById('modal-import-siswa').classList.remove('hidden');
+}
+
+function closeImportSiswaModal() {
+  const modal = document.getElementById('modal-import-siswa');
+  if (modal) modal.classList.add('hidden');
+}
+
+function handleImportSiswaFile(event) {
+  const file = event.target.files && event.target.files[0];
+  if (file) readSiswaExcelFile(file);
+}
+
+function normalizeExcelHeaderSiswa(value) {
+  return String(value == null ? '' : value).trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+
+function readSiswaExcelFile(file) {
+  if (!ensureXlsxLibrary()) return;
+  parsedSiswaImport = [];
+  siswaImportErrors = [];
+  document.getElementById('btn-process-import-siswa').disabled = true;
+  document.getElementById('import-siswa-preview').classList.add('hidden');
+  document.getElementById('import-siswa-errors').classList.add('hidden');
+  if (!/\.xlsx$/i.test(file.name)) {
+    showToast('File peserta harus berformat .xlsx.', 'error');
+    return;
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    showToast('Ukuran file maksimal 10 MB.', 'error');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    try {
+      const workbook = XLSX.read(event.target.result, { type: 'array', cellText: true, cellDates: false });
+      const preferred = workbook.SheetNames.filter(name => /template_peserta|data_peserta/i.test(name));
+      const candidates = preferred.concat(workbook.SheetNames.filter(name => !preferred.includes(name)));
+      let rows = null;
+      let headerIndex = -1;
+      let colIndex = {};
+      let selectedSheetName = '';
+
+      for (const sheetName of candidates) {
+        const worksheet = workbook.Sheets[sheetName];
+        if (!worksheet) continue;
+        const candidateRows = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false, defval: '', blankrows: false });
+        for (let i = 0; i < Math.min(candidateRows.length, 10); i++) {
+          const headers = candidateRows[i].map(normalizeExcelHeaderSiswa);
+          const candidate = {
+            nisn: headers.indexOf('NISN'),
+            nama: headers.indexOf('NAMASISWA') >= 0 ? headers.indexOf('NAMASISWA') : headers.indexOf('NAMA'),
+            kelas: headers.indexOf('KELAS'),
+            password: headers.indexOf('PASSWORD')
+          };
+          if (candidate.nisn >= 0 && candidate.nama >= 0 && candidate.kelas >= 0 && candidate.password >= 0) {
+            rows = candidateRows;
+            headerIndex = i;
+            colIndex = candidate;
+            selectedSheetName = sheetName;
+            break;
+          }
+        }
+        if (headerIndex >= 0) break;
+      }
+      if (!rows || headerIndex < 0) {
+        throw new Error('Header wajib tidak lengkap. Gunakan NISN, NAMA SISWA, KELAS, PASSWORD.');
+      }
+
+      const seen = new Set();
+      parsedSiswaImport = [];
+      siswaImportErrors = [];
+      for (let i = headerIndex + 1; i < rows.length; i++) {
+        const row = rows[i] || [];
+        const nisn = String(row[colIndex.nisn] == null ? '' : row[colIndex.nisn]).trim();
+        const nama = String(row[colIndex.nama] == null ? '' : row[colIndex.nama]).trim();
+        const kelas = String(row[colIndex.kelas] == null ? '' : row[colIndex.kelas]).trim();
+        const password = String(row[colIndex.password] == null ? '' : row[colIndex.password]).trim();
+        if (!nisn && !nama && !kelas && !password) continue;
+
+        const excelRow = i + 1;
+        const missing = [];
+        if (!nisn) missing.push('NISN');
+        if (!nama) missing.push('NAMA SISWA');
+        if (!kelas) missing.push('KELAS');
+        if (!password) missing.push('PASSWORD');
+        if (missing.length) {
+          siswaImportErrors.push('Baris ' + excelRow + ': kolom ' + missing.join(', ') + ' wajib diisi.');
+          continue;
+        }
+        if (seen.has(nisn)) {
+          siswaImportErrors.push('Baris ' + excelRow + ': NISN ' + nisn + ' muncul lebih dari satu kali dalam file.');
+          continue;
+        }
+        seen.add(nisn);
+        parsedSiswaImport.push({ nisn: nisn, nama: nama, kelas: kelas, password: password });
+      }
+
+      document.getElementById('import-siswa-filename').innerText = file.name;
+      document.getElementById('import-siswa-count').innerText =
+        parsedSiswaImport.length + ' baris valid' + (siswaImportErrors.length ? ' • ' + siswaImportErrors.length + ' kesalahan' : '');
+      renderSiswaImportPreview();
+
+      const errorBox = document.getElementById('import-siswa-errors');
+      if (siswaImportErrors.length) {
+        errorBox.innerText = siswaImportErrors.slice(0, 8).join('\n') +
+          (siswaImportErrors.length > 8 ? '\n... dan ' + (siswaImportErrors.length - 8) + ' kesalahan lainnya.' : '');
+        errorBox.classList.remove('hidden');
+      } else {
+        errorBox.classList.add('hidden');
+      }
+
+      document.getElementById('import-siswa-preview').classList.remove('hidden');
+      document.getElementById('btn-process-import-siswa').disabled =
+        parsedSiswaImport.length === 0 || siswaImportErrors.length > 0;
+    } catch (error) {
+      console.error('Gagal membaca Excel peserta:', error);
+      showToast(error.message || 'File Excel tidak dapat dibaca.', 'error');
+    }
+  };
+  reader.onerror = function() {
+    showToast('Gagal membaca file Excel.', 'error');
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderSiswaImportPreview() {
+  const tbody = document.getElementById('import-siswa-preview-body');
+  tbody.innerHTML = '';
+  parsedSiswaImport.slice(0, 20).forEach(function(student) {
+    const tr = document.createElement('tr');
+    [student.nisn, student.nama, student.kelas, student.password].forEach(function(value) {
+      const td = document.createElement('td');
+      td.style.cssText = 'padding:8px; border-top:1px solid #E2E8F0; white-space:nowrap;';
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  if (parsedSiswaImport.length > 20) {
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = 4;
+    td.style.cssText = 'padding:8px; text-align:center; color:#64748B;';
+    td.textContent = 'Dan ' + (parsedSiswaImport.length - 20) + ' peserta lainnya.';
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  }
+}
+
+async function processImportSiswaExcel() {
+  if (!parsedSiswaImport.length || siswaImportErrors.length) return;
+  const button = document.getElementById('btn-process-import-siswa');
+  const originalText = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengimpor...';
+
+  let imported = 0;
+  let skippedDuplicate = 0;
+  try {
+    for (let start = 0; start < parsedSiswaImport.length; start += 200) {
+      const chunk = parsedSiswaImport.slice(start, start + 200);
+      const result = await api.call(
+        'executeAdminAction',
+        AppStore.user.data.token,
+        'importSiswa',
+        { dataArray: chunk }
+      );
+      if (!result || !result.success) {
+        throw new Error((result && result.message) || 'Server menolak data pada proses import.');
+      }
+      imported += Number(result.count || 0);
+      skippedDuplicate += Number(result.skippedDuplicate || 0);
+    }
+
+    showToast(imported + ' peserta ditambahkan. ' + skippedDuplicate + ' NISN duplikat dilewati.', 'success');
+    closeImportSiswaModal();
+    loadDataSiswa(true);
+    fetchDropdownKelas();
+  } catch (error) {
+    console.error('Import peserta gagal:', error);
+    showToast('Import berhenti. ' + error.message + ' Data yang sudah berhasil diproses: ' + imported + ' peserta.', 'error');
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalText;
+  }
+}
+
+</script>

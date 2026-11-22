@@ -1,0 +1,68 @@
+<div class="dashboard-layout">
+  
+  <div class="sidebar-container-slot"></div>
+  
+  <div class="main-content">
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn btn-outline btn-hamburger hidden-desktop" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar"><i class="fas fa-bars"></i></button>
+        <div class="page-header-info">
+          <nav class="breadcrumb">Admin <span><i class="fas fa-chevron-right"></i></span> Dashboard</nav>
+          <h2>Dashboard Statistik</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      
+      <div class="glass-panel" style="padding: 1.5rem; border-left: 4px solid var(--primary);">
+        <h4 style="color: #6B7280; font-size: 0.875rem; text-transform: uppercase;">Total Siswa</h4>
+        <div style="font-size: 2rem; font-weight: 700; color: #111827; margin-top: 0.5rem;" id="stat-siswa">-</div>
+      </div>
+      
+      <div class="glass-panel" style="padding: 1.5rem; border-left: 4px solid var(--success);">
+        <h4 style="color: #6B7280; font-size: 0.875rem; text-transform: uppercase;">Soal Tersedia</h4>
+        <div style="font-size: 2rem; font-weight: 700; color: #111827; margin-top: 0.5rem;" id="stat-soal">-</div>
+      </div>
+      
+      <div class="glass-panel" style="padding: 1.5rem; border-left: 4px solid var(--warning);">
+        <h4 style="color: #6B7280; font-size: 0.875rem; text-transform: uppercase;">Sudah Ujian</h4>
+        <div style="font-size: 2rem; font-weight: 700; color: #111827; margin-top: 0.5rem;" id="stat-ujian">-</div>
+      </div>
+      
+      <div class="glass-panel" style="padding: 1.5rem; border-left: 4px solid var(--danger);">
+        <h4 style="color: #6B7280; font-size: 0.875rem; text-transform: uppercase;">Belum Dikoreksi</h4>
+        <div style="font-size: 2rem; font-weight: 700; color: #111827; margin-top: 0.5rem;" id="stat-koreksi">-</div>
+      </div>
+    </div>
+    
+    
+    <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Aksi Cepat</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <a role="button" tabindex="0" class="quick-action-card" onclick="navigateTo('admin-soal')">
+        <div class="qa-icon"><i class="fas fa-plus"></i></div>
+        <div>
+          <h4 style="margin: 0; color: #111827; font-size: 1rem;">Buat Soal Ujian</h4>
+          <span style="font-size: 0.85rem; color: #6B7280;">Tambah soal ke bank soal</span>
+        </div>
+      </a>
+      <a role="button" tabindex="0" class="quick-action-card" onclick="navigateTo('admin-ujian')">
+        <div class="qa-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);"><i class="fas fa-sliders-h"></i></div>
+        <div>
+          <h4 style="margin: 0; color: #111827; font-size: 1rem;">Seting & Buka Ujian</h4>
+          <span style="font-size: 0.85rem; color: #6B7280;">Mengatur ketersediaan Ujian</span>
+        </div>
+      </a>
+      <a role="button" tabindex="0" class="quick-action-card" onclick="navigateTo('admin-nilai')">
+        <div class="qa-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);"><i class="fas fa-file-contract"></i></div>
+        <div>
+          <h4 style="margin: 0; color: #111827; font-size: 1rem;">Lihat Hasil Ujian</h4>
+          <span style="font-size: 0.85rem; color: #6B7280;">Beri nilai / ekspor jawaban</span>
+        </div>
+      </a>
+    </div>
+    
+  </div>
+</div>
+
+

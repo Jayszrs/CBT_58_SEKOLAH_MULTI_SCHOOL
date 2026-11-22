@@ -1,0 +1,66 @@
+<script>
+function initAdminLogin() {
+  AppStore.user = null;
+  localStorage.removeItem('CBT_SESSION');
+  
+  
+  document.getElementById('admin-rate-limit-alert').style.display = 'none';
+  document.getElementById('admin-login-inputs').style.display = 'block';
+
+  
+  const logoEl = document.getElementById('admin-login-logo');
+  const iconEl = document.getElementById('admin-login-icon');
+  if (typeof APP_GLOBAL_CONFIG !== 'undefined' && APP_GLOBAL_CONFIG.logo_url && logoEl && iconEl) {
+     logoEl.src = APP_GLOBAL_CONFIG.logo_url;
+     logoEl.onerror = function() {
+         logoEl.style.display = 'none';
+         iconEl.style.display = '';
+     };
+     logoEl.style.display = '';
+     iconEl.style.display = 'none';
+  }
+  
+  
+  api.call('checkAdminLoginStatus').then(res => {
+    if (!res.success && res.status === 'rate_limited') {
+      document.getElementById('admin-rate-limit-alert').style.display = 'block';
+      let min = Math.ceil(res.remaining / 60);
+      document.getElementById('admin-rate-limit-msg').innerText = `Terlalu banyak percobaan gagal. Form diblokir sementara. Coba lagi dalam ${min} menit.`;
+      // Form tetap terlihat agar jalur pemulihan Superadmin masih dapat digunakan.
+      document.getElementById('admin-login-inputs').style.display = 'block';
+    }
+  }).catch(e => console.error(e));
+}
+
+function doAdminLogin() {
+  const pw = document.getElementById('admin-password').value;
+  const username = (document.getElementById('admin-username') && document.getElementById('admin-username').value || '').trim();
+  if (!pw) return;
+  
+  
+  const btn = document.getElementById('btn-admin-login');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+  
+  api.call('loginAdmin', pw, username).then(res => {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-lock-open"></i> Login Dashboard';
+    
+    if (res.success) {
+      
+      AppStore.user = { role: 'admin', data: { token: res.sessionToken || pw } };
+      localStorage.setItem('CBT_SESSION', JSON.stringify(AppStore.user));
+      if (res.passwordReset) showToast('Password administrator berhasil direset ke password awal. Segera ubah melalui menu Ganti Password.', 'success');
+      navigateTo('admin-dashboard');
+    } else {
+      showToast(res.message, 'error');
+      if (res.rateLimited) {
+        initAdminLogin(); 
+      }
+    }
+  }).catch(e => {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-lock-open"></i> Login Dashboard';
+  });
+}
+</script>

@@ -1,0 +1,7 @@
+**/.clasp.json
+**/.clasprc.json
+**/*service-account*.json
+**/*private-key*
+**/.env
+**/.env.*
+node_modules/

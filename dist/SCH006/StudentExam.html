@@ -1,0 +1,282 @@
+<style>
+  
+  .board-container { position: relative; margin-bottom: 20px; }
+  #svg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+  .board { display: flex; justify-content: space-between; position: relative; z-index: 2; width: 100%; }
+  .column-match { display: flex; flex-direction: column; gap: 20px; width: 45%; }
+  .item-match {
+      background-color: #ffffff; border: 2px solid #e5e7eb; padding: 15px;
+      border-radius: 8px; cursor: pointer; font-weight: 600; color: #374151;
+      transition: all 0.3s; position: relative; text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02); user-select: none;
+  }
+  .item-match:hover { border-color: #9ca3af; background-color: #f9fafb; }
+  .item-match.active { border-color: var(--primary, #007A7C); background-color: #F0FDFA; box-shadow: 0 0 0 3px rgba(0, 122, 124, 0.2); }
+  .dot {
+      width: 12px; height: 12px; background-color: #d1d5db; border-radius: 50%;
+      position: absolute; top: 50%; transform: translateY(-50%); transition: background-color 0.3s;
+  }
+  .item-match.active .dot { background-color: var(--primary, #4f46e5); }
+  .item-match.connected .dot { background-color: #10b981; }
+  .column-left .dot { right: -6px; }
+  .column-right .dot { left: -6px; }
+
+  
+  .student-question-instruction {
+    padding:12px 14px; margin-bottom:14px; border-left:4px solid var(--primary, #0F766E);
+    background:#F0FDFA; border-radius:6px; color:#134E4A; line-height:1.6;
+    white-space:pre-wrap; font-family:Arial,sans-serif;
+  }
+  .student-question-context {
+    font-family:Arial,sans-serif; line-height:1.7; font-size:1rem;
+    margin-bottom:16px; overflow-wrap:anywhere;
+  }
+  .student-question-context, #question-text { font-family:Arial,sans-serif; }
+  .student-question-context .ql-align-left, #question-text .ql-align-left { text-align:left; }
+  .student-question-context .ql-align-center, #question-text .ql-align-center { text-align:center; }
+  .student-question-context .ql-align-right, #question-text .ql-align-right { text-align:right; }
+  .student-question-context .ql-align-justify, #question-text .ql-align-justify { text-align:justify; }
+  .student-question-context table { border-collapse:collapse; max-width:100%; }
+  .student-question-context table td, .student-question-context table th { border:1px solid #8094ac;padding:7px; }
+  .student-question-context .cbt-table-block {max-width:100%;margin:12px auto;overflow-x:auto;background:#fff;}
+  .student-question-context .cbt-table-block:before {display:none;}
+  .student-question-context td, .student-question-context th { border:1px solid #CBD5E1; padding:6px 8px; }
+  .student-question-image { display:block; max-width:100%; max-height:360px; width:auto; height:auto; object-fit:contain; margin:0 auto 16px; border-radius:8px; }
+  .student-option-content { display:flex; flex-direction:column; gap:8px; flex:1; min-width:0; }
+  .student-option-image { display:block; max-width:min(100%, 300px); max-height:220px; width:auto; height:auto; object-fit:contain; border:1px solid #E5E7EB; border-radius:6px; background:#fff; padding:3px; }
+  .item-match .student-option-image { max-width:100%; max-height:170px; margin:8px auto 0; }
+  .student-option-label { display:flex; align-items:flex-start; gap:12px; }
+  .student-option-label input { flex-shrink:0; margin-top:4px; }
+  .exam-action-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    border-top: 1px solid #E5E7EB;
+    padding-top: 1.5rem;
+    gap: 1rem;
+  }
+  .exam-action-buttons .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 140px;
+  }
+  .exam-action-buttons .ragu-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  @media (max-width: 640px) {
+    .exam-action-buttons {
+      flex-wrap: wrap;
+    }
+    .exam-action-buttons .ragu-container {
+      order: -1;
+      width: 100%;
+      background: #FFFBEB;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px dashed #FCD34D;
+      margin-bottom: 0.5rem;
+    }
+    .exam-action-buttons .btn {
+      flex: 1;
+      padding: 0.6rem 0.5rem;
+      font-size: 0.9rem;
+      min-width: auto;
+    }
+    .exam-header-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .exam-header-top h2 {
+      font-size: 0.9rem !important;
+      flex-shrink: 0;
+    }
+    .exam-header {
+      display: grid !important;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
+    .exam-header-left {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem;
+    }
+    .exam-header-center {
+      display: flex;
+      justify-content: center;
+    }
+    .exam-header-right {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .exam-header-bottom .timer-box {
+      font-size: 1.1rem !important;
+    }
+  }
+  
+  
+  .exam-name-mobile, .exam-header-student-name, #text-cbt-gas-header {
+      display: none !important;
+  }
+</style>
+<noscript>
+  <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0A192F; z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; font-family: sans-serif; padding: 20px;">
+    <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #F59E0B; margin-bottom: 2rem;"></i>
+    <h1 style="font-size: 2rem; margin-bottom: 1rem;">JavaScript Dinonaktifkan</h1>
+    <p style="font-size: 1.1rem; color: #9CA3AF; max-width: 600px; line-height: 1.6;">
+      Sistem ujian ini memerlukan JavaScript untuk berfungsi dengan benar. 
+      Fitur keamanan dan anti-curang tidak dapat dijalankan jika JavaScript dimatikan.
+    </p>
+    <div style="margin-top: 2rem; padding: 1.5rem; border: 1px dashed #4B5563; border-radius: 8px; background: rgba(255,255,255,0.05);">
+      <p style="margin-bottom: 0;">Silakan aktifkan JavaScript di pengaturan browser Anda dan muat ulang halaman ini untuk melanjutkan.</p>
+    </div>
+  </div>
+</noscript>
+
+<div class="exam-layout">
+  <div class="exam-header sticky-header">
+    <div class="exam-header-left">
+      <img id="student-exam-logo" src="" alt="Logo" style="max-height: 28px; width: auto; object-fit: contain; flex-shrink: 0; display: none;">
+      <h2 id="text-cbt-gas-header" style="font-size: clamp(0.85rem, 3vw, 1.25rem); font-weight: bold; margin-bottom:0; color: var(--primary); white-space: nowrap; flex-shrink: 0;">CBT-GAS</h2>
+      <span id="exam-name" class="exam-name-mobile"></span>
+      <span id="exam-student-name" class="exam-header-student-name"></span>
+    </div>
+
+    <div class="exam-header-center">
+      <div class="timer-box" id="exam-timer" style="font-size: clamp(1.1rem, 3.5vw, 1.3rem); white-space: nowrap; margin: 0;">
+        00:00:00
+      </div>
+    </div>
+    
+    <div class="exam-header-right">
+      <button class="btn btn-outline hidden-desktop" style="padding:0.3rem 0.6rem; font-size: 1rem; flex-shrink: 0;" onclick="toggleExamPalette()">
+        <i class="fas fa-th-large"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="exam-body-wrapper" style="display: flex; gap: 2rem; align-items: flex-start;">
+    
+    <div class="glass-panel exam-main-area" style="flex: 1; min-width: 0; padding: 2rem; width:100%;">
+      
+      
+      <div class="info-card" id="info-card" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
+        <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);" id="mobile-card-exam-name">-</div>
+        <div style="color: #475569; font-size: 0.9rem; font-weight: 500;"><i class="fas fa-user-graduate" style="margin-right: 4px;"></i> <span id="mobile-card-student-name">-</span></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #E5E7EB; padding-bottom: 1rem; margin-bottom: 1.5rem;">
+        <h3 id="question-number" style="font-size: 1.125rem;">Soal No. 1</h3>
+        <span id="question-type" style="background-color: #F0FDFA; color: var(--primary); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">PG</span>
+      </div>
+      
+      <div id="question-instruction-container" class="student-question-instruction hidden"></div>
+
+      <div id="question-context" class="student-question-context hidden"></div>
+
+      <div id="question-image-container" class="hidden" style="margin-bottom:1rem; text-align:center;">
+        <img id="question-image" class="student-question-image" src="" alt="Gambar pendukung soal">
+      </div>
+
+      <div id="question-text" style="font-family:Arial,sans-serif; font-size:1.05rem; margin-bottom:2rem; line-height:1.7; overflow-wrap:anywhere;"></div>
+
+      <div id="options-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+        
+      </div>
+      
+      <div class="exam-action-buttons">
+        <button id="btn-prev" class="btn btn-outline" onclick="prevQuestion()">
+          <i class="fas fa-chevron-left"></i> Sebelumnya
+        </button>
+        <div class="ragu-container">
+          <input type="checkbox" id="btn-ragu" onchange="toggleRagu()" style="width: 1.25rem; height: 1.25rem; cursor: pointer; accent-color: #F59E0B;">
+          <label for="btn-ragu" style="font-weight: 600; cursor: pointer; color: #92400E; margin-bottom: 0;">Ragu-Ragu</label>
+        </div>
+        <button id="btn-next" class="btn btn-primary" onclick="nextQuestion()">
+          Selanjutnya <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+    
+    
+    <div class="glass-panel exam-palette-area sticky-sidebar" id="exam-palette-panel" style="width: 300px; padding: 1.5rem;">
+      <div class="justify-between items-center hidden-desktop" style="width: 100%; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+        <h3 style="font-size: 1.1rem; margin:0; font-weight: 600; color: #111827;">Navigasi Soal</h3>
+        <button style="background: #F3F4F6; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: #4B5563; font-size: 1.1rem; cursor: pointer; transition: all 0.2s;" onclick="toggleExamPalette()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <h3 style="font-size: 1rem; margin-bottom: 1rem; text-align: center;" class="hide-mobile">Navigasi Soal</h3>
+      <div id="question-palette" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;">
+        
+      </div>
+      
+      <div style="margin-top: 2rem;">
+        <button id="btn-submit-exam" class="btn btn-danger" style="width: 100%; padding: 0.75rem; font-weight: bold;" onclick="confirmSubmit()">
+          <i class="fas fa-paper-plane"></i> Selesai Ujian
+        </button>
+      </div>
+      
+      
+      <div style="margin-top: 1.5rem; font-size: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; color: #6B7280;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="width:12px; height:12px; background:white; border:1px solid #D1D5DB; border-radius:2px;"></div> Belum Dijawab
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="width:12px; height:12px; background:var(--primary); border-radius:2px;"></div> Sudah Dijawab
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <div style="width:12px; height:12px; background:#FCD34D; border-radius:2px;"></div> Ragu-Ragu (Kosong)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="fs-overlay" style="position:fixed; top:0; left:0; width:100vw; height:100vh; background:white; z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+  <i class="fas fa-expand" style="font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+  <h2 style="margin-bottom: 1rem;">Ujian Membutuhkan Layar Penuh</h2>
+  <p style="color: #6B7280; margin-bottom: 1.5rem; max-width: 500px; padding: 0 1rem;">Silakan klik tombol di bawah untuk masuk ke mode layar penuh dan memulai ujian.</p>
+  
+  <div style="background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px; padding: 1.5rem; max-width: 500px; width: 90%; text-align: left; margin-bottom: 2rem;">
+    <h4 style="color: #DC2626; margin-bottom: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; font-size: 1rem;">
+      <i class="fas fa-exclamation-triangle"></i> PERINGATAN! Dilarang Keras:
+    </h4>
+    <ul style="color: #991B1B; font-size: 0.9rem; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; margin: 0;">
+      <li>Keluar dari mode layar penuh (Fullscreen)</li>
+      <li>Berpindah tab/jendela lain, atau Split Screen</li>
+      <li>Menggunakan fitur Copy, Paste, atau Screenshot</li>
+    </ul>
+    <p style="color: #DC2626; font-size: 0.85rem; margin-top: 1rem; margin-bottom: 0; font-weight: 600; text-align: center;">
+      * Pelanggaran 3x otomatis menyelesaikan ujian paksa *
+    </p>
+  </div>
+
+  <button class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem; border-radius: 8px; font-weight: bold; width: 90%; max-width: 400px;" onclick="enterFullscreen()">Masuk Layar Penuh & Mulai Ujian</button>
+</div>
+
+
+<div id="custom-confirm-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 100000; justify-content: center; align-items: center;">
+  <div style="background: white; padding: 2rem; border-radius: 8px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #F59E0B; margin-bottom: 1rem;"></i>
+    <h3 style="margin-bottom: 1rem; color: #111827;">Konfirmasi Selesai Ujian</h3>
+    <p id="custom-confirm-message" style="color: #4B5563; margin-bottom: 2rem;">Apakah Anda yakin ingin menyelesaikan ujian?</p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+      <button class="btn btn-outline" onclick="closeCustomConfirm()" style="flex: 1;">Batal</button>
+      <button class="btn btn-danger" onclick="executeSubmit()" style="flex: 1;">Ya, Selesaikan</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,339 @@
+<style>
+  .admin-setting-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    max-width: 750px;
+    margin: 0 auto;
+  }
+  
+  .setting-group {
+    margin-bottom: 2rem;
+  }
+  
+  .setting-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #4B5563;
+    margin-bottom: 0.75rem;
+  }
+  
+  .setting-helper {
+    font-size: 0.85rem;
+    color: #6B7280;
+    margin-top: 0.5rem;
+  }
+
+  
+  .custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    flex-shrink: 0;
+  }
+  .custom-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #EF4444; 
+    transition: .4s;
+    border-radius: 34px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  input:checked + .slider {
+    background-color: #10B981; 
+  }
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  .status-text {
+    font-weight: 700;
+    margin-left: 1rem;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+  }
+
+  
+  .input-addon-group {
+    display: flex;
+    align-items: stretch;
+    max-width: 250px;
+  }
+  .input-addon-group input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    text-align: center;
+    font-size: 1.25rem;
+    padding: 0.75rem;
+  }
+  .input-addon-group .addon {
+    background: #F3F4F6;
+    border: 1px solid #D1D5DB;
+    border-left: none;
+    padding: 0.75rem 1.25rem;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    display: flex;
+    align-items: center;
+    color: #4B5563;
+    font-weight: 600;
+  }
+  
+  
+  .token-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .token-input-wrapper {
+    display: flex;
+    flex: 1;
+    min-width: 150px;
+  }
+  .token-input-wrapper input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #F9FAFB;
+    width: 100%;
+    min-width: 0;
+  }
+  .token-input-wrapper button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: white;
+    border: 1px solid #D1D5DB;
+    border-left: none;
+    color: #4B5563;
+    padding: 0 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  .token-input-wrapper button:hover {
+    background-color: #F3F4F6;
+  }
+  
+  
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    background-color: #F9FAFB;
+  }
+  
+  .chip-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #D1D5DB;
+    border-radius: 9999px;
+    background: white;
+    color: #4B5563;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .chip-label:hover {
+    background-color: #F3F4F6;
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .chip-checkbox {
+    display: none;
+  }
+  .chip-checkbox:checked + .chip-label {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  .chip-checkbox:checked + .chip-label:hover {
+    background-color: var(--primary-hover);
+  }
+
+  
+  @media (max-width: 640px) {
+    .admin-setting-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<div class="dashboard-layout">
+  
+  <div class="sidebar-container-slot"></div>
+  
+  <div class="main-content">
+    <div class="page-header">
+      <div class="page-header-left">
+        <button class="btn btn-outline btn-hamburger hidden-desktop" onclick="toggleSidebar()" aria-label="Buka navigasi sidebar"><i class="fas fa-bars"></i></button>
+        <div class="page-header-info">
+          <nav class="breadcrumb">Admin <span><i class="fas fa-chevron-right"></i></span> Pengaturan Ujian</nav>
+          <h2>Pengaturan Server Ujian</h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="admin-setting-card">
+      <form id="frm-config" onsubmit="event.preventDefault(); saveConfig();">
+        
+        <div class="setting-group">
+          <label class="setting-label">Nama Ujian</label>
+          <input type="text" id="conf-nama-ujian" class="form-control" placeholder="Contoh: Ulangan Harian, UTS" style="width: 100%; padding: 0.75rem;" required>
+          <div class="setting-helper">Tampil di header aplikasi siswa.</div>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">Sumber Soal Ujian</label>
+          <div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="source_mode" value="mapel" onchange="toggleSourceMode()" id="mode-mapel"> Filter Mata Pelajaran
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="source_mode" value="paket" onchange="toggleSourceMode()" id="mode-paket"> Gunakan Paket Soal
+            </label>
+          </div>
+
+          <div id="group-mapel" class="hidden">
+            <select id="conf-mapel-ujian" class="form-control" style="width: 100%; padding: 0.75rem;">
+              <option value="">-- Semua Mata Pelajaran --</option>
+            </select>
+            <div class="setting-helper">Ujian akan mengambil semua soal dari bank soal yang memiliki mata pelajaran terpilih.</div>
+          </div>
+
+          <div id="group-paket" class="hidden">
+            <select id="conf-paket-ujian" class="form-control" style="width: 100%; padding: 0.75rem;">
+              <option value="">-- Pilih Paket Soal --</option>
+            </select>
+            <div class="setting-helper">Ujian akan mengambil soal-soal spesifik yang telah dikelompokkan dalam paket soal.</div>
+          </div>
+        </div>
+
+        
+        <div class="setting-group">
+          <label class="setting-label">Status Server Ujian</label>
+          <div style="display: flex; align-items: center; margin-top: 0.5rem;">
+            <label class="custom-switch">
+              <input type="checkbox" id="conf-aktif-toggle" onchange="toggleStatusText()">
+              <span class="slider"></span>
+            </label>
+            <span id="statusLabel" class="status-text" style="color: #EF4444;">DITUTUP</span>
+          </div>
+          <div class="setting-helper">Jika ditutup, siswa tidak bisa login dan memulai ujian.</div>
+        </div>
+        
+        
+        <div class="setting-group">
+          <label class="setting-label">Durasi Ujian</label>
+          <div class="input-addon-group">
+            <input type="number" id="conf-durasi" class="form-control" min="1" max="1440" required>
+            <span class="addon">Menit</span>
+          </div>
+        </div>
+        
+        
+        <div class="setting-group">
+          <label class="setting-label">Token / PIN Harian</label>
+          <div class="token-group">
+            <div class="token-input-wrapper">
+              <input type="text" id="conf-token" class="form-control" required maxlength="6" readonly>
+              <button type="button" onclick="generateRandomToken()" title="Generate Acak">
+                <i class="fas fa-sync-alt"></i> Acak
+              </button>
+            </div>
+            <button type="button" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-size: 1rem;" onclick="showTokenPresentation()">
+              <i class="fas fa-external-link-square-alt"></i> Tampilkan
+            </button>
+          </div>
+          <div class="setting-helper">Siswa membutuhkan NISN dan Token ini untuk dapat masuk.</div>
+        </div>
+        
+        
+        <div class="setting-group">
+          <label class="setting-label">Kelas yang Diizinkan Ujian</label>
+          <div id="container-kelas-checkbox" class="chips-container">
+            
+            <span style="color:gray; font-size:0.875rem;">Memuat daftar kelas...</span>
+          </div>
+          <div class="setting-helper">Pilih kelas yang diizinkan untuk login. Jika tidak ada yang dipilih (kosong), semua siswa tidak akan bisa login ujian kecuali ujian ditutup.</div>
+          <input type="hidden" id="conf-kelas-diizinkan">
+        </div>
+        
+        
+        <div class="setting-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 150px;">
+            <label class="setting-label">Waktu Mulai Ujian</label>
+            <input type="datetime-local" id="conf-waktu-mulai" class="form-control" style="width: 100%;">
+            <div class="setting-helper">Kosongkan jika tidak ada batas awal.</div>
+          </div>
+          <div style="flex: 1; min-width: 150px;">
+            <label class="setting-label">Waktu Selesai Ujian</label>
+            <input type="datetime-local" id="conf-waktu-selesai" class="form-control" style="width: 100%;">
+            <div class="setting-helper">Kosongkan jika tidak ada batas akhir.</div>
+          </div>
+        </div>
+        
+        
+        <div class="setting-group">
+          <label class="setting-label">Acak Urutan Soal</label>
+          <div style="display: flex; align-items: center; margin-top: 0.5rem;">
+            <label class="custom-switch">
+              <input type="checkbox" id="conf-acak-toggle" onchange="toggleAcakText()">
+              <span class="slider"></span>
+            </label>
+            <span id="acakLabel" class="status-text" style="color: #EF4444;">TIDAK DIACAK</span>
+          </div>
+          <div class="setting-helper">Jika diaktifkan, setiap siswa akan mendapatkan urutan soal yang berbeda-beda.</div>
+        </div>
+        
+        
+        <div style="margin-top: 3rem;">
+          <button type="submit" id="btn-save-config" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem; border-radius: 8px;">
+            <i class="fas fa-save"></i> Simpan Pengaturan Server
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="token-presentation-overlay" class="token-presentation-overlay hidden">
+  <button class="token-close-btn" onclick="closeTokenPresentation()" aria-label="Tutup Presentasi Token"><i class="fas fa-times"></i></button>
+  <div class="token-content">
+    <h3>TOKEN UJIAN HARI INI</h3>
+    <div id="display-token-text" class="token-text">------</div>
+  </div>
+</div>
+
