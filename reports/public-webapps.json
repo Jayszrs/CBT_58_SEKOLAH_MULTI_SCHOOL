@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-22T10:42:19.640Z",
+  "checked_at": "2026-11-22T11:59:14.200Z",
   "results": [
     {
       "school": "SCH-001",
@@ -90,6 +90,264 @@
       "status": "PUBLIC_LOGIN_RENDERED",
       "http_status": 200,
       "title": "CBT | SDN KEBON KOSONG 09"
+    },
+    {
+      "school": "SCH-016",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 13"
+    },
+    {
+      "school": "SCH-017",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 15 PG"
+    },
+    {
+      "school": "SCH-018",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 16 PG"
+    },
+    {
+      "school": "SCH-019",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 17 PG"
+    },
+    {
+      "school": "SCH-020",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SERDANG 01 PG"
+    },
+    {
+      "school": "SCH-021",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SERDANG 05 PG"
+    },
+    {
+      "school": "SCH-022",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SERDANG 07"
+    },
+    {
+      "school": "SCH-023",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SERDANG 11"
+    },
+    {
+      "school": "SCH-024",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SERDANG 13 PG"
+    },
+    {
+      "school": "SCH-025",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 03 PG"
+    },
+    {
+      "school": "SCH-026",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 05 PG"
+    },
+    {
+      "school": "SCH-027",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 07 PG"
+    },
+    {
+      "school": "SCH-028",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 12 PG"
+    },
+    {
+      "school": "SCH-029",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 01 PG"
+    },
+    {
+      "school": "SCH-030",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 03 PG"
+    },
+    {
+      "school": "SCH-031",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 06"
+    },
+    {
+      "school": "SCH-032",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 08"
+    },
+    {
+      "school": "SCH-033",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 12 PG"
+    },
+    {
+      "school": "SCH-034",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN SUMUR BATU 14 PG"
+    },
+    {
+      "school": "SCH-035",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 01"
+    },
+    {
+      "school": "SCH-036",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 09 PG"
+    },
+    {
+      "school": "SCH-037",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN CEMPAKA BARU 11 PG"
+    },
+    {
+      "school": "SCH-038",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD AL-MARHAMAH"
+    },
+    {
+      "school": "SCH-039",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS AL-MUDDATSIRIYAH"
+    },
+    {
+      "school": "SCH-040",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS AS-SALAM"
+    },
+    {
+      "school": "SCH-041",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS BUDI MULIA"
+    },
+    {
+      "school": "SCH-042",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS KARTINI"
+    },
+    {
+      "school": "SCH-043",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS KARMEL"
+    },
+    {
+      "school": "SCH-044",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS KRISTEN KANAAN"
+    },
+    {
+      "school": "SCH-045",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS MUHAMMADIYAH I"
+    },
+    {
+      "school": "SCH-046",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS NURANI"
+    },
+    {
+      "school": "SCH-047",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS TAMAN SISWA"
+    },
+    {
+      "school": "SCH-048",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDS TP KENCANA"
+    },
+    {
+      "school": "SCH-049",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD ISLAM SUKAMULYA"
+    },
+    {
+      "school": "SCH-050",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDIT INSAN MULIA JAKARTA"
+    },
+    {
+      "school": "SCH-051",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDIT QATRUNNADA"
+    },
+    {
+      "school": "SCH-052",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD KRISTEN PENABUR 3"
+    },
+    {
+      "school": "SCH-053",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD KRISTEN SAINT JOHN"
+    },
+    {
+      "school": "SCH-054",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD MUHAMMADIYAH 50"
+    },
+    {
+      "school": "SCH-055",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD SANDIKA"
+    },
+    {
+      "school": "SCH-056",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD SANTO MIKAEL"
+    },
+    {
+      "school": "SCH-057",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SD STRADA VAN LITH I"
+    },
+    {
+      "school": "SCH-058",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SEKOLAH DASAR UNIVERSAL"
     }
   ]
 }

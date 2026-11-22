@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 const schools=JSON.parse(fs.readFileSync(new URL('../config/schools.json',import.meta.url))).filter(s=>s.deployment_access==='ANYONE_ANONYMOUS');
 const results=[];
-for(const school of schools){
+// Independent public reads; a small batch avoids serial waits across 58 apps.
+for(let index=0;index<schools.length;index+=5){
+  await Promise.all(schools.slice(index,index+5).map(async school=>{
   try{
     const response=await fetch(school.webapp_url,{signal:AbortSignal.timeout(30000)});
     const html=await response.text();
@@ -10,5 +12,7 @@ for(const school of schools){
     const item={school:school.school_code,status,http_status:response.status,title};
     results.push(item);console.log(JSON.stringify(item));
   }catch(error){const item={school:school.school_code,status:'CHECK_FAILED',error:error.message};results.push(item);console.log(JSON.stringify(item));}
+  }));
 }
+results.sort((a,b)=>a.school.localeCompare(b.school));
 fs.writeFileSync(new URL('../reports/public-webapps.json',import.meta.url),JSON.stringify({checked_at:new Date().toISOString(),results},null,2)+'\n');

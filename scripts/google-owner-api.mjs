@@ -19,10 +19,18 @@ export async function googleOwnerApi(expectedEmail, quotaProjectId) {
   const credentials = await findGoogleOwnerCredentials(expectedEmail, { initAuth, getUserInfo });
   return async function request(url, method = 'GET', data) {
     const headers = quotaProjectId && url.startsWith('https://sheets.googleapis.com/') ? { 'x-goog-user-project': quotaProjectId } : undefined;
-    try { return (await credentials.request({ url, method, data, headers })).data; }
-    catch (error) {
-      // Gaxios errors include the authorization header; emit only the API message.
-      throw Error(`Google API ${error.response?.status || ''}: ${error.response?.data?.error?.message || error.message}`);
+    for(let attempt=0;attempt<3;attempt++){
+      try { return (await credentials.request({ url, method, data, headers })).data; }
+      catch (error) {
+        const status=error.response?.status;
+        // Newly created deployments can take a moment to appear on read replicas.
+        // Retry reads only; a lost create response must be resumed by its resource ID.
+        if(method.toUpperCase()==='GET'&&attempt<2&&([404,429,500,502,503,504].includes(status)||['ECONNRESET','ETIMEDOUT'].includes(error.code))){
+          await new Promise(resolve=>setTimeout(resolve,1000*(attempt+1)));continue;
+        }
+        // Gaxios errors include the authorization header; emit only the API message.
+        throw Error(`Google API ${status || ''}: ${error.response?.data?.error?.message || error.message}`);
+      }
     }
   };
 }

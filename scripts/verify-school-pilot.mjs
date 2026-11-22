@@ -9,7 +9,7 @@ const request = await googleOwnerApi(schools[0].account_email);
 const results = await Promise.all(schools.map(async school => {
   const base = `https://script.googleapis.com/v1/projects/${school.script_id}`;
   const [content, deployment, spreadsheet, folder] = await Promise.all([
-    request(base+'/content'), request(base+'/deployments/'+school.deployment_id),
+    request(base+'/content?versionNumber='+school.deployed_version), request(base+'/deployments/'+school.deployment_id),
     request(`https://www.googleapis.com/drive/v3/files/${school.spreadsheet_id}?fields=id,mimeType,owners(emailAddress)`),
     request(`https://www.googleapis.com/drive/v3/files/${school.drive_folder_id}?fields=id,mimeType,owners(emailAddress)`),
   ]);
@@ -36,4 +36,10 @@ fs.mkdirSync(path.join(root,'reports'),{recursive:true});
 const report = JSON.stringify({account_id:accountId,verified_at:new Date().toISOString(),results},null,2)+'\n';
 fs.writeFileSync(path.join(root,'reports',accountId+'-verification.json'),report);
 if(accountId==='AKUN-01')fs.writeFileSync(path.join(root,'reports','pilot-verification.json'),report);
+const checkpointFile=path.join(root,'reports',accountId+'-provisioning.json');
+if(fs.existsSync(checkpointFile)){
+  const checkpoint=JSON.parse(fs.readFileSync(checkpointFile,'utf8'));
+  checkpoint.phase='CLOUD_VERIFIED';checkpoint.updated_at=new Date().toISOString();delete checkpoint.error;
+  fs.writeFileSync(checkpointFile,JSON.stringify(checkpoint,null,2)+'\n');
+}
 console.log(JSON.stringify(results,null,2));

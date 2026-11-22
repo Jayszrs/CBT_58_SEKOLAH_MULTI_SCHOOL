@@ -79,6 +79,13 @@ try {
     const previousVersion = school.deployed_version;
     const version = await request(`${api}/${school.script_id}/versions`, 'POST', { description: `${school.school_code} ${label} - palet spreadsheet` });
     const deploymentConfig = { versionNumber: version.versionNumber, manifestFileName: 'appsscript', description: `${school.school_code} ${label}` };
+    if (!school.deployment_id) {
+      // A create request may succeed on Google while its response is lost.
+      // Resume our managed deployment rather than creating another public URL.
+      const existing = await request(`${api}/${school.script_id}/deployments`);
+      const managed = (existing.deployments || []).find(item => item.deploymentConfig?.description === deploymentConfig.description && item.entryPoints?.some(entry=>entry.entryPointType==='WEB_APP'));
+      if (managed) { school.deployment_id = managed.deploymentId; save(); }
+    }
     const deployment = school.deployment_id
       ? await request(`${api}/${school.script_id}/deployments/${school.deployment_id}`, 'PUT', { deploymentConfig })
       : await request(`${api}/${school.script_id}/deployments`, 'POST', deploymentConfig);

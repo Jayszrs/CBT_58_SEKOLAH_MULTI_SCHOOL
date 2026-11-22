@@ -44,7 +44,8 @@ function getAllPaketSoal_(bypassCache = false) {
     });
   }
 
-  cache.put(cacheKey, JSON.stringify(result), 3600);
+  try { cache.put(cacheKey, JSON.stringify(result), 3600); }
+  catch (error) { console.warn('Paket soal dibaca langsung; cache tidak tersedia: ' + error.message); }
   return result;
 }
 

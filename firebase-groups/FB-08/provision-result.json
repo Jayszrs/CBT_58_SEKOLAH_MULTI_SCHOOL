@@ -1,0 +1,21 @@
+{
+  "account_id": "AKUN-08",
+  "account_email": "umiexchanger@gmail.com",
+  "group": "FB-08",
+  "project_id": "cbt-grup-08",
+  "project_number": "324303654639",
+  "schools": [
+    "SCH036",
+    "SCH037",
+    "SCH038",
+    "SCH039",
+    "SCH040"
+  ],
+  "created_or_found_at": "2026-11-22T11:30:16.994Z",
+  "database_status": "VERIFIED",
+  "database_url": "https://cbt-grup-08-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "database_instance": "cbt-grup-08-default-rtdb",
+  "database_location": "asia-southeast1",
+  "public_access": "DENIED",
+  "notes": "Project, database, dan rules tertutup sudah diverifikasi. Jangan simpan kredensial service account di repo."
+}

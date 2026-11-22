@@ -118,10 +118,17 @@ export async function ensureFirebaseProject(api, projectId, email, log = console
 export async function ensureDefaultDatabase(api, projectId, location = 'asia-southeast1', log = console.log) {
   try { await api.ensureDatabaseApi(projectId); }
   catch(error) {
-    if(!api.bootstrapServiceUsageApi || !String(error.message).includes('Service Usage API'))throw error;
+    const serviceUsageError = failure => /Service Usage API|serviceusage\.serviceUsageConsumer|serviceusage\.services\.use/.test(String(failure.message));
+    if(!api.bootstrapServiceUsageApi || !serviceUsageError(error))throw error;
     log('Mengaktifkan Service Usage API pada project baru ...');
     await api.bootstrapServiceUsageApi(projectId);
-    await api.ensureDatabaseApi(projectId);
+    for(let attempt=0;attempt<3;attempt++){
+      try { await api.ensureDatabaseApi(projectId); break; }
+      catch(failure){
+        if(attempt===2||!serviceUsageError(failure))throw failure;
+        await new Promise(resolve=>setTimeout(resolve,2500*(attempt+1)));
+      }
+    }
   }
   const instances = await api.listDatabases(projectId);
   let instance = instances.find(item => item.type?.toLowerCase() === 'default_database');

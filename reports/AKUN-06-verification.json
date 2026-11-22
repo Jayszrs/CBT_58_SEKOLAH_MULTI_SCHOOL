@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-06",
+  "verified_at": "2026-11-22T11:37:51.419Z",
+  "results": [
+    {
+      "school": "SCH-026",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazkampreto@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 4,
+      "webapp": "https://script.google.com/macros/s/AKfycbzgW37yHHap-hMOyXZhNHSBuD7itxRyyWlNJsaz1s5jIc0hksKyit67U2TKoNiEhBmA/exec"
+    },
+    {
+      "school": "SCH-027",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazkampreto@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 4,
+      "webapp": "https://script.google.com/macros/s/AKfycbyvSdE-4_D5amahZwo_-hzA4hJgW5FysT6vYixUZXfzZ7EEZeYS86pZRVLTWJLM0ls/exec"
+    },
+    {
+      "school": "SCH-028",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazkampreto@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 4,
+      "webapp": "https://script.google.com/macros/s/AKfycbyiYwa21lALyc37Tr98OsQm7Y3DF7vCU7Kvm4Uf-4YvAEW76CcMzvNANEA1WB8-xLk/exec"
+    },
+    {
+      "school": "SCH-029",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazkampreto@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbx3ZGdwZbL2lyUPF6I-lBri1ixKF36vMspUtN8r8p3GIjrBjMnGCBu7BNY25n_WwA/exec"
+    },
+    {
+      "school": "SCH-030",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazkampreto@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbyvFeqxm8p9KLQlSW5XnVFnvpaBkAIzeofIZx4MurViN3_qewIyzppPuenwp-fbbrrl/exec"
+    }
+  ]
+}

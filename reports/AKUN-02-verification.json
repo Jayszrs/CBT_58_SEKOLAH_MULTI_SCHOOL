@@ -1,6 +1,6 @@
 {
   "account_id": "AKUN-02",
-  "verified_at": "2026-11-22T10:35:36.598Z",
+  "verified_at": "2026-11-22T11:37:24.509Z",
   "results": [
     {
       "school": "SCH-006",
@@ -9,7 +9,7 @@
       "palette": "VERIFIED",
       "resource_owner": "dimazunj1@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 6,
+      "version": 7,
       "webapp": "https://script.google.com/macros/s/AKfycbyPgHn_zSXc3WynxwYbDN-xg8tEJwRSNQynJYKB8FeaoSPZlnBVZwU_xwq0zqCEPCLv/exec"
     },
     {
@@ -19,7 +19,7 @@
       "palette": "VERIFIED",
       "resource_owner": "dimazunj1@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 6,
+      "version": 7,
       "webapp": "https://script.google.com/macros/s/AKfycbwpKvBxDKY3Rgfy5a0Tnlmq83Lbx_1PmMbvDrnkuR1PuBzZpXDbfqaNwzeaQw4ToG1d/exec"
     },
     {
@@ -29,7 +29,7 @@
       "palette": "VERIFIED",
       "resource_owner": "dimazunj1@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 6,
+      "version": 7,
       "webapp": "https://script.google.com/macros/s/AKfycbxv5aU9LYQQ7X5Jg0i2R5MLHLIXaleYeGfEjvmEvqUGXNtr2wGU0F-jQfeKxLphIlSq/exec"
     },
     {
@@ -39,7 +39,7 @@
       "palette": "VERIFIED",
       "resource_owner": "dimazunj1@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 6,
+      "version": 7,
       "webapp": "https://script.google.com/macros/s/AKfycbwftk-WjbCAdIcCXfKpwyH3VUHsmMcf8ILPMKm2jMCmUPN_iECAs36e1QVdvLF1RB1MUQ/exec"
     },
     {
@@ -49,7 +49,7 @@
       "palette": "VERIFIED",
       "resource_owner": "dimazunj1@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 6,
+      "version": 7,
       "webapp": "https://script.google.com/macros/s/AKfycbwwL4q3EqeX1OsfaAEms5JmcH__RusshHOugTvlT580KwjP1qcZ0Etc3q1lY-owEbTM/exec"
     }
   ]

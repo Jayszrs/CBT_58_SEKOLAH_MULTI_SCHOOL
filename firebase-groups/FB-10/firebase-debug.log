@@ -1,0 +1,57 @@
+[debug] [2026-11-22T11:40:55.369Z] ----------------------------------------------------------------------
+[debug] [2026-11-22T11:40:55.372Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only database --project cbt-grup-10 --non-interactive --account dimazunj12@gmail.com
+[debug] [2026-11-22T11:40:55.372Z] CLI Version:   15.37.0
+[debug] [2026-11-22T11:40:55.372Z] Platform:      win32
+[debug] [2026-11-22T11:40:55.372Z] Node Version:  v22.23.4
+[debug] [2026-11-22T11:40:55.372Z] Detected Agent: codex_cli
+[debug] [2026-11-22T11:40:55.372Z] Time:          Sun Nov 22 2026 18:40:55 GMT+0700 (Western Indonesia Time)
+[debug] [2026-11-22T11:40:55.373Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-11-22T11:40:58.980Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-11-22T11:40:58.981Z] > authorizing via signed-in user (dimazunj12@gmail.com)
+[debug] [2026-11-22T11:40:58.981Z] [iam] checking project cbt-grup-10 for permissions ["firebase.projects.get","firebasedatabase.instances.update"]
+[debug] [2026-11-22T11:40:58.992Z] No OAuth tokens found
+[debug] [2026-11-22T11:40:58.993Z] No OAuth tokens found
+[debug] [2026-11-22T11:40:58.994Z] > refreshing access token with scopes: []
+[debug] [2026-11-22T11:40:58.996Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-11-22T11:40:58.996Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-11-22T11:40:59.190Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-11-22T11:40:59.190Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-11-22T11:40:59.202Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/cbt-grup-10:testIamPermissions [none]
+[debug] [2026-11-22T11:40:59.202Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/cbt-grup-10:testIamPermissions  x-goog-user-project=cbt-grup-10
+[debug] [2026-11-22T11:40:59.202Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/cbt-grup-10:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2026-11-22T11:40:59.558Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/cbt-grup-10:testIamPermissions 200
+[debug] [2026-11-22T11:40:59.559Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/cbt-grup-10:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update"]}
+[debug] [2026-11-22T11:40:59.559Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:40:59.559Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:40:59.559Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/cbt-grup-10 [none]
+[debug] [2026-11-22T11:41:00.198Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/cbt-grup-10 200
+[debug] [2026-11-22T11:41:00.198Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/cbt-grup-10 {"projectId":"cbt-grup-10","projectNumber":"1095379366546","displayName":"cbt-grup-10","name":"projects/cbt-grup-10","resources":{"hostingSite":"cbt-grup-10","realtimeDatabaseInstance":"cbt-grup-10-default-rtdb"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_6f0e8824-6b16-4923-8aa0-741d6866c37f"}
+[info] 
+[info] === Deploying to 'cbt-grup-10'...
+[info] 
+[info] i  deploying database 
+[info] i  database: checking rules syntax... 
+[debug] [2026-11-22T11:41:00.202Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:00.202Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:00.203Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb [none]
+[debug] [2026-11-22T11:41:01.677Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb 200
+[debug] [2026-11-22T11:41:01.677Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb {"name":"projects/1095379366546/locations/asia-southeast1/instances/cbt-grup-10-default-rtdb","project":"projects/1095379366546","databaseUrl":"https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2026-11-22T11:41:01.678Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:01.679Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:01.679Z] >>> [apiv2][query] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json dryRun=true
+[debug] [2026-11-22T11:41:01.679Z] >>> [apiv2][body] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json "{\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}\n"
+[debug] [2026-11-22T11:41:03.373Z] <<< [apiv2][status] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json 200
+[debug] [2026-11-22T11:41:03.373Z] <<< [apiv2][body] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json {"status":"ok"}
+[info] +  database: rules syntax for database cbt-grup-10-default-rtdb is valid 
+[info] i  database: releasing rules... 
+[debug] [2026-11-22T11:41:03.374Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:03.374Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:03.374Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb [none]
+[debug] [2026-11-22T11:41:03.711Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb 200
+[debug] [2026-11-22T11:41:03.711Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/cbt-grup-10/locations/-/instances/cbt-grup-10-default-rtdb {"name":"projects/1095379366546/locations/asia-southeast1/instances/cbt-grup-10-default-rtdb","project":"projects/1095379366546","databaseUrl":"https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2026-11-22T11:41:03.712Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:03.712Z] Checked if tokens are valid: true, expires at: 1795351258190
+[debug] [2026-11-22T11:41:03.712Z] >>> [apiv2][query] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json 
+[debug] [2026-11-22T11:41:03.712Z] >>> [apiv2][body] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json "{\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}\n"
+[debug] [2026-11-22T11:41:04.090Z] <<< [apiv2][status] PUT https://cbt-grup-10-default-rtdb.asia-southeast1.firebasedatabase.app/.settings/rules.json 200

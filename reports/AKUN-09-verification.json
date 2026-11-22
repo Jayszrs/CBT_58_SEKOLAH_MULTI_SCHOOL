@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-09",
+  "verified_at": "2026-11-22T11:40:04.015Z",
+  "results": [
+    {
+      "school": "SCH-041",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj10@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ/exec"
+    },
+    {
+      "school": "SCH-042",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj10@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 2,
+      "webapp": "https://script.google.com/macros/s/AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv/exec"
+    },
+    {
+      "school": "SCH-043",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj10@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l/exec"
+    },
+    {
+      "school": "SCH-044",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj10@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg/exec"
+    },
+    {
+      "school": "SCH-045",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj10@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp/exec"
+    }
+  ]
+}

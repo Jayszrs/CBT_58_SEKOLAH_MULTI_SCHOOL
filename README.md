@@ -6,7 +6,7 @@ Konfigurasi sekolah mengikuti spreadsheet monitoring yang diberikan pengguna. Pe
 
 - `config/spreadsheet-source.json`: snapshot nama sekolah, palet, tautan yang sudah ada, dan email dari LIST AKUN. Tidak menyimpan password akun Google.
 - `config/schools.json` dan `schools.csv`: konfigurasi 58 sekolah beserta ID dan URL aktual.
-- `config/accounts.json` dan `accounts.csv`: 12 slot akun operasional; 9 email tersedia, 3 slot belum berisi email. Email admin pusat juga belum ditentukan.
+- `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Email admin pusat belum ditentukan.
 - Kode pada spreadsheet berbentuk `SCH-001`; ID internal dan namespace Firebase tetap `SCH001` agar resource lama tidak berpindah.
 - `backend/` dan `frontend/`: sumber bersama. `scripts/build.mjs` menghasilkan paket datar `dist/SCH001` sampai `dist/SCH058` dan memperbarui seed inventaris admin pusat.
 
@@ -69,10 +69,10 @@ Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email
 ## Verifikasi dan batas saat ini
 
 - 58 sekolah dan pembagian 5 sekolah/akun telah divalidasi.
-- Lima belas deployment publik, sumber aplikasi, nama, palet, URL, dan pemilik resource telah diverifikasi lewat API.
-- Halaman publik 15 sekolah berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah berhasil diuji WRITE/READ. Tiga RTDB tetap menolak akses publik langsung.
+- Seluruh 58 deployment publik, versi sumber, nama, palet, URL dan pemilik resource telah diverifikasi lewat API. Rincian ada dalam laporan per akun dan spreadsheet monitoring.
+- Halaman publik SCH-001–058 berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah lulus WRITE/READ. Semua 12 RTDB menolak akses publik langsung (HTTP 401).
 - Di SCH001, uji nyata meliputi CRUD kelas/mapel/siswa/soal, impor/ekspor Excel, gambar privat, paket, ujian HP enam tipe soal, autosave, submit, koreksi nilai 100, ekspor/cetak, serta arsip/restore.
-- 40 tes regresi lulus. Rincian metode dan batas uji ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL spreadsheet monitoring.
+- 41 tes regresi lulus, termasuk bank soal/paket besar yang melampaui batas cache. Rincian metode dan batas uji ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL spreadsheet monitoring.
 - Data QA siswa, kelas, mapel, paket, soal dan sesi Firebase sudah dibersihkan. Dua hasil QA diarsipkan; ujian kembali tidak aktif. Kredensial admin dan logo aktif dipertahankan; penyimpanannya juga diperiksa lewat pengujian terisolasi.
 - UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. Alur lengkap data QA dijalankan di SCH001; sekolah lain menggunakan sumber yang sama dan verifikasi resource masing-masing.
 

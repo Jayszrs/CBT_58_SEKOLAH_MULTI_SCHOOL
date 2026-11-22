@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-11",
+  "verified_at": "2026-11-22T11:47:55.134Z",
+  "results": [
+    {
+      "school": "SCH-051",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj13@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbw-2Xi9c5wwEIMqP319-xTWz9Bp-vX_svJbm6ng3Hr_rzpt9n0IGw-zXFqFOu4Fa-Y7/exec"
+    },
+    {
+      "school": "SCH-052",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj13@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbyMphGjCvgxjiOKyNP-Nw-2yU9mzN5y764MyxrTGNjxDsOzafw203zumAcN4AxYH1A7qw/exec"
+    },
+    {
+      "school": "SCH-053",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj13@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbyAI3m_VxzF9G37LxfIm0CPZRMdrGXrEkFqiCvVJzVbVLpVHQjg6tN1W2elaEqa5pOS/exec"
+    },
+    {
+      "school": "SCH-054",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj13@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbw4N4OBNDXX8U8JOD8sbNVUiBCdWKXbeK2CHiQ8WUFtDiWKRmGoArs2C-Sa-23wkYQ6/exec"
+    },
+    {
+      "school": "SCH-055",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj13@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzushk82OxqXAftNGsv591dL4W0qrIWHSdtZFBFQ01tkvfRtKoL25-uLdqSEMeytjp1/exec"
+    }
+  ]
+}

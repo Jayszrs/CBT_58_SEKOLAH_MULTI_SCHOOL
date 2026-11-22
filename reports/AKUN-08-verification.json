@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-08",
+  "verified_at": "2026-11-22T11:38:05.212Z",
+  "results": [
+    {
+      "school": "SCH-036",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "umiexchanger@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbyUhG9FnhTYDIHwz8x_0aB8Bm2B3g1btpwQGLmkTHLRaiNohyT444Ur5tL81UinrP6W/exec"
+    },
+    {
+      "school": "SCH-037",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "umiexchanger@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbyeQfhEET30LD8mfyGwhmAMS50Hlizb6IR4XoUJ1vt3GXqioi6jCf8m-qhxAxZALTB-/exec"
+    },
+    {
+      "school": "SCH-038",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "umiexchanger@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbwMZ3Y8wx6_CtjgUphA0aw4JKhu_fjFc47Ws4vEprO_Rc0mRbnW7R02iQ_W2_pWnalc/exec"
+    },
+    {
+      "school": "SCH-039",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "umiexchanger@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbwCS2JeCBniZMU2PRHlFk480GxIjobulkFDBNDZWX7XR_PtmzIsEO_1aH1LKRQnZVbz/exec"
+    },
+    {
+      "school": "SCH-040",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "umiexchanger@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzpbapg9QFfWNNE6mhHLf_QJuwmfBZle7WhjozDsOy1XlP_KfMCTszbO48vcC0ekUBhpA/exec"
+    }
+  ]
+}

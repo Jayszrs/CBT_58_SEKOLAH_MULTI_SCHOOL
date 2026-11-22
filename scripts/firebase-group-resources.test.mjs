@@ -98,7 +98,7 @@ test('creates the first default database in the requested location', async () =>
   let creation;
   let serviceChecks=0, bootstrapped;
   const result = await ensureDefaultDatabase({
-    ensureDatabaseApi: async () => { if(++serviceChecks===1)throw Error('Service Usage API is disabled'); },
+    ensureDatabaseApi: async () => { if(++serviceChecks===1)throw Error('Caller needs roles/serviceusage.serviceUsageConsumer'); },
     bootstrapServiceUsageApi: async id => { bootstrapped=id; }, listDatabases: async () => [],
     createDefaultDatabase: async (...args) => { creation = args; return defaultDatabase; },
   }, 'cbt-test', 'asia-southeast1', silent);

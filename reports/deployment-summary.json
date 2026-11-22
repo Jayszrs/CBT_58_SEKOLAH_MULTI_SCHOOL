@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-11-22T12:01:42.357Z",
+  "schools": 58,
+  "operational_accounts": 12,
+  "max_schools_per_account": 5,
+  "last_group_schools": 3,
+  "firebase_projects": 12,
+  "source_versions_verified": 58,
+  "public_pages_verified": 58,
+  "database_write_read_verified": 58,
+  "databases_public_access_denied": 12,
+  "regression_tests_passed": 41,
+  "full_functional_qa_reference": "SCH-001",
+  "real_student_uat_complete": false,
+  "concurrent_load_test_complete": false,
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns/edit",
+  "evidence": [
+    "reports/public-webapps.json",
+    "reports/public-database-access.json",
+    "reports/resource-runtime-qa.json",
+    "reports/AKUN-XX-verification.json",
+    "reports/WEBAPP-FUNCTIONAL-QA.md"
+  ]
+}

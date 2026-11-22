@@ -1,13 +1,11 @@
-# Hasil pemeriksaan fungsi Web App CBT
+# Pemeriksaan fungsi CBT — 58 sekolah
 
-Lingkup: 15 sekolah pertama (AKUN-01–03). Pengujian alur operasional menggunakan data sementara dijalankan di SCH-001. Seluruh 15 sekolah diuji akses publik, parsing skrip browser, pemilik/palet/sumber deployment, dan koneksi Firebase baca/tulis.
-
-40 tes regresi otomatis lulus. Uji kapasitas banyak siswa serentak dan UAT memakai data peserta asli belum dilakukan.
+58 deployment publik, akses HTTP anonim, source/palet/pemilik dan Firebase WRITE/READ terverifikasi. Semua 12 RTDB menolak akses publik langsung. Alur operasional lengkap dengan data QA dijalankan di SCH-001 memakai sumber yang sama; UAT peserta asli dan uji kapasitas serentak belum dilakukan.
 
 | Fitur | Hasil | Lingkup | Cara pengujian | Bukti | Batas / catatan |
-| --- | --- | --- | --- | --- | --- |
-| Halaman siswa tanpa akun Google | Lulus | SCH-001–015 | HTTP publik + browser ukuran HP | 15 URL HTTP 200 dan judul sekolah sesuai | Browser tanpa cookie Google; uji perangkat fisik tetap dapat dilakukan pengguna. |
-| Firebase baca/tulis | Lulus | SCH-001–015 | RPC pemilik menulis lalu membaca namespace sekolah | 15 sekolah berhasil WRITE/READ | Rules RTDB tetap tertutup; siswa memakai sesi aplikasi. |
+|---|---|---|---|---|---|
+| Halaman siswa tanpa akun Google | Lulus | SCH-001–058 | HTTP publik + browser ukuran HP | 58 URL HTTP 200 dan judul sekolah sesuai | Browser tanpa cookie Google; uji perangkat fisik tetap dapat dilakukan pengguna. |
+| Firebase baca/tulis | Lulus | SCH-001–058 | RPC pemilik menulis lalu membaca namespace sekolah | 58 sekolah berhasil WRITE/READ | Rules RTDB tetap tertutup; siswa memakai sesi aplikasi. |
 | Tambah/edit/hapus kelas dan mapel | Lulus | SCH-001 | Klik formulir dan tombol di Web App nyata | Data tersimpan, dimuat ulang, diedit, lalu dihapus | Data kelas/mapel QA sudah dibersihkan. |
 | Template/import/export kelas | Lulus | SCH-001 | File .xlsx lewat input file dan konfirmasi | Kelas QA tersimpan; template dan ekspor terunduh | Duplikat dan validasi atomik juga diuji otomatis. |
 | Tambah/edit/hapus siswa | Lulus | SCH-001 | Klik formulir, refresh, edit, hapus | NISN dengan nol depan tetap utuh | Karakter /, &, apostrof pada nama/kelas/password ikut diuji. |
@@ -26,13 +24,15 @@ Lingkup: 15 sekolah pertama (AKUN-01–03). Pengujian alur operasional menggunak
 | Ganti logo | Lulus sesuai lingkup | Kode bersama + UI SCH-001 | Pilih file, preview/kompresi; tes penyimpanan server terisolasi | Data logo masuk Script Properties dan Config; invalid/oversize ditolak | Logo sekolah aktif tidak diganti dengan gambar percobaan. |
 | Ganti password admin | Lulus sesuai lingkup | Kode bersama + UI SCH-001 | Modal UI + tes login/perubahan/revokasi sesi terisolasi | Pemilik dapat inisialisasi; password berubah membatalkan sesi lama | Kredensial admin aktif tidak diganti saat QA. |
 | Keluar/sesi berakhir | Lulus | SCH-001 + tes otomatis | Sesi pemilik berakhir dan dipulihkan lewat login | Aksi admin tanpa sesi ditolak dan kembali ke login | Pemisahan akses Google pemilik dan siswa tetap berlaku. |
-| Handler dan sumber aplikasi | Lulus | 15 deployment | 84 handler tersedia; 16 skrip terurai di browser; cocokkan sumber API | Sumber aplikasi/palet/pemilik diverifikasi untuk seluruh 15 sekolah | Alur operasional lengkap memakai data QA dijalankan di SCH-001. |
-| Tes regresi otomatis | Lulus | Kode bersama | Node --test, 6 file tes | 40 tes lulus setelah seluruh perbaikan | Bukan hasil uji kapasitas atau UAT data peserta asli. |
-| Kelanjutan akun keempat | Proses | AKUN-04 / SCH-016–020 | Firebase dan clasp ranokelvi@gmail.com sudah login | Cloud project cbt-grup-04 dibuat; aktivasi Firebase sedang diperiksa | Tidak dicatat sebagai aplikasi selesai sebelum resource dan runtime terverifikasi. |
-
-Data uji siswa, kelas, mapel, paket, soal, dan sesi Firebase telah dibersihkan. Dua hasil QA bernilai 100 disimpan di Arsip_Respon_Jawaban. Ujian dikembalikan ke tidak aktif. Logo dan kredensial administrator aktif dipertahankan.
-
-Bukti mesin: `SCH001-firebase-live-qa.json`, `public-webapps.json`, `AKUN-01-verification.json`, `AKUN-02-verification.json`, `AKUN-03-verification.json`, dan `resource-runtime-qa.json`.
-
-Monitoring: https://docs.google.com/spreadsheets/d/1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns/edit#gid=100007
-
+| Handler dan sumber aplikasi | Lulus | 58 deployment | 84 handler tersedia; 16 skrip terurai di browser; cocokkan sumber API | 58 versi publik, palet dan pemilik cocok; skrip runtime terurai tanpa galat | Alur operasional lengkap memakai data QA dijalankan di SCH-001. |
+| Tes regresi otomatis | Lulus | Kode bersama | Node --test, 6 file tes | 41 tes lulus setelah seluruh perbaikan | Bukan hasil uji kapasitas atau UAT data peserta asli. |
+| Akun keempat | Lulus resource/runtime | AKUN-04 / SCH-016–020 | Verifikasi API, akses publik dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kelima | Lulus resource/runtime | AKUN-05 / SCH-021–025 | Verifikasi API, akses publik dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun keenam | Lulus resource/runtime | AKUN-06 / SCH-026–030 | Verifikasi API, akses publik dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Bank soal/paket besar | Lulus tes kode | Kode bersama | 250 soal dan 250 paket; cache opsional menolak payload besar | Daftar tetap terbaca meskipun CacheService gagal menyimpan | Perbaikan diterapkan ke deployment; uji kapasitas serentak belum dilakukan. |
+| Akun ketujuh | Lulus resource/runtime | AKUN-07 / SCH-031–035 | Verifikasi API, akses publik dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kedelapan | Lulus resource/runtime | AKUN-08 / SCH-036–040 | Verifikasi API, runtime aplikasi dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kesembilan | Lulus resource/runtime | AKUN-09 / SCH-041–045 | Verifikasi versi publik API, HTTP anonim dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kesepuluh | Lulus resource/runtime | AKUN-10 / SCH-046–050 | Verifikasi versi publik API, runtime aplikasi dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kesebelas | Lulus resource/runtime | AKUN-11 / SCH-051–055 | Verifikasi versi publik API, runtime aplikasi dan WRITE/READ | Kelima aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |
+| Akun kedua belas | Lulus resource/runtime | AKUN-12 / SCH-056–058 | Verifikasi versi publik API, HTTP anonim dan WRITE/READ | Ketiga aplikasi dan database terverifikasi | UAT peserta asli per sekolah belum dilakukan. |

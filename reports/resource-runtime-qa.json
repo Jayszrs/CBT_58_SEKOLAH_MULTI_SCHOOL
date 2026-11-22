@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-22T10:41:42.937Z",
+  "checked_at": "2026-11-22T11:58:58.985Z",
   "results": [
     {
       "school": "SCH-001",
@@ -130,6 +130,393 @@
     },
     {
       "school": "SCH-015",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-016",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-017",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-018",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-019",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-020",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-021",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-022",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-023",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-024",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-025",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-026",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-027",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-028",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-029",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-030",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-031",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-032",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-033",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-034",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-035",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-036",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-037",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-038",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-039",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-040",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-041",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-042",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-043",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-044",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-045",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-046",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-047",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-048",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-049",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-050",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-051",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-052",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-053",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-054",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-055",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-056",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-057",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-058",
       "owner_authorization_required": false,
       "compiled": {
         "scripts": 16,

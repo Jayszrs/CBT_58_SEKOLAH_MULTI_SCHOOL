@@ -93,3 +93,20 @@ test('logo saves to Script Properties and Config, and rejects invalid or oversiz
   assert.equal(c.uploadLogoApp_({fileData:'data:image/png;base64,'+'A'.repeat(9000)}).success,false);
   assert.equal(props.get('APPLICATION_LOGO_BASE64'),logo);
 });
+
+test('large question banks and packages remain readable above the Apps Script cache limit',()=>{
+  const {context:c,sheets}=fixture();
+  let cacheAttempts=0;
+  c.CacheService={getScriptCache:()=>({get:()=>null,put:(_,value)=>{cacheAttempts++;assert.ok(Buffer.byteLength(value)>100*1024);throw Error('Argument too large: value');}})};
+  const bankRows=[['ID','Tipe','Pertanyaan','Opsi','Kunci','Bobot','Gambar','Mapel','Petunjuk','Teks','Opsi Gambar'],...Array.from({length:250},(_,i)=>['SOAL_'+i,'PG','x'.repeat(700),'["A","B"]','"A"',1,'','Matematika','','','[]'])];
+  c.ensureBankSoalExtraColumns_=()=>({getDataRange:()=>({getValues:()=>bankRows})});
+  vm.runInContext(fs.readFileSync(new URL('../backend/SoalService.js',import.meta.url),'utf8'),c);
+  c.ensureBankSoalExtraColumns_=()=>({getDataRange:()=>({getValues:()=>bankRows})});
+  const questions=c.getAllSoal_();assert.equal(questions.length,250);
+  assert.equal(questions[249].id,'SOAL_249');
+  const packageSheet=c.getOrCreateSheet_(c.getOrCreateSpreadsheet_(),'Paket_Soal',['ID','Nama','Deskripsi','Soal','Tanggal']);
+  packageSheet.rows.push(...Array.from({length:250},(_,i)=>['PKT_'+i,'Paket '+i,'x'.repeat(700),'["SOAL_1"]','2026-11-22']));
+  vm.runInContext(fs.readFileSync(new URL('../backend/PaketSoalService.js',import.meta.url),'utf8'),c);
+  assert.equal(c.getAllPaketSoal_().length,250);
+  assert.equal(cacheAttempts,2);
+});

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-22T10:43:09.407Z",
+  "checked_at": "2026-11-22T11:50:50.605Z",
   "results": [
     {
       "group": "FB-01",
@@ -16,6 +16,60 @@
     {
       "group": "FB-03",
       "project": "cbt-grup-03",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-04",
+      "project": "cbt-grup-04",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-05",
+      "project": "cbt-grup-05",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-06",
+      "project": "cbt-grup-06",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-07",
+      "project": "cbt-grup-07",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-08",
+      "project": "cbt-grup-08",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-09",
+      "project": "cbt-grup-09",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-10",
+      "project": "cbt-grup-10",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-11",
+      "project": "cbt-grup-11",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-12",
+      "project": "cbt-grup-12",
       "http_status": 401,
       "public_read_denied": true
     }
