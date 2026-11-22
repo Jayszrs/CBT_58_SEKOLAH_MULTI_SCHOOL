@@ -3,9 +3,10 @@
 function executeAdminAction(password, actionName, args) {
   console.log('Admin Action Request:', { action: actionName });
   
-  if (!loginAdmin(password).success) {
-    return { success: false, message: 'Akses Ditolak. Password salah!' };
+  if (!verifyAdminCredential_(password)) {
+    return { success: false, sessionExpired: true, message: 'Sesi admin tidak valid atau berakhir. Silakan login kembali.' };
   }
+  args = args && typeof args === 'object' ? args : {};
   
   let result;
   

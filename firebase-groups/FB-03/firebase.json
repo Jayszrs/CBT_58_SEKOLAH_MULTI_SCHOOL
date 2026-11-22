@@ -1,0 +1,8 @@
+{
+  "database": [
+    {
+      "instance": "cbt-grup-03-default-rtdb",
+      "rules": "database.rules.json"
+    }
+  ]
+}

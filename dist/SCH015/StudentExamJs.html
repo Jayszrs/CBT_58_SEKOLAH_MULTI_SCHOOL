@@ -463,7 +463,7 @@ function getStudentImageBatch(refs) {
     google.script.run
       .withSuccessHandler(resolve)
       .withFailureHandler(reject)
-      .getMultipleImageBase64(refs);
+      .getMultipleImageBase64(refs, getClientAuthorization());
   });
 }
 

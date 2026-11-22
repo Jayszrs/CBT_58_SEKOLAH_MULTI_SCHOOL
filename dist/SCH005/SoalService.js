@@ -431,7 +431,8 @@ function uploadImage_(base64Data, filename) {
   }
 }
 
-function getImageBase64(driveReference) {
+function getImageBase64(driveReference, auth) {
+  if (!authorizeMediaRead_(auth)) return '';
   try {
     const fileId = extractFileId_(driveReference);
     if (!fileId || !getQuestionImageIdAllowlist_().has(fileId)) return '';
@@ -449,10 +450,11 @@ function getImageBase64(driveReference) {
   }
 }
 
-function getMultipleImageBase64(driveReferences) {
+function getMultipleImageBase64(driveReferences, auth) {
+  if (!authorizeMediaRead_(auth)) return {};
   const result = {};
   const maxFileSize = 2 * 1024 * 1024;
-  if (!Array.isArray(driveReferences) || driveReferences.length === 0) return result;
+  if (!Array.isArray(driveReferences) || driveReferences.length === 0 || driveReferences.length > 100) return result;
 
   const allowedIds = getQuestionImageIdAllowlist_();
   for (let i = 0; i < driveReferences.length; i++) {

@@ -399,7 +399,7 @@ function getAdminImageBatch(refs) {
     google.script.run
       .withSuccessHandler(resolve)
       .withFailureHandler(reject)
-      .getMultipleImageBase64(refs);
+      .getMultipleImageBase64(refs, getClientAuthorization());
   });
 }
 
@@ -570,7 +570,7 @@ function renderTabelSoal() {
           }
         });
       })
-      .getMultipleImageBase64(imageRefs);
+      .getMultipleImageBase64(imageRefs, getClientAuthorization());
   }
 
   const chkAll = document.getElementById('chk-all-soal');
@@ -909,7 +909,7 @@ function editSoal(id) {
         console.warn('Gagal memuat gambar pendukung:', error);
         previewImg.alt = 'Gambar tidak dapat dimuat';
       })
-      .getImageBase64(soal.url_gambar);
+      .getImageBase64(soal.url_gambar, getClientAuthorization());
   }
 
   renderSoalOptionsUI();
@@ -1526,7 +1526,7 @@ function loadThumbnail(urlRef, targetId) {
         el.innerHTML = '<i class="fas fa-image" style="color:#10B981" title="Ada Gambar"></i>';
       }
     })
-    .getImageBase64(urlRef);
+    .getImageBase64(urlRef, getClientAuthorization());
 }
 
 let parsedImportData = [];

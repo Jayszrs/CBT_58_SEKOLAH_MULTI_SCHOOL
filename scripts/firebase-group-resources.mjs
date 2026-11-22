@@ -60,8 +60,17 @@ async function findOrNull(get) {
   }
 }
 
-export async function ensureFirebaseProject(api, projectId, email, log = console.log) {
-  let cloud = await findOrNull(() => api.getCloudProject(projectId));
+export async function ensureFirebaseProject(api, projectId, email, log = console.log, { createWhenLookupForbidden = false } = {}) {
+  let cloud;
+  try {
+    cloud = await findOrNull(() => api.getCloudProject(projectId));
+  } catch (error) {
+    const status = error.status || error.context?.response?.statusCode;
+    if (!createWhenLookupForbidden || status !== 403) throw error;
+    // Google may hide an unused project ID behind 403. A create request cannot
+    // overwrite an existing project; global ID conflicts remain API errors.
+    log(`Project ${projectId} belum dapat dibaca. Mencoba pembuatan baru dengan akun ${email}.`);
+  }
   if (!cloud) {
     log(`Membuat Google Cloud project ${projectId} ...`);
     await api.createCloudProject(projectId);

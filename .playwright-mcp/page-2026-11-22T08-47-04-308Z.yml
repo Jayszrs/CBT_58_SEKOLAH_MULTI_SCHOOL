@@ -1,0 +1,24 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]: Pratinjau tampilan lokal; koneksi backend tidak dijalankan. Gunakan tautan Web App untuk aplikasi.
+  - text:   
+  - generic [ref=e5]:
+    - heading "SDN UTAN PANJANG 01" [level=2] [ref=e6]
+    - paragraph [ref=e7]: Portal Ujian Siswa
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: NISN
+        - textbox "NISN" [ref=e11]:
+          - /placeholder: Masukkan NISN Anda
+      - generic [ref=e12]:
+        - generic [ref=e13]: Password Akun / Token Ujian
+        - textbox "Password Akun / Token Ujian" [ref=e14]:
+          - /placeholder: Masukkan password pada kartu peserta
+      - button "Masuk Ujian " [ref=e15] [cursor=pointer]:
+        - text: Masuk Ujian
+        - generic [ref=e16]: 
+    - generic [ref=e17]:
+      - text: Sistem diawasi. Dilarang melakukan kecurangan.
+      - link " Login Admin" [ref=e19] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e20]: 
+        - text: Login Admin

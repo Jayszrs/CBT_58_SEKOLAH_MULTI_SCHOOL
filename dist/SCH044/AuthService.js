@@ -62,7 +62,8 @@ class StudentAuthenticationService {
     }
 
     
-    const targetStudentCellObject = this.studentDataSheet.createTextFinder(String(nisnNumber)).matchEntireCell(true).findNext();
+    const studentCount = this.studentDataSheet.getLastRow() - 1;
+    const targetStudentCellObject = studentCount > 0 ? this.studentDataSheet.getRange(2, 1, studentCount, 1).createTextFinder(String(nisnNumber)).matchEntireCell(true).findNext() : null;
 
     if (!targetStudentCellObject) {
       return { success: false, message: 'NISN tidak ditemukan.' };
@@ -97,7 +98,7 @@ class StudentAuthenticationService {
 
     if (firebaseSessionResponse.success && firebaseSessionResponse.data) {
       const currentStudentStatus = firebaseSessionResponse.data.status;
-      if (currentStudentStatus === 'Aktif') {
+      if (currentStudentStatus === 'Aktif' && Number(firebaseSessionResponse.data.auth_expiry) > Date.now()) {
         return { success: false, message: 'Akun sedang digunakan di perangkat lain.' };
       }
 
@@ -106,10 +107,14 @@ class StudentAuthenticationService {
       }
     }
 
+    const sessionToken = newOpaqueCredential_();
     const sessionUpdatePayloadObject = {
       status: 'Aktif',
       waktu_login: new Date().getTime(),
-      nama_siswa: currentStudentData.nama
+      nama_siswa: currentStudentData.nama,
+      school_id: getSchoolMetadata_().schoolId,
+      credential_hash: credentialHash_(sessionToken),
+      auth_expiry: Date.now() + 86400000
     };
     const updateSessionResponse = this.firebaseDatabaseInstance.patchData(sessionPathString, sessionUpdatePayloadObject);
 
@@ -131,7 +136,8 @@ class StudentAuthenticationService {
       data: {
         nisn: SecurityService.sanitizeData(currentStudentData.nisn),
         nama: SecurityService.sanitizeData(currentStudentData.nama),
-        kelas: SecurityService.sanitizeData(currentStudentData.kelas)
+        kelas: SecurityService.sanitizeData(currentStudentData.kelas),
+        sessionToken: sessionToken
       }
     };
   }
@@ -208,6 +214,7 @@ class AdminAuthenticationService {
   }
 
   executeLogin(providedPasswordString) {
+    if (typeof providedPasswordString !== 'string' || providedPasswordString.length < 14 || providedPasswordString.length > 256) return {success:false,message:'Password admin minimal 14 karakter. Pemilik dapat melakukan reset melalui Apps Script.'};
     const rateLimitVerificationStatus = this.checkLoginRateLimitStatus();
     if (!rateLimitVerificationStatus.success && rateLimitVerificationStatus.status === 'rate_limited') {
       const remainingMinutesBlock = Math.ceil(rateLimitVerificationStatus.remaining / 60);
@@ -235,7 +242,7 @@ class AdminAuthenticationService {
     if (providedPasswordHash === storedAdminPassword) {
       this.scriptCacheMemory.put(sessionIdentifierKeyString, 'valid', 1800);
       this.scriptCacheMemory.remove('ADMIN_LOGIN_FAILED_ATTEMPTS');
-      return { success: true };
+      return { success: true, sessionToken: issueAdminSession_(storedAdminPassword) };
     }
 
     let currentFailedAttemptsCount = parseInt(this.scriptCacheMemory.get('ADMIN_LOGIN_FAILED_ATTEMPTS') || '0', 10);
@@ -260,6 +267,7 @@ class AdminAuthenticationService {
   }
 
   executePasswordChange(oldPasswordString, newPasswordString) {
+    if (typeof newPasswordString !== 'string' || newPasswordString.length < 14 || newPasswordString.length > 256) return {success:false,message:'Password admin baru harus 14–256 karakter.'};
     // 1. Cek Konfigurasi Toggle di Spreadsheet
     try {
       const spreadsheet = getOrCreateSpreadsheet_();
@@ -301,8 +309,16 @@ class AdminAuthenticationService {
 }
 
 function loginSiswa(nisn, currentToken) {
+  const id = normalizeStudentId_(nisn);
+  if (!id || typeof currentToken !== 'string' || !currentToken.trim() || currentToken.length > 256) return {success:false,message:'NISN dan password/token tidak valid.'};
+  const cache = CacheService.getScriptCache();
+  const key = 'STUDENT_LOGIN_FAIL_' + credentialHash_(id);
+  const failures = Number(cache.get(key) || 0);
+  if (failures >= 8) return {success:false,message:'Percobaan login terlalu banyak. Coba lagi dalam 5 menit.'};
   const studentAuthenticationManagerInstance = new StudentAuthenticationService();
-  return studentAuthenticationManagerInstance.executeLogin(nisn, currentToken);
+  const result = studentAuthenticationManagerInstance.executeLogin(id, currentToken);
+  if (result.success) cache.remove(key); else cache.put(key, String(failures+1), 300);
+  return result;
 }
 
 function checkAdminLoginStatus() {
@@ -311,8 +327,8 @@ function checkAdminLoginStatus() {
 }
 
 function loginAdmin(password, username) {
-  if (String(password || '').startsWith('OWNER:')) {
-    const valid = isGoogleSchoolOwner_() && CacheService.getScriptCache().get('GOOGLE_' + password) === 'valid';
+  if (/^(OWNER|ADMIN):/.test(String(password || ''))) {
+    const valid = verifyAdminCredential_(password);
     return { success: !!valid, message: valid ? '' : 'Sesi pemilik berakhir. Silakan masuk kembali.' };
   }
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();

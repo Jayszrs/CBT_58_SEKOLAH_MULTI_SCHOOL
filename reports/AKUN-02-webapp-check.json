@@ -1,0 +1,41 @@
+{
+  "account_id": "AKUN-02",
+  "checked_at": "2026-11-22T09:04:27.808Z",
+  "results": [
+    {
+      "school": "SCH-006",
+      "owner": "dimazunj1@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbyPgHn_zSXc3WynxwYbDN-xg8tEJwRSNQynJYKB8FeaoSPZlnBVZwU_xwq0zqCEPCLv/exec",
+      "status": "APP_RENDERED",
+      "title": "CBT | SDN UTAN PANJANG 01"
+    },
+    {
+      "school": "SCH-007",
+      "owner": "dimazunj1@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbwpKvBxDKY3Rgfy5a0Tnlmq83Lbx_1PmMbvDrnkuR1PuBzZpXDbfqaNwzeaQw4ToG1d/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-008",
+      "owner": "dimazunj1@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbxv5aU9LYQQ7X5Jg0i2R5MLHLIXaleYeGfEjvmEvqUGXNtr2wGU0F-jQfeKxLphIlSq/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-009",
+      "owner": "dimazunj1@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbwftk-WjbCAdIcCXfKpwyH3VUHsmMcf8ILPMKm2jMCmUPN_iECAs36e1QVdvLF1RB1MUQ/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-010",
+      "owner": "dimazunj1@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbwwL4q3EqeX1OsfaAEms5JmcH__RusshHOugTvlT580KwjP1qcZ0Etc3q1lY-owEbTM/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    }
+  ]
+}

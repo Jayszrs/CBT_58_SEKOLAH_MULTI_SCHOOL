@@ -431,7 +431,7 @@ function renderFormKoreksi(soalList, jawabanObj, detailSkorObj, currentSkorEsai)
               imgEl.style.display = 'inline-block';
             }
           })
-          .getImageBase64(s.url_gambar);
+          .getImageBase64(s.url_gambar, getClientAuthorization());
       }
     });
   };

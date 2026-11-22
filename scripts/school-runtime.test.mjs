@@ -15,7 +15,7 @@ test('Google owner login rejects other and anonymous accounts and expires cached
     Session: { getActiveUser: () => ({ getEmail: () => context.activeEmail }) },
     Utilities: { getUuid: () => 'random-session-id' },
   });
-  vm.runInContext(read('backend/AuthService.js'), context);
+  vm.runInContext(read('backend/SessionSecurity.js') + '\n' + read('backend/AuthService.js'), context);
   assert.equal(vm.runInContext('loginGoogleSchoolOwner().success', context), false);
   context.activeEmail = '';
   assert.equal(vm.runInContext('loginGoogleSchoolOwner().success', context), false);
@@ -55,7 +55,7 @@ test('first page initializes the configured spreadsheet once and reuses it', () 
     SpreadsheetApp: { openById: id => { assert.equal(id, 'configured-sheet'); return sheet; }, create: () => assert.fail('must reuse configured spreadsheet') },
   });
   vm.runInContext(read('backend/SetupService.js'), context);
-  context.initializeDatabase = actual => { assert.equal(actual, sheet); initialized++; };
+  context.initializeDatabase_ = actual => { assert.equal(actual, sheet); initialized++; };
   assert.equal(context.getOrCreateSpreadsheet_(), sheet);
   assert.equal(context.getOrCreateSpreadsheet_(), sheet);
   assert.equal(initialized, 1);

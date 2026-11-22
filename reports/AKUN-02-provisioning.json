@@ -8,7 +8,6 @@
     "SCH-009",
     "SCH-010"
   ],
-  "updated_at": "2026-11-22T08:33:45.707Z",
-  "phase": "LOGIN_REQUIRED",
-  "error": "Akun clasp dimazunj1@gmail.com belum tersedia. Jalankan clasp login --user dimazunj1@gmail.com dan pilih email yang sama."
+  "updated_at": "2026-11-22T08:47:13.063Z",
+  "phase": "CLOUD_VERIFIED"
 }

@@ -75,31 +75,31 @@ class PostRequestRouter {
         return this.createJsonResponse({ success: false, message: 'Payload tidak valid.' }, 400);
       }
 
+      if (this.eventData.postData.contents.length > 300000) return this.createJsonResponse({success:false,message:'Ukuran permintaan terlalu besar.'},400);
       const requestPayloadObject = JSON.parse(this.eventData.postData.contents);
       const requestedActionString = requestPayloadObject.action;
 
       if (requestedActionString === 'loginSiswa') {
-        const studentAuthenticationManagerInstance = new StudentAuthenticationService();
-        const executionResultObject = studentAuthenticationManagerInstance.executeLogin(requestPayloadObject.nisn, requestPayloadObject.token);
+        const executionResultObject = loginSiswa(requestPayloadObject.nisn, requestPayloadObject.token);
         return this.createJsonResponse(executionResultObject, 200);
       }
 
       if (requestedActionString === 'submitUjian') {
-        const examSubmissionManagerInstance = new ExamSubmissionService();
-        const executionResultObject = examSubmissionManagerInstance.executeFinalSubmission(
+        const executionResultObject = submitUjian(
           requestPayloadObject.nisn,
           requestPayloadObject.jawaban_mentah,
           requestPayloadObject.log_pelanggaran,
-          requestPayloadObject.urutan_soal || ''
+          requestPayloadObject.urutan_soal || '',
+          requestPayloadObject.sessionToken
         );
         return this.createJsonResponse(executionResultObject, 200);
       }
 
       if (requestedActionString === 'simpanJawabanSiswa') {
-        const examAutoSaveManagerInstance = new ExamAutoSaveService();
-        const executionResultObject = examAutoSaveManagerInstance.executeTemporarySave(
+        const executionResultObject = pingSimpanJawaban(
           requestPayloadObject.nisn,
-          requestPayloadObject.jawaban_mentah
+          requestPayloadObject.jawaban_mentah,
+          requestPayloadObject.sessionToken
         );
         return this.createJsonResponse(executionResultObject, 200);
       }
@@ -160,6 +160,7 @@ function getAppConfig_() {
 }
 
 function resetSuperadminPasswordOnce() {
+  requireSchoolOwner_();
   const props = PropertiesService.getScriptProperties();
 
   const newPassword = props.getProperty(
@@ -194,6 +195,7 @@ function resetSuperadminPasswordOnce() {
 
 /** Atur ADMIN_PASSWORD baru secara aman dari Script Properties (14+ karakter). */
 function resetAdminPasswordOnce() {
+  requireSchoolOwner_();
   const props = PropertiesService.getScriptProperties();
   const password = props.getProperty('ADMIN_RESET_TEMP_PASSWORD');
   if (!password || password.length < 14) {

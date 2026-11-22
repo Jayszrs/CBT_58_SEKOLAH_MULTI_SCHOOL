@@ -17,9 +17,10 @@ const results = await Promise.all(schools.map(async school => {
   const manifest = JSON.parse(content.files.find(f=>f.name==='appsscript').source);
   const expected = { schoolId:school.school_id,schoolName:school.school_name,ownerEmail:school.account_email,spreadsheetId:school.spreadsheet_id,driveFolderId:school.drive_folder_id,firebaseDatabaseUrl:school.firebase_database_url,themePrimary:school.theme_primary,themeAccent:school.theme_accent,themeBackground:school.theme_background };
   for(const [key,value] of Object.entries(expected))if(metadata[key]!==value)throw Error(`${school.school_code}: remote ${key} tidak sesuai.`);
-  if(manifest.webapp.access!=='MYSELF')throw Error('Akses preview bukan MYSELF.');
+  if(!['MYSELF','ANYONE_ANONYMOUS'].includes(manifest.webapp.access) || manifest.webapp.access!==school.deployment_access)throw Error('Akses deployment tidak sesuai konfigurasi sekolah.');
   if(!manifest.oauthScopes.includes('https://www.googleapis.com/auth/firebase.database'))throw Error('Scope database tidak tersedia.');
   const webApp = deployment.entryPoints.find(e=>e.entryPointType==='WEB_APP')?.webApp;
+  if(webApp?.entryPointConfig?.access!==school.deployment_access || webApp.entryPointConfig.executeAs!=='USER_DEPLOYING')throw Error('Kebijakan akses entry point tidak sesuai.');
   if(webApp?.url!==school.webapp_url || deployment.deploymentConfig.versionNumber!==school.deployed_version)throw Error('Deployment tidak sesuai.');
   for(const file of [spreadsheet,folder])if(!file.owners.some(owner=>owner.emailAddress===school.account_email))throw Error('Pemilik resource tidak sesuai.');
   return {school:school.school_code,remote_identity:'VERIFIED',palette:'VERIFIED',resource_owner:school.account_email,access:manifest.webapp.access,version:school.deployed_version,webapp:school.webapp_url};

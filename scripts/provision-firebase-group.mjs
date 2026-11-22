@@ -62,7 +62,7 @@ async function provision() {
     finally { prompt.close(); }
     if (typed !== group) throw Error('Dibatalkan.');
   }
-  const project = await ensureFirebaseProject(api, projectId, email);
+  const project = await ensureFirebaseProject(api, projectId, email, console.log, { createWhenLookupForbidden: true });
   const database = await ensureDefaultDatabase(api, projectId, location);
 
   fs.mkdirSync(groupFolder, { recursive: true });

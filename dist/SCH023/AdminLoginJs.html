@@ -62,7 +62,7 @@ function doAdminLogin() {
     
     if (res.success) {
       
-      AppStore.user = { role: 'admin', data: { token: res.sessionToken || pw } };
+      AppStore.user = { role: 'admin', data: { token: res.sessionToken } };
       localStorage.setItem('CBT_SESSION', JSON.stringify(AppStore.user));
       if (res.passwordReset) showToast('Password administrator berhasil direset ke password awal. Segera ubah melalui menu Ganti Password.', 'success');
       navigateTo('admin-dashboard');

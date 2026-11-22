@@ -136,7 +136,7 @@ class ExamAutoSaveService {
       const currentServerTimeMilliseconds = new Date().getTime();
       const memoryCacheKeyString = 'AUTOSAVE_' + normalizedNisn;
       const throttleCacheKeyString = 'LAST_FIREBASE_SAVE_' + normalizedNisn;
-      this.scriptCacheMemory.put(memoryCacheKeyString, rawAnswerJsonString, 21600);
+      if (rawAnswerJsonString.length <= 90000) this.scriptCacheMemory.put(memoryCacheKeyString, rawAnswerJsonString, 21600);
 
       const lastFirebaseSaveTimeString = this.scriptCacheMemory.get(throttleCacheKeyString);
       let shouldPushToFirebase = false;
@@ -262,7 +262,8 @@ class ExamSubmissionService {
         mata_pelajaran: activeSubjectValueString
       };
 
-      this.firebaseDatabaseInstance.patchData(targetFinalFirebasePathString, finalFirebasePayloadObject);
+      const durableSave = this.firebaseDatabaseInstance.patchData(targetFinalFirebasePathString, finalFirebasePayloadObject);
+      if (!durableSave.success) return {success:false,message:'Jawaban belum tersimpan di server. Silakan kirim ulang.'};
       this.firebaseDatabaseInstance.writeData('autosave_jawaban_berjalan/' + nisnString, null);
       
       
@@ -288,13 +289,13 @@ class ExamSubmissionService {
         const responseDatabaseSheet = this.spreadsheetInstance.getSheetByName('Respon_Jawaban');
         responseDatabaseSheet.appendRow([
           timestampFormatString,
-          nisnString,
+          safeSheetLiteral_(nisnString),
           rawAnswerJsonString,
           gradingResultObject.skorObjektif,
           0,
           gradingResultObject.nilaiAkhir,
           correctionStatusString,
-          finalViolationLogString,
+          safeSheetLiteral_(finalViolationLogString),
           JSON.stringify(gradingResultObject.detailSkor || {}),
           activeSubjectValueString
         ]);
@@ -344,22 +345,26 @@ function getSoalForStudent_(mapelFilter, packageId) {
   return examDeliveryManagerInstance.retrieveQuestionsForStudent(mapelFilter, packageId);
 }
 
-function startUjian(nisn) {
+function startUjian(nisn, sessionToken) {
+  if (!verifyStudentCredential_(nisn, sessionToken)) return invalidStudentSession_();
   const examDeliveryManagerInstance = new ExamDeliveryService();
   return examDeliveryManagerInstance.executeExamStart(nisn);
 }
 
-function pingSimpanJawaban(nisn, jawabanJson) {
+function pingSimpanJawaban(nisn, jawabanJson, sessionToken) {
+  if (!verifyStudentCredential_(nisn, sessionToken)) return invalidStudentSession_();
+  if (typeof jawabanJson !== 'string' || jawabanJson.length > 200000) return {success:false,message:'Ukuran jawaban tidak valid.'};
   const examAutoSaveManagerInstance = new ExamAutoSaveService();
   return examAutoSaveManagerInstance.executeTemporarySave(nisn, jawabanJson);
 }
 
-function submitUjian(nisn, jawabanJson, logPelanggaran, urutanSoalJson) {
+function submitUjian(nisn, jawabanJson, logPelanggaran, urutanSoalJson, sessionToken) {
+  if (!verifyStudentCredential_(nisn, sessionToken)) return invalidStudentSession_();
+  if (typeof jawabanJson !== 'string' || jawabanJson.length > 200000 || String(logPelanggaran || '').length > 20000 || String(urutanSoalJson || '').length > 50000) return {success:false,message:'Ukuran kiriman ujian tidak valid.'};
   const examSubmissionManagerInstance = new ExamSubmissionService();
   return examSubmissionManagerInstance.executeFinalSubmission(nisn, jawabanJson, logPelanggaran, urutanSoalJson);
 }
 
 function getServerTime() {
-  const examDeliveryManagerInstance = new ExamDeliveryService();
-  return examDeliveryManagerInstance.getCurrentServerTimeMilliseconds();
+  return Date.now();
 }

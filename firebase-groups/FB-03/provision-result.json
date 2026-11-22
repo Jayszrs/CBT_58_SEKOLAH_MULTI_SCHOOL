@@ -1,0 +1,21 @@
+{
+  "account_id": "AKUN-03",
+  "account_email": "usmatematika2021@gmail.com",
+  "group": "FB-03",
+  "project_id": "cbt-grup-03",
+  "project_number": "635583554760",
+  "schools": [
+    "SCH011",
+    "SCH012",
+    "SCH013",
+    "SCH014",
+    "SCH015"
+  ],
+  "created_or_found_at": "2026-11-22T08:49:13.359Z",
+  "database_status": "VERIFIED",
+  "database_url": "https://cbt-grup-03-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "database_instance": "cbt-grup-03-default-rtdb",
+  "database_location": "asia-southeast1",
+  "public_access": "DENIED",
+  "notes": "Project, database, dan rules tertutup sudah diverifikasi. Jangan simpan kredensial service account di repo."
+}

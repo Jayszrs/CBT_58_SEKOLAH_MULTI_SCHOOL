@@ -6,7 +6,10 @@ const root = path.resolve(import.meta.dirname, '..');
 const schoolsFile = path.join(root, 'config', 'schools.json');
 const schools = JSON.parse(fs.readFileSync(schoolsFile, 'utf8'));
 const accountId = process.argv[2] || 'AKUN-01';
-const members = schools.filter(item => item.account_id === accountId);
+const schoolFlag = process.argv.indexOf('--school');
+const selectedSchool = schoolFlag >= 0 ? process.argv[schoolFlag+1] : undefined;
+if (schoolFlag >= 0 && (!selectedSchool || selectedSchool.startsWith('--'))) throw Error('--school memerlukan kode sekolah.');
+const members = schools.filter(item => item.account_id === accountId && (!selectedSchool || selectedSchool === item.school_id || selectedSchool === item.school_code));
 if (!members.length || members.length > 5) throw Error('Grup sekolah tidak valid.');
 if (!process.argv.includes('--execute')) { console.log(members.map(s => `${s.school_code}: ${s.school_name}`).join('\n')); process.exit(0); }
 if (!members[0].firebase_project_id) throw Error('Provisioning Firebase untuk akun ini belum selesai.');
@@ -67,17 +70,21 @@ try {
     }));
     await request(`${api}/${school.script_id}/content`, 'PUT', { files });
     school.status = 'UPLOADED_NOT_DEPLOYED'; save();
-    const version = await request(`${api}/${school.script_id}/versions`, 'POST', { description: `${school.school_code} preview pemilik - palet spreadsheet` });
-    const deploymentConfig = { versionNumber: version.versionNumber, manifestFileName: 'appsscript', description: `${school.school_code} preview pemilik` };
+    const access = JSON.parse(files.find(file=>file.name==='appsscript').source).webapp.access;
+    const label = access === 'ANYONE_ANONYMOUS' ? 'akses siswa dengan sesi' : 'preview pemilik';
+    const previousVersion = school.deployed_version;
+    const version = await request(`${api}/${school.script_id}/versions`, 'POST', { description: `${school.school_code} ${label} - palet spreadsheet` });
+    const deploymentConfig = { versionNumber: version.versionNumber, manifestFileName: 'appsscript', description: `${school.school_code} ${label}` };
     const deployment = school.deployment_id
       ? await request(`${api}/${school.script_id}/deployments/${school.deployment_id}`, 'PUT', { deploymentConfig })
       : await request(`${api}/${school.script_id}/deployments`, 'POST', deploymentConfig);
     school.deployment_id = deployment.deploymentId;
     school.webapp_url = deployment.entryPoints?.find(entry => entry.entryPointType === 'WEB_APP')?.webApp?.url || '';
     if (!school.webapp_url) throw Error('Deployment tidak mengembalikan URL Web App.');
+    if (school.deployment_access && school.deployment_access !== access) school.previous_deployed_version = previousVersion;
     school.deployed_version = version.versionNumber;
-    school.deployment_access = 'MYSELF';
-    school.status = 'DEPLOYED_OWNER_PREVIEW';
+    school.deployment_access = access;
+    school.status = access === 'ANYONE_ANONYMOUS' ? 'DEPLOYED_PUBLIC' : 'DEPLOYED_OWNER_PREVIEW';
     save();
     console.log(JSON.stringify({ school: school.school_code, spreadsheet: school.spreadsheet_url, webapp: school.webapp_url, status: school.status }));
   }

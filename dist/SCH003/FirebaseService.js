@@ -277,6 +277,7 @@ class FirebaseDatabaseService {
 }
 
 function testFirebaseConnection() {
+  requireSchoolOwner_();
   const firebase = new FirebaseDatabaseService();
 
   const result = firebase.readData('_connection_test');
@@ -292,6 +293,7 @@ function testFirebaseConnection() {
 }
 
 function testFirebaseWriteRead() {
+  requireSchoolOwner_();
   const firebase = new FirebaseDatabaseService();
 
   const testData = {

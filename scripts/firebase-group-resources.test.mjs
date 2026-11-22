@@ -43,6 +43,27 @@ test('denied Cloud access is not mistaken for a missing project', async () => {
   }, 'cbt-test', 'owner@example.com', silent), /denied/);
 });
 
+test('explicit provisioning can create a new ID whose lookup returns 403', async () => {
+  let created = false;
+  let count = 0;
+  const api = {
+    getCloudProject: async () => created ? activeCloud() : denied(),
+    createCloudProject: async id => { assert.equal(id,'cbt-test'); count++; created=true; },
+    getFirebaseProject: async () => ({projectId:'cbt-test'}),
+  };
+  await ensureFirebaseProject(api,'cbt-test','owner@example.com',silent,{createWhenLookupForbidden:true});
+  assert.equal(count,1);
+});
+
+test('an unavailable project ID fails without creating a replacement ID', async () => {
+  const calls=[];
+  await assert.rejects(ensureFirebaseProject({
+    getCloudProject:denied,
+    createCloudProject:async id=>{calls.push(id);throw Object.assign(Error('project ID unavailable'),{status:409});},
+  },'cbt-test','owner@example.com',silent,{createWhenLookupForbidden:true}),/project ID unavailable/);
+  assert.deepEqual(calls,['cbt-test']);
+});
+
 test('403 with full IAM permissions points to account-specific terms workflow', async () => {
   await assert.rejects(ensureFirebaseProject({
     getCloudProject: activeCloud, getFirebaseProject: notFound, addFirebase: denied,

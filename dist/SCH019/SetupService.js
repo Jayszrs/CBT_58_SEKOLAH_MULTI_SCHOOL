@@ -19,11 +19,11 @@ function getOrCreateSpreadsheet_() {
   if (!spreadsheetIdString) {
     spreadsheetInstance = SpreadsheetApp.create('CBT-' + getSchoolMetadata_().schoolId + ' Database');
     scriptPropertiesObject.setProperty('SPREADSHEET_ID', spreadsheetInstance.getId());
-    initializeDatabase(spreadsheetInstance);
+    initializeDatabase_(spreadsheetInstance);
   }
 
   if (scriptPropertiesObject.getProperty('SCHOOL_RESOURCES_VERSION') !== '1') {
-    initializeDatabase(spreadsheetInstance);
+    initializeDatabase_(spreadsheetInstance);
     scriptPropertiesObject.setProperty('SCHOOL_RESOURCES_VERSION', '1');
   }
   return spreadsheetInstance;
@@ -99,7 +99,7 @@ function initializeFirebaseScriptProperties_() {
   }
 }
 
-function initializeDatabase(spreadsheetInstance) {
+function initializeDatabase_(spreadsheetInstance) {
   if (!spreadsheetInstance) {
     spreadsheetInstance = getOrCreateSpreadsheet_();
   }
@@ -137,9 +137,10 @@ function initializeDatabase(spreadsheetInstance) {
 
 /** Jalankan satu kali per sekolah memakai akun Google pemilik sekolah itu. */
 function setupSchoolResources() {
+  requireSchoolOwner_();
   const school = getSchoolMetadata_();
   const ss = getOrCreateSpreadsheet_();
-  initializeDatabase(ss);
+  initializeDatabase_(ss);
   const folder = getOrCreateDriveFolder_();
   const result = {
     school_id: school.schoolId,
@@ -158,6 +159,7 @@ function setupSchoolResources() {
 
 /** Baca link resource yang sudah dibuat, tanpa membuat resource baru. */
 function getSchoolResourceLinks() {
+  requireSchoolOwner_();
   const props = PropertiesService.getScriptProperties();
   const ssId = props.getProperty('SPREADSHEET_ID');
   const folderId = props.getProperty('DRIVE_FOLDER_ID');

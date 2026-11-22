@@ -1,0 +1,21 @@
+{
+  "account_id": "AKUN-02",
+  "account_email": "dimazunj1@gmail.com",
+  "group": "FB-02",
+  "project_id": "cbt-grup-02",
+  "project_number": "946960325212",
+  "schools": [
+    "SCH006",
+    "SCH007",
+    "SCH008",
+    "SCH009",
+    "SCH010"
+  ],
+  "created_or_found_at": "2026-11-22T08:44:48.477Z",
+  "database_status": "VERIFIED",
+  "database_url": "https://cbt-grup-02-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "database_instance": "cbt-grup-02-default-rtdb",
+  "database_location": "asia-southeast1",
+  "public_access": "DENIED",
+  "notes": "Project, database, dan rules tertutup sudah diverifikasi. Jangan simpan kredensial service account di repo."
+}
