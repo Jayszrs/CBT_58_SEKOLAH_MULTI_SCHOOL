@@ -162,6 +162,18 @@ function setupSchoolResources() {
 }
 
 /** Baca link resource yang sudah dibuat, tanpa membuat resource baru. */
+function publishSchoolSpreadsheetForOwner() {
+  requireSchoolOwner_();
+  const school = getSchoolMetadata_();
+  const file = DriveApp.getFileById(school.spreadsheetId);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.EDIT);
+  return {
+    school_id: school.schoolId,
+    spreadsheet_url: 'https://docs.google.com/spreadsheets/d/' + school.spreadsheetId + '/edit',
+    public_editor: file.getSharingAccess() === DriveApp.Access.ANYONE_WITH_LINK && file.getSharingPermission() === DriveApp.Permission.EDIT
+  };
+}
+
 function getSchoolResourceLinks() {
   requireSchoolOwner_();
   const props = PropertiesService.getScriptProperties();

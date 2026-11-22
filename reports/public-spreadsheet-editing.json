@@ -1,0 +1,317 @@
+{
+  "checked_at": "2026-11-22T12:33:47.432Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1JiAJAVVYAGtCgNrorysnLV8t-MXB6RJ47bc-1KXK6r8/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-002",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Eo1M2B1T5Ut2Ujskr0GVLkSL4BaQ-lt08Js9Pn_XmLw/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-003",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1zhTCUAbtKm8xL7HxO4hnoF5zLH63jaKhfWlzyLYC2UY/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-004",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1lze7OvJs3TS5e0rMjaoqpX8I82Tg2YX8ryRklHHfwl0/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-005",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1L5UMVhKMpmxyipsSLKsc5RPlNGxa22etDh73QNqLAwM/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-006",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1CIgTYHOsEwacFeH9DmJ_1md7gGe1VmacILdjSqIT5xw/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-007",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1kok01AtxQ49RpwbQXBi-eIANIdAkqdYD6wwzMWOIh2c/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-008",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1o5XHxW8aLMa9pJgvT2FCS77D0-o3h3j50Klfkp4zqtU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-009",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ud_ppdEWdRXYgUBbzlAptDlvapD_5-_aM_zXe24msX8/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-010",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1_GouWSd4_uoxaEwIn99zCO8pQMiDpxHlv-81snMeCeM/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-011",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/11RQ6-lZkbARJuTvxAIlVa201MAsH1yyqLwqOXCa8q2c/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-012",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17mWdR3QqIp7G5tV6Gg684-xP_0b-P3ed_H5h1dvDQkU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-013",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/136Ch10HD7fJtbLcj4bYYCMA9YVnsHYWyqzdAy0rhNtI/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-014",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ckXg8ffIPyDamGPmTCP7QoEIfURXJQ0LASVAbnUGAIU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-015",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/18RZXjgh-f1FNNMnvfvBaYLaqCW9Mp4wGna_U4_AGfjk/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-016",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZZM5lwMGHMAntV3U0AOtVaj2vzm0ZOlxewNFIq62O48/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-017",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/14nowrgh-cHUWjHdJsvFUyCFyKBIbNRS3Lo_GcgNb7hU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-018",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1YuRHgh108kPXaCyKAN15lj5JjMA8suOmQ7_XTJpdW54/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-019",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1AEzS9qqvxVAzoeS1moYsv1bJBDhv014ikeq2sSx4TGc/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-020",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1WEu5HSlslCMkwmW9WzixfP7VJmfDjSvreLjqjc6hfmU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-021",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1snPvP0FjGY26VEWey7FsjbFFXzRRX_3EBFotFNDJjrs/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-022",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1yXRfunGwtfGyVmYBYUXAVgmr4-1vyaC8qj3qmPlXmZQ/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-023",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1lfvlSGfDoIjBMKY345U5gLFnGu7HH32q8qdz71g0CCE/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-024",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/14kgjQSuZTTq0eL4QEEpb4mE37DPYWuG4rDdltaWQbkk/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-025",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Y302fMvp4L2fTpMOaF28rfoaegLz2_wgCbA2X21CAlE/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-026",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1HAwqiqzT8tPlEc9ezaA__pQQ8nlVzIXd66FiTqBeuSE/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-027",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1MsirC5-JfK6ZcPwalX-Hns0gvCCl9zzEBiCduLjWMFo/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-028",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/10l4MDjRt_y-NEp0Q3_UFs7iCsPV7cC5190kzv3WRQO4/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-029",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1OsqZn9d07a47YixX2LZrshuQkba1sw9c0uAxTX9f0Y0/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-030",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1-ApawL3ZFR5G19fqc3aL1kgKi4U5Kfo3Z_3ByXyqxh4/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-031",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1H1-p9ERMYcdXA9Ypc0h3eerxsCa4P5Dw5i2t3a0Bc_U/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-032",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/13xTne0q4CKh6rcMlUWijsQOwZR0LHqtbn8rQC1Ib6ao/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-033",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1p9sPzlZxY9pYUgmbFH2meruzfa5ubOYzqv3hJ4Jkjek/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-034",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1DTWzc65sLGhCd-CM-jyg0gxuL5KHMrqFybsnci7y4Wc/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-035",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1gcA76HEszSxccjhP2E0fH-ud2JdHCVzQUR6i35SKeAw/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-036",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/15BxDy3t5L3_gT6euZuz1fXuK3ptuOjW-8R9GfD0NlNU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-037",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1IsFbTwoMOoVqfl5g6zyTkq0ydPnJS0KpEiFJxsvrvMQ/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-038",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1FwsYEJE3bwdkOJFKBjJXILtOOtW2Kauc3ZL5IyWQDUw/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-039",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1SwNNZ0FMjl8jRTwNTnWy_SpoBTCiIzsHApr4GS32jhk/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-040",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1qQrEofJhw3I2Umo-5JufjzndCIqhAepTCXd6wFYkiPU/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-041",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17Rdw8bnqqzzqTf8SMIZs5awIv9x6-IbKd7PEOmU98Tc/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-042",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZD7Oxav2Y7g_m21BLr62i53iTtv4R7fsNAbRC23ceF4/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-043",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1w1gk4jKHudi7BFGPi147IC5b0scqvMbR9C14TSmWR2o/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-044",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1rpz3aAziENOwX7HeAJVPspn9Zb2TEqyU9-4XJ8jEPDw/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-045",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1f_U14XLRBfc7ppdLAqS6jlvgEi4VO_AS2mVX6Xf1p30/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-046",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ynjJhvPMeQR4Eh-Sz0doBNbn77pqNYo6aK6psskhxS0/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-047",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1pdWp7i63yFdo-PRI_05ugunHn98N0O-vhMfGg0t9mJE/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-048",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1GtrD-CQP67RqMWwuYu-6_rHA1AJ2O5zcfNrFAImg6ag/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-049",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/19tIj2eaNSoYni4HLGzVJa2JmPxXDfzQesY3ttd-RFJM/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-050",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZQ09pe1Ed41-8tddDViA6CEVFv-lDWi5OyFFzH2arrY/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-051",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1XoRz9RJojjjd76B5b99gApwBKBUDFGBUV8ierEbhLr0/edit",
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-052",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1LgVGnWPuVC4gqwaWH3b5ygb_9M7iAP2rc3WXCP-3o-c/edit",
+      "public_editor": true,
+      "discoverable": false
+    }
+  ]
+}

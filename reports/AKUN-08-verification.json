@@ -1,6 +1,6 @@
 {
   "account_id": "AKUN-08",
-  "verified_at": "2026-11-22T11:38:05.212Z",
+  "verified_at": "2026-11-22T12:26:08.973Z",
   "results": [
     {
       "school": "SCH-036",
@@ -9,7 +9,7 @@
       "palette": "VERIFIED",
       "resource_owner": "umiexchanger@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 1,
+      "version": 3,
       "webapp": "https://script.google.com/macros/s/AKfycbyUhG9FnhTYDIHwz8x_0aB8Bm2B3g1btpwQGLmkTHLRaiNohyT444Ur5tL81UinrP6W/exec"
     },
     {
@@ -19,7 +19,7 @@
       "palette": "VERIFIED",
       "resource_owner": "umiexchanger@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 1,
+      "version": 3,
       "webapp": "https://script.google.com/macros/s/AKfycbyeQfhEET30LD8mfyGwhmAMS50Hlizb6IR4XoUJ1vt3GXqioi6jCf8m-qhxAxZALTB-/exec"
     },
     {
@@ -29,7 +29,7 @@
       "palette": "VERIFIED",
       "resource_owner": "umiexchanger@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 1,
+      "version": 3,
       "webapp": "https://script.google.com/macros/s/AKfycbwMZ3Y8wx6_CtjgUphA0aw4JKhu_fjFc47Ws4vEprO_Rc0mRbnW7R02iQ_W2_pWnalc/exec"
     },
     {
@@ -39,7 +39,7 @@
       "palette": "VERIFIED",
       "resource_owner": "umiexchanger@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 1,
+      "version": 3,
       "webapp": "https://script.google.com/macros/s/AKfycbwCS2JeCBniZMU2PRHlFk480GxIjobulkFDBNDZWX7XR_PtmzIsEO_1aH1LKRQnZVbz/exec"
     },
     {
@@ -49,7 +49,7 @@
       "palette": "VERIFIED",
       "resource_owner": "umiexchanger@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 1,
+      "version": 3,
       "webapp": "https://script.google.com/macros/s/AKfycbzpbapg9QFfWNNE6mhHLf_QJuwmfBZle7WhjozDsOy1XlP_KfMCTszbO48vcC0ekUBhpA/exec"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "account_id": "AKUN-03",
-  "verified_at": "2026-11-22T11:37:31.738Z",
+  "verified_at": "2026-11-22T12:25:30.565Z",
   "results": [
     {
       "school": "SCH-011",
@@ -9,7 +9,7 @@
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 7,
+      "version": 8,
       "webapp": "https://script.google.com/macros/s/AKfycbyYWqGrYJwJDYXwkZ11Ee5LMpMv3lI_JASA72fZ7ojlrdMeSxo26sdZGxM41Q2EXBKXmA/exec"
     },
     {
@@ -19,7 +19,7 @@
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 7,
+      "version": 8,
       "webapp": "https://script.google.com/macros/s/AKfycbxHsJOsoVrHx_roa_RmEK0MTTvZXF_YbqEZm-NlGY3ZSgcV8dV8g05gbvWwQ6X47iHIRw/exec"
     },
     {
@@ -29,7 +29,7 @@
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 7,
+      "version": 8,
       "webapp": "https://script.google.com/macros/s/AKfycbzIFbEkMOzLf_QufyS42eyboFlj32iZpXZd0KkSy8wi3_hBsCHEiaOZJ6cC1hVyBXpaew/exec"
     },
     {
@@ -39,7 +39,7 @@
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 7,
+      "version": 8,
       "webapp": "https://script.google.com/macros/s/AKfycbzhEP0WXbfYdv7a-6n9lSbnzctbg5neZMZuwMZ3UhNOJo-vnCNdENm_YOowJJCuhdCk/exec"
     },
     {
@@ -49,7 +49,7 @@
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
       "access": "ANYONE_ANONYMOUS",
-      "version": 7,
+      "version": 8,
       "webapp": "https://script.google.com/macros/s/AKfycbxvBGlIXOhH4Jd5XRnflT7ZAUsKtU4KKP8JsZ0IlaNftb6r-K-zeYbda9Y6GALSDrlNZQ/exec"
     }
   ]

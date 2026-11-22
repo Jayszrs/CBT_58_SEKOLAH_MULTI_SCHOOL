@@ -6,6 +6,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {findGoogleOwnerCredentials} from './google-owner-api.mjs';
 import {inspectWebAppHtml} from './webapp-authorization.mjs';
+import {qaOperation} from './live-school-qa-state.mjs';
 let schools=JSON.parse(fs.readFileSync(new URL('../config/schools.json',import.meta.url)));
 const school=schools.find(s=>s.school_id===(process.argv[2]||'SCH001'));
 if(!school?.deployment_id) throw Error('Deployment sekolah tidak tersedia.');
@@ -35,10 +36,15 @@ const server=http.createServer(async(req,res)=>{
       res.writeHead(302,{Location:target.href,'Cache-Control':'no-store'}).end();
     }catch(error){res.writeHead(502,{'Content-Type':'text/plain; charset=utf-8'}).end(error.message);}return;
   }
-  if(req.method!=='POST'||!['/forward','/handoff'].includes(req.url)||req.headers.origin||!String(req.headers['content-type']).startsWith('application/json')) {res.writeHead(403).end();return;}
+  if(req.method!=='POST'||!['/forward','/handoff','/qa-operation'].includes(req.url)||req.headers.origin||!String(req.headers['content-type']).startsWith('application/json')) {res.writeHead(403).end();return;}
   try {
     let body='';for await(const chunk of req){body+=chunk;if(body.length>5000000)throw Error('Payload terlalu besar');}
-    const input=JSON.parse(body), url=new URL(input.url);
+    const input=JSON.parse(body);
+    if(req.url==='/qa-operation'){
+      const target=schools.find(s=>s.school_id===input.school);if(!target)throw Error('Sekolah QA tidak valid.');
+      const result=await qaOperation(target,input.operation,input);res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify(result));return;
+    }
+    const url=new URL(input.url);
     if(req.url==='/handoff'){
       if(!schools.some(s=>s.school_id===input.school)||!['https://script.google.com','https://accounts.google.com'].includes(url.origin))throw Error('Handoff tidak valid.');
       handoffs.set(input.school,url.href);res.writeHead(200).end('{}');return;
