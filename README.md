@@ -26,13 +26,13 @@ URL aktual ada di `config/schools.json`, tab MASTER SEKOLAH dan DEPLOY & URL. `r
 
 ## Membuka aplikasi
 
-1. Login Google sebagai pemilik sekolah, lalu buka URL Web App sekolah tersebut.
-2. Selesaikan otorisasi aplikasi pada pembukaan pertama bila Google memintanya.
+1. Buka URL Web App sekolah. Halaman siswa tersedia tanpa login Google.
+2. Pemilik menyelesaikan otorisasi Google aplikasi, termasuk izin Firebase dan email, sebelum operasional. Siswa tidak memberi izin Google.
 3. Halaman siswa menampilkan nama dan palet sekolah. Ujian masih tidak aktif sampai admin menyiapkannya.
 4. Pilih **Login Admin**, lalu **Masuk sebagai pemilik Google**. Server memeriksa email Google pemilik dan membuat sesi sementara; tidak menggunakan password Google sebagai password CBT.
-5. Login admin dengan password tetap tersedia jika `ADMIN_PASSWORD` sudah dikonfigurasi secara aman.
+5. Login admin dengan password tersedia jika sudah dikonfigurasi. Pemilik Google dapat membuat password admin pertama melalui Ganti Password, dengan password lama kosong jika belum pernah dikonfigurasi.
 
-Deployment pilot menggunakan `webapp.access=MYSELF`, sehingga hanya pemilik Google yang dapat membuka. Ini preview pemilik; akses siswa umum dan UAT ujian/nilai belum dinyatakan selesai.
+Lima belas deployment pertama menggunakan `webapp.access=ANYONE_ANONYMOUS` dan `executeAs=USER_DEPLOYING`. Siswa masuk dengan NISN dan password atau token. Server menerbitkan sesi acak yang terikat NISN serta sekolah untuk mulai, menyimpan, dan mengirim ujian. Data sekolah dan kunci jawaban tetap dilindungi di backend.
 
 ## Firebase
 
@@ -47,9 +47,9 @@ node scripts/sync-school-config.mjs
 node scripts/build.mjs
 node scripts/validate.mjs
 node scripts/provision-firebase-group.mjs AKUN-01 --email dimazunj2@gmail.com --execute --yes
-node scripts/provision-school-pilot.mjs AKUN-01 --execute
+node scripts/provision-school-pilot.mjs AKUN-01 --execute --parallel
 node scripts/verify-school-pilot.mjs AKUN-01
-node --test scripts/firebase-group-resources.test.mjs scripts/school-runtime.test.mjs
+node --test scripts/admin-data.test.mjs scripts/public-session.test.mjs scripts/school-runtime.test.mjs scripts/firebase-group-resources.test.mjs scripts/google-owner-api.test.mjs scripts/webapp-authorization.test.mjs
 ```
 
 Jalankan provisioning akun berikutnya setelah Firebase dan `clasp` login sesuai email pemilik. Simpan login clasp per email agar akun sebelumnya tetap tersedia:
@@ -57,7 +57,7 @@ Jalankan provisioning akun berikutnya setelah Firebase dan `clasp` login sesuai 
 ```powershell
 firebase login:add
 clasp login --user dimazunj1@gmail.com
-node scripts/provision-next-account.mjs AKUN-02 --execute
+node scripts/provision-next-account.mjs AKUN-02 --execute --parallel
 ```
 
 Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email masing-masing untuk akun berikutnya. Login biasa clasp sudah cukup untuk provisioning; tidak perlu meminta scope tambahan yang diblokir pada percobaan sebelumnya.
@@ -69,10 +69,11 @@ Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email
 ## Verifikasi dan batas saat ini
 
 - 58 sekolah dan pembagian 5 sekolah/akun telah divalidasi.
-- Lima deployment pilot, nama, palet, URL, dan pemilik resource telah diverifikasi lewat API.
-- Pengguna mengonfirmasi halaman login dan dashboard SCH001 berhasil dibuka.
-- Tes lokal meliputi sesi pemilik Google, penolakan akun lain, penggunaan OAuth Firebase, namespace sekolah, penggunaan ulang spreadsheet, kontras tombol, dan sintaks sumber.
-- Pemeriksaan browser lokal mencakup halaman login lima sekolah pada desktop/ponsel, navigasi siswa-admin, validasi form kosong, dan fokus keyboard. Backend cloud tidak disimulasikan sebagai berhasil.
-- UAT siswa/guru, pelaksanaan ujian, autosave, submit, nilai dan isolasi lintas aplikasi masih perlu dijalankan sebelum memperluas akses.
+- Lima belas deployment publik, sumber aplikasi, nama, palet, URL, dan pemilik resource telah diverifikasi lewat API.
+- Halaman publik 15 sekolah berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah berhasil diuji WRITE/READ. Tiga RTDB tetap menolak akses publik langsung.
+- Di SCH001, uji nyata meliputi CRUD kelas/mapel/siswa/soal, impor/ekspor Excel, gambar privat, paket, ujian HP enam tipe soal, autosave, submit, koreksi nilai 100, ekspor/cetak, serta arsip/restore.
+- 40 tes regresi lulus. Rincian metode dan batas uji ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL spreadsheet monitoring.
+- Data QA siswa, kelas, mapel, paket, soal dan sesi Firebase sudah dibersihkan. Dua hasil QA diarsipkan; ujian kembali tidak aktif. Kredensial admin dan logo aktif dipertahankan; penyimpanannya juga diperiksa lewat pengujian terisolasi.
+- UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. Alur lengkap data QA dijalankan di SCH001; sekolah lain menggunakan sumber yang sama dan verifikasi resource masing-masing.
 
 Jangan simpan `.clasprc.json`, private key, token, atau password di repository maupun kolom progress spreadsheet.

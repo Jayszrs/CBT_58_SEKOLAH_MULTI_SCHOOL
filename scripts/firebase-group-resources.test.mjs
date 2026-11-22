@@ -96,12 +96,16 @@ test('reuses existing default database and preserves the server URL', async () =
 
 test('creates the first default database in the requested location', async () => {
   let creation;
+  let serviceChecks=0, bootstrapped;
   const result = await ensureDefaultDatabase({
-    ensureDatabaseApi: async () => {}, listDatabases: async () => [],
+    ensureDatabaseApi: async () => { if(++serviceChecks===1)throw Error('Service Usage API is disabled'); },
+    bootstrapServiceUsageApi: async id => { bootstrapped=id; }, listDatabases: async () => [],
     createDefaultDatabase: async (...args) => { creation = args; return defaultDatabase; },
   }, 'cbt-test', 'asia-southeast1', silent);
   assert.deepEqual(creation, ['cbt-test', 'cbt-test-default-rtdb', 'asia-southeast1']);
   assert.equal(result.databaseUrl, defaultDatabase.databaseUrl);
+  assert.equal(serviceChecks,2);
+  assert.equal(bootstrapped,'cbt-test');
 });
 
 test('refuses a disabled default database instead of creating a replacement', async () => {

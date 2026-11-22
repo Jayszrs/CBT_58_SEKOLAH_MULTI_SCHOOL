@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { createRequire } from 'node:module';
+import { googleOwnerApi } from './google-owner-api.mjs';
 
 const require = createRequire(import.meta.url);
 export const requiredPermissions = [
@@ -47,6 +48,16 @@ export function loadFirebaseApi(toolsDirectory, email) {
     testPermissions: async id => (await cloud.request({ method: 'POST', path: `/projects/${id}:testIamPermissions`, body: { permissions: requiredPermissions } })).body.permissions || [],
     ensureDatabaseApi: id => ensure(id, 'https://firebasedatabase.googleapis.com', 'database', false),
     ensureSheetsApi: id => ensure(id, 'https://sheets.googleapis.com', 'sheets', false),
+    bootstrapServiceUsageApi: async id => {
+      const ownerRequest = await googleOwnerApi(email);
+      let operation = await ownerRequest(`https://serviceusage.googleapis.com/v1/projects/${id}/services/serviceusage.googleapis.com:enable`,'POST',{});
+      for(let attempt=0;operation.name&&!operation.done&&attempt<30;attempt++){
+        await new Promise(resolve=>setTimeout(resolve,2000));
+        operation=await ownerRequest('https://serviceusage.googleapis.com/v1/'+operation.name);
+      }
+      if(operation.error)throw Error(operation.error.message);
+      if(!operation.done)throw Error('Aktivasi Service Usage API masih diproses. Jalankan ulang untuk melanjutkan.');
+    },
     listDatabases: id => database.listDatabaseInstances(id, database.DatabaseLocation.ANY),
     createDefaultDatabase: (id, name, location) => database.createInstance(id, name, location, database.DatabaseInstanceType.DEFAULT_DATABASE),
     getDatabaseRules: async databaseUrl => (await new Client({ urlPrefix: databaseUrl }).request({ method: 'GET', path: '/.settings/rules.json' })).body,
@@ -105,7 +116,13 @@ export async function ensureFirebaseProject(api, projectId, email, log = console
 }
 
 export async function ensureDefaultDatabase(api, projectId, location = 'asia-southeast1', log = console.log) {
-  await api.ensureDatabaseApi(projectId);
+  try { await api.ensureDatabaseApi(projectId); }
+  catch(error) {
+    if(!api.bootstrapServiceUsageApi || !String(error.message).includes('Service Usage API'))throw error;
+    log('Mengaktifkan Service Usage API pada project baru ...');
+    await api.bootstrapServiceUsageApi(projectId);
+    await api.ensureDatabaseApi(projectId);
+  }
   const instances = await api.listDatabases(projectId);
   let instance = instances.find(item => item.type?.toLowerCase() === 'default_database');
   if (!instance) {

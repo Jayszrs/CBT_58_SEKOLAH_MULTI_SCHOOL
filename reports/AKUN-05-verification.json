@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-05",
+  "verified_at": "2026-11-22T10:54:43.328Z",
+  "results": [
+    {
+      "school": "SCH-021",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "uskebonkosong17@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbxsYHMFzZY7CeY30EwLqRVEOVi_G-qPXhWCSxoxq9RqxM4XorUPVR4xHnV6mXJITucSpw/exec"
+    },
+    {
+      "school": "SCH-022",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "uskebonkosong17@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbylKwwUx4XbltHLIZ4mXN2nHS-nzYJs-2m2D-03_kJdwgMNjq2CQPQCUIbUZuZEWC_7/exec"
+    },
+    {
+      "school": "SCH-023",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "uskebonkosong17@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbxzyNX-MU1GKGKbTFsVSuyfbvmY16Xg2B1JYdu4HNF466iPA9XzgHTrhLFQtOk5e-WUPw/exec"
+    },
+    {
+      "school": "SCH-024",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "uskebonkosong17@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbxo_EZ-Ouq-lFnHW4nfmWY246ZKLeZ1FACbcrnueUTdVcUIZ0mCaghDddcxIYHyEmH8aQ/exec"
+    },
+    {
+      "school": "SCH-025",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "uskebonkosong17@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzl0xMtbvyiUc-VsOltWgfkEuGUM9A6IhuTKKfzS9Ht4pSMojSz28YLgX0YN3k93gCg/exec"
+    }
+  ]
+}

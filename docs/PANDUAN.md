@@ -4,10 +4,10 @@ Pembagian terbaru: 58 sekolah, maksimal 5 sekolah per akun, 12 grup Firebase (gr
 
 Pilot AKUN-01 dimiliki dimazunj2@gmail.com dan mencakup SCH-001 sampai SCH-005. Spreadsheet, folder Drive, Apps Script dan Web App masing-masing sekolah terpisah. Firebase project dan RTDB dipakai bersama dengan namespace server berbeda.
 
-Buka tab DEPLOY & URL, pilih Link Web App sekolah, dan gunakan akun Google pemilik. Aplikasi mungkin meminta otorisasi pada pembukaan pertama. Pilih Login Admin lalu Masuk sebagai pemilik Google untuk dashboard. Halaman siswa tersedia, tetapi belum ada data siswa atau paket ujian yang dibuat sebagai bagian provisioning ini.
+Buka tab DEPLOY & URL dan pilih Link Web App sekolah. Halaman siswa dapat dibuka tanpa akun Google; siswa masuk menggunakan NISN dan password atau token ujian dari pengawas. Pemilik menyelesaikan izin Google aplikasi, termasuk Firebase dan email, lalu memakai Login Admin → Masuk sebagai pemilik Google. Admin dapat menetapkan password CBT pertama melalui Ganti Password; password Google tidak digunakan sebagai password CBT.
 
-Preview dibatasi MYSELF. Status Deploy Selesai berarti URL preview pemilik sudah ada dan deployment terverifikasi; bukan persetujuan bahwa ujian produksi sudah siap. Status UAT hanya diubah setelah alur yang bersangkutan benar-benar diuji. Konfirmasi pengguna: halaman login dan dashboard SCH-001 berhasil terbuka.
+SCH-001–015 memakai akses publik ANYONE_ANONYMOUS dengan eksekusi sebagai pemilik. Halaman publik dan koneksi database 15 sekolah telah diuji. Alur CRUD/import/export, ujian enam tipe soal, autosave, submit, koreksi sampai nilai 100, cetak serta arsip dipraktikkan di SCH-001. Data sementara sudah dibersihkan; dua hasil QA ada di arsip. Ujian dikembalikan ke tidak aktif. UAT memakai data peserta asli dan uji kapasitas serentak tetap dicatat terpisah.
 
-ID dan URL aktual ada di config/schools.json dan spreadsheet monitoring. Hasil pemeriksaan cloud ada di reports/pilot-verification.json. Pengujian UI lokal tidak melakukan panggilan backend cloud; gambar preview diberi label sesuai batas itu.
+ID dan URL aktual ada di config/schools.json dan spreadsheet monitoring. Tab QA FUNGSIONAL dan reports/WEBAPP-FUNCTIONAL-QA.md memuat cara uji dan batasnya, termasuk 40 tes regresi otomatis. Reports/AKUN-XX-verification.json mencocokkan identitas, sumber, palet, pemilik dan deployment Google. Pratinjau lokal diberi label; pemeriksaan fungsi menggunakan Web App sebenarnya.
 
 Lihat README.md untuk daftar perintah, struktur konfigurasi, autentikasi Firebase dan langkah menambah akun berikutnya. Jangan mencatat password, token OAuth atau private key di kolom progress.

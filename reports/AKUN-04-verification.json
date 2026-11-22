@@ -1,0 +1,56 @@
+{
+  "account_id": "AKUN-04",
+  "verified_at": "2026-11-22T10:49:33.205Z",
+  "results": [
+    {
+      "school": "SCH-016",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "ranokelvi@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzDVGsS6WrmJBNuLCkEPH7rWZg2e4MkuWOo2aB_oS7zx1BINtiY7wS-WvR9oNfOAys/exec"
+    },
+    {
+      "school": "SCH-017",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "ranokelvi@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbw_VmRcI5nYmxsIxXFQafH-6AdF1ESEJCqXwKxDzJtngDxAyVDr9eVKI5P_mRxiX4pB7g/exec"
+    },
+    {
+      "school": "SCH-018",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "ranokelvi@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbzkhH5JfQiC_S24GBgIO89nYbsVQKf8ppK4EFZJplpci_DlNkKi-uqcBwx6zNWm38EUyA/exec"
+    },
+    {
+      "school": "SCH-019",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "ranokelvi@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbwQnuXemEi2htFiW-XKPZJ9g1Q2_WK6hpJAE-v3uaBAXYUfINhJ2oFP1JtL8RwTn0Ik/exec"
+    },
+    {
+      "school": "SCH-020",
+      "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "ranokelvi@gmail.com",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 1,
+      "webapp": "https://script.google.com/macros/s/AKfycbyq_ZN-GTcW5Hm9CuBoY-KjYhopXOHBLDYQ6rXzp21s-fAVbl9vhOwbuHfVlqPDh_dA/exec"
+    }
+  ]
+}

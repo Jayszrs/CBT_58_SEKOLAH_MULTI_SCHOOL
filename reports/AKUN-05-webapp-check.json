@@ -1,0 +1,41 @@
+{
+  "account_id": "AKUN-05",
+  "checked_at": "2026-11-22T10:55:55.904Z",
+  "results": [
+    {
+      "school": "SCH-021",
+      "owner": "uskebonkosong17@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbxsYHMFzZY7CeY30EwLqRVEOVi_G-qPXhWCSxoxq9RqxM4XorUPVR4xHnV6mXJITucSpw/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-022",
+      "owner": "uskebonkosong17@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbylKwwUx4XbltHLIZ4mXN2nHS-nzYJs-2m2D-03_kJdwgMNjq2CQPQCUIbUZuZEWC_7/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-023",
+      "owner": "uskebonkosong17@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbxzyNX-MU1GKGKbTFsVSuyfbvmY16Xg2B1JYdu4HNF466iPA9XzgHTrhLFQtOk5e-WUPw/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-024",
+      "owner": "uskebonkosong17@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbxo_EZ-Ouq-lFnHW4nfmWY246ZKLeZ1FACbcrnueUTdVcUIZ0mCaghDddcxIYHyEmH8aQ/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    },
+    {
+      "school": "SCH-025",
+      "owner": "uskebonkosong17@gmail.com",
+      "webapp": "https://script.google.com/macros/s/AKfycbzl0xMtbvyiUc-VsOltWgfkEuGUM9A6IhuTKKfzS9Ht4pSMojSz28YLgX0YN3k93gCg/exec",
+      "status": "AUTHORIZATION_REQUIRED",
+      "title": "Authorization needed"
+    }
+  ]
+}
