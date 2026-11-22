@@ -1,0 +1,141 @@
+{
+  "checked_at": "2026-11-22T10:41:42.937Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "owner_authorization_required": false,
+      "database_write_read": true,
+      "core_student_flow": true,
+      "final_scores": [
+        100,
+        100
+      ]
+    },
+    {
+      "school": "SCH-002",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-003",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-004",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-005",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-006",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-007",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-008",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-009",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-010",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-011",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-012",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-013",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-014",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    },
+    {
+      "school": "SCH-015",
+      "owner_authorization_required": false,
+      "compiled": {
+        "scripts": 16,
+        "errors": []
+      },
+      "database_write_read": true
+    }
+  ]
+}

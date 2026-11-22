@@ -455,6 +455,8 @@ function loadBankSoal() {
   api.call('executeAdminAction', AppStore.user.data.token, 'getAllSoal', { bypassCache: true }).then(res => {
     AppStore.soalList = res;
     renderTabelSoal();
+    const packageModal = document.getElementById('modal-paket');
+    if (packageModal && packageModal.style.display === 'flex') renderPilihanSoal();
   }).catch(err => {
     showToast('Gagal memuat bank soal', 'error');
   });
@@ -883,7 +885,7 @@ function editSoal(id) {
   document.getElementById('soal-tipe').value = soal.tipe;
   document.getElementById('soal-bobot').value = soal.bobot;
   document.getElementById('soal-gambar-url-old').value = soal.url_gambar || '';
-  document.getElementById('soal-mapel').value = soal.mapel || '';
+  document.getElementById('soal-mapel').value = decodeDisplayText(soal.mapel);
   document.getElementById('soal-petunjuk').value = soal.petunjuk || '';
 
   quillContextEditor.clipboard.dangerouslyPasteHTML(FrontendSecurity.renderSafeHtml(soal.teks_pendukung || ''), 'silent');
@@ -1601,7 +1603,7 @@ function downloadImportTemplate() {
     ['Isian Singkat: Kunci Jawaban diisi jawaban singkat.'],
     ['Menjodohkan: Opsi dan Kunci Jawaban menggunakan format KIRI:::KANAN, setiap pasangan dipisahkan dengan |.'],
     ['Benar Salah: isi tepat 3 pernyataan pada Opsi dan 3 kunci pada Kunci Jawaban. Kunci wajib 2 Benar dan 1 Salah.'],
-    ['Link Gambar Soal: isi dengan tautan file gambar Google Drive, misalnya https://drive.google.com/file/d/ID_FILE/view?usp=sharing.'],
+    ['Link Gambar Soal: isi dengan tautan file gambar dari menu Bagikan pada Google Drive.'],
     ['Link Gambar Opsi: urutannya harus sama dengan Opsi dan dipisahkan dengan |. Untuk Menjodohkan, gunakan LINK_KIRI:::LINK_KANAN dan pisahkan pasangan dengan |.'],
     ['Untuk gambar saja tanpa teks, kosongkan bagian teks opsi tetapi tetap isi link gambarnya. Posisi opsi harus tetap dipisahkan dengan |.'],
     ['Pastikan akun Google pemilik aplikasi memiliki akses ke file gambar sumber saat import. File akan disalin ke folder media privat CBT-GAS; tidak perlu mengaktifkan tautan publik.'],
@@ -1664,10 +1666,10 @@ function driveReferenceToExcelLink(reference) {
   if (!raw) return '';
   if (raw.indexOf('DRIVE_ID:') === 0) {
     const id = raw.substring('DRIVE_ID:'.length);
-    return id ? 'https://drive.google.com/file/d/' + id + '/view?usp=sharing' : '';
+    return id ? 'https:\x2f\x2fdrive.google.com/file/d/' + id + '/view?usp=sharing' : '';
   }
   if (/^https?:\/\/drive\.google\.com/i.test(raw)) return raw;
-  if (/^[a-zA-Z0-9_-]{10,}$/.test(raw)) return 'https://drive.google.com/file/d/' + raw + '/view?usp=sharing';
+  if (/^[a-zA-Z0-9_-]{10,}$/.test(raw)) return 'https:\x2f\x2fdrive.google.com/file/d/' + raw + '/view?usp=sharing';
   return raw;
 }
 
@@ -2431,7 +2433,7 @@ function renderPilihanSoal() {
   }
   
   const filteredSoal = filterMapel 
-    ? AppStore.soalList.filter(s => s.mapel === filterMapel)
+    ? AppStore.soalList.filter(s => decodeDisplayText(s.mapel) === filterMapel)
     : AppStore.soalList;
     
   filteredSoal.forEach(soal => {

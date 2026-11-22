@@ -6,6 +6,23 @@ function initAdminDashboard() {
   }
   
   loadStatistik();
+  if (APP_GLOBAL_CONFIG.ownerGoogleLoginAvailable) checkOwnerFirebasePermission();
+}
+
+function checkOwnerFirebasePermission() {
+  api.call('getFirebaseAuthorizationStatus',{silent:true}).then(result=>{
+    if(!result.required || AppStore.activeComponent!=='admin-dashboard')return;
+    const banner=document.createElement('div');
+    banner.className='glass-panel';
+    banner.style.cssText='padding:16px;margin-bottom:16px;border:1px solid var(--primary)';
+    const message=document.createElement('p');
+    message.textContent='Izin koneksi ujian belum lengkap. Pemilik sekolah perlu mengizinkan Firebase agar siswa dapat login dan menyimpan jawaban.';
+    const link=document.createElement('a');
+    link.textContent='Lengkapi izin Google';link.className='btn btn-primary';
+    link.href=result.authorizationUrl;link.target='_blank';link.rel='noopener';
+    banner.append(message,link);
+    document.querySelector('.main-content .page-header')?.after(banner);
+  }).catch(error=>console.warn('Pemeriksaan izin belum tersedia:',error.message));
 }
 
 function loadStatistik() {

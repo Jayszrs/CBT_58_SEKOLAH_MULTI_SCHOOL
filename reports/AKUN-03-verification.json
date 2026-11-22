@@ -1,50 +1,55 @@
 {
   "account_id": "AKUN-03",
-  "verified_at": "2026-11-22T08:52:40.077Z",
+  "verified_at": "2026-11-22T10:35:52.033Z",
   "results": [
     {
       "school": "SCH-011",
       "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
-      "access": "MYSELF",
-      "version": 1,
+      "access": "ANYONE_ANONYMOUS",
+      "version": 6,
       "webapp": "https://script.google.com/macros/s/AKfycbyYWqGrYJwJDYXwkZ11Ee5LMpMv3lI_JASA72fZ7ojlrdMeSxo26sdZGxM41Q2EXBKXmA/exec"
     },
     {
       "school": "SCH-012",
       "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
-      "access": "MYSELF",
-      "version": 1,
+      "access": "ANYONE_ANONYMOUS",
+      "version": 6,
       "webapp": "https://script.google.com/macros/s/AKfycbxHsJOsoVrHx_roa_RmEK0MTTvZXF_YbqEZm-NlGY3ZSgcV8dV8g05gbvWwQ6X47iHIRw/exec"
     },
     {
       "school": "SCH-013",
       "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
-      "access": "MYSELF",
-      "version": 1,
+      "access": "ANYONE_ANONYMOUS",
+      "version": 6,
       "webapp": "https://script.google.com/macros/s/AKfycbzIFbEkMOzLf_QufyS42eyboFlj32iZpXZd0KkSy8wi3_hBsCHEiaOZJ6cC1hVyBXpaew/exec"
     },
     {
       "school": "SCH-014",
       "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
-      "access": "MYSELF",
-      "version": 1,
+      "access": "ANYONE_ANONYMOUS",
+      "version": 6,
       "webapp": "https://script.google.com/macros/s/AKfycbzhEP0WXbfYdv7a-6n9lSbnzctbg5neZMZuwMZ3UhNOJo-vnCNdENm_YOowJJCuhdCk/exec"
     },
     {
       "school": "SCH-015",
       "remote_identity": "VERIFIED",
+      "application_source": "VERIFIED",
       "palette": "VERIFIED",
       "resource_owner": "usmatematika2021@gmail.com",
-      "access": "MYSELF",
-      "version": 1,
+      "access": "ANYONE_ANONYMOUS",
+      "version": 6,
       "webapp": "https://script.google.com/macros/s/AKfycbxvBGlIXOhH4Jd5XRnflT7ZAUsKtU4KKP8JsZ0IlaNftb6r-K-zeYbda9Y6GALSDrlNZQ/exec"
     }
   ]

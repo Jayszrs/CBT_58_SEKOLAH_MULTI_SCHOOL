@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-22T10:22:44.614Z",
+  "results": [
+    {
+      "nisn": "0099000001",
+      "firebase_session": "Selesai",
+      "final_saved": true,
+      "final_answers": 7,
+      "autosave_saved": false,
+      "final_score": 100,
+      "correction_status": "Selesai"
+    },
+    {
+      "nisn": "0099000002",
+      "firebase_session": "Selesai",
+      "final_saved": true,
+      "final_answers": 7,
+      "autosave_saved": false,
+      "final_score": 100,
+      "correction_status": "Selesai"
+    }
+  ]
+}

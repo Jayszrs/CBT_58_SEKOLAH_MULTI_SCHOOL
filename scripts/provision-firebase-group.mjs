@@ -94,7 +94,7 @@ async function provision() {
   fs.writeFileSync(resultFile, JSON.stringify(summary, null, 2) + '\n');
   console.log('\nRingkasan tanpa password/kunci disimpan: ' + resultFile);
   console.log(`Isi FIREBASE_DATABASE_URL = ${verified.databaseUrl} pada Script Properties untuk: ${batch.map(item => item.school_id).join(', ')}.`);
-  console.log('FIREBASE_CLIENT_EMAIL dan FIREBASE_PRIVATE_KEY perlu disetel secara aman; skrip ini tidak membuat private key.');
+  console.log('Backend memakai OAuth akun pemilik Apps Script; private key tidak diperlukan. Pastikan pemilik mengizinkan scope Firebase dan email pada setiap aplikasi.');
 }
 
 try { await provision(); } catch (error) {

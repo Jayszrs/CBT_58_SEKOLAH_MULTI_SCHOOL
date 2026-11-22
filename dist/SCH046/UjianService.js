@@ -19,7 +19,7 @@ class ExamDeliveryService {
       }
     } else if (subjectFilterString && subjectFilterString !== '' && subjectFilterString !== 'undefined') {
       allQuestionsArray = allQuestionsArray.filter(function (questionObject) {
-        return String(questionObject.mapel) === String(subjectFilterString);
+        return SecurityService.restoreDisplayText(questionObject.mapel) === String(subjectFilterString);
       });
     }
 
@@ -217,7 +217,7 @@ class ExamSubmissionService {
       }
     } else if (activeConfiguration && activeConfiguration.mapel_ujian) {
       questionBankArray = questionBankArray.filter(function (questionObject) {
-        return questionObject.mapel === activeConfiguration.mapel_ujian;
+        return SecurityService.restoreDisplayText(questionObject.mapel) === activeConfiguration.mapel_ujian;
       });
     }
 
@@ -287,8 +287,10 @@ class ExamSubmissionService {
         systemDatabaseLock.waitLock(1500);
 
         const responseDatabaseSheet = this.spreadsheetInstance.getSheetByName('Respon_Jawaban');
-        responseDatabaseSheet.appendRow([
-          timestampFormatString,
+        const responseRow = responseDatabaseSheet.getLastRow() + 1;
+        responseDatabaseSheet.getRange(responseRow, 2).setNumberFormat('@');
+        responseDatabaseSheet.getRange(responseRow, 1, 1, 10).setValues([[
+          new Date(),
           safeSheetLiteral_(nisnString),
           rawAnswerJsonString,
           gradingResultObject.skorObjektif,
@@ -298,7 +300,7 @@ class ExamSubmissionService {
           safeSheetLiteral_(finalViolationLogString),
           JSON.stringify(gradingResultObject.detailSkor || {}),
           activeSubjectValueString
-        ]);
+        ]]);
 
         const studentDataSheet = this.spreadsheetInstance.getSheetByName('Data_Siswa');
         

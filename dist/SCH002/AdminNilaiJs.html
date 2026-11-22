@@ -62,7 +62,7 @@ function renderTabelNilai() {
   
   let filteredList = [...nilaiList];
   if (currentFilterMapel) {
-    filteredList = filteredList.filter(n => n.mapel === currentFilterMapel);
+    filteredList = filteredList.filter(n => decodeDisplayText(n.mapel) === currentFilterMapel);
   }
   
   if (filteredList.length === 0) {
@@ -130,7 +130,7 @@ function renderTabelNilai() {
 
 function exportExcel() {
   let filteredList = [...nilaiList];
-  if (currentFilterMapel) filteredList = filteredList.filter(n => n.mapel === currentFilterMapel);
+  if (currentFilterMapel) filteredList = filteredList.filter(n => decodeDisplayText(n.mapel) === currentFilterMapel);
   if (!filteredList.length) {
     showToast('Tidak ada data untuk diekspor.', 'error');
     return;
@@ -436,7 +436,7 @@ function renderFormKoreksi(soalList, jawabanObj, detailSkorObj, currentSkorEsai)
     });
   };
 
-  renderSoalGroup(soalIsian, 'Bagian Isian Singkat', false, '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:4px;"></i> Informasi: Teks isian singkat sudah dikoreksi otomatis. Namun guru dapat menyesuaikan ulang skor secara manual untuk memberikan toleransi jika ada salah ketik (typo) atau ejaan yang masih bernilai benar.');
+  renderSoalGroup(soalIsian, 'Bagian Isian Singkat', false, '<i class="fas fa-info-circle" style="color:var(--primary); margin-right:4px;"></i> Jawaban isian singkat menunggu koreksi guru. Berikan skor sesuai bobot soal, lalu simpan koreksi.');
   renderSoalGroup(soalEsai, 'Bagian Esai', true);
   
   document.getElementById('total-bobot-esai').innerText = (totalBobotIsian + totalBobotEsai);

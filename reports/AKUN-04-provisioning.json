@@ -1,0 +1,14 @@
+{
+  "account_id": "AKUN-04",
+  "email": "ranokelvi@gmail.com",
+  "schools": [
+    "SCH-016",
+    "SCH-017",
+    "SCH-018",
+    "SCH-019",
+    "SCH-020"
+  ],
+  "updated_at": "2026-11-22T10:37:12.507Z",
+  "phase": "IDENTITIES_VERIFIED",
+  "error": "Langkah provision-firebase-group.mjs belum selesai; jalankan ulang untuk melanjutkan."
+}

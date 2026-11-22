@@ -35,6 +35,16 @@ function fixture() {
   return {context,cache,props,records,writes,studentRows};
 }
 
+test('only the verified Google owner can initialize the first administrator password',()=>{
+  const f=fixture();
+  const change=()=>vm.runInContext('new AdminAuthenticationService().executePasswordChange("", "test-admin-password-2026")',f.context);
+  assert.equal(change().success,false);
+  f.context.activeEmail='owner@example.com';
+  assert.equal(change().success,true);
+  assert.equal(f.context.loginAdmin('test-admin-password-2026','admin').success,true);
+  assert.equal(change().success,false);
+});
+
 test('student login returns an opaque credential and stores only its hash',()=>{
   const f=fixture();const result=f.context.loginSiswa('student-a','student-password-123');
   assert.equal(result.success,true);assert.match(result.data.sessionToken,/^[0-9a-f-]{72}$/i);
@@ -43,6 +53,13 @@ test('student login returns an opaque credential and stores only its hash',()=>{
   assert.equal(f.context.verifyStudentCredential_('student-a',result.data.sessionToken),true);
   const started=f.context.startUjian('student-a',result.data.sessionToken);
   assert.equal(started.success,true);assert.equal(started.data.soal[0].kunci,undefined);
+});
+
+test('subject filtering preserves slashes and ampersands instead of dropping every question',()=>{
+  const f=fixture();
+  f.context.getAllSoal_=()=>[{id:'Q1',mapel:'IPA&#x2F;IPS &amp; Sains',opsi:['a','b']}];
+  const questions=f.context.getSoalForStudent_('IPA/IPS & Sains','');
+  assert.equal(questions.length,1);
 });
 
 test('knowing a NISN alone cannot start, autosave or submit an exam',()=>{

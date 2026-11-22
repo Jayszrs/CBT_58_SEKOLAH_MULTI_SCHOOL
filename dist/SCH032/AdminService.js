@@ -76,6 +76,9 @@ function executeAdminAction(password, actionName, args) {
     case 'getKelas':
       result = getAllKelas_();
       break;
+    case 'importKelas':
+      result = importKelas_(args.dataArray);
+      break;
     case 'saveKelas':
       result = saveKelas_(args.idLama, args.data);
       break;
@@ -197,24 +200,32 @@ function getAllSiswaForExport_() {
 }
 
 function createSiswa_(s) {
+  const validation = validateStudentRecord_(s);
+  if (!validation.success) return validation;
   const ss = getOrCreateSpreadsheet_();
   const sheet = ss.getSheetByName('Data_Siswa');
-  sheet.appendRow([s.nisn, s.nama, s.kelas, s.password, s.status || 'Offline']);
+  if (sheet.getDataRange().getValues().slice(1).some(row=>String(row[0])===String(s.nisn).trim())) return {success:false,message:'NISN sudah terdaftar.'};
+  const row = [String(s.nisn).trim(), String(s.nama).trim(), String(s.kelas).trim(), String(s.password || ''), 'Offline'];
+  sheet.getRange(sheet.getLastRow()+1,1,1,5).setNumberFormat('@').setValues([row.map(safeSheetLiteral_)]);
   CacheService.getScriptCache().remove('DATA_SISWA');
   return { success: true };
 }
 
 function updateSiswa_(nisnLama, s) {
+  const validation = validateStudentRecord_(s);
+  if (!validation.success) return validation;
   const ss = getOrCreateSpreadsheet_();
   const sheet = ss.getSheetByName('Data_Siswa');
   const data = sheet.getDataRange().getValues();
+
+  if (data.slice(1).some(row=>String(row[0])!==String(nisnLama)&&String(row[0])===String(s.nisn).trim())) return {success:false,message:'NISN sudah terdaftar.'};
 
   for (let i = 1; i < data.length; i++) {
     if (String(data[i][0]) === String(nisnLama)) {
       const statusValue = s.status !== undefined ? s.status : data[i][4];
       const nisnBaru = s.nisn !== undefined ? s.nisn : nisnLama;
       
-      sheet.getRange(i + 1, 1, 1, 5).setValues([[nisnBaru, s.nama, s.kelas, s.password, statusValue]]);
+      sheet.getRange(i + 1, 1, 1, 5).setNumberFormat('@').setValues([[nisnBaru, s.nama, s.kelas, s.password, statusValue].map(safeSheetLiteral_)]);
       CacheService.getScriptCache().remove('DATA_SISWA');
       
       
@@ -231,7 +242,7 @@ function updateSiswa_(nisnLama, s) {
         
         if (batchUpdates.length > 0) {
           batchUpdates.forEach(function(u) {
-            sheetRespon.getRange(u.row, u.col).setValue(u.val);
+            sheetRespon.getRange(u.row, u.col).setNumberFormat('@').setValue(u.val);
           });
           CacheService.getScriptCache().remove('REKAP_NILAI');
         }
@@ -349,7 +360,7 @@ function importSiswa_(dataArray) {
         errors.push('Baris ' + rowNumber + ': NISN, Nama Siswa, Kelas, dan Password wajib diisi.');
         return;
       }
-      if (nisn.length > 40 || nama.length > 200 || kelas.length > 100 || password.length > 200) {
+      if (!normalizeStudentId_(nisn) || nama.length > 200 || kelas.length > 100 || password.length > 200) {
         errors.push('Baris ' + rowNumber + ': terdapat data yang melebihi batas panjang kolom.');
         return;
       }
@@ -381,7 +392,7 @@ function importSiswa_(dataArray) {
       const firstRow = sheet.getLastRow() + 1;
       const targetRange = sheet.getRange(firstRow, 1, rowsToInsert.length, 5);
       targetRange.setNumberFormat('@');
-      targetRange.setValues(rowsToInsert);
+      targetRange.setValues(rowsToInsert.map(row=>row.map(safeSheetLiteral_)));
     }
 
     // Daftarkan kelas baru agar kelas peserta juga tersedia pada dropdown administrator.
@@ -414,6 +425,36 @@ function importSiswa_(dataArray) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function validateStudentRecord_(record) {
+  if (!record || !normalizeStudentId_(record.nisn)) return {success:false,message:'NISN harus 1–32 huruf, angka, tanda hubung, atau garis bawah.'};
+  if (!String(record.nama || '').trim() || String(record.nama).length>200 || !String(record.kelas || '').trim() || String(record.kelas).length>100 || String(record.password || '').length>200) return {success:false,message:'Nama dan kelas wajib diisi; periksa panjang data siswa.'};
+  return {success:true};
+}
+
+function importKelas_(rows) {
+  if (!Array.isArray(rows) || !rows.length || rows.length>5000) return {success:false,message:'Isi 1–5000 kelas per file.'};
+  const lock=LockService.getScriptLock();
+  try {
+    lock.waitLock(20000);
+    const ss=getOrCreateSpreadsheet_();
+    const sheet=getOrCreateSheet_(ss,'Daftar_Kelas',['ID Kelas','Nama Kelas']);
+    const existing=sheet.getDataRange().getValues().slice(1);
+    const ids=new Set(existing.map(r=>String(r[0])));
+    const names=new Set(existing.map(r=>String(r[1]).trim().toLowerCase()));
+    const insert=[]; let skipped=0;
+    for(let i=0;i<rows.length;i++) {
+      const nama=String(rows[i]?.nama || '').trim();
+      const id=String(rows[i]?.id || ('KLS-'+Utilities.getUuid().slice(0,8))).trim();
+      if(!/^[A-Za-z0-9_-]{1,40}$/.test(id)||!nama||nama.length>100) return {success:false,message:'Baris '+(i+2)+': kode/nama kelas tidak valid.'};
+      if(ids.has(id)||names.has(nama.toLowerCase())) {skipped++;continue;}
+      ids.add(id);names.add(nama.toLowerCase());insert.push([id,safeSheetLiteral_(nama)]);
+    }
+    if(insert.length)sheet.getRange(sheet.getLastRow()+1,1,insert.length,2).setNumberFormat('@').setValues(insert);
+    return {success:true,count:insert.length,skipped:skipped};
+  } catch(error) {return {success:false,message:error.message};}
+  finally {lock.releaseLock();}
 }
 
 function getAllKelas_() {
@@ -771,6 +812,9 @@ function getJawabanSiswa_(nisn) {
       let detailSkor = {};
       try { jawaban = data[i][2] ? JSON.parse(data[i][2]) : {}; } catch (e) { }
       try { detailSkor = data[i][8] ? JSON.parse(data[i][8]) : {}; } catch (e) { }
+      // Apps Script RPC rejects property names ending in double underscores.
+      // This ordering metadata is not needed by the correction form.
+      delete detailSkor.__urutan_soal__;
 
       return {
         jawaban: SecurityService.sanitizeData(jawaban),
@@ -860,6 +904,7 @@ function archiveJawaban_(mapelFilter) {
     }
     
     
+    sheetArsip.getRange(sheetArsip.getLastRow() + 1, 2, targetMove.length, 1).setNumberFormat('@');
     sheetArsip.getRange(sheetArsip.getLastRow() + 1, 1, targetMove.length, targetMove[0].length).setValues(targetMove);
     
     
@@ -922,6 +967,7 @@ function unarchiveJawaban_(mapelFilter) {
     }
     
     
+    sheetRespon.getRange(sheetRespon.getLastRow() + 1, 2, targetMove.length, 1).setNumberFormat('@');
     sheetRespon.getRange(sheetRespon.getLastRow() + 1, 1, targetMove.length, targetMove[0].length).setValues(targetMove);
     
     

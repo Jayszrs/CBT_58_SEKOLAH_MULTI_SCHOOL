@@ -1,4 +1,8 @@
 class SecurityService {
+  static restoreDisplayText(value) {
+    const entities = {'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#x27;':"'",'&#x2F;':'/'};
+    return String(value == null ? '' : value).replace(/&(amp|lt|gt|quot|#x27|#x2F);/g, entity=>entities[entity]);
+  }
   static sanitizeString(inputString) {
     if (typeof inputString !== 'string') {
       return String(inputString);

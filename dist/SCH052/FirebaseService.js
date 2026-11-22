@@ -225,10 +225,8 @@ class FirebaseDatabaseService {
       return {
         success: false,
         message:
-          responseData &&
-          responseData.error &&
-          responseData.error.message
-            ? responseData.error.message
+          responseData && responseData.error
+            ? (typeof responseData.error === 'string' ? responseData.error : responseData.error.message || 'Firebase HTTP Error ' + responseCode)
             : 'Firebase HTTP Error ' + responseCode,
         data: responseData
       };
@@ -283,13 +281,24 @@ function testFirebaseConnection() {
   const result = firebase.readData('_connection_test');
 
   if (!result.success) {
+    const tokenInfo = UrlFetchApp.fetch('https://oauth2.googleapis.com/tokeninfo?access_token=' + encodeURIComponent(getFirebaseOAuthAccessToken_()), {muteHttpExceptions:true});
+    let grantedScopes = '';
+    try { grantedScopes = JSON.parse(tokenInfo.getContentText()).scope || ''; } catch(ignore) {}
     throw new Error(
-      'Koneksi Firebase gagal: ' + result.message
+      'Koneksi Firebase gagal: ' + result.message + ' | OAuth scopes: ' + grantedScopes
     );
   }
 
   console.log('BERHASIL: Firebase terhubung!');
   console.log('Hasil baca: ' + JSON.stringify(result.data));
+  return {success:true};
+}
+
+function getFirebaseAuthorizationStatus() {
+  requireSchoolOwner_();
+  const scopes=['https://www.googleapis.com/auth/firebase.database','https://www.googleapis.com/auth/userinfo.email'];
+  const info=ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL,scopes);
+  return {required:info.getAuthorizationStatus()===ScriptApp.AuthorizationStatus.REQUIRED,authorizationUrl:info.getAuthorizationUrl()};
 }
 
 function testFirebaseWriteRead() {

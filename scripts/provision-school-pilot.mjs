@@ -34,7 +34,11 @@ const build = () => {
   if (result.status !== 0) throw Error(result.stderr || result.stdout);
 };
 try {
-  for (const school of members) {
+  // Each worker owns a different school. Checkpoints share this one in-memory
+  // array and synchronous save(), so completed workers cannot overwrite each other.
+  const concurrency = process.argv.includes('--parallel') ? 3 : 1;
+  for (let memberIndex = 0; memberIndex < members.length; memberIndex += concurrency) {
+    const outcomes = await Promise.allSettled(members.slice(memberIndex, memberIndex + concurrency).map(async school => {
     console.log(`\n${school.school_code}: ${school.school_name}`);
     const createdSpreadsheet = !school.spreadsheet_id;
     if (createdSpreadsheet) {
@@ -87,5 +91,8 @@ try {
     school.status = access === 'ANYONE_ANONYMOUS' ? 'DEPLOYED_PUBLIC' : 'DEPLOYED_OWNER_PREVIEW';
     save();
     console.log(JSON.stringify({ school: school.school_code, spreadsheet: school.spreadsheet_url, webapp: school.webapp_url, status: school.status }));
+    }));
+    const failed = outcomes.find(outcome => outcome.status === 'rejected');
+    if (failed) throw failed.reason;
   }
 } catch (error) { console.error(error.message); process.exitCode = 1; }

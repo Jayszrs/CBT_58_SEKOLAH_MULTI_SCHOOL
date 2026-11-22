@@ -47,7 +47,8 @@ test('Firebase uses deploying owner OAuth and keeps requests in the school names
 
 test('first page initializes the configured spreadsheet once and reuses it', () => {
   const props = new Map();
-  const sheet = {};
+  let timezoneChanges = 0;
+  const sheet = {setSpreadsheetTimeZone:zone=>{assert.equal(zone,'Asia/Jakarta');timezoneChanges++;}};
   let initialized = 0;
   const context = vm.createContext({
     getSchoolMetadata_: () => ({ spreadsheetId: 'configured-sheet' }),
@@ -59,6 +60,7 @@ test('first page initializes the configured spreadsheet once and reuses it', () 
   assert.equal(context.getOrCreateSpreadsheet_(), sheet);
   assert.equal(context.getOrCreateSpreadsheet_(), sheet);
   assert.equal(initialized, 1);
+  assert.equal(timezoneChanges, 1);
 });
 
 test('all 58 primary button text colors meet WCAG AA contrast', () => {

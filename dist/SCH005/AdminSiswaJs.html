@@ -31,8 +31,8 @@ function renderDropdownKelas() {
   
   dropdownKelasData.forEach(k => {
     const opt = document.createElement('option');
-    opt.value = k.nama; 
-    opt.innerText = k.nama;
+    opt.value = decodeDisplayText(k.nama);
+    opt.innerText = decodeDisplayText(k.nama);
     select.appendChild(opt);
   });
   
@@ -146,9 +146,14 @@ function editSiswa(nisn) {
   document.getElementById('modal-siswa-title').innerText = 'Edit Siswa';
   document.getElementById('siswa-nisn').value = s.nisn;
   document.getElementById('siswa-nisn').readOnly = false; 
-  document.getElementById('siswa-nama').value = s.nama;
-  document.getElementById('siswa-kelas').value = s.kelas;
-  document.getElementById('siswa-password').value = s.password || '';
+  document.getElementById('siswa-nama').value = decodeDisplayText(s.nama);
+  const classSelect = document.getElementById('siswa-kelas');
+  const className = decodeDisplayText(s.kelas);
+  if (!Array.from(classSelect.options).some(option=>option.value===className)) {
+    classSelect.add(new Option(className,className));
+  }
+  classSelect.value = className;
+  document.getElementById('siswa-password').value = decodeDisplayText(s.password);
   
   document.getElementById('modal-siswa').classList.remove('hidden');
 }
@@ -170,7 +175,7 @@ function saveSiswa() {
     nama: elNama.value.trim(),
     kelas: elKelas.value.trim(),
     password: elPassword.value.trim(),
-    status: 'Offline'
+    status: siswaMode === 'edit' ? (siswaList.find(s=>String(s.nisn)===String(currentEditNisn))?.status || 'Offline') : 'Offline'
   };
   
   

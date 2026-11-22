@@ -24,7 +24,7 @@
     "source_row": 2,
     "before_sync_version": 1,
     "deployment_id": "AKfycbxhgwKz62beolFCvFxqNMIH2uJWB1H-2ac2Xot-gKbtNRSAIY5DLvadRS6Obg0vbnYq",
-    "deployed_version": 5,
+    "deployed_version": 18,
     "deployment_access": "ANYONE_ANONYMOUS",
     "owner_preview_confirmed_at": "2026-11-22T08:21:54.067Z",
     "owner_preview_evidence": "Pengguna mengonfirmasi halaman login dan dashboard sekolah berhasil terbuka.",
@@ -46,7 +46,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Eo1M2B1T5Ut2Ujskr0GVLkSL4BaQ-lt08Js9Pn_XmLw/edit",
     "drive_folder_id": "12NiI9GcR6WA2zY2KT4XQrvqskB-XehF8",
     "drive_folder_url": "https://drive.google.com/drive/folders/12NiI9GcR6WA2zY2KT4XQrvqskB-XehF8",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-002",
     "spreadsheet_group": "GRUP-01",
     "theme_accent": "#D91CC6",
@@ -54,9 +54,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 3,
     "deployment_id": "AKfycbydz1_astfbEniZFTSoPMBWwlL_kK2qwe1aFNDXfk6YpRAuLRm6CYhnASE9pcCsAkVk8A",
-    "deployed_version": 3,
-    "deployment_access": "MYSELF",
-    "before_sync_version": 2
+    "deployed_version": 7,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 3
   },
   {
     "school_id": "SCH003",
@@ -74,7 +75,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1zhTCUAbtKm8xL7HxO4hnoF5zLH63jaKhfWlzyLYC2UY/edit",
     "drive_folder_id": "1iWmjkkMDvQVHzO7OQFZzaHCLmlwzkkGe",
     "drive_folder_url": "https://drive.google.com/drive/folders/1iWmjkkMDvQVHzO7OQFZzaHCLmlwzkkGe",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-003",
     "spreadsheet_group": "GRUP-01",
     "theme_accent": "#8FD91C",
@@ -82,9 +83,10 @@
     "theme_on_primary": "#000000",
     "source_row": 4,
     "deployment_id": "AKfycbw6Gr7amR5VWDqBNetoO8PSWQ8Xoc7ejS-tEXXfDDM-NHKuskJcYymJccwLGwCWM4b6Ig",
-    "deployed_version": 3,
-    "deployment_access": "MYSELF",
-    "before_sync_version": 2
+    "deployed_version": 7,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 3
   },
   {
     "school_id": "SCH004",
@@ -102,7 +104,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1lze7OvJs3TS5e0rMjaoqpX8I82Tg2YX8ryRklHHfwl0/edit",
     "drive_folder_id": "1V4yPrMujMk9Q7AjcA9_HrLANHb-lQFYg",
     "drive_folder_url": "https://drive.google.com/drive/folders/1V4yPrMujMk9Q7AjcA9_HrLANHb-lQFYg",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-004",
     "spreadsheet_group": "GRUP-01",
     "theme_accent": "#1C58D9",
@@ -110,9 +112,10 @@
     "theme_on_primary": "#000000",
     "source_row": 5,
     "deployment_id": "AKfycbzOY-R-vbdouWLhffzDTBMsATA4cRnyx73dF9lFgwrYHBOiek2N4vfKaSakAzBkJK851A",
-    "deployed_version": 3,
-    "deployment_access": "MYSELF",
-    "before_sync_version": 2
+    "deployed_version": 7,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 3
   },
   {
     "school_id": "SCH005",
@@ -130,7 +133,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1L5UMVhKMpmxyipsSLKsc5RPlNGxa22etDh73QNqLAwM/edit",
     "drive_folder_id": "16qGJS7PI82yvnEO1-QsRX1b6XXzBEJ1E",
     "drive_folder_url": "https://drive.google.com/drive/folders/16qGJS7PI82yvnEO1-QsRX1b6XXzBEJ1E",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-005",
     "spreadsheet_group": "GRUP-01",
     "theme_accent": "#D91C21",
@@ -138,9 +141,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 6,
     "deployment_id": "AKfycbyrwxI57wzyP7OFFeotbtEYyxyt5XLr4FiKlViBeCeG6F7GnS9pj8IZo_MO6jCSKO1j",
-    "deployed_version": 3,
-    "deployment_access": "MYSELF",
-    "before_sync_version": 2
+    "deployed_version": 7,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 3
   },
   {
     "school_id": "SCH006",
@@ -158,7 +162,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1CIgTYHOsEwacFeH9DmJ_1md7gGe1VmacILdjSqIT5xw/edit",
     "drive_folder_id": "1I11yL2fzKewT8Cy-bdapXgS5sHIPlRDh",
     "drive_folder_url": "https://drive.google.com/drive/folders/1I11yL2fzKewT8Cy-bdapXgS5sHIPlRDh",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-006",
     "spreadsheet_group": "GRUP-02",
     "theme_accent": "#1CD94F",
@@ -166,8 +170,10 @@
     "theme_on_primary": "#000000",
     "source_row": 7,
     "deployment_id": "AKfycbyPgHn_zSXc3WynxwYbDN-xg8tEJwRSNQynJYKB8FeaoSPZlnBVZwU_xwq0zqCEPCLv",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH007",
@@ -185,7 +191,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1kok01AtxQ49RpwbQXBi-eIANIdAkqdYD6wwzMWOIh2c/edit",
     "drive_folder_id": "1RH05gJXCnAN3hU5fWKE_G9NoPn-MIWcz",
     "drive_folder_url": "https://drive.google.com/drive/folders/1RH05gJXCnAN3hU5fWKE_G9NoPn-MIWcz",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-007",
     "spreadsheet_group": "GRUP-02",
     "theme_accent": "#861CD9",
@@ -193,8 +199,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 8,
     "deployment_id": "AKfycbwpKvBxDKY3Rgfy5a0Tnlmq83Lbx_1PmMbvDrnkuR1PuBzZpXDbfqaNwzeaQw4ToG1d",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH008",
@@ -212,7 +220,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1o5XHxW8aLMa9pJgvT2FCS77D0-o3h3j50Klfkp4zqtU/edit",
     "drive_folder_id": "1b7Mw2hYlG6tL6cJ-h_Oomjmyuu-dWULo",
     "drive_folder_url": "https://drive.google.com/drive/folders/1b7Mw2hYlG6tL6cJ-h_Oomjmyuu-dWULo",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-008",
     "spreadsheet_group": "GRUP-02",
     "theme_accent": "#D9BD1C",
@@ -220,8 +228,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 9,
     "deployment_id": "AKfycbxv5aU9LYQQ7X5Jg0i2R5MLHLIXaleYeGfEjvmEvqUGXNtr2wGU0F-jQfeKxLphIlSq",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH009",
@@ -239,7 +249,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ud_ppdEWdRXYgUBbzlAptDlvapD_5-_aM_zXe24msX8/edit",
     "drive_folder_id": "1Fq42jUsUfSoA_jAEvBSORQ-Dr4CluK0g",
     "drive_folder_url": "https://drive.google.com/drive/folders/1Fq42jUsUfSoA_jAEvBSORQ-Dr4CluK0g",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-009",
     "spreadsheet_group": "GRUP-02",
     "theme_accent": "#1CBED9",
@@ -247,8 +257,10 @@
     "theme_on_primary": "#000000",
     "source_row": 10,
     "deployment_id": "AKfycbwftk-WjbCAdIcCXfKpwyH3VUHsmMcf8ILPMKm2jMCmUPN_iECAs36e1QVdvLF1RB1MUQ",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH010",
@@ -266,7 +278,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1_GouWSd4_uoxaEwIn99zCO8pQMiDpxHlv-81snMeCeM/edit",
     "drive_folder_id": "12U_Z-mAGMutbGxl9r08pmYRyqIxD5Qi1",
     "drive_folder_url": "https://drive.google.com/drive/folders/12U_Z-mAGMutbGxl9r08pmYRyqIxD5Qi1",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-010",
     "spreadsheet_group": "GRUP-02",
     "theme_accent": "#D91C87",
@@ -274,8 +286,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 11,
     "deployment_id": "AKfycbwwL4q3EqeX1OsfaAEms5JmcH__RusshHOugTvlT580KwjP1qcZ0Etc3q1lY-owEbTM",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH011",
@@ -293,7 +307,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/11RQ6-lZkbARJuTvxAIlVa201MAsH1yyqLwqOXCa8q2c/edit",
     "drive_folder_id": "1NcAtkJRw7CAzSSQt26c2Gf16eC61ZuVy",
     "drive_folder_url": "https://drive.google.com/drive/folders/1NcAtkJRw7CAzSSQt26c2Gf16eC61ZuVy",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-011",
     "spreadsheet_group": "GRUP-03",
     "theme_accent": "#50D91C",
@@ -301,8 +315,10 @@
     "theme_on_primary": "#000000",
     "source_row": 12,
     "deployment_id": "AKfycbyYWqGrYJwJDYXwkZ11Ee5LMpMv3lI_JASA72fZ7ojlrdMeSxo26sdZGxM41Q2EXBKXmA",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH012",
@@ -320,7 +336,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17mWdR3QqIp7G5tV6Gg684-xP_0b-P3ed_H5h1dvDQkU/edit",
     "drive_folder_id": "1raL_4iqH-5HTSyA6djLAKZb3JLWIY8xr",
     "drive_folder_url": "https://drive.google.com/drive/folders/1raL_4iqH-5HTSyA6djLAKZb3JLWIY8xr",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-012",
     "spreadsheet_group": "GRUP-03",
     "theme_accent": "#201CD9",
@@ -328,8 +344,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 13,
     "deployment_id": "AKfycbxHsJOsoVrHx_roa_RmEK0MTTvZXF_YbqEZm-NlGY3ZSgcV8dV8g05gbvWwQ6X47iHIRw",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH013",
@@ -347,7 +365,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/136Ch10HD7fJtbLcj4bYYCMA9YVnsHYWyqzdAy0rhNtI/edit",
     "drive_folder_id": "1_XQh_uolw-qjbot-y0pHgkDAvGiO2ooR",
     "drive_folder_url": "https://drive.google.com/drive/folders/1_XQh_uolw-qjbot-y0pHgkDAvGiO2ooR",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-013",
     "spreadsheet_group": "GRUP-03",
     "theme_accent": "#D9571C",
@@ -355,8 +373,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 14,
     "deployment_id": "AKfycbzIFbEkMOzLf_QufyS42eyboFlj32iZpXZd0KkSy8wi3_hBsCHEiaOZJ6cC1hVyBXpaew",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH014",
@@ -374,7 +394,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ckXg8ffIPyDamGPmTCP7QoEIfURXJQ0LASVAbnUGAIU/edit",
     "drive_folder_id": "1aY-NNQOLjshGYxJkIQx8aBtkqu0xJ81X",
     "drive_folder_url": "https://drive.google.com/drive/folders/1aY-NNQOLjshGYxJkIQx8aBtkqu0xJ81X",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-014",
     "spreadsheet_group": "GRUP-03",
     "theme_accent": "#1CD98E",
@@ -382,8 +402,10 @@
     "theme_on_primary": "#000000",
     "source_row": 15,
     "deployment_id": "AKfycbzhEP0WXbfYdv7a-6n9lSbnzctbg5neZMZuwMZ3UhNOJo-vnCNdENm_YOowJJCuhdCk",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH015",
@@ -401,7 +423,7 @@
     "spreadsheet_url": "https://docs.google.com/spreadsheets/d/18RZXjgh-f1FNNMnvfvBaYLaqCW9Mp4wGna_U4_AGfjk/edit",
     "drive_folder_id": "1ERfSolijq36TRAT0avyvYJy_Uk6L1bpZ",
     "drive_folder_url": "https://drive.google.com/drive/folders/1ERfSolijq36TRAT0avyvYJy_Uk6L1bpZ",
-    "status": "DEPLOYED_OWNER_PREVIEW",
+    "status": "DEPLOYED_PUBLIC",
     "school_code": "SCH-015",
     "spreadsheet_group": "GRUP-03",
     "theme_accent": "#C51CD9",
@@ -409,8 +431,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 16,
     "deployment_id": "AKfycbxvBGlIXOhH4Jd5XRnflT7ZAUsKtU4KKP8JsZ0IlaNftb6r-K-zeYbda9Y6GALSDrlNZQ",
-    "deployed_version": 1,
-    "deployment_access": "MYSELF"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "before_sync_version": 2,
+    "previous_deployed_version": 1
   },
   {
     "school_id": "SCH016",

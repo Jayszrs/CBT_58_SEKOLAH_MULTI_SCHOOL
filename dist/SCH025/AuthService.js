@@ -293,7 +293,7 @@ class AdminAuthenticationService {
     const storedAdminPassword = this.scriptSystemProperties.getProperty('ADMIN_PASSWORD');
     const oldPasswordHash = this._hashPassword(oldPasswordString);
     
-    if (oldPasswordHash !== storedAdminPassword) {
+    if ((!storedAdminPassword && !isGoogleSchoolOwner_()) || (storedAdminPassword && oldPasswordHash !== storedAdminPassword)) {
       return { success: false, message: 'Password lama tidak sesuai.' };
     }
 

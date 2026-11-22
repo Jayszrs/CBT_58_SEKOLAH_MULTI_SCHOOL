@@ -40,8 +40,8 @@ try {
   const current=JSON.parse(fs.readFileSync(path.join(root,'config','schools.json'),'utf8')).find(s=>s.account_id===accountId);
   await firebase.ensureSheetsApi(current.firebase_project_id);
   checkpoint('SHEETS_API_READY');
-  run('provision-school-pilot.mjs',[accountId,'--execute']);
-  checkpoint('DEPLOYED_OWNER_PREVIEW');
+  run('provision-school-pilot.mjs',[accountId,'--execute',...(args.includes('--parallel')?['--parallel']:[])]);
+  checkpoint(JSON.parse(fs.readFileSync(path.join(root,'appsscript.json'),'utf8')).webapp.access==='ANYONE_ANONYMOUS'?'DEPLOYED_PUBLIC':'DEPLOYED_OWNER_PREVIEW');
   run('verify-school-pilot.mjs',[accountId]);
   checkpoint('CLOUD_VERIFIED');
   console.log('Resource cloud terverifikasi. Catat URL aktual di spreadsheet monitoring; UAT aplikasi tetap perlu dilakukan.');

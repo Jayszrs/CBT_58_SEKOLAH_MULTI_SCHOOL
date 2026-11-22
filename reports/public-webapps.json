@@ -1,0 +1,95 @@
+{
+  "checked_at": "2026-11-22T10:42:19.640Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEMAYORAN 01"
+    },
+    {
+      "school": "SCH-002",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEMAYORAN 07 PG"
+    },
+    {
+      "school": "SCH-003",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEMAYORAN 09 PG"
+    },
+    {
+      "school": "SCH-004",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEMAYORAN 13 PG"
+    },
+    {
+      "school": "SCH-005",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEMAYORAN 15"
+    },
+    {
+      "school": "SCH-006",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN UTAN PANJANG 01"
+    },
+    {
+      "school": "SCH-007",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN UTAN PANJANG 03"
+    },
+    {
+      "school": "SCH-008",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN GUNUNG SAHARI SELATAN 01"
+    },
+    {
+      "school": "SCH-009",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN HARAPAN MULIA 01"
+    },
+    {
+      "school": "SCH-010",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN HARAPAN MULIA 03"
+    },
+    {
+      "school": "SCH-011",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 01 PG"
+    },
+    {
+      "school": "SCH-012",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 02 PG"
+    },
+    {
+      "school": "SCH-013",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 03 PG"
+    },
+    {
+      "school": "SCH-014",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 05 PG"
+    },
+    {
+      "school": "SCH-015",
+      "status": "PUBLIC_LOGIN_RENDERED",
+      "http_status": 200,
+      "title": "CBT | SDN KEBON KOSONG 09"
+    }
+  ]
+}

@@ -12,6 +12,10 @@
         </div>
       </div>
       <div class="page-header-actions">
+        <button class="btn btn-outline" onclick="downloadKelasTemplate()">Template Excel</button>
+        <button class="btn btn-outline" onclick="document.getElementById('import-kelas-file').click()">Import Excel</button>
+        <button class="btn btn-outline" onclick="exportKelasExcel()">Export Excel</button>
+        <input type="file" id="import-kelas-file" accept=".xlsx" class="hidden" onchange="importKelasExcel(event)">
         <button class="btn btn-primary" onclick="openKelasModal()"><i class="fas fa-plus"></i> Tambah Kelas</button>
       </div>
     </div>
@@ -45,7 +49,7 @@
         <input type="text" id="kelas-id" class="form-control" required readonly style="background-color: #f3f4f6; color: #6b7280; cursor: not-allowed;" placeholder="Dihasilkan Otomatis">
       </div>
       <div class="form-group mb-4">
-        <label>Nama Kelas (Opsional/Deskripsi)</label>
+        <label>Nama Kelas</label>
         <input type="text" id="kelas-nama" class="form-control" placeholder="Contoh: Kelas 10 MIPA A">
       </div>
       

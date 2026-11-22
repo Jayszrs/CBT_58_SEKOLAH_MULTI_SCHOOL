@@ -66,7 +66,8 @@ test('an unavailable project ID fails without creating a replacement ID', async 
 
 test('403 with full IAM permissions points to account-specific terms workflow', async () => {
   await assert.rejects(ensureFirebaseProject({
-    getCloudProject: activeCloud, getFirebaseProject: notFound, addFirebase: denied,
+    getCloudProject: activeCloud, getFirebaseProject: notFound,
+    addFirebase: async () => { throw Object.assign(Error('Firebase CLI wrapper'), {status:500,original:Object.assign(Error('permission denied'),{status:403})}); },
     testPermissions: async () => requiredPermissions,
   }, 'cbt-test', 'owner@example.com', silent), error => {
     assert.match(error.message, /Semua izin/);

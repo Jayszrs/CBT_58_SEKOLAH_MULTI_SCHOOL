@@ -26,6 +26,10 @@ function getOrCreateSpreadsheet_() {
     initializeDatabase_(spreadsheetInstance);
     scriptPropertiesObject.setProperty('SCHOOL_RESOURCES_VERSION', '1');
   }
+  if (scriptPropertiesObject.getProperty('SCHOOL_TIMEZONE') !== 'Asia/Jakarta') {
+    spreadsheetInstance.setSpreadsheetTimeZone('Asia/Jakarta');
+    scriptPropertiesObject.setProperty('SCHOOL_TIMEZONE', 'Asia/Jakarta');
+  }
   return spreadsheetInstance;
 }
 

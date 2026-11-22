@@ -103,7 +103,7 @@ function editKelas(idKelas) {
   currentEditIdKelas = String(idKelas);
   document.getElementById('modal-kelas-title').innerText = 'Edit Kelas';
   document.getElementById('kelas-id').value = k.id;
-  document.getElementById('kelas-nama').value = k.nama;
+  document.getElementById('kelas-nama').value = decodeDisplayText(k.nama);
   
   document.getElementById('modal-kelas').classList.remove('hidden');
 }
@@ -163,5 +163,50 @@ function deleteThisKelas(idKelas) {
       });
     }
   );
+}
+function writeKelasExcel(rows, filename) {
+  if(!ensureXlsxLibrary()) return;
+  const book=XLSX.utils.book_new();
+  const sheet=XLSX.utils.aoa_to_sheet(rows);
+  sheet['!cols']=[{wch:24},{wch:36}];
+  XLSX.utils.book_append_sheet(book,sheet,'Data_Kelas');
+  XLSX.writeFile(book,filename);
+}
+
+function downloadKelasTemplate() {
+  writeKelasExcel([['ID KELAS','NAMA KELAS']],'Template_Kelas_CBT.xlsx');
+}
+
+function exportKelasExcel() {
+  api.call('executeAdminAction',AppStore.user.data.token,'getKelas',{}).then(rows=>{
+    if(!Array.isArray(rows))throw Error(rows?.message||'Gagal memuat kelas.');
+    writeKelasExcel([['ID KELAS','NAMA KELAS'],...rows.map(r=>[r.id,r.nama])],'Data_Kelas_CBT.xlsx');
+  }).catch(error=>showToast(error.message,'error'));
+}
+
+async function importKelasExcel(event) {
+  const input=event.target, file=input.files?.[0];
+  if(!file || !ensureXlsxLibrary()) return;
+  try {
+    if(!/\.xlsx$/i.test(file.name)||file.size>10*1024*1024)throw Error('Pilih file .xlsx maksimal 10 MB.');
+    const book=XLSX.read(await file.arrayBuffer(),{type:'array'});
+    const sheet=book.Sheets[book.SheetNames.find(n=>/kelas/i.test(n))||book.SheetNames[0]];
+    const rows=XLSX.utils.sheet_to_json(sheet,{header:1,raw:false,defval:'',blankrows:false});
+    const headers=(rows[0]||[]).map(v=>String(v).trim().toUpperCase().replace(/[^A-Z]/g,''));
+    const nameIndex=headers.indexOf('NAMAKELAS'), idIndex=headers.indexOf('IDKELAS');
+    if(nameIndex<0)throw Error('Header NAMA KELAS wajib ada. Gunakan Template Excel.');
+    const data=rows.slice(1).map(row=>({id:idIndex<0?'':String(row[idIndex]||'').trim(),nama:String(row[nameIndex]||'').trim()})).filter(r=>r.id||r.nama);
+    if(!data.length)throw Error('File belum berisi data kelas.');
+    if(data.some(r=>!r.nama))throw Error('Nama kelas wajib diisi pada setiap baris.');
+    openConfirmModal('Import Kelas',data.length+' kelas akan diperiksa dan disimpan. Kelas yang sudah ada dilewati.','Import Kelas',async()=>{
+      try {
+        const result=await api.call('executeAdminAction',AppStore.user.data.token,'importKelas',{dataArray:data});
+        if(!result.success)throw Error(result.message);
+        showToast(result.count+' kelas diimpor; '+result.skipped+' duplikat dilewati.','success');
+        loadDataKelas();
+      }catch(error){showToast(error.message,'error');}
+    });
+  }catch(error){showToast(error.message,'error');}
+  finally{input.value='';}
 }
 </script>

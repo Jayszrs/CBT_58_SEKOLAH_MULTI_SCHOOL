@@ -481,7 +481,7 @@ function saveEssayScore_(nisn, skor, detailSkor) {
 
     const allQuestionIds = Object.keys(
       updatedDetails
-    );
+    ).filter(function(questionId) { return questionId !== '__urutan_soal__'; });
 
 
     // Mengidentifikasi soal yang perlu dikoreksi.

@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-22T10:43:09.407Z",
+  "results": [
+    {
+      "group": "FB-01",
+      "project": "cbt-grup-01",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-02",
+      "project": "cbt-grup-02",
+      "http_status": 401,
+      "public_read_denied": true
+    },
+    {
+      "group": "FB-03",
+      "project": "cbt-grup-03",
+      "http_status": 401,
+      "public_read_denied": true
+    }
+  ]
+}

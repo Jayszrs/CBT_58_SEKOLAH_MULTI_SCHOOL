@@ -33,9 +33,9 @@ function initAdminUjian() {
       }
       
       document.getElementById('conf-durasi').value = configRes.durasi || 60;
-      document.getElementById('conf-token').value = configRes.token || '';
+      document.getElementById('conf-token').value = decodeDisplayText(configRes.token);
       
-      const allowedStr = configRes.kelas_diizinkan || '';
+      const allowedStr = decodeDisplayText(configRes.kelas_diizinkan);
       currentAllowedKelasArray = allowedStr.split(',').map(c => c.trim()).filter(c => c.length > 0);
       document.getElementById('conf-kelas-diizinkan').value = allowedStr;
 
@@ -64,14 +64,14 @@ function initAdminUjian() {
         document.getElementById('conf-waktu-selesai').value = '';
       }
       
-      document.getElementById('conf-nama-ujian').value = configRes.nama_ujian || '';
+      document.getElementById('conf-nama-ujian').value = decodeDisplayText(configRes.nama_ujian);
       
       const mapelSelect = document.getElementById('conf-mapel-ujian');
       mapelSelect.innerHTML = '<option value="">-- Semua Mata Pelajaran --</option>';
       daftarSemuaMapel.forEach(m => {
           const opt = document.createElement('option');
-          opt.value = m.nama;
-          opt.innerText = m.nama;
+          opt.value = decodeDisplayText(m.nama);
+          opt.innerText = decodeDisplayText(m.nama);
           mapelSelect.appendChild(opt);
       });
       
@@ -88,7 +88,7 @@ function initAdminUjian() {
           paketSelect.value = configRes.paket_ujian;
           document.getElementById('mode-paket').checked = true;
       } else {
-          if (configRes.mapel_ujian) mapelSelect.value = configRes.mapel_ujian;
+          if (configRes.mapel_ujian) mapelSelect.value = decodeDisplayText(configRes.mapel_ujian);
           document.getElementById('mode-mapel').checked = true;
       }
       toggleSourceMode();
@@ -127,7 +127,7 @@ function renderCheckboxKelas() {
   
   container.innerHTML = '';
   daftarSemuaKelas.forEach((k, idx) => {
-    const isChecked = currentAllowedKelasArray.includes(String(k.nama));
+    const isChecked = currentAllowedKelasArray.includes(decodeDisplayText(k.nama));
     const wrapper = document.createElement('div');
     const id = `cb-kelas-${idx}`;
     

@@ -1,4 +1,9 @@
 <script>
+  function decodeDisplayText(value) {
+    const element = document.createElement('textarea');
+    element.innerHTML = String(value == null ? '' : value);
+    return element.value;
+  }
   class FrontendSecurity {
     static renderSafeHtml(dirtyHtmlString) {
       if (!dirtyHtmlString) return '';
@@ -162,9 +167,13 @@
             if (!isSilent) hideLoading();
             if (result && result.sessionExpired) {
               const role = AppStore.user && AppStore.user.role;
+              if (typeof examState !== 'undefined' && examState.timerInterval) clearInterval(examState.timerInterval);
               AppStore.user = null;
               localStorage.removeItem('CBT_SESSION');
               navigateTo(role === 'admin' ? 'admin-login' : 'student-login');
+              showToast(result.message, 'error');
+              reject(new Error(result.message));
+              return;
             }
             resolve(result);
           })
@@ -362,7 +371,7 @@
     const oldPass = document.getElementById('global-old-admin-password').value;
     const newPass = document.getElementById('global-new-admin-password').value;
 
-    if (!oldPass || !newPass) {
+    if ((!oldPass && !APP_GLOBAL_CONFIG.ownerGoogleLoginAvailable) || !newPass) {
       showToast('Password lama dan baru harus diisi!', 'error');
       return;
     }

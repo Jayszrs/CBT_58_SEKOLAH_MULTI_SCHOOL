@@ -99,9 +99,9 @@ function initStudentExam() {
     pendingViolation: null
   };
   
-  document.getElementById('exam-student-name').innerText = `| ${AppStore.user.data.nama} (${AppStore.user.data.kelas})`;
+  document.getElementById('exam-student-name').innerText = `| ${decodeDisplayText(AppStore.user.data.nama)} (${decodeDisplayText(AppStore.user.data.kelas)})`;
   const mobileStudent = document.getElementById('mobile-card-student-name');
-  if (mobileStudent) mobileStudent.innerText = `${AppStore.user.data.nama} (${AppStore.user.data.kelas})`;
+  if (mobileStudent) mobileStudent.innerText = `${decodeDisplayText(AppStore.user.data.nama)} (${decodeDisplayText(AppStore.user.data.kelas)})`;
   document.getElementById('fs-overlay').style.display = 'flex';
   
   setupAntiCheat();

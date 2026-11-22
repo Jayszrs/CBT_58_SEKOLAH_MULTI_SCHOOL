@@ -103,7 +103,7 @@ function editMapel(idMapel) {
   currentEditIdMapel = String(idMapel);
   document.getElementById('modal-mapel-title').innerText = 'Edit Mapel';
   document.getElementById('mapel-id').value = m.id;
-  document.getElementById('mapel-nama').value = m.nama;
+  document.getElementById('mapel-nama').value = decodeDisplayText(m.nama);
   
   document.getElementById('modal-mapel').classList.remove('hidden');
 }

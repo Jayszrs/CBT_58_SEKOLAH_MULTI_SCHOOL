@@ -86,7 +86,8 @@ export async function ensureFirebaseProject(api, projectId, email, log = console
   try {
     await api.addFirebase(projectId);
   } catch (error) {
-    const status = error.status || error.original?.status || error.context?.response?.statusCode;
+    // firebase-tools wraps the real 403 in a generic FirebaseError with status 500.
+    const status = error.original?.status || error.original?.context?.response?.statusCode || error.status || error.context?.response?.statusCode;
     if (status !== 403) throw error;
     let diagnostic = 'Periksa izin akun dan persetujuan ketentuan Firebase.';
     try {
