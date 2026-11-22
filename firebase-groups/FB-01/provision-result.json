@@ -8,7 +8,8 @@
     "SCH001",
     "SCH002",
     "SCH003",
-    "SCH004"
+    "SCH004",
+    "SCH005"
   ],
   "created_or_found_at": "2026-11-22T07:48:46.516Z",
   "database_status": "VERIFIED",
@@ -16,5 +17,6 @@
   "database_instance": "cbt-grup-01-default-rtdb",
   "database_location": "asia-southeast1",
   "public_access": "DENIED",
-  "notes": "Project, database, dan rules tertutup sudah diverifikasi. Jangan simpan kredensial service account di repo."
+  "notes": "Project, database, dan rules tertutup sudah diverifikasi. Jangan simpan kredensial service account di repo.",
+  "schools_per_account": 5
 }

@@ -4,14 +4,69 @@
   var cfg = (typeof APP_GLOBAL_CONFIG !== 'undefined') ? APP_GLOBAL_CONFIG : {};
   var theme = cfg.schoolTheme || {};
   var hex = /^#[0-9a-fA-F]{6}$/;
+  function luminance(color) {
+    var rgb = color.slice(1).match(/../g).map(function (part) {
+      var value = parseInt(part, 16) / 255;
+      return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+    });
+    return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+  }
+  function set(name, color) { if (hex.test(color || '')) document.documentElement.style.setProperty(name, color); }
   if (hex.test(theme.primary || '')) {
     document.documentElement.style.setProperty('--primary', theme.primary);
   }
   if (hex.test(theme.hover || '')) {
     document.documentElement.style.setProperty('--primary-hover', theme.hover);
+    set('--primary-hover-contrast', luminance(theme.hover) > 0.179 ? '#000000' : '#FFFFFF');
+  }
+  set('--school-primary', theme.primary);
+  set('--school-accent', theme.accent);
+  set('--school-background', theme.background);
+  set('--bg-color', theme.background);
+  set('--primary-contrast', theme.onPrimary);
+  if (hex.test(theme.primary || '')) {
+    var ink = theme.primary;
+    while (luminance(ink) > 0.175) {
+      ink = '#' + ink.slice(1).match(/../g).map(function (part) { return Math.floor(parseInt(part, 16) * 0.9).toString(16).padStart(2, '0'); }).join('');
+    }
+    set('--school-ink', ink);
   }
   if (typeof cfg.schoolName === 'string' && cfg.schoolName.length < 200) {
     document.title = 'CBT | ' + cfg.schoolName;
   }
 })();
 </script>
+<style>
+html .student-login-bg, html .admin-login-bg {
+  background: var(--school-background, #F3F4F6);
+}
+html .student-login-card, html .admin-login-card {
+  box-shadow: 0 4px 20px rgba(17, 24, 39, .1);
+  border-top: 5px solid var(--school-primary, var(--primary));
+}
+html .btn-primary, html .student-login-card .btn-login, html .admin-login-card .btn-login {
+  background: var(--primary);
+  color: var(--primary-contrast, #FFFFFF);
+  box-shadow: none;
+}
+html .btn-primary:hover, html .student-login-card .btn-login:hover, html .admin-login-card .btn-login:hover {
+  background: var(--primary-hover);
+  color: var(--primary-hover-contrast, #FFFFFF);
+  box-shadow: none;
+}
+html .student-login-card .admin-link, html .admin-login-card .student-link, html .admin-icon {
+  color: var(--school-ink, var(--primary));
+}
+html .student-login-card .form-control::placeholder, html .admin-login-card .form-control::placeholder { color: #667085; }
+html .toast.info { color: var(--primary-contrast, #FFFFFF); }
+html .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+html .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover { color: var(--primary-contrast, #FFFFFF) !important; }
+html .student-login-card .form-control:focus, html .admin-login-card .form-control:focus {
+  border-color: var(--school-ink, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--school-accent, var(--primary)) 30%, transparent);
+}
+:focus-visible { outline: 3px solid var(--school-ink, #111827); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>

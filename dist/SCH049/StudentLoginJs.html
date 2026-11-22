@@ -1,5 +1,6 @@
 <script>
 function initStudentLogin() {
+  document.querySelector('[data-school-name]').textContent = APP_GLOBAL_CONFIG.schoolName;
   
   AppStore.user = null;
   localStorage.removeItem('CBT_SESSION');

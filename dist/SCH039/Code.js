@@ -48,7 +48,7 @@ class ApplicationConfigurationService {
     }
 
     const config = {
-      nama_ujian: configurationData['nama_ujian'] || 'CBT-GAS Enterprise',
+      nama_ujian: configurationData['nama_ujian'] || getSchoolMetadata_().schoolName,
       logo_url: this.getApplicationLogo(),
       applicationLogoData: this.getApplicationLogo()
     };
@@ -124,7 +124,7 @@ function doGet(eventData) {
   const templateHtmlObject = HtmlService.createTemplateFromFile('Page');
   
   
-  templateHtmlObject.urlParams = eventData.parameter;
+  templateHtmlObject.urlParams = (eventData && eventData.parameter) || {};
   
   console.log('Akses jaringan: Memuat antarmuka pengguna SPA.');
 
@@ -154,7 +154,8 @@ function getAppConfig_() {
   const school = getSchoolMetadata_();
   config.schoolId = school.schoolId;
   config.schoolName = school.schoolName;
-  config.schoolTheme = { primary: school.themePrimary, hover: school.themeHover };
+  config.schoolTheme = { primary: school.themePrimary, hover: school.themeHover, accent: school.themeAccent, background: school.themeBackground, onPrimary: school.themeOnPrimary };
+  config.ownerGoogleLoginAvailable = isGoogleSchoolOwner_();
   return config;
 }
 

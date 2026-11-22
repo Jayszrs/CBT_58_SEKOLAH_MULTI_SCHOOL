@@ -1,2 +1,2 @@
 // Generated public identity; contains NO secrets.
-function getSchoolMetadata_() { return {"schoolId":"SCH011","schoolName":"Sekolah 11 (GANTI NAMA)","accountId":"AKUN-03","firebaseGroup":"FB-03","themePrimary":"#57239A","themeHover":"#461C7B"}; }
+function getSchoolMetadata_() { return {"schoolId":"SCH011","schoolName":"SDN KEBON KOSONG 01 PG","accountId":"AKUN-03","schoolCode":"SCH-011","firebaseGroup":"FB-03","themePrimary":"#89A423","themeHover":"#6E831C","themeAccent":"#50D91C","themeBackground":"#F5F6EE","themeOnPrimary":"#000000","ownerEmail":"usmatematika2021@gmail.com","firebaseDatabaseUrl":"","spreadsheetId":"","driveFolderId":""}; }

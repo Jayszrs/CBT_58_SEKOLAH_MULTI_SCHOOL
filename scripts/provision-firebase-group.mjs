@@ -19,7 +19,7 @@ const flag = name => {
 const accounts = JSON.parse(fs.readFileSync(path.join(root, 'config', 'accounts.json'), 'utf8'));
 const schools = JSON.parse(fs.readFileSync(path.join(root, 'config', 'schools.json'), 'utf8'));
 const account = accounts.find(item => item.account_id === accountId && item.role === 'OPERASIONAL');
-if (!account) { console.error('Pakai AKUN-01 sampai AKUN-15.'); process.exit(1); }
+if (!account) { console.error('Pakai AKUN-01 sampai AKUN-12.'); process.exit(1); }
 const email = flag('--email') || account.email;
 const batch = schools.filter(item => item.account_id === accountId);
 const groups = [...new Set(batch.map(item => item.firebase_group))];

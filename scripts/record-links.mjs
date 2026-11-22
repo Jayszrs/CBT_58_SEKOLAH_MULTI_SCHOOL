@@ -10,7 +10,7 @@ const args=process.argv.slice(3);
 const updates={ '--spreadsheet':['spreadsheet_url',/^https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]+)/],
  '--drive':['drive_folder_url',/^https:\/\/drive\.google\.com\/drive\/folders\/([\w-]+)/],
  '--webapp':['webapp_url',/^https:\/\/script\.google\.com\/macros\/s\/([\w-]+)\/exec/],
- '--firebase':['firebase_database_url',/^https:\/\/[\w-]+\.firebasedatabase\.app\/?$/] };
+ '--firebase':['firebase_database_url',/^https:\/\/[\w-]+(?:\.[\w-]+)?\.(?:firebasedatabase\.app|firebaseio\.com)\/?$/] };
 if(args.length===0 || args.length%2!==0){console.error('Gunakan --spreadsheet URL --drive URL --webapp URL --firebase URL');process.exit(1);}
 for(let i=0;i<args.length;i+=2){
   const [key,pattern]=updates[args[i]]||[];

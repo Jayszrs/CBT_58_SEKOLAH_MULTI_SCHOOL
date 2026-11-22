@@ -1,12 +1,13 @@
 
 function getOrCreateSpreadsheet_() {
   const scriptPropertiesObject = PropertiesService.getScriptProperties();
-  let spreadsheetIdString = scriptPropertiesObject.getProperty('SPREADSHEET_ID');
+  let spreadsheetIdString = scriptPropertiesObject.getProperty('SPREADSHEET_ID') || getSchoolMetadata_().spreadsheetId;
   let spreadsheetInstance;
 
   if (spreadsheetIdString) {
     try {
       spreadsheetInstance = SpreadsheetApp.openById(spreadsheetIdString);
+      scriptPropertiesObject.setProperty('SPREADSHEET_ID', spreadsheetIdString);
     } catch (systemError) {
       
       
@@ -21,18 +22,23 @@ function getOrCreateSpreadsheet_() {
     initializeDatabase(spreadsheetInstance);
   }
 
+  if (scriptPropertiesObject.getProperty('SCHOOL_RESOURCES_VERSION') !== '1') {
+    initializeDatabase(spreadsheetInstance);
+    scriptPropertiesObject.setProperty('SCHOOL_RESOURCES_VERSION', '1');
+  }
   return spreadsheetInstance;
 }
 
 
 function getOrCreateDriveFolder_() {
   const scriptPropertiesObject = PropertiesService.getScriptProperties();
-  let folderIdString = scriptPropertiesObject.getProperty('DRIVE_FOLDER_ID');
+  let folderIdString = scriptPropertiesObject.getProperty('DRIVE_FOLDER_ID') || getSchoolMetadata_().driveFolderId;
   let folderInstance = null;
 
   if (folderIdString) {
     try {
       folderInstance = DriveApp.getFolderById(folderIdString);
+      scriptPropertiesObject.setProperty('DRIVE_FOLDER_ID', folderIdString);
     } catch (systemError) {
       folderIdString = null;
     }
@@ -68,7 +74,7 @@ function getOrCreateSheet_(spreadsheetInstance, sheetNameString, headersArray) {
 function initializeFirebaseScriptProperties_() {
   const scriptPropertiesObject = PropertiesService.getScriptProperties();
   const firebaseRequiredPropertiesMap = {
-    'FIREBASE_DATABASE_URL': '',
+    'FIREBASE_DATABASE_URL': getSchoolMetadata_().firebaseDatabaseUrl || '',
     'FIREBASE_CLIENT_EMAIL': '',
     'FIREBASE_PRIVATE_KEY': ''
   };

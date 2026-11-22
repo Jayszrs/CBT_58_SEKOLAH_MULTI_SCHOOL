@@ -1,0 +1,50 @@
+{
+  "verified_at": "2026-11-22T08:19:56.997Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "remote_identity": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj2@gmail.com",
+      "access": "MYSELF",
+      "version": 4,
+      "webapp": "https://script.google.com/macros/s/AKfycbxhgwKz62beolFCvFxqNMIH2uJWB1H-2ac2Xot-gKbtNRSAIY5DLvadRS6Obg0vbnYq/exec"
+    },
+    {
+      "school": "SCH-002",
+      "remote_identity": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj2@gmail.com",
+      "access": "MYSELF",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbydz1_astfbEniZFTSoPMBWwlL_kK2qwe1aFNDXfk6YpRAuLRm6CYhnASE9pcCsAkVk8A/exec"
+    },
+    {
+      "school": "SCH-003",
+      "remote_identity": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj2@gmail.com",
+      "access": "MYSELF",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbw6Gr7amR5VWDqBNetoO8PSWQ8Xoc7ejS-tEXXfDDM-NHKuskJcYymJccwLGwCWM4b6Ig/exec"
+    },
+    {
+      "school": "SCH-004",
+      "remote_identity": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj2@gmail.com",
+      "access": "MYSELF",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbzOY-R-vbdouWLhffzDTBMsATA4cRnyx73dF9lFgwrYHBOiek2N4vfKaSakAzBkJK851A/exec"
+    },
+    {
+      "school": "SCH-005",
+      "remote_identity": "VERIFIED",
+      "palette": "VERIFIED",
+      "resource_owner": "dimazunj2@gmail.com",
+      "access": "MYSELF",
+      "version": 3,
+      "webapp": "https://script.google.com/macros/s/AKfycbyrwxI57wzyP7OFFeotbtEYyxyt5XLr4FiKlViBeCeG6F7GnS9pj8IZo_MO6jCSKO1j/exec"
+    }
+  ]
+}

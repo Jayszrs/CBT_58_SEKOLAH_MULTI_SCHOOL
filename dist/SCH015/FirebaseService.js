@@ -38,9 +38,8 @@ function getFirebaseOAuthAccessToken_() {
   );
 
   if (!clientEmail || !privateKey) {
-    throw new Error(
-      'FIREBASE_CLIENT_EMAIL atau FIREBASE_PRIVATE_KEY belum dikonfigurasi.'
-    );
+    // The deploying Google owner already has IAM access; no persistent key is needed.
+    return ScriptApp.getOAuthToken();
   }
 
   // Mengubah karakter literal \n menjadi baris baru.
@@ -145,7 +144,7 @@ class FirebaseDatabaseService {
     const databaseUrlString =
       this.scriptSystemProperties.getProperty(
         'FIREBASE_DATABASE_URL'
-      );
+      ) || getSchoolMetadata_().firebaseDatabaseUrl;
 
     if (!databaseUrlString) {
       throw new Error(
@@ -156,18 +155,6 @@ class FirebaseDatabaseService {
     this.databaseUrl =
       databaseUrlString.replace(/\/+$/, '') + '/';
 
-    if (
-      !this.scriptSystemProperties.getProperty(
-        'FIREBASE_CLIENT_EMAIL'
-      ) ||
-      !this.scriptSystemProperties.getProperty(
-        'FIREBASE_PRIVATE_KEY'
-      )
-    ) {
-      throw new Error(
-        'Kredensial Service Account Firebase belum lengkap.'
-      );
-    }
   }
 
 

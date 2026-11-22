@@ -46,6 +46,7 @@ export function loadFirebaseApi(toolsDirectory, email) {
     addFirebase: id => projects.addFirebaseToCloudProject(id),
     testPermissions: async id => (await cloud.request({ method: 'POST', path: `/projects/${id}:testIamPermissions`, body: { permissions: requiredPermissions } })).body.permissions || [],
     ensureDatabaseApi: id => ensure(id, 'https://firebasedatabase.googleapis.com', 'database', false),
+    ensureSheetsApi: id => ensure(id, 'https://sheets.googleapis.com', 'sheets', false),
     listDatabases: id => database.listDatabaseInstances(id, database.DatabaseLocation.ANY),
     createDefaultDatabase: (id, name, location) => database.createInstance(id, name, location, database.DatabaseInstanceType.DEFAULT_DATABASE),
     getDatabaseRules: async databaseUrl => (await new Client({ urlPrefix: databaseUrl }).request({ method: 'GET', path: '/.settings/rules.json' })).body,

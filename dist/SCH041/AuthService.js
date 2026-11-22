@@ -311,6 +311,10 @@ function checkAdminLoginStatus() {
 }
 
 function loginAdmin(password, username) {
+  if (String(password || '').startsWith('OWNER:')) {
+    const valid = isGoogleSchoolOwner_() && CacheService.getScriptCache().get('GOOGLE_' + password) === 'valid';
+    return { success: !!valid, message: valid ? '' : 'Sesi pemilik berakhir. Silakan masuk kembali.' };
+  }
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();
   const normalizedUsername = String(username == null ? '' : username).trim().toLowerCase();
   if (normalizedUsername === 'superadmin') {
@@ -320,6 +324,19 @@ function loginAdmin(password, username) {
     return { success: false, message: 'Username administrator tidak dikenal.' };
   }
   return adminAuthenticationManagerInstance.executeLogin(password);
+}
+
+function isGoogleSchoolOwner_() {
+  const expected = String(getSchoolMetadata_().ownerEmail || '').toLowerCase();
+  const active = String(Session.getActiveUser().getEmail() || '').toLowerCase();
+  return !!expected && active === expected;
+}
+
+function loginGoogleSchoolOwner() {
+  if (!isGoogleSchoolOwner_()) return { success: false, message: 'Masuk dengan akun Google pemilik sekolah.' };
+  const token = 'OWNER:' + Utilities.getUuid();
+  CacheService.getScriptCache().put('GOOGLE_' + token, 'valid', 1800);
+  return { success: true, sessionToken: token };
 }
 
 function changeAdminPassword_(oldPassword, newPassword) {

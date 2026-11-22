@@ -42,7 +42,7 @@ PENTING:
 - Jangan bagikan service account JSON, private key, atau password admin.
 
 SETELAH SELESAI:
-- Gunakan DATABASE URL yang SAMA untuk SCH001, SCH002, SCH003, SCH004.
+- Gunakan DATABASE URL yang SAMA untuk SCH001, SCH002, SCH003, SCH004, SCH005.
 - Script Apps Script sudah memakai namespace /schools/SCH001, /schools/SCH002,
   dan seterusnya melalui FirebaseService.js.
 - Isi Script Properties untuk tiap sekolah:
@@ -73,5 +73,6 @@ HASIL NYATA (2026-11-22):
 - Akun: dimazunj2@gmail.com.
 - RTDB default: cbt-grup-01-default-rtdb, lokasi asia-southeast1.
 - URL: https://cbt-grup-01-default-rtdb.asia-southeast1.firebasedatabase.app
-- SCH001, SCH002, SCH003, SCH004 menggunakan URL yang sama.
-- Pengisian Script Properties Apps Script tetap perlu dilakukan terpisah.
+- SCH001 sampai SCH005 menggunakan URL yang sama (5 sekolah per akun).
+- Deployment pilot memakai OAuth pemilik Google untuk Firebase tanpa private key baru.
+- URL Firebase, spreadsheet dan folder diambil dari metadata deployment pada pembukaan pertama.

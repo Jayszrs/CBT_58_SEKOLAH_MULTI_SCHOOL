@@ -18,9 +18,16 @@ for (const school of schools) {
   }
   fs.copyFileSync(path.join(root,'appsscript.json'),path.join(dest,'appsscript.json'));
   const metadata={ schoolId:school.school_id, schoolName:school.school_name, accountId:school.account_id,
-    firebaseGroup:school.firebase_group, themePrimary:school.theme_primary, themeHover:school.theme_hover };
+    schoolCode:school.school_code, firebaseGroup:school.firebase_group, themePrimary:school.theme_primary,
+    themeHover:school.theme_hover, themeAccent:school.theme_accent, themeBackground:school.theme_background,
+    themeOnPrimary:school.theme_on_primary, ownerEmail:school.account_email, firebaseDatabaseUrl:school.firebase_database_url,
+    spreadsheetId:school.spreadsheet_id, driveFolderId:school.drive_folder_id };
   fs.writeFileSync(path.join(dest,'SchoolDeploymentConfig.js'),
     '// Generated public identity; contains NO secrets.\n'+
     'function getSchoolMetadata_() { return '+JSON.stringify(metadata)+'; }\n');
 }
 console.log(`Built ${schools.length} school Apps Script packages under dist/`);
+const registryFile=path.join(root,'admin-central','AdminRegistry.js');
+const registry=fs.readFileSync(registryFile,'utf8');
+const seed=schools.map(s=>[s.school_code,s.school_name,s.account_id,s.account_email,s.spreadsheet_group,s.theme_primary,s.spreadsheet_url,s.webapp_url,s.drive_folder_url,s.status]);
+fs.writeFileSync(registryFile,registry.replace(/^const SEED_58_SEKOLAH = .*;$/m,'const SEED_58_SEKOLAH = '+JSON.stringify(seed)+';'));

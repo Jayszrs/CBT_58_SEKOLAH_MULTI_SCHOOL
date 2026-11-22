@@ -1,0 +1,111 @@
+- application [ref=f5e1]:
+  - iframe [aria-hidden] [ref=f5e2]
+  - iframe [aria-hidden] [ref=f5e3]
+  - banner "Panel menu" [ref=f5e4]:
+    - generic [ref=f5e7]:
+      - link "Beranda Spreadsheet" [ref=f5e9] [cursor=pointer]:
+        - /url: https://docs.google.com/spreadsheets/?usp=sheets_web
+      - generic [ref=f5e16]:
+        - generic "CBT 58 Sekolah - Monitoring Firebase & Apps Script" [ref=f5e18]:
+          - 'button "Status dokumen: Disimpan ke Drive." [ref=f5e24]':
+            - generic [ref=f5e25] [cursor=pointer]: Disimpan ke Drive
+        - generic [ref=f5e32]:
+          - button "Tampilkan semua komentar" [ref=f5e37] [cursor=pointer]
+          - generic [ref=f5e40]:
+            - button "Bagikan. Siapa saja yang memiliki link. Siapa saja yang memiliki link dapat mengakses. Tidak perlu masuk ke sistem." [disabled] [ref=f5e41]: Bagikan
+            - button "Tindakan berbagi cepat" [disabled] [ref=f5e43]
+          - link "Sign in" [ref=f5e47] [cursor=pointer]:
+            - /url: https://accounts.google.com/ServiceLogin?service=wise&passive=1209600&osid=1&continue=https://docs.google.com/spreadsheets/d/1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns/edit&followup=https://docs.google.com/spreadsheets/d/1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns/edit&ltmpl=sheets&ec=GAZAmwI
+    - generic [ref=f5e48]:
+      - menubar [ref=f5e50]:
+        - menuitem "File" [ref=f5e51] [cursor=pointer]
+        - menuitem "Edit" [ref=f5e52] [cursor=pointer]
+        - menuitem "Tampilan" [ref=f5e53] [cursor=pointer]
+        - menuitem "Sisipkan" [ref=f5e54] [cursor=pointer]
+        - menuitem "Format" [ref=f5e55] [cursor=pointer]
+        - menuitem "Data" [ref=f5e56] [cursor=pointer]
+        - menuitem "Alat" [ref=f5e57] [cursor=pointer]
+        - menuitem "Ekstensi" [ref=f5e58] [cursor=pointer]
+        - menuitem "Bantuan" [ref=f5e59] [cursor=pointer]
+      - generic [ref=f5e60]:
+        - generic [ref=f5e61]:
+          - generic [ref=f5e62]:
+            - button "Telusuri menu (Alt+/)" [ref=f5e63] [cursor=pointer]
+            - combobox "Menu" [ref=f5e65]
+          - toolbar "Utama" [ref=f5e66]:
+            - button "Urungkan (Ctrl+Z)" [ref=f5e67] [cursor=pointer]
+            - button "Ulangi (Ctrl+Y)" [ref=f5e72] [cursor=pointer]
+            - button "Cetak (Ctrl+P)" [ref=f5e77] [cursor=pointer]
+            - button "Terapkan format" [ref=f5e82] [cursor=pointer]
+            - combobox "Zoom" [ref=f5e87] [cursor=pointer]:
+              - generic "Daftar Zoom. 100% dipilih." [ref=f5e90]:
+                - textbox "Zoom" [ref=f5e91]: 100%
+            - separator [disabled] [ref=f5e95]
+            - button "Format sebagai mata uang" [ref=f5e96] [cursor=pointer]:
+              - generic [ref=f5e97]: Rp
+            - button "Format sebagai persen" [ref=f5e99] [cursor=pointer]:
+              - generic [ref=f5e100]: "%"
+            - button "Kurangi angka desimal" [ref=f5e102] [cursor=pointer]
+            - button "Tambah angka desimal" [ref=f5e107] [cursor=pointer]
+            - button "Format lain" [ref=f5e112] [cursor=pointer]:
+              - generic [ref=f5e113]: "123"
+            - separator [disabled] [ref=f5e116]
+            - listbox "Font" [ref=f5e117] [cursor=pointer]:
+              - option "Daftar Font. Default (Arial) dipilih." [selected] [ref=f5e120]: Default (Arial)
+            - separator [disabled] [ref=f5e124]
+            - button "Perkecil ukuran font (Ctrl+Shift+koma)" [ref=f5e125] [cursor=pointer]
+            - combobox "Ukuran font" [ref=f5e130] [cursor=pointer]:
+              - generic "Daftar Ukuran font. 10 dipilih." [ref=f5e133]:
+                - textbox "Ukuran font" [ref=f5e134]: "10"
+            - button "Perbesar ukuran font (Ctrl+Shift+titik)" [ref=f5e135] [cursor=pointer]
+            - separator [disabled] [ref=f5e140]
+            - button "Tebalkan (Ctrl+B)" [pressed] [ref=f5e141] [cursor=pointer]
+            - button "Miringkan (Ctrl+I)" [ref=f5e146] [cursor=pointer]
+            - button "Coret (Alt+Shift+5)" [ref=f5e151] [cursor=pointer]
+            - button "Warna teks" [ref=f5e156] [cursor=pointer]
+            - separator [disabled] [ref=f5e163]
+            - button "Warna isi" [ref=f5e164] [cursor=pointer]
+            - button "Batas" [ref=f5e171] [cursor=pointer]
+            - button "Gabungkan sel" [ref=f5e177] [cursor=pointer]
+            - button "Pilih jenis penggabungan" [ref=f5e182] [cursor=pointer]
+            - separator [disabled] [ref=f5e188]
+            - button "Perataan horizontal" [ref=f5e189] [cursor=pointer]
+            - button "Perataan vertikal" [ref=f5e198] [cursor=pointer]
+            - button "Pengemasan teks" [ref=f5e207] [cursor=pointer]
+            - button "Rotasi teks" [ref=f5e216] [cursor=pointer]
+            - separator [disabled] [ref=f5e225]
+            - button "Yang lain" [ref=f5e226] [cursor=pointer]
+        - toolbar "Mode dan tampilan" [ref=f5e233]:
+          - button "Sembunyikan menu (Ctrl+Shift+F)" [ref=f5e234] [cursor=pointer]
+    - generic [ref=f5e241]:
+      - generic "Kotak nama (Ctrl + J)" [ref=f5e242]:
+        - textbox [ref=f5e243]: I1:N6
+        - button "Tombol menu kotak nama. Pilih salah satu item menu untuk membuka rentang bernamanya yang sesuai." [ref=f5e245] [cursor=pointer]
+      - textbox [ref=f5e261]
+  - navigation "Toolbar tab sheet" [ref=f5e307]:
+    - toolbar [ref=f5e308]:
+      - button "Tambahkan Sheet" [ref=f5e309] [cursor=pointer]
+      - button "Semua Sheet" [ref=f5e314] [cursor=pointer]
+    - toolbar [ref=f5e323]:
+      - button "RINGKASAN" [ref=f5e324] [cursor=pointer]
+      - button "MASTER SEKOLAH" [ref=f5e332] [cursor=pointer]
+      - button "LIST AKUN" [ref=f5e340] [cursor=pointer]
+      - button "AKUN FIREBASE" [ref=f5e348] [cursor=pointer]
+      - button "DEPLOY & URL" [ref=f5e356]
+      - button "PALET WARNA" [ref=f5e364] [cursor=pointer]
+      - button "CHECKLIST" [ref=f5e372] [cursor=pointer]
+      - button "PANDUAN" [ref=f5e380] [cursor=pointer]
+    - toolbar [ref=f5e388]:
+      - button "Scroll kiri" [disabled] [ref=f5e389]
+      - button "Scroll kanan" [ref=f5e394] [cursor=pointer]
+    - generic [ref=f5e399]: "Cell Berisi: 36"
+  - generic [ref=f5e401]:
+    - textbox [active]
+  - alert
+  - link "Aktifkan dukungan pembaca layar" [ref=f5e402] [cursor=pointer]:
+    - /url: "#"
+  - textbox [ref=f5e403]
+  - generic [ref=f5e404]: Banner disembunyikan
+  - region
+  - region [ref=f5e405]: Untuk mengaktifkan dukungan pembaca layar, tekan Ctrl+Alt+Z. Untuk mempelajari pintasan keyboard, tekan Ctrl+garis miring.
+  - iframe [ref=f5e407]

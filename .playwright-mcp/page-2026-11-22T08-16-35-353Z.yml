@@ -1,0 +1,24 @@
+- generic [active] [ref=f10e1]:
+  - generic [ref=f10e2]: Pratinjau tampilan lokal; koneksi backend tidak dijalankan. Gunakan tautan Web App untuk aplikasi.
+  - text:   
+  - generic [ref=f10e5]:
+    - heading "SDN KEMAYORAN 01" [level=2] [ref=f10e6]
+    - paragraph [ref=f10e7]: Portal Ujian Siswa
+    - generic [ref=f10e8]:
+      - generic [ref=f10e9]:
+        - generic [ref=f10e10]: NISN
+        - textbox "NISN" [ref=f10e11]:
+          - /placeholder: Masukkan NISN Anda
+      - generic [ref=f10e12]:
+        - generic [ref=f10e13]: Password Akun / Token Ujian
+        - textbox "Password Akun / Token Ujian" [ref=f10e14]:
+          - /placeholder: Masukkan password pada kartu peserta
+      - button "Masuk Ujian " [ref=f10e15] [cursor=pointer]:
+        - text: Masuk Ujian
+        - generic [ref=f10e16]: 
+    - generic [ref=f10e17]:
+      - text: Sistem diawasi. Dilarang melakukan kecurangan.
+      - link " Login Admin" [ref=f10e19] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=f10e20]: 
+        - text: Login Admin

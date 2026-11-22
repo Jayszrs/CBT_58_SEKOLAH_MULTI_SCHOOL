@@ -1,5 +1,7 @@
 <script>
 function initAdminLogin() {
+  document.querySelector('[data-school-name]').textContent = APP_GLOBAL_CONFIG.schoolName;
+  document.getElementById('btn-google-owner').style.display = APP_GLOBAL_CONFIG.ownerGoogleLoginAvailable ? 'block' : 'none';
   AppStore.user = null;
   localStorage.removeItem('CBT_SESSION');
   
@@ -30,6 +32,18 @@ function initAdminLogin() {
       document.getElementById('admin-login-inputs').style.display = 'block';
     }
   }).catch(e => console.error(e));
+}
+
+function doGoogleOwnerLogin() {
+  const button = document.getElementById('btn-google-owner');
+  button.disabled = true;
+  api.call('loginGoogleSchoolOwner').then(function (result) {
+    if (!result.success) throw new Error(result.message);
+    AppStore.user = { role: 'admin', data: { token: result.sessionToken } };
+    localStorage.setItem('CBT_SESSION', JSON.stringify(AppStore.user));
+    navigateTo('admin-dashboard');
+  }).catch(function (error) { showToast(error.message || 'Gagal masuk. Coba lagi.', 'error'); })
+    .finally(function () { button.disabled = false; });
 }
 
 function doAdminLogin() {
