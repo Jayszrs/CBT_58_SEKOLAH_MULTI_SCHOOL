@@ -1,0 +1,106 @@
+[debug] [2026-11-22T07:38:25.161Z] ----------------------------------------------------------------------
+[debug] [2026-11-22T07:38:25.164Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:create cbt-grup-01 --non-interactive
+[debug] [2026-11-22T07:38:25.165Z] CLI Version:   15.37.0
+[debug] [2026-11-22T07:38:25.165Z] Platform:      win32
+[debug] [2026-11-22T07:38:25.165Z] Node Version:  v22.23.4
+[debug] [2026-11-22T07:38:25.165Z] Detected Agent: unknown
+[debug] [2026-11-22T07:38:25.165Z] Time:          Sun Nov 22 2026 14:38:25 GMT+0700 (Western Indonesia Time)
+[debug] [2026-11-22T07:38:25.165Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-11-22T07:38:25.175Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-11-22T07:38:25.175Z] > authorizing via signed-in user (dimazunj2@gmail.com)
+[debug] [2026-11-22T07:38:25.186Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:25.186Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:25.187Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2026-11-22T07:38:25.187Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"cbt-grup-01","name":"cbt-grup-01"}
+[debug] [2026-11-22T07:38:25.617Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2026-11-22T07:38:25.618Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.5490822771547461825"}
+[debug] [2026-11-22T07:38:25.619Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:25.619Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:25.620Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5490822771547461825 [none]
+[debug] [2026-11-22T07:38:26.719Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5490822771547461825 200
+[debug] [2026-11-22T07:38:26.719Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5490822771547461825 {"name":"operations/create_project.global.5490822771547461825","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"20008223746","projectId":"cbt-grup-01","lifecycleState":"ACTIVE","name":"cbt-grup-01","createTime":"2026-11-22T07:38:26.184Z"}}
+[debug] [2026-11-22T07:38:26.722Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:26.722Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:38:26.722Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase [none]
+[debug] [2026-11-22T07:38:28.232Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase 403
+[debug] [2026-11-22T07:38:28.232Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-11-22T07:38:28.233Z] Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-11-22T07:38:28.241Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
+[debug] [2026-11-22T07:40:18.772Z] ----------------------------------------------------------------------
+[debug] [2026-11-22T07:40:18.775Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:addfirebase cbt-grup-01 --account dimazunj2@gmail.com --non-interactive
+[debug] [2026-11-22T07:40:18.775Z] CLI Version:   15.37.0
+[debug] [2026-11-22T07:40:18.775Z] Platform:      win32
+[debug] [2026-11-22T07:40:18.775Z] Node Version:  v22.23.4
+[debug] [2026-11-22T07:40:18.776Z] Detected Agent: codex_cli
+[debug] [2026-11-22T07:40:18.776Z] Time:          Sun Nov 22 2026 14:40:18 GMT+0700 (Western Indonesia Time)
+[debug] [2026-11-22T07:40:18.776Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-11-22T07:40:18.790Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-11-22T07:40:18.790Z] > authorizing via signed-in user (dimazunj2@gmail.com)
+[debug] [2026-11-22T07:40:18.802Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:40:18.802Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:40:18.804Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase [none]
+[debug] [2026-11-22T07:40:19.657Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase 403
+[debug] [2026-11-22T07:40:19.657Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-11-22T07:40:19.659Z] Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-11-22T07:40:19.662Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
+[debug] [2026-11-22T07:41:48.983Z] ----------------------------------------------------------------------
+[debug] [2026-11-22T07:41:48.986Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:addfirebase cbt-grup-01 --account dimazunj2@gmail.com --non-interactive
+[debug] [2026-11-22T07:41:48.986Z] CLI Version:   15.37.0
+[debug] [2026-11-22T07:41:48.986Z] Platform:      win32
+[debug] [2026-11-22T07:41:48.986Z] Node Version:  v22.23.4
+[debug] [2026-11-22T07:41:48.987Z] Detected Agent: codex_cli
+[debug] [2026-11-22T07:41:48.987Z] Time:          Sun Nov 22 2026 14:41:48 GMT+0700 (Western Indonesia Time)
+[debug] [2026-11-22T07:41:48.987Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-11-22T07:41:49.003Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-11-22T07:41:49.004Z] > authorizing via signed-in user (dimazunj2@gmail.com)
+[debug] [2026-11-22T07:41:49.028Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:41:49.028Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:41:49.035Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase [none]
+[debug] [2026-11-22T07:41:49.629Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase 403
+[debug] [2026-11-22T07:41:49.629Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-11-22T07:41:49.630Z] Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-11-22T07:41:49.633Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:53:12)
+    at RetryOperation._fn (C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:415:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
+[debug] [2026-11-22T07:44:05.248Z] ----------------------------------------------------------------------
+[debug] [2026-11-22T07:44:05.251Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jaela\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js projects:addfirebase cbt-grup-01 --account dimazunj2@gmail.com --non-interactive
+[debug] [2026-11-22T07:44:05.251Z] CLI Version:   15.37.0
+[debug] [2026-11-22T07:44:05.252Z] Platform:      win32
+[debug] [2026-11-22T07:44:05.252Z] Node Version:  v22.23.4
+[debug] [2026-11-22T07:44:05.252Z] Detected Agent: codex_cli
+[debug] [2026-11-22T07:44:05.253Z] Time:          Sun Nov 22 2026 14:44:05 GMT+0700 (Western Indonesia Time)
+[debug] [2026-11-22T07:44:05.253Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-11-22T07:44:05.267Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-11-22T07:44:05.268Z] > authorizing via signed-in user (dimazunj2@gmail.com)
+[debug] [2026-11-22T07:44:05.280Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:05.280Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:05.282Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase [none]
+[debug] [2026-11-22T07:44:07.489Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase 200
+[debug] [2026-11-22T07:44:07.489Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/cbt-grup-01:addFirebase {"name":"operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm"}
+[debug] [2026-11-22T07:44:07.490Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:07.490Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:07.490Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm [none]
+[debug] [2026-11-22T07:44:16.802Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm 200
+[debug] [2026-11-22T07:44:16.802Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm {"name":"operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm"}
+[debug] [2026-11-22T07:44:17.305Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2026-11-22T07:44:17.307Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:17.308Z] Checked if tokens are valid: true, expires at: 1795335417396
+[debug] [2026-11-22T07:44:17.310Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm [none]
+[debug] [2026-11-22T07:44:17.853Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/ZjI0YmRhMjYtN2M2MC00OGRiLTlhM2ItOGJjZDllODBhMzZm 200
