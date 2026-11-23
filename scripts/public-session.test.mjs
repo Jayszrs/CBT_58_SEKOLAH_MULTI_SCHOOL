@@ -31,7 +31,7 @@ function fixture() {
     },
     getAllSoal_:()=>[{id:'Q1',tipe:'Pilihan Ganda',pertanyaan:'Soal uji',opsi:['a','b'],kunci:'SECRET',bobot:1}],
   });
-  for(const file of ['SecurityService.js','SessionSecurity.js','AuthService.js','UjianService.js','AdminService.js'])vm.runInContext(read(file),context);
+  for(const file of ['SecurityService.js','SessionSecurity.js','CentralAccess.js','AuthService.js','UjianService.js','AdminService.js'])vm.runInContext(read(file),context);
   return {context,cache,props,records,writes,studentRows};
 }
 
@@ -49,8 +49,8 @@ test('a central password submitted to a school cannot authenticate or reset its 
   const f=fixture();f.props.set('ADMIN_PASSWORD','unchanged-school-password-hash');
   const result=f.context.loginAdmin('central-password-for-routing-test','superadmin');
   assert.equal(result.success,false);
-  assert.equal(result.centralLoginRequired,true);
-  assert.match(result.message,/Panel Super Admin/);
+  assert.equal(result.centralAccessUnavailable,true);
+  assert.match(result.message,/belum diaktifkan/);
   assert.equal(f.props.get('ADMIN_PASSWORD'),'unchanged-school-password-hash');
 });
 

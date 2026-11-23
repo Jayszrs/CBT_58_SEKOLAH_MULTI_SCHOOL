@@ -1440,7 +1440,7 @@
     "theme_on_primary": "#000000",
     "source_row": 52,
     "deployment_id": "AKfycbw-2Xi9c5wwEIMqP319-xTWz9Bp-vX_svJbm6ng3Hr_rzpt9n0IGw-zXFqFOu4Fa-Y7",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1468,7 +1468,7 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 53,
     "deployment_id": "AKfycbyMphGjCvgxjiOKyNP-Nw-2yU9mzN5y764MyxrTGNjxDsOzafw203zumAcN4AxYH1A7qw",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1496,7 +1496,7 @@
     "theme_on_primary": "#000000",
     "source_row": 54,
     "deployment_id": "AKfycbyAI3m_VxzF9G37LxfIm0CPZRMdrGXrEkFqiCvVJzVbVLpVHQjg6tN1W2elaEqa5pOS",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1524,7 +1524,7 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 55,
     "deployment_id": "AKfycbw4N4OBNDXX8U8JOD8sbNVUiBCdWKXbeK2CHiQ8WUFtDiWKRmGoArs2C-Sa-23wkYQ6",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1552,7 +1552,7 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 56,
     "deployment_id": "AKfycbzushk82OxqXAftNGsv591dL4W0qrIWHSdtZFBFQ01tkvfRtKoL25-uLdqSEMeytjp1",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1580,7 +1580,7 @@
     "theme_on_primary": "#000000",
     "source_row": 57,
     "deployment_id": "AKfycbyqHhytBO6GLnGiFCEqK1TBAZWmUjMZ7zUFQ090UBvFj-SuYxBf61IJix-AYxf1y2fxew",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1608,7 +1608,7 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 58,
     "deployment_id": "AKfycbxR2o6p30CyTRiyXVLjfi8oJaIU0agv2dj2JhY2u6s0OaAietADaikcTZq34QjrRx1-",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   },
@@ -1636,7 +1636,7 @@
     "theme_on_primary": "#000000",
     "source_row": 59,
     "deployment_id": "AKfycbxnAUA7VkCDNawfNWctbDZ-X3aj2HrIYy4uFlYZ8KNtIzkltQDPCt7APpX12W_cnh0b",
-    "deployed_version": 6,
+    "deployed_version": 8,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2
   }

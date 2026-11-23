@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {schoolPublicRecords} from './school-public-links.mjs';
 const root=path.resolve(import.meta.dirname,'..');
 const site=JSON.parse(fs.readFileSync(path.join(root,'config/public-admin-site.json')));
 const recovery=JSON.parse(fs.readFileSync(path.join(root,'config/central-admin-recovery.json')));
@@ -19,10 +20,21 @@ html=html.replace(old,`const call = async (method,...args) => {
   return data.result;
 };`).replace('id="owner-login"','id="owner-login" style="display:none!important"');
 if(html.includes('google.script.run'))throw Error('Antarmuka masih memakai koneksi browser langsung ke Google.');
+const schools=JSON.parse(fs.readFileSync(path.join(root,'config/schools.json')));
+const installed=JSON.parse(fs.readFileSync(path.join(root,'reports/central-admin-live-qa.json'))).schools.map(s=>s.school.replace('-',''));
+const records=schoolPublicRecords(schools,site.public_url||site.expected_url,new Set(installed));
+fs.writeFileSync(path.join(root,'config/public-school-links.json'),JSON.stringify(records,null,2)+'\n');
+let schoolHtml=fs.readFileSync(path.join(root,'frontend/Page.html'),'utf8').replace(/<\?!=\s*include_\('([\w-]+)'\);\s*\?>/g,(_,name)=>fs.readFileSync(path.join(root,'frontend',name+'.html'),'utf8'));
+schoolHtml=schoolHtml.replace('<?!= JSON.stringify(getAppConfig_()) ?>','__SCHOOL_CONFIG_JSON__').replace('<?!= JSON.stringify(urlParams) ?>','__SCHOOL_PARAMS_JSON__').replace('<?!= JSON.stringify(centralLogin) ?>','__SCHOOL_LOGIN_JSON__');
+if(schoolHtml.includes('<?'))throw Error('School template contains unexpanded server code.');
+schoolHtml=schoolHtml.replace(/(['"])(CBT_[A-Z_]+)\1/g,(_,quote,key)=>quote+'__SCHOOL_ID___'+key+quote);
+schoolHtml=schoolHtml.replace('</head>','<script>'+fs.readFileSync(path.join(root,'gateway/school-rpc-client.js'),'utf8')+'</script></head>');
 const template=fs.readFileSync(path.join(root,'gateway/worker-template.mjs'),'utf8');
 const source=template.replace('__PANEL_HTML__',()=>JSON.stringify(html))
  .replace('__BACKEND_URL__',()=>JSON.stringify(recovery.webapp_url))
- .replace('__PUBLIC_ORIGIN__',()=>JSON.stringify(site.expected_url));
+ .replace('__PUBLIC_ORIGIN__',()=>JSON.stringify(site.expected_url))
+ .replace('__SCHOOL_RECORDS__',()=>JSON.stringify(records))
+ .replace('__SCHOOL_HTML__',()=>JSON.stringify(schoolHtml));
 fs.mkdirSync(path.join(directory,'worker'),{recursive:true});fs.writeFileSync(path.join(directory,'worker/index.js'),source);
 fs.mkdirSync(path.join(directory,'scripts'),{recursive:true});
 fs.writeFileSync(path.join(directory,'scripts/build.mjs'),`import fs from 'node:fs';

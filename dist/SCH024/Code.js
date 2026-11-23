@@ -137,6 +137,9 @@ function doGet(eventData) {
 }
 
 function doPost(eventData) {
+  try {
+    if (eventData && eventData.postData && eventData.postData.contents && JSON.parse(eventData.postData.contents).method) return schoolPublicApi_(eventData);
+  } catch (error) { /* Let the legacy router return its existing invalid-payload response. */ }
   const postRequestRouterInstance = new PostRequestRouter(eventData);
   return postRequestRouterInstance.processRequest();
 }

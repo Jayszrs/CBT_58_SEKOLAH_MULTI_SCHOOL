@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-11-23T04:40:21.994Z",
+  "mode": "LOCAL_PUBLIC_SCHOOL",
+  "passed": true,
+  "schools": [
+    {
+      "school": "SCH-051",
+      "name": "SDIT QATRUNNADA",
+      "public_url": "http://127.0.0.1:8770/sekolah/sdit-qatrunnada",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-052",
+      "name": "SD KRISTEN PENABUR 3",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-kristen-penabur-3",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-053",
+      "name": "SD KRISTEN SAINT JOHN",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-kristen-saint-john",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-054",
+      "name": "SD MUHAMMADIYAH 50",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-muhammadiyah-50",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-055",
+      "name": "SD SANDIKA",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-sandika",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-056",
+      "name": "SD SANTO MIKAEL",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-santo-mikael",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-057",
+      "name": "SD STRADA VAN LITH I",
+      "public_url": "http://127.0.0.1:8770/sekolah/sd-strada-van-lith-i",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-058",
+      "name": "SEKOLAH DASAR UNIVERSAL",
+      "public_url": "http://127.0.0.1:8770/sekolah/sekolah-dasar-universal",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    }
+  ]
+}

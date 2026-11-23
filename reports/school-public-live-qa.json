@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-11-23T04:45:27.562Z",
+  "mode": "LIVE_PUBLIC_SCHOOL",
+  "passed": true,
+  "schools": [
+    {
+      "school": "SCH-051",
+      "name": "SDIT QATRUNNADA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-qatrunnada",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-052",
+      "name": "SD KRISTEN PENABUR 3",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-penabur-3",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-053",
+      "name": "SD KRISTEN SAINT JOHN",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-saint-john",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-054",
+      "name": "SD MUHAMMADIYAH 50",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-muhammadiyah-50",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-055",
+      "name": "SD SANDIKA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-sandika",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-056",
+      "name": "SD SANTO MIKAEL",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-santo-mikael",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-057",
+      "name": "SD STRADA VAN LITH I",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-058",
+      "name": "SEKOLAH DASAR UNIVERSAL",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    }
+  ]
+}

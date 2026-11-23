@@ -21,8 +21,8 @@ try{
  await page.locator('#search').fill('SCH-051');
  const [tab]=await Promise.all([ctx.waitForEvent('page'),page.locator('#schools button').click()]);let frame;
  for(let i=0;i<90&&!frame;i++){for(const f of tab.frames())if(await f.locator('#app').count()){frame=f;break;}if(!frame)await tab.waitForTimeout(300);}
- assert.ok(frame,'Dashboard sekolah belum terbuka.');await frame.waitForFunction(()=>typeof AppStore!=='undefined'&&AppStore.user?.role==='admin'&&AppStore.activeComponent==='admin-dashboard',{},{timeout:90000});
- const ping=await frame.evaluate(()=>api.call('executeAdminAction',AppStore.user.data.token,'ping',{}));assert.equal(ping.success,true);result.school_admin_handoff=true;await tab.close();
+ assert.ok(frame,'Dashboard sekolah belum terbuka.');assert.equal(new URL(tab.url()).origin,new URL(target).origin);assert.match(new URL(tab.url()).pathname,/^\/sekolah\//);await frame.waitForFunction(()=>typeof AppStore!=='undefined'&&AppStore.user?.role==='admin'&&AppStore.activeComponent==='admin-dashboard',{},{timeout:90000});
+ const ping=await frame.evaluate(()=>api.call('executeAdminAction',AppStore.user.data.token,'ping',{}));assert.equal(ping.success,true);result.school_admin_handoff=true;result.school_stays_on_public_host=true;await tab.close();
  await page.locator('#search').fill('');await page.screenshot({path:new URL(local?'../reports/public-admin-local.png':'../reports/public-admin-live.png',import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1')});
  await page.locator('#logout').click();await page.locator('#login').waitFor({state:'visible'});result.logout=true;result.passed=true;
 }catch(error){result.error=error.message;process.exitCode=1;}

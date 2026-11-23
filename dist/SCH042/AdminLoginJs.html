@@ -57,13 +57,6 @@ function doGoogleOwnerLogin() {
 function doAdminLogin() {
   const pw = document.getElementById('admin-password').value;
   const username = (document.getElementById('admin-username') && document.getElementById('admin-username').value || '').trim();
-  if (username.toLowerCase() === 'superadmin') {
-    document.getElementById('admin-password').value = '';
-    showToast('Masuk superadmin melalui Panel Super Admin, lalu pilih sekolah dan tombol Kelola.', 'info');
-    const centralLink = document.getElementById('central-admin-link');
-    if (centralLink && centralLink.href) centralLink.focus();
-    return;
-  }
   if (!pw) return;
   
   

@@ -9,6 +9,15 @@ const central=read('config/central-admin.json');central.public_panel_url=site.pu
 const incident=read('reports/central-access-incident.json');incident.status='PUBLIC_GATEWAY_DEPLOYED_AWAITING_USER_CONFIRMATION';incident.exact_failed_url_text_requested=false;
 incident.user_supplied_failed_url='https://script.google.com/macros/u/3/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec';
 incident.recovery_user_access_verified=false;incident.public_gateway_url=site.public_url;incident.public_gateway_automated_verified=true;save('reports/central-access-incident.json',incident);
+const schoolQaPath=new URL('../reports/school-public-live-qa.json',import.meta.url);
+if(fs.existsSync(schoolQaPath)){
+ const schoolQa=read('reports/school-public-live-qa.json');
+ if(schoolQa.passed&&schoolQa.mode==='LIVE_PUBLIC_SCHOOL'){
+  site.public_school_frontend=true;site.public_school_verified=schoolQa.schools.length;site.school_verified_at=schoolQa.checked_at;save('config/public-admin-site.json',site);
+  incident.status='PUBLIC_SCHOOL_FRONTEND_DEPLOYED_AWAITING_USER_CONFIRMATION';incident.school_google_route_bypassed=true;incident.direct_school_superadmin_verified=schoolQa.schools.length;
+  incident.school_evidence=['reports/school-public-live-qa.json','reports/public-school-functional-qa.json','reports/monitoring-shortcuts-verified.json'];save('reports/central-access-incident.json',incident);
+ }
+}
 const privatePath=path.join(process.env.LOCALAPPDATA,'CBT58-Private/AKSES-SUPER-ADMIN.txt');let privateText=fs.readFileSync(privatePath,'utf8');
 if(/^Panel publik: /m.test(privateText))privateText=privateText.replace(/^Panel publik: .*$/m,'Panel publik: '+site.public_url);
 else privateText=privateText.trimEnd()+'\n\nPanel publik: '+site.public_url+'\n';

@@ -3,6 +3,24 @@ function centralSchoolKey_() {
   return typeof getSchoolCentralKey_ === 'function' ? getSchoolCentralKey_() : '';
 }
 
+function loginCentralForSchool_(password) {
+  if (!centralSchoolKey_()) return {success: false, centralAccessUnavailable: true, message: 'Akses superadmin sekolah ini belum diaktifkan oleh pemilik.'};
+  if (typeof password !== 'string' || password.length < 14 || password.length > 256) return {success: false, message: 'Password superadmin tidak valid.'};
+  var school = getSchoolMetadata_();
+  var url = school.centralApiUrl || '';
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(url)) return {success: false, message: 'Koneksi superadmin sekolah belum disiapkan.'};
+  try {
+    var response = UrlFetchApp.fetch(url, {method: 'post', contentType: 'application/json', muteHttpExceptions: true, followRedirects: true,
+      payload: JSON.stringify({method: 'centralAuthenticateSchool', args: ['superadmin', password, school.schoolCode || school.schoolId.replace('SCH', 'SCH-')]})});
+    var wire = JSON.parse(response.getContentText());
+    if (!wire.ok) return {success: false, message: wire.error || 'Login superadmin gagal.'};
+    if (!wire.result || !wire.result.success) return {success: false, message: wire.result && wire.result.message || 'Login superadmin gagal.'};
+    var user = consumeCentralTicket_(wire.result.ticket);
+    if (!user) return {success: false, message: 'Tiket superadmin tidak valid atau kedaluwarsa.'};
+    return {success: true, sessionToken: user.data.token};
+  } catch (error) { return {success: false, message: 'Koneksi ke panel pusat belum berhasil. Coba kembali.'}; }
+}
+
 function centralSchoolSignature_(payload) {
   var key = centralSchoolKey_();
   if (!key) return '';

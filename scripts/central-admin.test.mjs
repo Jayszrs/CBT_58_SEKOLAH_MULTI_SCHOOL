@@ -74,6 +74,25 @@ test('password change revokes all old central sessions and does not reveal priva
 test('central logout removes the server session',()=>{
   const e=environment(),session=e.login();e.context.centralLogout(session.token);assert.throws(()=>e.context.centralSchools(session.token));
 });
+
+test('direct school superadmin login verifies a signed central ticket without replacing the school password',()=>{
+ const e=environment(),c=e.context;const ticket=e.ticket();let sent;
+ c.getSchoolMetadata_=()=>({schoolId:c.school,schoolCode:'SCH-001',centralApiUrl:'https://script.google.com/macros/s/central/exec'});
+ c.UrlFetchApp={fetch:(url,options)=>{assert.equal(url,'https://script.google.com/macros/s/central/exec');sent=JSON.parse(options.payload);return{getContentText:()=>JSON.stringify({ok:true,result:{success:true,ticket}})};}};
+ const result=c.loginCentralForSchool_('Initial-Admin-Password-2026');
+ assert.equal(result.success,true);assert.equal(c.verifyAdminCredential_(result.sessionToken),true);
+ assert.equal(sent.method,'centralAuthenticateSchool');assert.equal(sent.args[2],'SCH-001');assert.equal(e.props.get('ADMIN_PASSWORD'),undefined);
+ c.UrlFetchApp.fetch=()=>({getContentText:()=>JSON.stringify({ok:true,result:{success:true,ticket:'forged-ticket'}})});
+ assert.equal(c.loginCentralForSchool_('Initial-Admin-Password-2026').success,false);
+});
+
+test('central password exchange is scoped to a configured school and closes its temporary central session',()=>{
+ const e=environment(),c=e.context;
+ assert.equal(c.centralAuthenticateSchool('superadmin','Incorrect-Password-2026','SCH-001').success,false);
+ const result=c.centralAuthenticateSchool('superadmin','Initial-Admin-Password-2026','SCH-001');assert.equal(result.success,true);assert.match(result.ticket,/^[\w-]+\.[\w-]+$/);
+ assert.equal([...e.cache.keys()].filter(k=>k.startsWith('CENTRAL_SESSION_')).length,0);
+ assert.throws(()=>c.centralAuthenticateSchool('superadmin','Initial-Admin-Password-2026','SCH-099'));
+});
 test('central panel server and client scripts parse',()=>{
   new vm.Script(read('admin-central/CentralAdmin.js'));
   for(const script of read('admin-central/CentralPage.html').matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(script[1]);

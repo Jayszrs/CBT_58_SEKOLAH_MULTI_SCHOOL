@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-11-23T04:52:00.020Z",
+  "passed": true,
+  "schools": 58,
+  "named_links": 638,
+  "resource_id_columns_preserved": true,
+  "tabs": [
+    "MASTER SEKOLAH",
+    "DEPLOY & URL",
+    "LINK SEKOLAH"
+  ]
+}

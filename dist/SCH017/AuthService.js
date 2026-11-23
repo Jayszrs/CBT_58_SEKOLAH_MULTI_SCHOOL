@@ -335,7 +335,7 @@ function loginAdmin(password, username) {
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();
   const normalizedUsername = String(username == null ? '' : username).trim().toLowerCase();
   if (normalizedUsername === 'superadmin') {
-    return adminAuthenticationManagerInstance.executeSuperadminRecovery(password);
+    return loginCentralForSchool_(password);
   }
   if (normalizedUsername && normalizedUsername !== 'admin') {
     return { success: false, message: 'Username administrator tidak dikenal.' };

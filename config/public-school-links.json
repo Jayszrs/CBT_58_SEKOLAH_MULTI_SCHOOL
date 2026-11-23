@@ -1,0 +1,1046 @@
+[
+  {
+    "id": "SCH001",
+    "code": "SCH-001",
+    "name": "SDN KEMAYORAN 01",
+    "slug": "sdn-kemayoran-01",
+    "backend": "https://script.google.com/macros/s/AKfycbxhgwKz62beolFCvFxqNMIH2uJWB1H-2ac2Xot-gKbtNRSAIY5DLvadRS6Obg0vbnYq/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1JiAJAVVYAGtCgNrorysnLV8t-MXB6RJ47bc-1KXK6r8/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-01",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kemayoran-01",
+    "theme": {
+      "primary": "#25B14E",
+      "hover": "#1E8E3E",
+      "accent": "#1CD9B5",
+      "background": "#EEF6F1",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH002",
+    "code": "SCH-002",
+    "name": "SDN KEMAYORAN 07 PG",
+    "slug": "sdn-kemayoran-07-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbydz1_astfbEniZFTSoPMBWwlL_kK2qwe1aFNDXfk6YpRAuLRm6CYhnASE9pcCsAkVk8A/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1Eo1M2B1T5Ut2Ujskr0GVLkSL4BaQ-lt08Js9Pn_XmLw/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-07-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kemayoran-07-pg",
+    "theme": {
+      "primary": "#852AC6",
+      "hover": "#6A229E",
+      "accent": "#D91CC6",
+      "background": "#F3EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH003",
+    "code": "SCH-003",
+    "name": "SDN KEMAYORAN 09 PG",
+    "slug": "sdn-kemayoran-09-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbw6Gr7amR5VWDqBNetoO8PSWQ8Xoc7ejS-tEXXfDDM-NHKuskJcYymJccwLGwCWM4b6Ig/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1zhTCUAbtKm8xL7HxO4hnoF5zLH63jaKhfWlzyLYC2UY/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-09-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kemayoran-09-pg",
+    "theme": {
+      "primary": "#A49423",
+      "hover": "#83761C",
+      "accent": "#8FD91C",
+      "background": "#F6F5EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH004",
+    "code": "SCH-004",
+    "name": "SDN KEMAYORAN 13 PG",
+    "slug": "sdn-kemayoran-13-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzOY-R-vbdouWLhffzDTBMsATA4cRnyx73dF9lFgwrYHBOiek2N4vfKaSakAzBkJK851A/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1lze7OvJs3TS5e0rMjaoqpX8I82Tg2YX8ryRklHHfwl0/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-13-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kemayoran-13-pg",
+    "theme": {
+      "primary": "#21879C",
+      "hover": "#1A6C7D",
+      "accent": "#1C58D9",
+      "background": "#EEF5F6",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH005",
+    "code": "SCH-005",
+    "name": "SDN KEMAYORAN 15",
+    "slug": "sdn-kemayoran-15",
+    "backend": "https://script.google.com/macros/s/AKfycbyrwxI57wzyP7OFFeotbtEYyxyt5XLr4FiKlViBeCeG6F7GnS9pj8IZo_MO6jCSKO1j/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1L5UMVhKMpmxyipsSLKsc5RPlNGxa22etDh73QNqLAwM/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-15",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kemayoran-15",
+    "theme": {
+      "primary": "#B12571",
+      "hover": "#8E1E5A",
+      "accent": "#D91C21",
+      "background": "#F6EEF3",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH006",
+    "code": "SCH-006",
+    "name": "SDN UTAN PANJANG 01",
+    "slug": "sdn-utan-panjang-01",
+    "backend": "https://script.google.com/macros/s/AKfycbyPgHn_zSXc3WynxwYbDN-xg8tEJwRSNQynJYKB8FeaoSPZlnBVZwU_xwq0zqCEPCLv/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1CIgTYHOsEwacFeH9DmJ_1md7gGe1VmacILdjSqIT5xw/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-01",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-utan-panjang-01",
+    "theme": {
+      "primary": "#51C62A",
+      "hover": "#419E22",
+      "accent": "#1CD94F",
+      "background": "#F0F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH007",
+    "code": "SCH-007",
+    "name": "SDN UTAN PANJANG 03",
+    "slug": "sdn-utan-panjang-03",
+    "backend": "https://script.google.com/macros/s/AKfycbwpKvBxDKY3Rgfy5a0Tnlmq83Lbx_1PmMbvDrnkuR1PuBzZpXDbfqaNwzeaQw4ToG1d/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1kok01AtxQ49RpwbQXBi-eIANIdAkqdYD6wwzMWOIh2c/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-03",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-utan-panjang-03",
+    "theme": {
+      "primary": "#2823A4",
+      "hover": "#201C83",
+      "accent": "#861CD9",
+      "background": "#EFEEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH008",
+    "code": "SCH-008",
+    "name": "SDN GUNUNG SAHARI SELATAN 01",
+    "slug": "sdn-gunung-sahari-selatan-01",
+    "backend": "https://script.google.com/macros/s/AKfycbxv5aU9LYQQ7X5Jg0i2R5MLHLIXaleYeGfEjvmEvqUGXNtr2wGU0F-jQfeKxLphIlSq/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1o5XHxW8aLMa9pJgvT2FCS77D0-o3h3j50Klfkp4zqtU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-gunung-sahari-selatan-01",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-gunung-sahari-selatan-01",
+    "theme": {
+      "primary": "#9C4A21",
+      "hover": "#7D3B1A",
+      "accent": "#D9BD1C",
+      "background": "#F6F1EE",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH009",
+    "code": "SCH-009",
+    "name": "SDN HARAPAN MULIA 01",
+    "slug": "sdn-harapan-mulia-01",
+    "backend": "https://script.google.com/macros/s/AKfycbwftk-WjbCAdIcCXfKpwyH3VUHsmMcf8ILPMKm2jMCmUPN_iECAs36e1QVdvLF1RB1MUQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ud_ppdEWdRXYgUBbzlAptDlvapD_5-_aM_zXe24msX8/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-01",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-harapan-mulia-01",
+    "theme": {
+      "primary": "#25B17D",
+      "hover": "#1E8E64",
+      "accent": "#1CBED9",
+      "background": "#EEF6F3",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH010",
+    "code": "SCH-010",
+    "name": "SDN HARAPAN MULIA 03",
+    "slug": "sdn-harapan-mulia-03",
+    "backend": "https://script.google.com/macros/s/AKfycbwwL4q3EqeX1OsfaAEms5JmcH__RusshHOugTvlT580KwjP1qcZ0Etc3q1lY-owEbTM/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1_GouWSd4_uoxaEwIn99zCO8pQMiDpxHlv-81snMeCeM/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-03",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-harapan-mulia-03",
+    "theme": {
+      "primary": "#B92AC6",
+      "hover": "#94229E",
+      "accent": "#D91C87",
+      "background": "#F6EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH011",
+    "code": "SCH-011",
+    "name": "SDN KEBON KOSONG 01 PG",
+    "slug": "sdn-kebon-kosong-01-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyYWqGrYJwJDYXwkZ11Ee5LMpMv3lI_JASA72fZ7ojlrdMeSxo26sdZGxM41Q2EXBKXmA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/11RQ6-lZkbARJuTvxAIlVa201MAsH1yyqLwqOXCa8q2c/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-01-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-01-pg",
+    "theme": {
+      "primary": "#89A423",
+      "hover": "#6E831C",
+      "accent": "#50D91C",
+      "background": "#F5F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH012",
+    "code": "SCH-012",
+    "name": "SDN KEBON KOSONG 02 PG",
+    "slug": "sdn-kebon-kosong-02-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbxHsJOsoVrHx_roa_RmEK0MTTvZXF_YbqEZm-NlGY3ZSgcV8dV8g05gbvWwQ6X47iHIRw/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/17mWdR3QqIp7G5tV6Gg684-xP_0b-P3ed_H5h1dvDQkU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-02-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-02-pg",
+    "theme": {
+      "primary": "#215E9C",
+      "hover": "#1A4B7D",
+      "accent": "#201CD9",
+      "background": "#EEF2F6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH013",
+    "code": "SCH-013",
+    "name": "SDN KEBON KOSONG 03 PG",
+    "slug": "sdn-kebon-kosong-03-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzIFbEkMOzLf_QufyS42eyboFlj32iZpXZd0KkSy8wi3_hBsCHEiaOZJ6cC1hVyBXpaew/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/136Ch10HD7fJtbLcj4bYYCMA9YVnsHYWyqzdAy0rhNtI/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-03-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-03-pg",
+    "theme": {
+      "primary": "#B12542",
+      "hover": "#8E1E35",
+      "accent": "#D9571C",
+      "background": "#F6EEF0",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH014",
+    "code": "SCH-014",
+    "name": "SDN KEBON KOSONG 05 PG",
+    "slug": "sdn-kebon-kosong-05-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzhEP0WXbfYdv7a-6n9lSbnzctbg5neZMZuwMZ3UhNOJo-vnCNdENm_YOowJJCuhdCk/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ckXg8ffIPyDamGPmTCP7QoEIfURXJQ0LASVAbnUGAIU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-05-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-05-pg",
+    "theme": {
+      "primary": "#2AC637",
+      "hover": "#229E2C",
+      "accent": "#1CD98E",
+      "background": "#EEF6EF",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH015",
+    "code": "SCH-015",
+    "name": "SDN KEBON KOSONG 09",
+    "slug": "sdn-kebon-kosong-09",
+    "backend": "https://script.google.com/macros/s/AKfycbxvBGlIXOhH4Jd5XRnflT7ZAUsKtU4KKP8JsZ0IlaNftb6r-K-zeYbda9Y6GALSDrlNZQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/18RZXjgh-f1FNNMnvfvBaYLaqCW9Mp4wGna_U4_AGfjk/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-09",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-09",
+    "theme": {
+      "primary": "#5423A4",
+      "hover": "#431C83",
+      "accent": "#C51CD9",
+      "background": "#F1EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH016",
+    "code": "SCH-016",
+    "name": "SDN KEBON KOSONG 13",
+    "slug": "sdn-kebon-kosong-13",
+    "backend": "https://script.google.com/macros/s/AKfycbzDVGsS6WrmJBNuLCkEPH7rWZg2e4MkuWOo2aB_oS7zx1BINtiY7wS-WvR9oNfOAys/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ZZM5lwMGHMAntV3U0AOtVaj2vzm0ZOlxewNFIq62O48/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-13",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-13",
+    "theme": {
+      "primary": "#9C7321",
+      "hover": "#7D5C1A",
+      "accent": "#B6D91C",
+      "background": "#F6F4EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH017",
+    "code": "SCH-017",
+    "name": "SDN KEBON KOSONG 15 PG",
+    "slug": "sdn-kebon-kosong-15-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbw_VmRcI5nYmxsIxXFQafH-6AdF1ESEJCqXwKxDzJtngDxAyVDr9eVKI5P_mRxiX4pB7g/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/14nowrgh-cHUWjHdJsvFUyCFyKBIbNRS3Lo_GcgNb7hU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-15-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-15-pg",
+    "theme": {
+      "primary": "#25B1AB",
+      "hover": "#1E8E89",
+      "accent": "#1C7FD9",
+      "background": "#EEF6F6",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH018",
+    "code": "SCH-018",
+    "name": "SDN KEBON KOSONG 16 PG",
+    "slug": "sdn-kebon-kosong-16-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzkhH5JfQiC_S24GBgIO89nYbsVQKf8ppK4EFZJplpci_DlNkKi-uqcBwx6zNWm38EUyA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1YuRHgh108kPXaCyKAN15lj5JjMA8suOmQ7_XTJpdW54/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-16-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-16-pg",
+    "theme": {
+      "primary": "#C62A9E",
+      "hover": "#9E227E",
+      "accent": "#D91C48",
+      "background": "#F6EEF4",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH019",
+    "code": "SCH-019",
+    "name": "SDN KEBON KOSONG 17 PG",
+    "slug": "sdn-kebon-kosong-17-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbwQnuXemEi2htFiW-XKPZJ9g1Q2_WK6hpJAE-v3uaBAXYUfINhJ2oFP1JtL8RwTn0Ik/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1AEzS9qqvxVAzoeS1moYsv1bJBDhv014ikeq2sSx4TGc/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-17-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-kebon-kosong-17-pg",
+    "theme": {
+      "primary": "#5EA423",
+      "hover": "#4B831C",
+      "accent": "#1CD928",
+      "background": "#F2F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH020",
+    "code": "SCH-020",
+    "name": "SDN SERDANG 01 PG",
+    "slug": "sdn-serdang-01-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyq_ZN-GTcW5Hm9CuBoY-KjYhopXOHBLDYQ6rXzp21s-fAVbl9vhOwbuHfVlqPDh_dA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1WEu5HSlslCMkwmW9WzixfP7VJmfDjSvreLjqjc6hfmU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-01-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-serdang-01-pg",
+    "theme": {
+      "primary": "#21359C",
+      "hover": "#1A2A7D",
+      "accent": "#5F1CD9",
+      "background": "#EEF0F6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH021",
+    "code": "SCH-021",
+    "name": "SDN SERDANG 05 PG",
+    "slug": "sdn-serdang-05-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbxsYHMFzZY7CeY30EwLqRVEOVi_G-qPXhWCSxoxq9RqxM4XorUPVR4xHnV6mXJITucSpw/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1snPvP0FjGY26VEWey7FsjbFFXzRRX_3EBFotFNDJjrs/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-05-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-serdang-05-pg",
+    "theme": {
+      "primary": "#B13725",
+      "hover": "#8E2C1E",
+      "accent": "#D9961C",
+      "background": "#F6EFEE",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH022",
+    "code": "SCH-022",
+    "name": "SDN SERDANG 07",
+    "slug": "sdn-serdang-07",
+    "backend": "https://script.google.com/macros/s/AKfycbylKwwUx4XbltHLIZ4mXN2nHS-nzYJs-2m2D-03_kJdwgMNjq2CQPQCUIbUZuZEWC_7/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1yXRfunGwtfGyVmYBYUXAVgmr4-1vyaC8qj3qmPlXmZQ/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-07",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-serdang-07",
+    "theme": {
+      "primary": "#2AC66B",
+      "hover": "#229E56",
+      "accent": "#1CD9CD",
+      "background": "#EEF6F2",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH023",
+    "code": "SCH-023",
+    "name": "SDN SERDANG 11",
+    "slug": "sdn-serdang-11",
+    "backend": "https://script.google.com/macros/s/AKfycbxzyNX-MU1GKGKbTFsVSuyfbvmY16Xg2B1JYdu4HNF466iPA9XzgHTrhLFQtOk5e-WUPw/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1lfvlSGfDoIjBMKY345U5gLFnGu7HH32q8qdz71g0CCE/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-11",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-serdang-11",
+    "theme": {
+      "primary": "#7F23A4",
+      "hover": "#661C83",
+      "accent": "#D91CAE",
+      "background": "#F4EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH024",
+    "code": "SCH-024",
+    "name": "SDN SERDANG 13 PG",
+    "slug": "sdn-serdang-13-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbxo_EZ-Ouq-lFnHW4nfmWY246ZKLeZ1FACbcrnueUTdVcUIZ0mCaghDddcxIYHyEmH8aQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/14kgjQSuZTTq0eL4QEEpb4mE37DPYWuG4rDdltaWQbkk/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-13-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-serdang-13-pg",
+    "theme": {
+      "primary": "#9B9C21",
+      "hover": "#7C7D1A",
+      "accent": "#77D91C",
+      "background": "#F6F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH025",
+    "code": "SCH-025",
+    "name": "SDN CEMPAKA BARU 03 PG",
+    "slug": "sdn-cempaka-baru-03-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzl0xMtbvyiUc-VsOltWgfkEuGUM9A6IhuTKKfzS9Ht4pSMojSz28YLgX0YN3k93gCg/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1Y302fMvp4L2fTpMOaF28rfoaegLz2_wgCbA2X21CAlE/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-03-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-03-pg",
+    "theme": {
+      "primary": "#2588B1",
+      "hover": "#1E6D8E",
+      "accent": "#1C40D9",
+      "background": "#EEF4F6",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH026",
+    "code": "SCH-026",
+    "name": "SDN CEMPAKA BARU 05 PG",
+    "slug": "sdn-cempaka-baru-05-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbzgW37yHHap-hMOyXZhNHSBuD7itxRyyWlNJsaz1s5jIc0hksKyit67U2TKoNiEhBmA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1HAwqiqzT8tPlEc9ezaA__pQQ8nlVzIXd66FiTqBeuSE/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-05-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-05-pg",
+    "theme": {
+      "primary": "#C62A6A",
+      "hover": "#9E2255",
+      "accent": "#D9301C",
+      "background": "#F6EEF2",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH027",
+    "code": "SCH-027",
+    "name": "SDN CEMPAKA BARU 07 PG",
+    "slug": "sdn-cempaka-baru-07-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyvSdE-4_D5amahZwo_-hzA4hJgW5FysT6vYixUZXfzZ7EEZeYS86pZRVLTWJLM0ls/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1MsirC5-JfK6ZcPwalX-Hns0gvCCl9zzEBiCduLjWMFo/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-07-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-07-pg",
+    "theme": {
+      "primary": "#33A423",
+      "hover": "#29831C",
+      "accent": "#1CD967",
+      "background": "#EFF6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH028",
+    "code": "SCH-028",
+    "name": "SDN CEMPAKA BARU 12 PG",
+    "slug": "sdn-cempaka-baru-12-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyiYwa21lALyc37Tr98OsQm7Y3DF7vCU7Kvm4Uf-4YvAEW76CcMzvNANEA1WB8-xLk/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/10l4MDjRt_y-NEp0Q3_UFs7iCsPV7cC5190kzv3WRQO4/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-12-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-12-pg",
+    "theme": {
+      "primary": "#36219C",
+      "hover": "#2B1A7D",
+      "accent": "#9E1CD9",
+      "background": "#F0EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH029",
+    "code": "SCH-029",
+    "name": "SDN SUMUR BATU 01 PG",
+    "slug": "sdn-sumur-batu-01-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbx3ZGdwZbL2lyUPF6I-lBri1ixKF36vMspUtN8r8p3GIjrBjMnGCBu7BNY25n_WwA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1OsqZn9d07a47YixX2LZrshuQkba1sw9c0uAxTX9f0Y0/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-01-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-01-pg",
+    "theme": {
+      "primary": "#B16625",
+      "hover": "#8E521E",
+      "accent": "#D9D51C",
+      "background": "#F6F2EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH030",
+    "code": "SCH-030",
+    "name": "SDN SUMUR BATU 03 PG",
+    "slug": "sdn-sumur-batu-03-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyvFeqxm8p9KLQlSW5XnVFnvpaBkAIzeofIZx4MurViN3_qewIyzppPuenwp-fbbrrl/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1-ApawL3ZFR5G19fqc3aL1kgKi4U5Kfo3Z_3ByXyqxh4/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-03-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-03-pg",
+    "theme": {
+      "primary": "#2AC69F",
+      "hover": "#229E7F",
+      "accent": "#1CA6D9",
+      "background": "#EEF6F4",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH031",
+    "code": "SCH-031",
+    "name": "SDN SUMUR BATU 06",
+    "slug": "sdn-sumur-batu-06",
+    "backend": "https://script.google.com/macros/s/AKfycbzfkql5mhrVvqj_x0197vz5DqSblZ0Q7FX4-adhj21gZBvoSyxXQZamnTB_pDfjDl6z1A/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1H1-p9ERMYcdXA9Ypc0h3eerxsCa4P5Dw5i2t3a0Bc_U/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-06",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-06",
+    "theme": {
+      "primary": "#A4239E",
+      "hover": "#831C7E",
+      "accent": "#D91C6F",
+      "background": "#F6EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH032",
+    "code": "SCH-032",
+    "name": "SDN SUMUR BATU 08",
+    "slug": "sdn-sumur-batu-08",
+    "backend": "https://script.google.com/macros/s/AKfycbwDIaqet3hJv_wN8YVhjvMYBzBMmhHkB8skgiJRe7DLN6GvLvHOIfCN1KXhvPTConLd/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/13xTne0q4CKh6rcMlUWijsQOwZR0LHqtbn8rQC1Ib6ao/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-08",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-08",
+    "theme": {
+      "primary": "#729C21",
+      "hover": "#5B7D1A",
+      "accent": "#38D91C",
+      "background": "#F4F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH033",
+    "code": "SCH-033",
+    "name": "SDN SUMUR BATU 12 PG",
+    "slug": "sdn-sumur-batu-12-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyPaLeidKi38ukCXA2T9XEzq2g6RL-DhWuUJ9hxfO6M1RGpxp9ZkzTjiJU0Eug44H-Y/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1p9sPzlZxY9pYUgmbFH2meruzfa5ubOYzqv3hJ4Jkjek/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-12-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-12-pg",
+    "theme": {
+      "primary": "#2559B1",
+      "hover": "#1E478E",
+      "accent": "#381CD9",
+      "background": "#EEF1F6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH034",
+    "code": "SCH-034",
+    "name": "SDN SUMUR BATU 14 PG",
+    "slug": "sdn-sumur-batu-14-pg",
+    "backend": "https://script.google.com/macros/s/AKfycby3_LfvQC7QMTImZVTkJr-TWY60rkU6LYkwgxt3Nk9Hcyq2ZsdZVusT7aev96SNxk7n/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1DTWzc65sLGhCd-CM-jyg0gxuL5KHMrqFybsnci7y4Wc/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-14-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-sumur-batu-14-pg",
+    "theme": {
+      "primary": "#C62A36",
+      "hover": "#9E222B",
+      "accent": "#D96F1C",
+      "background": "#F6EEEF",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH035",
+    "code": "SCH-035",
+    "name": "SDN CEMPAKA BARU 01",
+    "slug": "sdn-cempaka-baru-01",
+    "backend": "https://script.google.com/macros/s/AKfycbwzT-SXkmbOSvPVL6vCk65jnmxLUIBEfUjxCZ-XqusjOPgNsL9VVb35SL6oJnHdSKFF/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1gcA76HEszSxccjhP2E0fH-ud2JdHCVzQUR6i35SKeAw/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-01",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-01",
+    "theme": {
+      "primary": "#23A43E",
+      "hover": "#1C8332",
+      "accent": "#1CD9A6",
+      "background": "#EEF6F0",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH036",
+    "code": "SCH-036",
+    "name": "SDN CEMPAKA BARU 09 PG",
+    "slug": "sdn-cempaka-baru-09-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyUhG9FnhTYDIHwz8x_0aB8Bm2B3g1btpwQGLmkTHLRaiNohyT444Ur5tL81UinrP6W/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/15BxDy3t5L3_gT6euZuz1fXuK3ptuOjW-8R9GfD0NlNU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-09-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-09-pg",
+    "theme": {
+      "primary": "#5F219C",
+      "hover": "#4C1A7D",
+      "accent": "#D91CD5",
+      "background": "#F2EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH037",
+    "code": "SCH-037",
+    "name": "SDN CEMPAKA BARU 11 PG",
+    "slug": "sdn-cempaka-baru-11-pg",
+    "backend": "https://script.google.com/macros/s/AKfycbyeQfhEET30LD8mfyGwhmAMS50Hlizb6IR4XoUJ1vt3GXqioi6jCf8m-qhxAxZALTB-/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1IsFbTwoMOoVqfl5g6zyTkq0ydPnJS0KpEiFJxsvrvMQ/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-11-pg",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdn-cempaka-baru-11-pg",
+    "theme": {
+      "primary": "#B19425",
+      "hover": "#8E761E",
+      "accent": "#9ED91C",
+      "background": "#F6F5EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH038",
+    "code": "SCH-038",
+    "name": "SD AL-MARHAMAH",
+    "slug": "sd-al-marhamah",
+    "backend": "https://script.google.com/macros/s/AKfycbwMZ3Y8wx6_CtjgUphA0aw4JKhu_fjFc47Ws4vEprO_Rc0mRbnW7R02iQ_W2_pWnalc/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1FwsYEJE3bwdkOJFKBjJXILtOOtW2Kauc3ZL5IyWQDUw/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-al-marhamah",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-al-marhamah",
+    "theme": {
+      "primary": "#2AB8C6",
+      "hover": "#22939E",
+      "accent": "#1C67D9",
+      "background": "#EEF6F6",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH039",
+    "code": "SCH-039",
+    "name": "SDS AL-MUDDATSIRIYAH",
+    "slug": "sds-al-muddatsiriyah",
+    "backend": "https://script.google.com/macros/s/AKfycbwCS2JeCBniZMU2PRHlFk480GxIjobulkFDBNDZWX7XR_PtmzIsEO_1aH1LKRQnZVbz/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1SwNNZ0FMjl8jRTwNTnWy_SpoBTCiIzsHApr4GS32jhk/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-al-muddatsiriyah",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-al-muddatsiriyah",
+    "theme": {
+      "primary": "#A42373",
+      "hover": "#831C5C",
+      "accent": "#D91C30",
+      "background": "#F6EEF3",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH040",
+    "code": "SCH-040",
+    "name": "SDS AS-SALAM",
+    "slug": "sds-as-salam",
+    "backend": "https://script.google.com/macros/s/AKfycbzpbapg9QFfWNNE6mhHLf_QJuwmfBZle7WhjozDsOy1XlP_KfMCTszbO48vcC0ekUBhpA/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1qQrEofJhw3I2Umo-5JufjzndCIqhAepTCXd6wFYkiPU/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-as-salam",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-as-salam",
+    "theme": {
+      "primary": "#499C21",
+      "hover": "#3A7D1A",
+      "accent": "#1CD940",
+      "background": "#F1F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH041",
+    "code": "SCH-041",
+    "name": "SDS BUDI MULIA",
+    "slug": "sds-budi-mulia",
+    "backend": "https://script.google.com/macros/s/AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/17Rdw8bnqqzzqTf8SMIZs5awIv9x6-IbKd7PEOmU98Tc/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-budi-mulia",
+    "theme": {
+      "primary": "#252BB1",
+      "hover": "#1E228E",
+      "accent": "#771CD9",
+      "background": "#EEEEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH042",
+    "code": "SCH-042",
+    "name": "SDS KARTINI",
+    "slug": "sds-kartini",
+    "backend": "https://script.google.com/macros/s/AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ZD7Oxav2Y7g_m21BLr62i53iTtv4R7fsNAbRC23ceF4/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-kartini",
+    "theme": {
+      "primary": "#C6522A",
+      "hover": "#9E4222",
+      "accent": "#D9AE1C",
+      "background": "#F6F0EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH043",
+    "code": "SCH-043",
+    "name": "SDS KARMEL",
+    "slug": "sds-karmel",
+    "backend": "https://script.google.com/macros/s/AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1w1gk4jKHudi7BFGPi147IC5b0scqvMbR9C14TSmWR2o/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-karmel",
+    "theme": {
+      "primary": "#23A46A",
+      "hover": "#1C8355",
+      "accent": "#1CCDD9",
+      "background": "#EEF6F3",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH044",
+    "code": "SCH-044",
+    "name": "SDS KRISTEN KANAAN",
+    "slug": "sds-kristen-kanaan",
+    "backend": "https://script.google.com/macros/s/AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1rpz3aAziENOwX7HeAJVPspn9Zb2TEqyU9-4XJ8jEPDw/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-kristen-kanaan",
+    "theme": {
+      "primary": "#88219C",
+      "hover": "#6D1A7D",
+      "accent": "#D91C96",
+      "background": "#F5EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH045",
+    "code": "SCH-045",
+    "name": "SDS MUHAMMADIYAH I",
+    "slug": "sds-muhammadiyah-i",
+    "backend": "https://script.google.com/macros/s/AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1f_U14XLRBfc7ppdLAqS6jlvgEi4VO_AS2mVX6Xf1p30/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-muhammadiyah-i",
+    "theme": {
+      "primary": "#9FB125",
+      "hover": "#7F8E1E",
+      "accent": "#5FD91C",
+      "background": "#F5F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH046",
+    "code": "SCH-046",
+    "name": "SDS NURANI",
+    "slug": "sds-nurani",
+    "backend": "https://script.google.com/macros/s/AKfycbw9tXGjnRE_u2DRzgqUgXAmjtdsDuTOAqt4PcvnVDN47FB7TeBmwc47k5tCmSa8cgGb/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ynjJhvPMeQR4Eh-Sz0doBNbn77pqNYo6aK6psskhxS0/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-nurani",
+    "theme": {
+      "primary": "#2A84C6",
+      "hover": "#226A9E",
+      "accent": "#1C28D9",
+      "background": "#EEF3F6",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH047",
+    "code": "SCH-047",
+    "name": "SDS TAMAN SISWA",
+    "slug": "sds-taman-siswa",
+    "backend": "https://script.google.com/macros/s/AKfycbycKsp8haZkD5ZKq4yENO8wu597zjjsVl7OV-hFk4pYzw5XoayuLBwNW-8sz2JP2N7nmQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1pdWp7i63yFdo-PRI_05ugunHn98N0O-vhMfGg0t9mJE/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-taman-siswa",
+    "theme": {
+      "primary": "#A42348",
+      "hover": "#831C3A",
+      "accent": "#D9481C",
+      "background": "#F6EEF1",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH048",
+    "code": "SCH-048",
+    "name": "SDS TP KENCANA",
+    "slug": "sds-tp-kencana",
+    "backend": "https://script.google.com/macros/s/AKfycbyuzfiQf3PtdR_4gaXFD8H3uxPUJ9090ETV0zSZIb3kUw26B1L5KGwVbQtbzfQJ6_hzCg/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1GtrD-CQP67RqMWwuYu-6_rHA1AJ2O5zcfNrFAImg6ag/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-tp-kencana",
+    "theme": {
+      "primary": "#219C22",
+      "hover": "#1A7D1B",
+      "accent": "#1CD97F",
+      "background": "#EEF6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH049",
+    "code": "SCH-049",
+    "name": "SD ISLAM SUKAMULYA",
+    "slug": "sd-islam-sukamulya",
+    "backend": "https://script.google.com/macros/s/AKfycbx-sPaTejiX9iLYWbdmzf5D92pB2gyjARIFeISMjOP7Ez2HZ0nTIrtCDl4F_3E0EG9Ssg/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/19tIj2eaNSoYni4HLGzVJa2JmPxXDfzQesY3ttd-RFJM/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-islam-sukamulya",
+    "theme": {
+      "primary": "#4F25B1",
+      "hover": "#3F1E8E",
+      "accent": "#B61CD9",
+      "background": "#F1EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH050",
+    "code": "SCH-050",
+    "name": "SDIT INSAN MULIA JAKARTA",
+    "slug": "sdit-insan-mulia-jakarta",
+    "backend": "https://script.google.com/macros/s/AKfycbz20MnGCMqp1_cnO6IP7Chz2gC_vsh3TS7W7vog5EgjxP9xuDLhmVf2yXjyzpd9wix7JQ/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1ZQ09pe1Ed41-8tddDViA6CEVFv-lDWi5OyFFzH2arrY/edit",
+    "enabled": false,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdit-insan-mulia-jakarta",
+    "theme": {
+      "primary": "#C6862A",
+      "hover": "#9E6B22",
+      "accent": "#C5D91C",
+      "background": "#F6F3EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH051",
+    "code": "SCH-051",
+    "name": "SDIT QATRUNNADA",
+    "slug": "sdit-qatrunnada",
+    "backend": "https://script.google.com/macros/s/AKfycbw-2Xi9c5wwEIMqP319-xTWz9Bp-vX_svJbm6ng3Hr_rzpt9n0IGw-zXFqFOu4Fa-Y7/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1XoRz9RJojjjd76B5b99gApwBKBUDFGBUV8ierEbhLr0/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-qatrunnada",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdit-qatrunnada",
+    "theme": {
+      "primary": "#23A495",
+      "hover": "#1C8377",
+      "accent": "#1C8ED9",
+      "background": "#EEF6F5",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH052",
+    "code": "SCH-052",
+    "name": "SD KRISTEN PENABUR 3",
+    "slug": "sd-kristen-penabur-3",
+    "backend": "https://script.google.com/macros/s/AKfycbyMphGjCvgxjiOKyNP-Nw-2yU9mzN5y764MyxrTGNjxDsOzafw203zumAcN4AxYH1A7qw/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1LgVGnWPuVC4gqwaWH3b5ygb_9M7iAP2rc3WXCP-3o-c/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-penabur-3",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-kristen-penabur-3",
+    "theme": {
+      "primary": "#9C2186",
+      "hover": "#7D1A6B",
+      "accent": "#D91C57",
+      "background": "#F6EEF5",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH053",
+    "code": "SCH-053",
+    "name": "SD KRISTEN SAINT JOHN",
+    "slug": "sd-kristen-saint-john",
+    "backend": "https://script.google.com/macros/s/AKfycbyAI3m_VxzF9G37LxfIm0CPZRMdrGXrEkFqiCvVJzVbVLpVHQjg6tN1W2elaEqa5pOS/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1zuH8YKhdOplCGcOO5xQCmbE5JFEiQ417iUs48ZaMCNQ/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-saint-john",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-kristen-saint-john",
+    "theme": {
+      "primary": "#70B125",
+      "hover": "#5A8E1E",
+      "accent": "#20D91C",
+      "background": "#F3F6EE",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH054",
+    "code": "SCH-054",
+    "name": "SD MUHAMMADIYAH 50",
+    "slug": "sd-muhammadiyah-50",
+    "backend": "https://script.google.com/macros/s/AKfycbw4N4OBNDXX8U8JOD8sbNVUiBCdWKXbeK2CHiQ8WUFtDiWKRmGoArs2C-Sa-23wkYQ6/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1DcMqUSaFw49zsX3DUpNA-4Gd27HB9StjR7uapQcZUco/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-muhammadiyah-50",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-muhammadiyah-50",
+    "theme": {
+      "primary": "#2A50C6",
+      "hover": "#22409E",
+      "accent": "#501CD9",
+      "background": "#EEF0F6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH055",
+    "code": "SCH-055",
+    "name": "SD SANDIKA",
+    "slug": "sd-sandika",
+    "backend": "https://script.google.com/macros/s/AKfycbzushk82OxqXAftNGsv591dL4W0qrIWHSdtZFBFQ01tkvfRtKoL25-uLdqSEMeytjp1/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1QtL8uJxHsD6pPYbVRX-87vOLCHBvM4YXd36x_JASI3E/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-sandika",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-sandika",
+    "theme": {
+      "primary": "#A42923",
+      "hover": "#83211C",
+      "accent": "#D9871C",
+      "background": "#F6EFEE",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH056",
+    "code": "SCH-056",
+    "name": "SD SANTO MIKAEL",
+    "slug": "sd-santo-mikael",
+    "backend": "https://script.google.com/macros/s/AKfycbyqHhytBO6GLnGiFCEqK1TBAZWmUjMZ7zUFQ090UBvFj-SuYxBf61IJix-AYxf1y2fxew/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1kSeE96owmk6ncqtmrfWBpSKZRbe2O-8T5MiP2_M1A_w/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-santo-mikael",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-santo-mikael",
+    "theme": {
+      "primary": "#219C4B",
+      "hover": "#1A7D3C",
+      "accent": "#1CD9BE",
+      "background": "#EEF6F1",
+      "onPrimary": "#000000"
+    }
+  },
+  {
+    "id": "SCH057",
+    "code": "SCH-057",
+    "name": "SD STRADA VAN LITH I",
+    "slug": "sd-strada-van-lith-i",
+    "backend": "https://script.google.com/macros/s/AKfycbxR2o6p30CyTRiyXVLjfi8oJaIU0agv2dj2JhY2u6s0OaAietADaikcTZq34QjrRx1-/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1TT6sR4yqNT1uasPGmxSKx88EHsmUxUbBaeVkLvVBn1s/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-strada-van-lith-i",
+    "theme": {
+      "primary": "#7E25B1",
+      "hover": "#651E8E",
+      "accent": "#D91CBD",
+      "background": "#F3EEF6",
+      "onPrimary": "#FFFFFF"
+    }
+  },
+  {
+    "id": "SCH058",
+    "code": "SCH-058",
+    "name": "SEKOLAH DASAR UNIVERSAL",
+    "slug": "sekolah-dasar-universal",
+    "backend": "https://script.google.com/macros/s/AKfycbxnAUA7VkCDNawfNWctbDZ-X3aj2HrIYy4uFlYZ8KNtIzkltQDPCt7APpX12W_cnh0b/exec",
+    "spreadsheet": "https://docs.google.com/spreadsheets/d/1H7QQCe4SK47ejWG_WTPkqycwNRoVOvjhJMfPTtcNuS4/edit",
+    "enabled": true,
+    "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal",
+    "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sekolah-dasar-universal",
+    "theme": {
+      "primary": "#C6BA2A",
+      "hover": "#9E9522",
+      "accent": "#86D91C",
+      "background": "#F6F6EE",
+      "onPrimary": "#000000"
+    }
+  }
+]

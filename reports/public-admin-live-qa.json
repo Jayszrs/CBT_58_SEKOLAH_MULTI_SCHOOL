@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-23T03:59:42.018Z",
+  "checked_at": "2026-11-23T04:45:17.693Z",
   "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
   "mode": "PUBLIC_HOSTED_REAL_GOOGLE_API",
   "passed": true,
@@ -8,5 +8,6 @@
   "school_rows": 58,
   "enabled_schools": 8,
   "school_admin_handoff": true,
+  "school_stays_on_public_host": true,
   "logout": true
 }

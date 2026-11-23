@@ -11,13 +11,26 @@ function doPost(event) {
       centralSchools: centralSchools,
       centralOpenSchool: centralOpenSchool,
       centralLogout: centralLogout,
-      centralChangePassword: centralChangePassword
+      centralChangePassword: centralChangePassword,
+      centralAuthenticateSchool: centralAuthenticateSchool
     };
     if (!Object.prototype.hasOwnProperty.call(methods, input.method)) throw Error('Operasi tidak tersedia.');
     return centralApiJson_({ok: true, result: methods[input.method].apply(null, input.args)});
   } catch (error) {
     return centralApiJson_({ok: false, error: String(error.message || 'Permintaan gagal.')});
   }
+}
+
+function centralAuthenticateSchool(username, password, code) {
+  if (String(username || '').trim().toLowerCase() !== 'superadmin') return {success: false, message: 'Username superadmin tidak valid.'};
+  var login = centralLogin('superadmin', password);
+  if (!login.success) return login;
+  try {
+    var opened = centralOpenSchool(login.token, code);
+    var ticket = opened.url.match(/[?&]central_ticket=([^&]+)/);
+    if (!ticket) throw Error('Tiket sekolah belum tersedia.');
+    return {success: true, ticket: decodeURIComponent(ticket[1])};
+  } finally { centralLogout(login.token); }
 }
 
 function centralApiJson_(value) {
