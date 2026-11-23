@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-11-23T03:10:53.172Z",
+  "mode": "NO_GOOGLE_COOKIES",
+  "deployment": {
+    "version": 2,
+    "access": "ANYONE_ANONYMOUS",
+    "execute_as": "USER_DEPLOYING"
+  },
+  "results": [
+    {
+      "route": "canonical",
+      "url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+      "http_status": 200,
+      "title": "CBT 58 Sekolah | Super Admin",
+      "panel_rendered": true,
+      "google_drive_error": false
+    },
+    {
+      "route": "account_index_3",
+      "url": "https://script.google.com/macros/u/3/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+      "http_status": 404,
+      "title": "Halaman Tidak Ditemukan",
+      "panel_rendered": false,
+      "google_drive_error": false
+    }
+  ],
+  "note": "These checks do not reproduce the user’s signed-in browser cookies. Use Incognito to isolate account routing.",
+  "reference": "https://developers.google.com/apps-script/guides/support/troubleshooting#issues_with_multiple_google_accounts"
+}

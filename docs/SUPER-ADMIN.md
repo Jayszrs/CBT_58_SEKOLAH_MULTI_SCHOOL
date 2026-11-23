@@ -6,6 +6,10 @@ Masuk menggunakan akun tersebut di [Panel Super Admin pusat](https://script.goog
 
 Tombol Kelola yang belum aktif berarti akses pusat pada sekolah itu masih memerlukan login pemilik. Contohnya SCH-016, SDN KEBON KOSONG 13, dimiliki ranokelvi@gmail.com dan belum termasuk delapan sekolah yang terpasang.
 
+Jika muncul halaman Google Drive dengan pesan **Sorry, unable to open the file at this time**, perhatikan apakah URL berubah menjadi `/macros/u/3/s/…`. Halaman itu muncul sebelum aplikasi dijalankan dan dapat berkaitan dengan sesi beberapa akun Google. Google mendokumentasikan bahwa Apps Script tidak mendukung multi-login secara andal: [Issues with multiple Google Accounts](https://developers.google.com/apps-script/guides/support/troubleshooting#issues_with_multiple_google_accounts).
+
+Untuk memisahkan sesi, buka jendela Incognito dengan **Ctrl+Shift+N**, tempel URL panel pusat yang berbentuk `/macros/s/…/exec`, lalu masuk menggunakan akun CBT `superadmin`. Panel menggunakan akses publik sehingga login Google tidak diperlukan untuk login password ini. Alternatif penggunaan rutin adalah profil Chrome terpisah. Jangan menyalin kembali URL yang sudah mengandung `/u/3/` dari tab yang gagal.
+
 Status pada 23 November 2026: **panel dan akun superadmin telah dipasang** pada dimazunj14@gmail.com. Halaman panel pusat telah diverifikasi publik dan izin Google pertamanya sudah selesai. Akses Kelola serta folder publik telah dipasang dan diuji pada **SCH-051–058 (8/58)**. Sebanyak 50 sekolah lain masih memerlukan login 10 pemilik. URL aktual tersedia di `config/central-admin.json` dan spreadsheet monitoring, tab RINGKASAN.
 
 ## Yang sudah diselesaikan langsung
