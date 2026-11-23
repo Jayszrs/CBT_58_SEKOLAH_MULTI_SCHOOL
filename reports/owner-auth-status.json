@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-23T09:47:04.018Z",
+  "updated_at": "2026-11-23T09:48:41.009Z",
   "order": "BOTTOM_TO_TOP",
   "active_school_count": 18,
   "pending_school_count": 40,
-  "awaiting_login": "dimazunj1@gmail.com",
+  "awaiting_login": null,
   "accounts": [
     {
       "account_id": "AKUN-12",
@@ -69,7 +69,7 @@
       "account_id": "AKUN-02",
       "email": "dimazunj1@gmail.com",
       "schools": "SCH-006, SCH-007, SCH-008, SCH-009, SCH-010",
-      "status": "AWAITING_USER_LOGIN"
+      "status": "SKIPPED_USER_REPORTED_2FA"
     },
     {
       "account_id": "AKUN-01",
@@ -77,5 +77,7 @@
       "schools": "SCH-001, SCH-002, SCH-003, SCH-004, SCH-005",
       "status": "SKIPPED_USER_REPORTED_2FA"
     }
-  ]
+  ],
+  "status": "REMAINING_OWNERS_REQUIRE_GOOGLE_2FA",
+  "blocked_owner_count": 8
 }
