@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-23T09:44:15.541Z",
+  "updated_at": "2026-11-23T09:46:13.052Z",
   "order": "BOTTOM_TO_TOP",
   "active_school_count": 18,
   "pending_school_count": 40,
-  "awaiting_login": "ranokelvi@gmail.com",
+  "awaiting_login": "usmatematika2021@gmail.com",
   "accounts": [
     {
       "account_id": "AKUN-12",
@@ -57,13 +57,13 @@
       "account_id": "AKUN-04",
       "email": "ranokelvi@gmail.com",
       "schools": "SCH-016, SCH-017, SCH-018, SCH-019, SCH-020",
-      "status": "AWAITING_USER_LOGIN"
+      "status": "SKIPPED_USER_REPORTED_2FA"
     },
     {
       "account_id": "AKUN-03",
       "email": "usmatematika2021@gmail.com",
       "schools": "SCH-011, SCH-012, SCH-013, SCH-014, SCH-015",
-      "status": "NOT_REQUESTED_YET"
+      "status": "AWAITING_USER_LOGIN"
     },
     {
       "account_id": "AKUN-02",
