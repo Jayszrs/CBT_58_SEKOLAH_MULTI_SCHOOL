@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-23T08:24:00.657Z",
+  "updated_at": "2026-11-23T09:44:15.541Z",
   "order": "BOTTOM_TO_TOP",
   "active_school_count": 18,
   "pending_school_count": 40,
-  "awaiting_login": "uskebonkosong17@gmail.com",
+  "awaiting_login": "ranokelvi@gmail.com",
   "accounts": [
     {
       "account_id": "AKUN-12",
@@ -51,13 +51,13 @@
       "account_id": "AKUN-05",
       "email": "uskebonkosong17@gmail.com",
       "schools": "SCH-021, SCH-022, SCH-023, SCH-024, SCH-025",
-      "status": "AWAITING_USER_LOGIN"
+      "status": "SKIPPED_USER_REPORTED_2FA"
     },
     {
       "account_id": "AKUN-04",
       "email": "ranokelvi@gmail.com",
       "schools": "SCH-016, SCH-017, SCH-018, SCH-019, SCH-020",
-      "status": "NOT_REQUESTED_YET"
+      "status": "AWAITING_USER_LOGIN"
     },
     {
       "account_id": "AKUN-03",
