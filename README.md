@@ -4,6 +4,10 @@ Konfigurasi sekolah mengikuti spreadsheet monitoring yang diberikan pengguna. Pe
 
 ## Sumber dan konfigurasi
 
+Panel super admin publik: https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site . Tombol Kelola memakai tiket bertanda tangan yang berlaku singkat dan hanya sekali pakai untuk sekolah tujuan; login super admin tetap diperlukan. Akun pemilik pusat adalah dimazunj14@gmail.com.
+
+Soal contoh berada pada mapel **Contoh Latihan SD** dan paket **Contoh 20 Soal SD — Latihan** (20 PG campuran Matematika, Bahasa Indonesia, dan IPA). Pilih paket tersebut di Pengaturan Ujian bila ingin memakainya. Penambahan contoh tidak mengaktifkan ujian dan tidak menimpa bank soal sekolah. Laporan aktual penambahan dan QA per sekolah ada di `reports/sample-question-seeding.json` dan `reports/per-school-functional-qa.json`.
+
 - `config/spreadsheet-source.json`: snapshot nama sekolah, palet, tautan yang sudah ada, dan email dari LIST AKUN. Tidak menyimpan password akun Google.
 - `config/schools.json` dan `schools.csv`: konfigurasi 58 sekolah beserta ID dan URL aktual.
 - `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Email admin pusat belum ditentukan.
@@ -72,7 +76,7 @@ Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email
 - Seluruh 58 deployment publik, versi sumber, nama, palet, URL dan pemilik resource telah diverifikasi lewat API. Rincian ada dalam laporan per akun dan spreadsheet monitoring.
 - Halaman publik SCH-001–058 berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah lulus WRITE/READ. Semua 12 RTDB menolak akses publik langsung (HTTP 401).
 - Di SCH001, uji nyata meliputi CRUD kelas/mapel/siswa/soal, impor/ekspor Excel, gambar privat, paket, ujian HP enam tipe soal, autosave, submit, koreksi nilai 100, ekspor/cetak, serta arsip/restore.
-- 41 tes regresi lulus, termasuk bank soal/paket besar yang melampaui batas cache. Rincian metode dan batas uji ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL spreadsheet monitoring.
+- 52 tes backend dan 2 tes routing portal lulus, termasuk tiket superadmin, penolakan akses salah sekolah, cache besar dan pembacaan Firebase saat gangguan sementara. Rincian ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL.
 - Data QA siswa, kelas, mapel, paket, soal dan sesi Firebase sudah dibersihkan. Dua hasil QA diarsipkan; ujian kembali tidak aktif. Kredensial admin dan logo aktif dipertahankan; penyimpanannya juga diperiksa lewat pengujian terisolasi.
 - UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. Alur lengkap data QA dijalankan di SCH001; sekolah lain menggunakan sumber yang sama dan verifikasi resource masing-masing.
 

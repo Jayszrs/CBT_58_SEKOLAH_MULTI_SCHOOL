@@ -72,6 +72,12 @@ try {
       type: name.endsWith('.html') ? 'HTML' : name.endsWith('.json') ? 'JSON' : 'SERVER_JS',
       source: fs.readFileSync(path.join(directory, name), 'utf8'),
     }));
+    if(files.some(file=>file.name==='CentralAccess')){
+      const privateFile=path.join(process.env.LOCALAPPDATA,'CBT58-QA','remote-baseline-20261123','central-config-next.json');
+      const key=JSON.parse(fs.readFileSync(privateFile,'utf8')).schoolKeys[school.school_id];
+      if(typeof key!=='string'||key.length<32)throw Error('Kunci pusat privat untuk sekolah belum tersedia.');
+      files.push({name:'CentralAccessPrivate',type:'SERVER_JS',source:'function getSchoolCentralKey_() { return '+JSON.stringify(key)+'; }\n'});
+    }
     await request(`${api}/${school.script_id}/content`, 'PUT', { files });
     school.status = 'UPLOADED_NOT_DEPLOYED'; save();
     const access = JSON.parse(files.find(file=>file.name==='appsscript').source).webapp.access;

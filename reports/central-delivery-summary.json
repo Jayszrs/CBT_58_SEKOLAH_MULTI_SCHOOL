@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-11-23T14:24:17.709Z",
+  "schools": 58,
+  "central_access": 58,
+  "public_school_pages": 58,
+  "public_editor_spreadsheets": 58,
+  "samples_per_school": 20,
+  "sample_questions": 1160,
+  "login_exam_grade_qa": 58,
+  "qa_data_cleaned": 58,
+  "grade_verification": "100 in Sheets and Firebase after manual correction",
+  "tests": {
+    "backend": 52,
+    "portal": 2
+  },
+  "real_student_uat_complete": false,
+  "concurrent_load_test_complete": false,
+  "portal_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site"
+}

@@ -7,6 +7,7 @@ import {pathToFileURL} from 'node:url';
 import {findGoogleOwnerCredentials} from './google-owner-api.mjs';
 import {inspectWebAppHtml} from './webapp-authorization.mjs';
 import {qaOperation} from './live-school-qa-state.mjs';
+import {readAdminManifest} from './school-admin-manifest.mjs';
 let schools=JSON.parse(fs.readFileSync(new URL('../config/schools.json',import.meta.url)));
 const school=schools.find(s=>s.school_id===(process.argv[2]||'SCH001'));
 if(!school?.deployment_id) throw Error('Deployment sekolah tidak tersedia.');
@@ -15,6 +16,12 @@ const auth=await import(pathToFileURL(authDirectory));
 const credentialCache=new Map([[school.account_email,await findGoogleOwnerCredentials(school.account_email,auth)]]);
 async function ownerCredentials(email){if(!credentialCache.has(email))credentialCache.set(email,await findGoogleOwnerCredentials(email,auth));return credentialCache.get(email);}
 const handoffs=new Map();
+let centralSession='';
+async function centralCall(method,args){
+  const config=JSON.parse(fs.readFileSync(new URL('../config/central-admin.json',import.meta.url)));
+  const response=await fetch(config.webapp_url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({method,args}),signal:AbortSignal.timeout(90000)});
+  const wire=await response.json();if(!wire.ok)throw Error(wire.error||'Pusat tidak merespons.');return wire.result;
+}
 const scopes=JSON.parse(fs.readFileSync(new URL('../appsscript.json',import.meta.url))).oauthScopes;
 const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const server=http.createServer(async(req,res)=>{
@@ -36,10 +43,25 @@ const server=http.createServer(async(req,res)=>{
       res.writeHead(302,{Location:target.href,'Cache-Control':'no-store'}).end();
     }catch(error){res.writeHead(502,{'Content-Type':'text/plain; charset=utf-8'}).end(error.message);}return;
   }
-  if(req.method!=='POST'||!['/forward','/handoff','/qa-operation'].includes(req.url)||req.headers.origin||!String(req.headers['content-type']).startsWith('application/json')) {res.writeHead(403).end();return;}
+  if(req.method!=='POST'||!['/forward','/handoff','/qa-operation','/central-auth','/central-request','/admin-login-fixture'].includes(req.url)||req.headers.origin||!String(req.headers['content-type']).startsWith('application/json')) {res.writeHead(403).end();return;}
   try {
     let body='';for await(const chunk of req){body+=chunk;if(body.length>5000000)throw Error('Payload terlalu besar');}
     const input=JSON.parse(body);
+    if(req.url==='/admin-login-fixture'){
+      const entry=readAdminManifest().find(s=>s.school_id===input.school);if(!entry)throw Error('Sekolah tidak valid.');
+      res.writeHead(200,{'Content-Type':'application/json','Cache-Control':'no-store'}).end(JSON.stringify({username:entry.username,password:entry.password,webapp:entry.webapp}));return;
+    }
+    if(req.url==='/central-auth'){
+      if(typeof input.token!=='string'||!/^[\da-f-]{72}$/i.test(input.token))throw Error('Sesi pusat tidak valid.');
+      const registry=await centralCall('centralSchools',[input.token]);centralSession=input.token;
+      res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify({authenticated:true,schools:registry.schools.length,enabled:registry.schools.filter(s=>s.centralAccess).length}));return;
+    }
+    if(req.url==='/central-request'){
+      if(!centralSession)throw Error('Login pemilik pusat diperlukan.');
+      if(!['centralSchools','centralOpenSchool'].includes(input.method))throw Error('Operasi pusat tidak diizinkan.');
+      const args=input.method==='centralOpenSchool'?[centralSession,input.code]:[centralSession];
+      const result=await centralCall(input.method,args);res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify(result));return;
+    }
     if(req.url==='/qa-operation'){
       const target=schools.find(s=>s.school_id===input.school);if(!target)throw Error('Sekolah QA tidak valid.');
       const result=await qaOperation(target,input.operation,input);res.writeHead(200,{'Content-Type':'application/json'}).end(JSON.stringify(result));return;
@@ -49,7 +71,10 @@ const server=http.createServer(async(req,res)=>{
       if(!schools.some(s=>s.school_id===input.school)||!['https://script.google.com','https://accounts.google.com'].includes(url.origin))throw Error('Handoff tidak valid.');
       handoffs.set(input.school,url.href);res.writeHead(200).end('{}');return;
     }
-    const targetSchool=schools.find(s=>s.deployment_id&&['/exec','/callback'].some(suffix=>url.origin+url.pathname===`https://script.google.com/macros/s/${s.deployment_id}`+suffix));
+    const centralFile=new URL('../config/central-admin.json',import.meta.url);
+    const central=fs.existsSync(centralFile)?JSON.parse(fs.readFileSync(centralFile,'utf8')):null;
+    const targets=central?schools.concat([{deployment_id:central.deployment_id,account_email:central.owner_email}]):schools;
+    const targetSchool=targets.find(s=>s.deployment_id&&['/exec','/callback'].some(suffix=>url.origin+url.pathname===`https://script.google.com/macros/s/${s.deployment_id}`+suffix));
     if(!targetSchool||!['GET','POST'].includes(input.method)) throw Error('Tujuan QA tidak diizinkan.');
     const credentials=await ownerCredentials(targetSchool.account_email);
     const headers=Object.fromEntries(Object.entries(input.headers||{}).filter(([key])=>!['host','content-length','authorization','connection','accept-encoding'].includes(key.toLowerCase())));

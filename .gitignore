@@ -5,3 +5,5 @@
 **/.env
 **/.env.*
 node_modules/
+portal-source/
+reports/portal-58-schools.zip

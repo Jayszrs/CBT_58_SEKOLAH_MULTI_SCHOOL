@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(import.meta.dirname, '..');
 const schools = JSON.parse(fs.readFileSync(path.join(root,'config','schools.json'),'utf8'));
+const centralFile=path.join(root,'config','central-admin.json');
+const central=fs.existsSync(centralFile)?JSON.parse(fs.readFileSync(centralFile,'utf8')):null;
 const backend = path.join(root,'backend'), frontend=path.join(root,'frontend'), dist=path.join(root,'dist');
 for (const school of schools) {
   if (!/^SCH\d{3,}$/.test(school.school_id)) throw Error('Bad school ID');
@@ -22,6 +24,7 @@ for (const school of schools) {
     themeHover:school.theme_hover, themeAccent:school.theme_accent, themeBackground:school.theme_background,
     themeOnPrimary:school.theme_on_primary, ownerEmail:school.account_email, firebaseDatabaseUrl:school.firebase_database_url,
     spreadsheetId:school.spreadsheet_id, driveFolderId:school.drive_folder_id };
+  if(central){metadata.centralAdminUrl=central.public_portal_url;metadata.centralApiUrl=central.webapp_url;}
   fs.writeFileSync(path.join(dest,'SchoolDeploymentConfig.js'),
     '// Generated public identity; contains NO secrets.\n'+
     'function getSchoolMetadata_() { return '+JSON.stringify(metadata)+'; }\n');

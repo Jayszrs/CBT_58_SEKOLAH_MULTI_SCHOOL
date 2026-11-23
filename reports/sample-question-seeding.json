@@ -1,0 +1,468 @@
+{
+  "results": [
+    {
+      "school": "SCH-001",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441784928",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:49:47.245Z"
+    },
+    {
+      "school": "SCH-002",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441794868",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:49:57.477Z"
+    },
+    {
+      "school": "SCH-003",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441789316",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:49:55.252Z"
+    },
+    {
+      "school": "SCH-004",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441786679",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:49:51.738Z"
+    },
+    {
+      "school": "SCH-005",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441900875",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:51:43.059Z"
+    },
+    {
+      "school": "SCH-006",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441906271",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:51:47.908Z"
+    },
+    {
+      "school": "SCH-007",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441906664",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:51:48.786Z"
+    },
+    {
+      "school": "SCH-008",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441911057",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:51:53.602Z"
+    },
+    {
+      "school": "SCH-009",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442012044",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:53:34.374Z"
+    },
+    {
+      "school": "SCH-010",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442020228",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:53:42.093Z"
+    },
+    {
+      "school": "SCH-011",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442023970",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:53:45.801Z"
+    },
+    {
+      "school": "SCH-012",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442024683",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:53:46.372Z"
+    },
+    {
+      "school": "SCH-013",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442125735",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:55:27.516Z"
+    },
+    {
+      "school": "SCH-014",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442131128",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:55:33.084Z"
+    },
+    {
+      "school": "SCH-015",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442139686",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:55:41.353Z"
+    },
+    {
+      "school": "SCH-016",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442144423",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:55:46.738Z"
+    },
+    {
+      "school": "SCH-017",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442246274",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:57:28.142Z"
+    },
+    {
+      "school": "SCH-018",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442242427",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:57:24.321Z"
+    },
+    {
+      "school": "SCH-019",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442247747",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:57:29.673Z"
+    },
+    {
+      "school": "SCH-020",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442248524",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:57:30.162Z"
+    },
+    {
+      "school": "SCH-021",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442351293",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:59:12.971Z"
+    },
+    {
+      "school": "SCH-022",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442359812",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:59:21.801Z"
+    },
+    {
+      "school": "SCH-023",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442363646",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:59:25.156Z"
+    },
+    {
+      "school": "SCH-024",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442360250",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:59:22.009Z"
+    },
+    {
+      "school": "SCH-025",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442484166",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:01:26.416Z"
+    },
+    {
+      "school": "SCH-026",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442479805",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:01:21.365Z"
+    },
+    {
+      "school": "SCH-027",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442477620",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:01:19.998Z"
+    },
+    {
+      "school": "SCH-028",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442474798",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:01:17.887Z"
+    },
+    {
+      "school": "SCH-029",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442579672",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:03:01.077Z"
+    },
+    {
+      "school": "SCH-030",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442595797",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:03:19.036Z"
+    },
+    {
+      "school": "SCH-031",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442595994",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:03:17.419Z"
+    },
+    {
+      "school": "SCH-032",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442598628",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:03:20.834Z"
+    },
+    {
+      "school": "SCH-033",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442686159",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:04:49.926Z"
+    },
+    {
+      "school": "SCH-034",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442711689",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:05:13.985Z"
+    },
+    {
+      "school": "SCH-035",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442715329",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:05:17.127Z"
+    },
+    {
+      "school": "SCH-036",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442714151",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:05:15.434Z"
+    },
+    {
+      "school": "SCH-037",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442887713",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:08:12.449Z"
+    },
+    {
+      "school": "SCH-038",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442829456",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:07:12.046Z"
+    },
+    {
+      "school": "SCH-039",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442839353",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:07:22.134Z"
+    },
+    {
+      "school": "SCH-040",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442840434",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:07:25.397Z"
+    },
+    {
+      "school": "SCH-041",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442955133",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:09:17.109Z"
+    },
+    {
+      "school": "SCH-042",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442954548",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:09:17.159Z"
+    },
+    {
+      "school": "SCH-043",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795442966542",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:09:29.475Z"
+    },
+    {
+      "school": "SCH-044",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443007514",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:10:09.896Z"
+    },
+    {
+      "school": "SCH-045",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443078914",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:11:21.674Z"
+    },
+    {
+      "school": "SCH-046",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443078632",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:11:20.327Z"
+    },
+    {
+      "school": "SCH-047",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443087791",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:11:29.796Z"
+    },
+    {
+      "school": "SCH-048",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443128937",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:12:11.100Z"
+    },
+    {
+      "school": "SCH-049",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443188474",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:13:10.740Z"
+    },
+    {
+      "school": "SCH-050",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443194838",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:13:16.511Z"
+    },
+    {
+      "school": "SCH-051",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443247567",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:14:30.337Z"
+    },
+    {
+      "school": "SCH-052",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443241774",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:14:07.587Z"
+    },
+    {
+      "school": "SCH-053",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443303130",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:15:05.198Z"
+    },
+    {
+      "school": "SCH-054",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443302742",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:15:04.460Z"
+    },
+    {
+      "school": "SCH-055",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443376469",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:16:18.640Z"
+    },
+    {
+      "school": "SCH-056",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443410102",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:20:09.939Z"
+    },
+    {
+      "school": "SCH-057",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795443417412",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T14:16:59.112Z"
+    },
+    {
+      "school": "SCH-058",
+      "success": true,
+      "count": 20,
+      "package_id": "PKT_1795441683684",
+      "package_name": "Contoh 20 Soal SD — Latihan",
+      "checked_at": "2026-11-23T13:48:05.410Z"
+    }
+  ]
+}

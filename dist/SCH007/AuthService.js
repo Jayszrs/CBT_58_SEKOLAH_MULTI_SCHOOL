@@ -214,7 +214,7 @@ class AdminAuthenticationService {
   }
 
   executeLogin(providedPasswordString) {
-    if (typeof providedPasswordString !== 'string' || providedPasswordString.length < 14 || providedPasswordString.length > 256) return {success:false,message:'Password admin minimal 14 karakter. Pemilik dapat melakukan reset melalui Apps Script.'};
+    if (typeof providedPasswordString !== 'string' || providedPasswordString.length < 8 || providedPasswordString.length > 256) return {success:false,message:'Password admin harus 8–256 karakter.'};
     const rateLimitVerificationStatus = this.checkLoginRateLimitStatus();
     if (!rateLimitVerificationStatus.success && rateLimitVerificationStatus.status === 'rate_limited') {
       const remainingMinutesBlock = Math.ceil(rateLimitVerificationStatus.remaining / 60);
@@ -262,7 +262,8 @@ class AdminAuthenticationService {
   executeSuperadminRecovery(providedPasswordString) {
     return {
       success: false,
-      message: 'Pemulihan melalui password bawaan dinonaktifkan. Admin harus melakukan reset aman via Apps Script.'
+      centralLoginRequired: true,
+      message: 'Akun superadmin masuk melalui Panel Super Admin pusat. Pilih sekolah dan tombol Kelola; form ini untuk admin sekolah.'
     };
   }
 
@@ -327,14 +328,14 @@ function checkAdminLoginStatus() {
 }
 
 function loginAdmin(password, username) {
-  if (/^(OWNER|ADMIN):/.test(String(password || ''))) {
+  if (/^(OWNER|ADMIN|CENTRAL):/.test(String(password || ''))) {
     const valid = verifyAdminCredential_(password);
     return { success: !!valid, message: valid ? '' : 'Sesi pemilik berakhir. Silakan masuk kembali.' };
   }
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();
   const normalizedUsername = String(username == null ? '' : username).trim().toLowerCase();
   if (normalizedUsername === 'superadmin') {
-    return adminAuthenticationManagerInstance.executeSuperadminRecovery(password);
+    return loginCentralForSchool_(password);
   }
   if (normalizedUsername && normalizedUsername !== 'admin') {
     return { success: false, message: 'Username administrator tidak dikenal.' };
@@ -358,6 +359,20 @@ function loginGoogleSchoolOwner() {
 function changeAdminPassword_(oldPassword, newPassword) {
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();
   return adminAuthenticationManagerInstance.executePasswordChange(oldPassword, newPassword);
+}
+
+function setSchoolAdminPassword_(actorToken, newPassword) {
+  if (!verifyCentralSchoolSession_(actorToken) && !isGoogleSchoolOwner_()) {
+    return {success: false, message: 'Hanya superadmin pusat atau pemilik Google yang dapat mengatur akun admin sekolah.'};
+  }
+  if (typeof newPassword !== 'string' || newPassword.length < 8 || newPassword.length > 256) {
+    return {success: false, message: 'Password admin harus 8–256 karakter.'};
+  }
+  PropertiesService.getScriptProperties().setProperty('ADMIN_PASSWORD', credentialHash_(newPassword));
+  const cache = CacheService.getScriptCache();
+  cache.remove('ADMIN_LOGIN_FAILED_ATTEMPTS');
+  cache.remove('ADMIN_LOGIN_COOLDOWN');
+  return {success: true, username: 'admin'};
 }
 
 function logoutSiswa_(nisn) {

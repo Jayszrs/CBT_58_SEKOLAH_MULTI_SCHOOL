@@ -1,0 +1,411 @@
+{
+  "checked_at": "2026-11-23T14:17:11.617Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "version": 22,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-002",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-003",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-004",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-005",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-006",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-007",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-008",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-009",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-010",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-011",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-012",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-013",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-014",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-015",
+      "version": 10,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-016",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-017",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-018",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-019",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-020",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-021",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-022",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-023",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-024",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-025",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-026",
+      "version": 7,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-027",
+      "version": 7,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-028",
+      "version": 7,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-029",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-030",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-031",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-032",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-033",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-034",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-035",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-036",
+      "version": 5,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-037",
+      "version": 5,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-038",
+      "version": 5,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-039",
+      "version": 5,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-040",
+      "version": 5,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-041",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-042",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-043",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-044",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-045",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-046",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-047",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-048",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-049",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-050",
+      "version": 6,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-051",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-052",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-053",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-054",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-055",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-056",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-057",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    },
+    {
+      "school": "SCH-058",
+      "version": 11,
+      "source_verified": true,
+      "central_key_verified": true,
+      "public_access": true
+    }
+  ]
+}

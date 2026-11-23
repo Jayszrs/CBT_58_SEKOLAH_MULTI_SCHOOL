@@ -1,0 +1,353 @@
+{
+  "checked_at": "2026-11-23T14:01:49.741Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH001"
+    },
+    {
+      "school": "SCH-002",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH002"
+    },
+    {
+      "school": "SCH-003",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH003"
+    },
+    {
+      "school": "SCH-004",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH004"
+    },
+    {
+      "school": "SCH-005",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH005"
+    },
+    {
+      "school": "SCH-006",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH006"
+    },
+    {
+      "school": "SCH-007",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH007"
+    },
+    {
+      "school": "SCH-008",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH008"
+    },
+    {
+      "school": "SCH-009",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH009"
+    },
+    {
+      "school": "SCH-010",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH010"
+    },
+    {
+      "school": "SCH-011",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH011"
+    },
+    {
+      "school": "SCH-012",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH012"
+    },
+    {
+      "school": "SCH-013",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH013"
+    },
+    {
+      "school": "SCH-014",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH014"
+    },
+    {
+      "school": "SCH-015",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH015"
+    },
+    {
+      "school": "SCH-016",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH016"
+    },
+    {
+      "school": "SCH-017",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH017"
+    },
+    {
+      "school": "SCH-018",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH018"
+    },
+    {
+      "school": "SCH-019",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH019"
+    },
+    {
+      "school": "SCH-020",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH020"
+    },
+    {
+      "school": "SCH-021",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH021"
+    },
+    {
+      "school": "SCH-022",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH022"
+    },
+    {
+      "school": "SCH-023",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH023"
+    },
+    {
+      "school": "SCH-024",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH024"
+    },
+    {
+      "school": "SCH-025",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH025"
+    },
+    {
+      "school": "SCH-026",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH026"
+    },
+    {
+      "school": "SCH-027",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH027"
+    },
+    {
+      "school": "SCH-028",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH028"
+    },
+    {
+      "school": "SCH-029",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH029"
+    },
+    {
+      "school": "SCH-030",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH030"
+    },
+    {
+      "school": "SCH-031",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH031"
+    },
+    {
+      "school": "SCH-032",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH032"
+    },
+    {
+      "school": "SCH-033",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH033"
+    },
+    {
+      "school": "SCH-034",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH034"
+    },
+    {
+      "school": "SCH-035",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH035"
+    },
+    {
+      "school": "SCH-036",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH036"
+    },
+    {
+      "school": "SCH-037",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH037"
+    },
+    {
+      "school": "SCH-038",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH038"
+    },
+    {
+      "school": "SCH-039",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH039"
+    },
+    {
+      "school": "SCH-040",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH040"
+    },
+    {
+      "school": "SCH-041",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH041"
+    },
+    {
+      "school": "SCH-042",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH042"
+    },
+    {
+      "school": "SCH-043",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH043"
+    },
+    {
+      "school": "SCH-044",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH044"
+    },
+    {
+      "school": "SCH-045",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH045"
+    },
+    {
+      "school": "SCH-046",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH046"
+    },
+    {
+      "school": "SCH-047",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH047"
+    },
+    {
+      "school": "SCH-048",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH048"
+    },
+    {
+      "school": "SCH-049",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH049"
+    },
+    {
+      "school": "SCH-050",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH050"
+    },
+    {
+      "school": "SCH-051",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH051"
+    },
+    {
+      "school": "SCH-052",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH052"
+    },
+    {
+      "school": "SCH-053",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH053"
+    },
+    {
+      "school": "SCH-054",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH054"
+    },
+    {
+      "school": "SCH-055",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH055"
+    },
+    {
+      "school": "SCH-056",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH056"
+    },
+    {
+      "school": "SCH-057",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH057"
+    },
+    {
+      "school": "SCH-058",
+      "status": 200,
+      "anonymous_login": true,
+      "school_id": "SCH058"
+    }
+  ]
+}

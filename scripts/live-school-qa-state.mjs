@@ -35,13 +35,15 @@ export async function qaOperation(s,operation,input={}){
     if(fs.existsSync(file(s))&&!read(s).cleaned)throw Error('Masih ada checkpoint QA yang perlu dibersihkan.');
     const rawConfig=await values(s,"'Config'!A1:B100");
     const cfg=Object.fromEntries(rawConfig.slice(1));
-    if(norm(cfg.ujian_aktif)==='true')throw Error('Ujian sekolah sedang aktif; QA tidak mengubah pengaturannya.');
+    const active=norm(cfg.ujian_aktif)==='true';
+    if(active&&!input.allowActiveWithoutSessions)throw Error('Ujian sekolah sedang aktif; QA tidak mengubah pengaturannya.');
+    if(active){const students=await values(s,"'Data_Siswa'!A1:E1000");if(students.slice(1).some(row=>norm(row[4])==='aktif'))throw Error('Ada siswa berstatus aktif; QA ditunda.');}
     const nisns=(await values(s,"'Data_Siswa'!A1:A1000")).slice(1).map(r=>String(r[0]));
     const index=s.school_id.slice(3).padStart(6,'0');
     const nisn='0098'+index,tokenNisn='0097'+index;
     if(nisns.includes(nisn)||nisns.includes(tokenNisn))throw Error('NISN QA sudah digunakan; tidak menimpa data.');
     const tag='QA58_'+s.school_id+'_'+Date.now();
-    const original={aktif:false,durasi:Number(cfg.durasi_menit)||60,token:String(cfg.token_harian||''),kelas_diizinkan:String(cfg.kelas_diizinkan||''),acak_soal:norm(cfg.acak_soal)==='true',waktu_mulai:String(cfg.waktu_mulai||''),waktu_selesai:String(cfg.waktu_selesai||''),nama_ujian:String(cfg.nama_ujian||''),mapel_ujian:String(cfg.mapel_ujian||''),paket_ujian:String(cfg.paket_ujian||''),logo_url:String(cfg.logo_url||'')};
+    const original={aktif:active,durasi:Number(cfg.durasi_menit)||60,token:String(cfg.token_harian||''),kelas_diizinkan:String(cfg.kelas_diizinkan||''),acak_soal:norm(cfg.acak_soal)==='true',waktu_mulai:String(cfg.waktu_mulai||''),waktu_selesai:String(cfg.waktu_selesai||''),nama_ujian:String(cfg.nama_ujian||''),mapel_ujian:String(cfg.mapel_ujian||''),paket_ujian:String(cfg.paket_ujian||''),logo_url:String(cfg.logo_url||'')};
     const state={school:s.school_code,tag,nisn,tokenNisn,name:'QA OTOMATIS '+tag,tokenName:'QA TOKEN '+tag,password:'Qa-'+randomBytes(12).toString('hex'),dailyToken:'QAT-'+randomBytes(5).toString('hex').toUpperCase(),rawConfig,original,created_at:new Date().toISOString(),cleaned:false};
     save(s,state);return {tag,nisn,tokenNisn,name:state.name,tokenName:state.tokenName,password:state.password,dailyToken:state.dailyToken,original};
   }

@@ -192,10 +192,16 @@ class FirebaseDatabaseService {
         requestOptions.payload = JSON.stringify(dataObject);
       }
 
-      const response = UrlFetchApp.fetch(
-        endpointUrl,
-        requestOptions
-      );
+      let response;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          response = UrlFetchApp.fetch(endpointUrl, requestOptions);
+          if (method !== 'get' || ![429, 500, 502, 503, 504].includes(response.getResponseCode()) || attempt === 2) break;
+        } catch (networkError) {
+          if (method !== 'get' || attempt === 2) throw networkError;
+        }
+        Utilities.sleep(400 * (attempt + 1));
+      }
 
       const responseCode = response.getResponseCode();
       const responseText = response.getContentText();

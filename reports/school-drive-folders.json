@@ -1,0 +1,10 @@
+{
+  "executed": true,
+  "results": [
+    {
+      "school": "SCH-001",
+      "passed": false,
+      "error": "Google API 403: The user has not granted the app 1072944905499 write access to the file 1dL-1nrEje3OJilrpn4hM1QquT1IF2IiW."
+    }
+  ]
+}

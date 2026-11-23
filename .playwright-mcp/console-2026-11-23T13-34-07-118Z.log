@@ -1,0 +1,3 @@
+[   24125ms] [VERBOSE] [DOM] Password forms should have (optionally hidden) username fields for accessibility: (More info: https://goo.gl/9p2vKq) %o @ https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/:0
+[  145682ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/api/central:0
+[ 1471649ms] [VERBOSE] [DOM] Password forms should have (optionally hidden) username fields for accessibility: (More info: https://goo.gl/9p2vKq) %o @ https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/:0

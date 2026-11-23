@@ -1,0 +1,5 @@
+import fs from 'node:fs';
+const routes=JSON.parse(fs.readFileSync('config/public-school-routes.json','utf8'));
+const results=[];let next=0;
+async function worker(){while(next<routes.length){const s=routes[next++];try{const response=await fetch(s.url,{signal:AbortSignal.timeout(60000)}),html=await response.text();const match=html.match(/const APP_GLOBAL_CONFIG = (\{[^\n]+\});/);const config=match?JSON.parse(match[1]):null;const passed=response.ok&&config?.schoolId===s.school_id&&html.includes('btn-student-login');results.push({school:s.school_code,status:response.status,anonymous_login:passed,school_id:config?.schoolId});}catch(e){results.push({school:s.school_code,anonymous_login:false,error:e.message});}}}
+await Promise.all([worker(),worker(),worker()]);results.sort((a,b)=>a.school.localeCompare(b.school));fs.writeFileSync('reports/public-portal-schools.json',JSON.stringify({checked_at:new Date().toISOString(),results},null,2)+'\n');console.log(JSON.stringify({checked:results.length,passed:results.filter(r=>r.anonymous_login).length,failures:results.filter(r=>!r.anonymous_login)}));

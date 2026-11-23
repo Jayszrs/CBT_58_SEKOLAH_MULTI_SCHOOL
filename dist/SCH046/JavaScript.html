@@ -41,6 +41,11 @@
     }
   } catch (e) { }
 
+  if (typeof INITIAL_CENTRAL_LOGIN !== 'undefined' && INITIAL_CENTRAL_LOGIN) {
+    AppStore.user = INITIAL_CENTRAL_LOGIN;
+    try { localStorage.setItem('CBT_SESSION', JSON.stringify(AppStore.user)); } catch (e) { }
+  }
+
 
   function showLoading() {
     document.getElementById('global-loading').classList.remove('hidden');

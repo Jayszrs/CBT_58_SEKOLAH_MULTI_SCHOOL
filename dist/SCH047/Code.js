@@ -124,7 +124,9 @@ function doGet(eventData) {
   const templateHtmlObject = HtmlService.createTemplateFromFile('Page');
   
   
-  templateHtmlObject.urlParams = (eventData && eventData.parameter) || {};
+  templateHtmlObject.urlParams = Object.assign({}, (eventData && eventData.parameter) || {});
+  templateHtmlObject.centralLogin = consumeCentralTicket_(templateHtmlObject.urlParams.central_ticket);
+  delete templateHtmlObject.urlParams.central_ticket;
   
   console.log('Akses jaringan: Memuat antarmuka pengguna SPA.');
 
@@ -135,6 +137,9 @@ function doGet(eventData) {
 }
 
 function doPost(eventData) {
+  try {
+    if (eventData && eventData.postData && eventData.postData.contents && JSON.parse(eventData.postData.contents).method) return schoolPublicApi_(eventData);
+  } catch (error) { /* Let the legacy router return its existing invalid-payload response. */ }
   const postRequestRouterInstance = new PostRequestRouter(eventData);
   return postRequestRouterInstance.processRequest();
 }
@@ -154,6 +159,7 @@ function getAppConfig_() {
   const school = getSchoolMetadata_();
   config.schoolId = school.schoolId;
   config.schoolName = school.schoolName;
+  config.centralAdminUrl = school.centralAdminUrl || '';
   config.schoolTheme = { primary: school.themePrimary, hover: school.themeHover, accent: school.themeAccent, background: school.themeBackground, onPrimary: school.themeOnPrimary };
   config.ownerGoogleLoginAvailable = isGoogleSchoolOwner_();
   return config;

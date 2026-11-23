@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {googleOwnerApi} from './google-owner-api.mjs';
+const request=await googleOwnerApi('dimazunj14@gmail.com');
+const id='1vgmiF36glYleuOyxL2OPFko--QeKwL2VlgztC94QN3kA-6ds0ksBqsTI';
+const base='https://script.googleapis.com/v1/projects/'+id;
+const content=await request(base+'/content');const deployments=await request(base+'/deployments');
+const folder=path.join(process.env.LOCALAPPDATA,'CBT58-QA','remote-baseline-20261123');fs.mkdirSync(folder,{recursive:true});
+fs.writeFileSync(path.join(folder,'central-project.json'),JSON.stringify({id,content,deployments},null,2));
+console.log(JSON.stringify({id,deployments:deployments.deployments.map(d=>({id:d.deploymentId,version:d.deploymentConfig.versionNumber,url:d.entryPoints?.find(e=>e.entryPointType==='WEB_APP')?.webApp?.url})),files:content.files.map(f=>({name:f.name,type:f.type,functions:Array.from(f.source.matchAll(/function\s+([\w$]+)\s*\(/g),m=>m[1])}))}));

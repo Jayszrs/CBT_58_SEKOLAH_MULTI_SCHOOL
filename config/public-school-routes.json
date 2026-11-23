@@ -1,0 +1,350 @@
+[
+  {
+    "school_id": "SCH001",
+    "school_code": "SCH-001",
+    "slug": "sdn-kemayoran-01",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-01"
+  },
+  {
+    "school_id": "SCH002",
+    "school_code": "SCH-002",
+    "slug": "sdn-kemayoran-07-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-07-pg"
+  },
+  {
+    "school_id": "SCH003",
+    "school_code": "SCH-003",
+    "slug": "sdn-kemayoran-09-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-09-pg"
+  },
+  {
+    "school_id": "SCH004",
+    "school_code": "SCH-004",
+    "slug": "sdn-kemayoran-13-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-13-pg"
+  },
+  {
+    "school_id": "SCH005",
+    "school_code": "SCH-005",
+    "slug": "sdn-kemayoran-15",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-15"
+  },
+  {
+    "school_id": "SCH006",
+    "school_code": "SCH-006",
+    "slug": "sdn-utan-panjang-01",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-01"
+  },
+  {
+    "school_id": "SCH007",
+    "school_code": "SCH-007",
+    "slug": "sdn-utan-panjang-03",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-03"
+  },
+  {
+    "school_id": "SCH008",
+    "school_code": "SCH-008",
+    "slug": "sdn-gunung-sahari-selatan-01",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-gunung-sahari-selatan-01"
+  },
+  {
+    "school_id": "SCH009",
+    "school_code": "SCH-009",
+    "slug": "sdn-harapan-mulia-01",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-01"
+  },
+  {
+    "school_id": "SCH010",
+    "school_code": "SCH-010",
+    "slug": "sdn-harapan-mulia-03",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-03"
+  },
+  {
+    "school_id": "SCH011",
+    "school_code": "SCH-011",
+    "slug": "sdn-kebon-kosong-01-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-01-pg"
+  },
+  {
+    "school_id": "SCH012",
+    "school_code": "SCH-012",
+    "slug": "sdn-kebon-kosong-02-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-02-pg"
+  },
+  {
+    "school_id": "SCH013",
+    "school_code": "SCH-013",
+    "slug": "sdn-kebon-kosong-03-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-03-pg"
+  },
+  {
+    "school_id": "SCH014",
+    "school_code": "SCH-014",
+    "slug": "sdn-kebon-kosong-05-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-05-pg"
+  },
+  {
+    "school_id": "SCH015",
+    "school_code": "SCH-015",
+    "slug": "sdn-kebon-kosong-09",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-09"
+  },
+  {
+    "school_id": "SCH016",
+    "school_code": "SCH-016",
+    "slug": "sdn-kebon-kosong-13",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-13"
+  },
+  {
+    "school_id": "SCH017",
+    "school_code": "SCH-017",
+    "slug": "sdn-kebon-kosong-15-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-15-pg"
+  },
+  {
+    "school_id": "SCH018",
+    "school_code": "SCH-018",
+    "slug": "sdn-kebon-kosong-16-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-16-pg"
+  },
+  {
+    "school_id": "SCH019",
+    "school_code": "SCH-019",
+    "slug": "sdn-kebon-kosong-17-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-17-pg"
+  },
+  {
+    "school_id": "SCH020",
+    "school_code": "SCH-020",
+    "slug": "sdn-serdang-01-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-01-pg"
+  },
+  {
+    "school_id": "SCH021",
+    "school_code": "SCH-021",
+    "slug": "sdn-serdang-05-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-05-pg"
+  },
+  {
+    "school_id": "SCH022",
+    "school_code": "SCH-022",
+    "slug": "sdn-serdang-07",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-07"
+  },
+  {
+    "school_id": "SCH023",
+    "school_code": "SCH-023",
+    "slug": "sdn-serdang-11",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-11"
+  },
+  {
+    "school_id": "SCH024",
+    "school_code": "SCH-024",
+    "slug": "sdn-serdang-13-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-13-pg"
+  },
+  {
+    "school_id": "SCH025",
+    "school_code": "SCH-025",
+    "slug": "sdn-cempaka-baru-03-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-03-pg"
+  },
+  {
+    "school_id": "SCH026",
+    "school_code": "SCH-026",
+    "slug": "sdn-cempaka-baru-05-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-05-pg"
+  },
+  {
+    "school_id": "SCH027",
+    "school_code": "SCH-027",
+    "slug": "sdn-cempaka-baru-07-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-07-pg"
+  },
+  {
+    "school_id": "SCH028",
+    "school_code": "SCH-028",
+    "slug": "sdn-cempaka-baru-12-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-12-pg"
+  },
+  {
+    "school_id": "SCH029",
+    "school_code": "SCH-029",
+    "slug": "sdn-sumur-batu-01-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-01-pg"
+  },
+  {
+    "school_id": "SCH030",
+    "school_code": "SCH-030",
+    "slug": "sdn-sumur-batu-03-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-03-pg"
+  },
+  {
+    "school_id": "SCH031",
+    "school_code": "SCH-031",
+    "slug": "sdn-sumur-batu-06",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-06"
+  },
+  {
+    "school_id": "SCH032",
+    "school_code": "SCH-032",
+    "slug": "sdn-sumur-batu-08",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-08"
+  },
+  {
+    "school_id": "SCH033",
+    "school_code": "SCH-033",
+    "slug": "sdn-sumur-batu-12-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-12-pg"
+  },
+  {
+    "school_id": "SCH034",
+    "school_code": "SCH-034",
+    "slug": "sdn-sumur-batu-14-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-14-pg"
+  },
+  {
+    "school_id": "SCH035",
+    "school_code": "SCH-035",
+    "slug": "sdn-cempaka-baru-01",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-01"
+  },
+  {
+    "school_id": "SCH036",
+    "school_code": "SCH-036",
+    "slug": "sdn-cempaka-baru-09-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-09-pg"
+  },
+  {
+    "school_id": "SCH037",
+    "school_code": "SCH-037",
+    "slug": "sdn-cempaka-baru-11-pg",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-11-pg"
+  },
+  {
+    "school_id": "SCH038",
+    "school_code": "SCH-038",
+    "slug": "sd-al-marhamah",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-al-marhamah"
+  },
+  {
+    "school_id": "SCH039",
+    "school_code": "SCH-039",
+    "slug": "sds-al-muddatsiriyah",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-al-muddatsiriyah"
+  },
+  {
+    "school_id": "SCH040",
+    "school_code": "SCH-040",
+    "slug": "sds-as-salam",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-as-salam"
+  },
+  {
+    "school_id": "SCH041",
+    "school_code": "SCH-041",
+    "slug": "sds-budi-mulia",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia"
+  },
+  {
+    "school_id": "SCH042",
+    "school_code": "SCH-042",
+    "slug": "sds-kartini",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini"
+  },
+  {
+    "school_id": "SCH043",
+    "school_code": "SCH-043",
+    "slug": "sds-karmel",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel"
+  },
+  {
+    "school_id": "SCH044",
+    "school_code": "SCH-044",
+    "slug": "sds-kristen-kanaan",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan"
+  },
+  {
+    "school_id": "SCH045",
+    "school_code": "SCH-045",
+    "slug": "sds-muhammadiyah-i",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i"
+  },
+  {
+    "school_id": "SCH046",
+    "school_code": "SCH-046",
+    "slug": "sds-nurani",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani"
+  },
+  {
+    "school_id": "SCH047",
+    "school_code": "SCH-047",
+    "slug": "sds-taman-siswa",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa"
+  },
+  {
+    "school_id": "SCH048",
+    "school_code": "SCH-048",
+    "slug": "sds-tp-kencana",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana"
+  },
+  {
+    "school_id": "SCH049",
+    "school_code": "SCH-049",
+    "slug": "sd-islam-sukamulya",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya"
+  },
+  {
+    "school_id": "SCH050",
+    "school_code": "SCH-050",
+    "slug": "sdit-insan-mulia-jakarta",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta"
+  },
+  {
+    "school_id": "SCH051",
+    "school_code": "SCH-051",
+    "slug": "sdit-qatrunnada",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-qatrunnada"
+  },
+  {
+    "school_id": "SCH052",
+    "school_code": "SCH-052",
+    "slug": "sd-kristen-penabur-3",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-penabur-3"
+  },
+  {
+    "school_id": "SCH053",
+    "school_code": "SCH-053",
+    "slug": "sd-kristen-saint-john",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-saint-john"
+  },
+  {
+    "school_id": "SCH054",
+    "school_code": "SCH-054",
+    "slug": "sd-muhammadiyah-50",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-muhammadiyah-50"
+  },
+  {
+    "school_id": "SCH055",
+    "school_code": "SCH-055",
+    "slug": "sd-sandika",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-sandika"
+  },
+  {
+    "school_id": "SCH056",
+    "school_code": "SCH-056",
+    "slug": "sd-santo-mikael",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-santo-mikael"
+  },
+  {
+    "school_id": "SCH057",
+    "school_code": "SCH-057",
+    "slug": "sd-strada-van-lith-i",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i"
+  },
+  {
+    "school_id": "SCH058",
+    "school_code": "SCH-058",
+    "slug": "sekolah-dasar-universal",
+    "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal"
+  }
+]

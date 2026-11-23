@@ -1,0 +1,22 @@
+[
+ {"pertanyaan":"Berapakah hasil dari 125 + 75?","opsi":["200","190","210","180"],"kunci_jawaban":"200"},
+ {"pertanyaan":"Berapakah hasil dari 9 × 8?","opsi":["72","64","81","63"],"kunci_jawaban":"72"},
+ {"pertanyaan":"Berapakah hasil dari 144 ÷ 12?","opsi":["12","11","14","16"],"kunci_jawaban":"12"},
+ {"pertanyaan":"Bentuk desimal dari pecahan 3/4 adalah ....","opsi":["0,75","0,25","0,5","1,25"],"kunci_jawaban":"0,75"},
+ {"pertanyaan":"Persegi panjang memiliki panjang 8 cm dan lebar 5 cm. Kelilingnya adalah ....","opsi":["26 cm","40 cm","13 cm","20 cm"],"kunci_jawaban":"26 cm"},
+ {"pertanyaan":"Segitiga memiliki sisi 6 cm, 8 cm, dan 10 cm. Kelilingnya adalah ....","opsi":["24 cm","48 cm","20 cm","30 cm"],"kunci_jawaban":"24 cm"},
+ {"pertanyaan":"Waktu 2 jam 15 menit sama dengan ....","opsi":["135 menit","125 menit","150 menit","215 menit"],"kunci_jawaban":"135 menit"},
+ {"pertanyaan":"Berapakah hasil dari 1.000 − 475?","opsi":["525","575","625","475"],"kunci_jawaban":"525"},
+ {"pertanyaan":"Lawan kata panjang adalah ....","opsi":["pendek","tinggi","luas","besar"],"kunci_jawaban":"pendek"},
+ {"pertanyaan":"Kata yang memiliki makna sama dengan rajin adalah ....","opsi":["giat","malas","lambat","lesu"],"kunci_jawaban":"giat"},
+ {"pertanyaan":"Tanda baca pada akhir kalimat tanya adalah ....","opsi":["tanda tanya (?)","tanda titik (.)","tanda koma (,)","tanda seru (!)"],"kunci_jawaban":"tanda tanya (?)"},
+ {"pertanyaan":"Manakah penulisan kata baku yang benar?","opsi":["apotek","apotik","apoteq","apotekq"],"kunci_jawaban":"apotek"},
+ {"pertanyaan":"Pada kalimat ‘Ani membaca buku’, yang menjadi subjek adalah ....","opsi":["Ani","membaca","buku","membaca buku"],"kunci_jawaban":"Ani"},
+ {"pertanyaan":"Manakah penulisan nama orang yang menggunakan huruf kapital dengan benar?","opsi":["Rina","rina","rIna","riNa"],"kunci_jawaban":"Rina"},
+ {"pertanyaan":"Sumber cahaya utama yang dibutuhkan tumbuhan untuk fotosintesis adalah ....","opsi":["Matahari","Bulan","lampu senter","lilin"],"kunci_jawaban":"Matahari"},
+ {"pertanyaan":"Bagian tumbuhan yang menyerap air dari tanah adalah ....","opsi":["akar","bunga","buah","biji"],"kunci_jawaban":"akar"},
+ {"pertanyaan":"Perubahan wujud air dari cair menjadi gas disebut ....","opsi":["menguap","membeku","mengembun","mencair"],"kunci_jawaban":"menguap"},
+ {"pertanyaan":"Matahari merupakan sumber energi ....","opsi":["cahaya dan panas","bunyi dan gerak","listrik dan bunyi","magnet dan bunyi"],"kunci_jawaban":"cahaya dan panas"},
+ {"pertanyaan":"Organ tubuh yang memompa darah adalah ....","opsi":["jantung","paru-paru","lambung","ginjal"],"kunci_jawaban":"jantung"},
+ {"pertanyaan":"Planet ketiga dari Matahari adalah ....","opsi":["Bumi","Mars","Venus","Merkurius"],"kunci_jawaban":"Bumi"}
+]

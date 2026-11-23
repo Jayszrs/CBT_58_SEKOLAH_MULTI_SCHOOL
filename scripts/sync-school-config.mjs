@@ -52,7 +52,9 @@ const accounts = Array.from({ length: groupCount }, (_, index) => {
   const members = schools.filter(school => school.account_id === `AKUN-${pad(index + 1)}`);
   return { account_id: `AKUN-${pad(index + 1)}`, role: 'OPERASIONAL', email: source.account_emails[index] || '', schools: members.map(school => school.school_code).join(', '), count: members.length };
 });
-accounts.push({ account_id: 'ADMIN-01', role: 'ADMIN_PUSAT', email: '', schools: '', count: 0 });
+const centralFile=path.join(root,'config','central-admin.json');
+const centralOwner=fs.existsSync(centralFile)?JSON.parse(fs.readFileSync(centralFile,'utf8')).owner_email:'';
+accounts.push({ account_id: 'ADMIN-01', role: 'ADMIN_PUSAT', email: centralOwner || '', schools: '', count: 0 });
 const cell = value => /[",\n]/.test(String(value ?? '')) ? '"' + String(value ?? '').replaceAll('"', '""') + '"' : String(value ?? '');
 for (const [name, values] of [['schools', schools], ['accounts', accounts]]) {
   fs.writeFileSync(path.join(root, `config/${name}.json`), JSON.stringify(values, null, 2) + '\n');

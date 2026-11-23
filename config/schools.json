@@ -24,11 +24,12 @@
     "source_row": 2,
     "before_sync_version": 1,
     "deployment_id": "AKfycbxhgwKz62beolFCvFxqNMIH2uJWB1H-2ac2Xot-gKbtNRSAIY5DLvadRS6Obg0vbnYq",
-    "deployed_version": 20,
+    "deployed_version": 22,
     "deployment_access": "ANYONE_ANONYMOUS",
     "owner_preview_confirmed_at": "2026-11-22T08:21:54.067Z",
     "owner_preview_evidence": "Pengguna mengonfirmasi halaman login dan dashboard sekolah berhasil terbuka.",
-    "previous_deployed_version": 4
+    "previous_deployed_version": 4,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH002",
@@ -54,10 +55,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 3,
     "deployment_id": "AKfycbydz1_astfbEniZFTSoPMBWwlL_kK2qwe1aFNDXfk6YpRAuLRm6CYhnASE9pcCsAkVk8A",
-    "deployed_version": 9,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 3
+    "previous_deployed_version": 3,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH003",
@@ -83,10 +85,11 @@
     "theme_on_primary": "#000000",
     "source_row": 4,
     "deployment_id": "AKfycbw6Gr7amR5VWDqBNetoO8PSWQ8Xoc7ejS-tEXXfDDM-NHKuskJcYymJccwLGwCWM4b6Ig",
-    "deployed_version": 9,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 3
+    "previous_deployed_version": 3,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH004",
@@ -112,10 +115,11 @@
     "theme_on_primary": "#000000",
     "source_row": 5,
     "deployment_id": "AKfycbzOY-R-vbdouWLhffzDTBMsATA4cRnyx73dF9lFgwrYHBOiek2N4vfKaSakAzBkJK851A",
-    "deployed_version": 9,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 3
+    "previous_deployed_version": 3,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH005",
@@ -141,10 +145,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 6,
     "deployment_id": "AKfycbyrwxI57wzyP7OFFeotbtEYyxyt5XLr4FiKlViBeCeG6F7GnS9pj8IZo_MO6jCSKO1j",
-    "deployed_version": 9,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 3
+    "previous_deployed_version": 3,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH006",
@@ -170,10 +175,11 @@
     "theme_on_primary": "#000000",
     "source_row": 7,
     "deployment_id": "AKfycbyPgHn_zSXc3WynxwYbDN-xg8tEJwRSNQynJYKB8FeaoSPZlnBVZwU_xwq0zqCEPCLv",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH007",
@@ -199,10 +205,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 8,
     "deployment_id": "AKfycbwpKvBxDKY3Rgfy5a0Tnlmq83Lbx_1PmMbvDrnkuR1PuBzZpXDbfqaNwzeaQw4ToG1d",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH008",
@@ -228,10 +235,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 9,
     "deployment_id": "AKfycbxv5aU9LYQQ7X5Jg0i2R5MLHLIXaleYeGfEjvmEvqUGXNtr2wGU0F-jQfeKxLphIlSq",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH009",
@@ -257,10 +265,11 @@
     "theme_on_primary": "#000000",
     "source_row": 10,
     "deployment_id": "AKfycbwftk-WjbCAdIcCXfKpwyH3VUHsmMcf8ILPMKm2jMCmUPN_iECAs36e1QVdvLF1RB1MUQ",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH010",
@@ -286,10 +295,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 11,
     "deployment_id": "AKfycbwwL4q3EqeX1OsfaAEms5JmcH__RusshHOugTvlT580KwjP1qcZ0Etc3q1lY-owEbTM",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH011",
@@ -315,10 +325,11 @@
     "theme_on_primary": "#000000",
     "source_row": 12,
     "deployment_id": "AKfycbyYWqGrYJwJDYXwkZ11Ee5LMpMv3lI_JASA72fZ7ojlrdMeSxo26sdZGxM41Q2EXBKXmA",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH012",
@@ -344,10 +355,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 13,
     "deployment_id": "AKfycbxHsJOsoVrHx_roa_RmEK0MTTvZXF_YbqEZm-NlGY3ZSgcV8dV8g05gbvWwQ6X47iHIRw",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH013",
@@ -373,10 +385,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 14,
     "deployment_id": "AKfycbzIFbEkMOzLf_QufyS42eyboFlj32iZpXZd0KkSy8wi3_hBsCHEiaOZJ6cC1hVyBXpaew",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH014",
@@ -402,10 +415,11 @@
     "theme_on_primary": "#000000",
     "source_row": 15,
     "deployment_id": "AKfycbzhEP0WXbfYdv7a-6n9lSbnzctbg5neZMZuwMZ3UhNOJo-vnCNdENm_YOowJJCuhdCk",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH015",
@@ -431,10 +445,11 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 16,
     "deployment_id": "AKfycbxvBGlIXOhH4Jd5XRnflT7ZAUsKtU4KKP8JsZ0IlaNftb6r-K-zeYbda9Y6GALSDrlNZQ",
-    "deployed_version": 8,
+    "deployed_version": 10,
     "deployment_access": "ANYONE_ANONYMOUS",
     "before_sync_version": 2,
-    "previous_deployed_version": 1
+    "previous_deployed_version": 1,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH016",
@@ -460,9 +475,10 @@
     "theme_on_primary": "#000000",
     "source_row": 17,
     "deployment_id": "AKfycbzDVGsS6WrmJBNuLCkEPH7rWZg2e4MkuWOo2aB_oS7zx1BINtiY7wS-WvR9oNfOAys",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH017",
@@ -488,9 +504,10 @@
     "theme_on_primary": "#000000",
     "source_row": 18,
     "deployment_id": "AKfycbw_VmRcI5nYmxsIxXFQafH-6AdF1ESEJCqXwKxDzJtngDxAyVDr9eVKI5P_mRxiX4pB7g",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH018",
@@ -516,9 +533,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 19,
     "deployment_id": "AKfycbzkhH5JfQiC_S24GBgIO89nYbsVQKf8ppK4EFZJplpci_DlNkKi-uqcBwx6zNWm38EUyA",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH019",
@@ -544,9 +562,10 @@
     "theme_on_primary": "#000000",
     "source_row": 20,
     "deployment_id": "AKfycbwQnuXemEi2htFiW-XKPZJ9g1Q2_WK6hpJAE-v3uaBAXYUfINhJ2oFP1JtL8RwTn0Ik",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH020",
@@ -572,9 +591,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 21,
     "deployment_id": "AKfycbyq_ZN-GTcW5Hm9CuBoY-KjYhopXOHBLDYQ6rXzp21s-fAVbl9vhOwbuHfVlqPDh_dA",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH021",
@@ -600,9 +620,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 22,
     "deployment_id": "AKfycbxsYHMFzZY7CeY30EwLqRVEOVi_G-qPXhWCSxoxq9RqxM4XorUPVR4xHnV6mXJITucSpw",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH022",
@@ -628,9 +649,10 @@
     "theme_on_primary": "#000000",
     "source_row": 23,
     "deployment_id": "AKfycbylKwwUx4XbltHLIZ4mXN2nHS-nzYJs-2m2D-03_kJdwgMNjq2CQPQCUIbUZuZEWC_7",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH023",
@@ -656,9 +678,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 24,
     "deployment_id": "AKfycbxzyNX-MU1GKGKbTFsVSuyfbvmY16Xg2B1JYdu4HNF466iPA9XzgHTrhLFQtOk5e-WUPw",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH024",
@@ -684,9 +707,10 @@
     "theme_on_primary": "#000000",
     "source_row": 25,
     "deployment_id": "AKfycbxo_EZ-Ouq-lFnHW4nfmWY246ZKLeZ1FACbcrnueUTdVcUIZ0mCaghDddcxIYHyEmH8aQ",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH025",
@@ -712,9 +736,10 @@
     "theme_on_primary": "#000000",
     "source_row": 26,
     "deployment_id": "AKfycbzl0xMtbvyiUc-VsOltWgfkEuGUM9A6IhuTKKfzS9Ht4pSMojSz28YLgX0YN3k93gCg",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH026",
@@ -740,9 +765,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 27,
     "deployment_id": "AKfycbzgW37yHHap-hMOyXZhNHSBuD7itxRyyWlNJsaz1s5jIc0hksKyit67U2TKoNiEhBmA",
-    "deployed_version": 5,
+    "deployed_version": 7,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH027",
@@ -768,9 +794,10 @@
     "theme_on_primary": "#000000",
     "source_row": 28,
     "deployment_id": "AKfycbyvSdE-4_D5amahZwo_-hzA4hJgW5FysT6vYixUZXfzZ7EEZeYS86pZRVLTWJLM0ls",
-    "deployed_version": 5,
+    "deployed_version": 7,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH028",
@@ -797,8 +824,9 @@
     "source_row": 29,
     "before_sync_version": 2,
     "deployment_id": "AKfycbyiYwa21lALyc37Tr98OsQm7Y3DF7vCU7Kvm4Uf-4YvAEW76CcMzvNANEA1WB8-xLk",
-    "deployed_version": 5,
-    "deployment_access": "ANYONE_ANONYMOUS"
+    "deployed_version": 7,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "central_access_installed": true
   },
   {
     "school_id": "SCH029",
@@ -824,9 +852,10 @@
     "theme_on_primary": "#000000",
     "source_row": 30,
     "deployment_id": "AKfycbx3ZGdwZbL2lyUPF6I-lBri1ixKF36vMspUtN8r8p3GIjrBjMnGCBu7BNY25n_WwA",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH030",
@@ -852,9 +881,10 @@
     "theme_on_primary": "#000000",
     "source_row": 31,
     "deployment_id": "AKfycbyvFeqxm8p9KLQlSW5XnVFnvpaBkAIzeofIZx4MurViN3_qewIyzppPuenwp-fbbrrl",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH031",
@@ -880,9 +910,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 32,
     "deployment_id": "AKfycbzfkql5mhrVvqj_x0197vz5DqSblZ0Q7FX4-adhj21gZBvoSyxXQZamnTB_pDfjDl6z1A",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH032",
@@ -908,9 +939,10 @@
     "theme_on_primary": "#000000",
     "source_row": 33,
     "deployment_id": "AKfycbwDIaqet3hJv_wN8YVhjvMYBzBMmhHkB8skgiJRe7DLN6GvLvHOIfCN1KXhvPTConLd",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH033",
@@ -936,9 +968,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 34,
     "deployment_id": "AKfycbyPaLeidKi38ukCXA2T9XEzq2g6RL-DhWuUJ9hxfO6M1RGpxp9ZkzTjiJU0Eug44H-Y",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH034",
@@ -964,9 +997,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 35,
     "deployment_id": "AKfycby3_LfvQC7QMTImZVTkJr-TWY60rkU6LYkwgxt3Nk9Hcyq2ZsdZVusT7aev96SNxk7n",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH035",
@@ -992,9 +1026,10 @@
     "theme_on_primary": "#000000",
     "source_row": 36,
     "deployment_id": "AKfycbwzT-SXkmbOSvPVL6vCk65jnmxLUIBEfUjxCZ-XqusjOPgNsL9VVb35SL6oJnHdSKFF",
-    "deployed_version": 4,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH036",
@@ -1020,9 +1055,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 37,
     "deployment_id": "AKfycbyUhG9FnhTYDIHwz8x_0aB8Bm2B3g1btpwQGLmkTHLRaiNohyT444Ur5tL81UinrP6W",
-    "deployed_version": 3,
+    "deployed_version": 5,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH037",
@@ -1048,9 +1084,10 @@
     "theme_on_primary": "#000000",
     "source_row": 38,
     "deployment_id": "AKfycbyeQfhEET30LD8mfyGwhmAMS50Hlizb6IR4XoUJ1vt3GXqioi6jCf8m-qhxAxZALTB-",
-    "deployed_version": 3,
+    "deployed_version": 5,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH038",
@@ -1076,9 +1113,10 @@
     "theme_on_primary": "#000000",
     "source_row": 39,
     "deployment_id": "AKfycbwMZ3Y8wx6_CtjgUphA0aw4JKhu_fjFc47Ws4vEprO_Rc0mRbnW7R02iQ_W2_pWnalc",
-    "deployed_version": 3,
+    "deployed_version": 5,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH039",
@@ -1104,9 +1142,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 40,
     "deployment_id": "AKfycbwCS2JeCBniZMU2PRHlFk480GxIjobulkFDBNDZWX7XR_PtmzIsEO_1aH1LKRQnZVbz",
-    "deployed_version": 3,
+    "deployed_version": 5,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH040",
@@ -1132,9 +1171,10 @@
     "theme_on_primary": "#000000",
     "source_row": 41,
     "deployment_id": "AKfycbzpbapg9QFfWNNE6mhHLf_QJuwmfBZle7WhjozDsOy1XlP_KfMCTszbO48vcC0ekUBhpA",
-    "deployed_version": 3,
+    "deployed_version": 5,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH041",
@@ -1160,9 +1200,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 42,
     "deployment_id": "AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH042",
@@ -1189,8 +1230,9 @@
     "source_row": 43,
     "before_sync_version": 1,
     "deployment_id": "AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv",
-    "deployed_version": 3,
-    "deployment_access": "ANYONE_ANONYMOUS"
+    "deployed_version": 6,
+    "deployment_access": "ANYONE_ANONYMOUS",
+    "central_access_installed": true
   },
   {
     "school_id": "SCH043",
@@ -1216,9 +1258,10 @@
     "theme_on_primary": "#000000",
     "source_row": 44,
     "deployment_id": "AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH044",
@@ -1244,9 +1287,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 45,
     "deployment_id": "AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH045",
@@ -1272,9 +1316,10 @@
     "theme_on_primary": "#000000",
     "source_row": 46,
     "deployment_id": "AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH046",
@@ -1300,9 +1345,10 @@
     "theme_on_primary": "#000000",
     "source_row": 47,
     "deployment_id": "AKfycbw9tXGjnRE_u2DRzgqUgXAmjtdsDuTOAqt4PcvnVDN47FB7TeBmwc47k5tCmSa8cgGb",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH047",
@@ -1328,9 +1374,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 48,
     "deployment_id": "AKfycbycKsp8haZkD5ZKq4yENO8wu597zjjsVl7OV-hFk4pYzw5XoayuLBwNW-8sz2JP2N7nmQ",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH048",
@@ -1356,9 +1403,10 @@
     "theme_on_primary": "#000000",
     "source_row": 49,
     "deployment_id": "AKfycbyuzfiQf3PtdR_4gaXFD8H3uxPUJ9090ETV0zSZIb3kUw26B1L5KGwVbQtbzfQJ6_hzCg",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH049",
@@ -1384,9 +1432,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 50,
     "deployment_id": "AKfycbx-sPaTejiX9iLYWbdmzf5D92pB2gyjARIFeISMjOP7Ez2HZ0nTIrtCDl4F_3E0EG9Ssg",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH050",
@@ -1412,9 +1461,10 @@
     "theme_on_primary": "#000000",
     "source_row": 51,
     "deployment_id": "AKfycbz20MnGCMqp1_cnO6IP7Chz2gC_vsh3TS7W7vog5EgjxP9xuDLhmVf2yXjyzpd9wix7JQ",
-    "deployed_version": 3,
+    "deployed_version": 6,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH051",
@@ -1440,9 +1490,10 @@
     "theme_on_primary": "#000000",
     "source_row": 52,
     "deployment_id": "AKfycbw-2Xi9c5wwEIMqP319-xTWz9Bp-vX_svJbm6ng3Hr_rzpt9n0IGw-zXFqFOu4Fa-Y7",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH052",
@@ -1468,9 +1519,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 53,
     "deployment_id": "AKfycbyMphGjCvgxjiOKyNP-Nw-2yU9mzN5y764MyxrTGNjxDsOzafw203zumAcN4AxYH1A7qw",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH053",
@@ -1496,9 +1548,10 @@
     "theme_on_primary": "#000000",
     "source_row": 54,
     "deployment_id": "AKfycbyAI3m_VxzF9G37LxfIm0CPZRMdrGXrEkFqiCvVJzVbVLpVHQjg6tN1W2elaEqa5pOS",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH054",
@@ -1524,9 +1577,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 55,
     "deployment_id": "AKfycbw4N4OBNDXX8U8JOD8sbNVUiBCdWKXbeK2CHiQ8WUFtDiWKRmGoArs2C-Sa-23wkYQ6",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH055",
@@ -1552,9 +1606,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 56,
     "deployment_id": "AKfycbzushk82OxqXAftNGsv591dL4W0qrIWHSdtZFBFQ01tkvfRtKoL25-uLdqSEMeytjp1",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH056",
@@ -1580,9 +1635,10 @@
     "theme_on_primary": "#000000",
     "source_row": 57,
     "deployment_id": "AKfycbyqHhytBO6GLnGiFCEqK1TBAZWmUjMZ7zUFQ090UBvFj-SuYxBf61IJix-AYxf1y2fxew",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH057",
@@ -1608,9 +1664,10 @@
     "theme_on_primary": "#FFFFFF",
     "source_row": 58,
     "deployment_id": "AKfycbxR2o6p30CyTRiyXVLjfi8oJaIU0agv2dj2JhY2u6s0OaAietADaikcTZq34QjrRx1-",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   },
   {
     "school_id": "SCH058",
@@ -1636,8 +1693,9 @@
     "theme_on_primary": "#000000",
     "source_row": 59,
     "deployment_id": "AKfycbxnAUA7VkCDNawfNWctbDZ-X3aj2HrIYy4uFlYZ8KNtIzkltQDPCt7APpX12W_cnh0b",
-    "deployed_version": 3,
+    "deployed_version": 11,
     "deployment_access": "ANYONE_ANONYMOUS",
-    "before_sync_version": 2
+    "before_sync_version": 2,
+    "central_access_installed": true
   }
 ]
