@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-23T07:50:19.505Z",
+  "updated_at": "2026-11-23T08:24:00.657Z",
   "order": "BOTTOM_TO_TOP",
   "active_school_count": 18,
   "pending_school_count": 40,
-  "awaiting_login": "dimazkampreto@gmail.com",
+  "awaiting_login": "uskebonkosong17@gmail.com",
   "accounts": [
     {
       "account_id": "AKUN-12",
@@ -45,13 +45,13 @@
       "account_id": "AKUN-06",
       "email": "dimazkampreto@gmail.com",
       "schools": "SCH-026, SCH-027, SCH-028, SCH-029, SCH-030",
-      "status": "AWAITING_USER_LOGIN"
+      "status": "SKIPPED_USER_REPORTED_2FA"
     },
     {
       "account_id": "AKUN-05",
       "email": "uskebonkosong17@gmail.com",
       "schools": "SCH-021, SCH-022, SCH-023, SCH-024, SCH-025",
-      "status": "NOT_REQUESTED_YET"
+      "status": "AWAITING_USER_LOGIN"
     },
     {
       "account_id": "AKUN-04",
