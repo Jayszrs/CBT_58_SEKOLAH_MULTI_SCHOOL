@@ -6,7 +6,7 @@ Konfigurasi sekolah mengikuti spreadsheet monitoring yang diberikan pengguna. Pe
 
 - `config/spreadsheet-source.json`: snapshot nama sekolah, palet, tautan yang sudah ada, dan email dari LIST AKUN. Tidak menyimpan password akun Google.
 - `config/schools.json` dan `schools.csv`: konfigurasi 58 sekolah beserta ID dan URL aktual.
-- `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Email admin pusat belum ditentukan.
+- `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Pemilik admin pusat ditetapkan pengguna menjadi **dimazunj14@gmail.com**; panel aktif dengan akses Kelola pada 8 sekolah.
 - Kode pada spreadsheet berbentuk `SCH-001`; ID internal dan namespace Firebase tetap `SCH001` agar resource lama tidak berpindah.
 - `backend/` dan `frontend/`: sumber bersama. `scripts/build.mjs` menghasilkan paket datar `dist/SCH001` sampai `dist/SCH058` dan memperbarui seed inventaris admin pusat.
 
@@ -77,3 +77,9 @@ Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email
 - UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. Alur lengkap data QA dijalankan di SCH001; sekolah lain menggunakan sumber yang sama dan verifikasi resource masing-masing.
 
 Jangan simpan `.clasprc.json`, private key, token, atau password di repository maupun kolom progress spreadsheet.
+
+## Kelanjutan akses dan super admin (23 November 2026)
+
+58 spreadsheet sudah bernama sesuai sekolah dan izin editor publik telah dibaca ulang dari Google. Seluruh 58 halaman web app juga berhasil dibuka ulang anonim. Tab **LINK SEKOLAH** pada spreadsheet monitoring dan `docs/LINK-58-SEKOLAH.html` menyediakan daftar tautannya.
+
+Panel super admin, username `superadmin`, sudah dipasang pada **dimazunj14@gmail.com**. Login password, penolakan password salah, keluar, dan akses Kelola sampai panggilan admin lulus melalui browser anonim pada **SCH-051–058 (8/58)**. Delapan folder tersebut juga terverifikasi publik tanpa login. Sebanyak 50 sekolah lain menunggu login 10 pemilik. Password awal tersimpan privat di luar repository. Jalankan `scripts/lanjutkan-super-admin.ps1` untuk login dan melanjutkan pemasangan; halaman login lokal dapat dijalankan dengan `node scripts/owner-login-portal.mjs`. Rincian status dan penyimpanan kredensial ada di [docs/SUPER-ADMIN.md](docs/SUPER-ADMIN.md).

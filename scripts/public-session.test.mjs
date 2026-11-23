@@ -45,6 +45,15 @@ test('only the verified Google owner can initialize the first administrator pass
   assert.equal(change().success,false);
 });
 
+test('a central password submitted to a school cannot authenticate or reset its administrator',()=>{
+  const f=fixture();f.props.set('ADMIN_PASSWORD','unchanged-school-password-hash');
+  const result=f.context.loginAdmin('central-password-for-routing-test','superadmin');
+  assert.equal(result.success,false);
+  assert.equal(result.centralLoginRequired,true);
+  assert.match(result.message,/Panel Super Admin/);
+  assert.equal(f.props.get('ADMIN_PASSWORD'),'unchanged-school-password-hash');
+});
+
 test('student login returns an opaque credential and stores only its hash',()=>{
   const f=fixture();const result=f.context.loginSiswa('student-a','student-password-123');
   assert.equal(result.success,true);assert.match(result.data.sessionToken,/^[0-9a-f-]{72}$/i);

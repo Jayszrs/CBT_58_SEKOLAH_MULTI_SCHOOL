@@ -1,0 +1,25 @@
+{
+  "checked_at": "2026-11-23T02:18:30.581Z",
+  "mode": "LOCAL_SIMULATED_RPC",
+  "live_deployment_verified": false,
+  "desktop": {
+    "passed": true,
+    "rows": 58,
+    "filter_and_search": true,
+    "csv_download": true,
+    "password_form": true,
+    "school_handoff": true,
+    "logout": true,
+    "no_page_overflow": true
+  },
+  "mobile": {
+    "passed": true,
+    "rows": 58,
+    "filter_and_search": true,
+    "csv_download": true,
+    "password_form": true,
+    "school_handoff": true,
+    "logout": true,
+    "no_page_overflow": true
+  }
+}

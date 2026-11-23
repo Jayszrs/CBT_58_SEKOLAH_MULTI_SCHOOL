@@ -124,7 +124,9 @@ function doGet(eventData) {
   const templateHtmlObject = HtmlService.createTemplateFromFile('Page');
   
   
-  templateHtmlObject.urlParams = (eventData && eventData.parameter) || {};
+  templateHtmlObject.urlParams = Object.assign({}, (eventData && eventData.parameter) || {});
+  templateHtmlObject.centralLogin = consumeCentralTicket_(templateHtmlObject.urlParams.central_ticket);
+  delete templateHtmlObject.urlParams.central_ticket;
   
   console.log('Akses jaringan: Memuat antarmuka pengguna SPA.');
 
@@ -154,6 +156,7 @@ function getAppConfig_() {
   const school = getSchoolMetadata_();
   config.schoolId = school.schoolId;
   config.schoolName = school.schoolName;
+  config.centralAdminUrl = school.centralAdminUrl || '';
   config.schoolTheme = { primary: school.themePrimary, hover: school.themeHover, accent: school.themeAccent, background: school.themeBackground, onPrimary: school.themeOnPrimary };
   config.ownerGoogleLoginAvailable = isGoogleSchoolOwner_();
   return config;

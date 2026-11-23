@@ -1,6 +1,6 @@
 # Panduan operasional
 
-Pembagian terbaru: 58 sekolah, maksimal 5 sekolah per akun, 12 grup Firebase (grup terakhir 3 sekolah). Nama dan tiga warna sekolah mengikuti MASTER SEKOLAH serta PALET WARNA. LIST AKUN menyediakan 12 email operasional; email admin pusat belum ditetapkan.
+Pembagian terbaru: 58 sekolah, maksimal 5 sekolah per akun, 12 grup Firebase (grup terakhir 3 sekolah). Nama dan tiga warna sekolah mengikuti MASTER SEKOLAH serta PALET WARNA. LIST AKUN menyediakan 12 email operasional; pemilik super admin pusat ditetapkan pengguna menjadi dimazunj14@gmail.com. Panel pusat aktif dan akses Kelola sudah lulus uji langsung pada SCH-051–058 (8/58); 50 sekolah lainnya menunggu login pemilik. Lihat SUPER-ADMIN.md.
 
 Pilot AKUN-01 dimiliki dimazunj2@gmail.com dan mencakup SCH-001 sampai SCH-005. Spreadsheet, folder Drive, Apps Script dan Web App masing-masing sekolah terpisah. Firebase project dan RTDB dipakai bersama dengan namespace server berbeda.
 

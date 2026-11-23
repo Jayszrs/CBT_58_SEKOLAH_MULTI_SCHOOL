@@ -1,0 +1,527 @@
+{
+  "checked_at": "2026-11-23T02:09:56.744Z",
+  "results": [
+    {
+      "school": "SCH-001",
+      "spreadsheet_id": "1JiAJAVVYAGtCgNrorysnLV8t-MXB6RJ47bc-1KXK6r8",
+      "name": "SDN KEMAYORAN 01",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1JiAJAVVYAGtCgNrorysnLV8t-MXB6RJ47bc-1KXK6r8/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-002",
+      "spreadsheet_id": "1Eo1M2B1T5Ut2Ujskr0GVLkSL4BaQ-lt08Js9Pn_XmLw",
+      "name": "SDN KEMAYORAN 07 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Eo1M2B1T5Ut2Ujskr0GVLkSL4BaQ-lt08Js9Pn_XmLw/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-003",
+      "spreadsheet_id": "1zhTCUAbtKm8xL7HxO4hnoF5zLH63jaKhfWlzyLYC2UY",
+      "name": "SDN KEMAYORAN 09 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1zhTCUAbtKm8xL7HxO4hnoF5zLH63jaKhfWlzyLYC2UY/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-004",
+      "spreadsheet_id": "1lze7OvJs3TS5e0rMjaoqpX8I82Tg2YX8ryRklHHfwl0",
+      "name": "SDN KEMAYORAN 13 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1lze7OvJs3TS5e0rMjaoqpX8I82Tg2YX8ryRklHHfwl0/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-005",
+      "spreadsheet_id": "1L5UMVhKMpmxyipsSLKsc5RPlNGxa22etDh73QNqLAwM",
+      "name": "SDN KEMAYORAN 15",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1L5UMVhKMpmxyipsSLKsc5RPlNGxa22etDh73QNqLAwM/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-006",
+      "spreadsheet_id": "1CIgTYHOsEwacFeH9DmJ_1md7gGe1VmacILdjSqIT5xw",
+      "name": "SDN UTAN PANJANG 01",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1CIgTYHOsEwacFeH9DmJ_1md7gGe1VmacILdjSqIT5xw/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-007",
+      "spreadsheet_id": "1kok01AtxQ49RpwbQXBi-eIANIdAkqdYD6wwzMWOIh2c",
+      "name": "SDN UTAN PANJANG 03",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1kok01AtxQ49RpwbQXBi-eIANIdAkqdYD6wwzMWOIh2c/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-008",
+      "spreadsheet_id": "1o5XHxW8aLMa9pJgvT2FCS77D0-o3h3j50Klfkp4zqtU",
+      "name": "SDN GUNUNG SAHARI SELATAN 01",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1o5XHxW8aLMa9pJgvT2FCS77D0-o3h3j50Klfkp4zqtU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-009",
+      "spreadsheet_id": "1ud_ppdEWdRXYgUBbzlAptDlvapD_5-_aM_zXe24msX8",
+      "name": "SDN HARAPAN MULIA 01",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ud_ppdEWdRXYgUBbzlAptDlvapD_5-_aM_zXe24msX8/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-010",
+      "spreadsheet_id": "1_GouWSd4_uoxaEwIn99zCO8pQMiDpxHlv-81snMeCeM",
+      "name": "SDN HARAPAN MULIA 03",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1_GouWSd4_uoxaEwIn99zCO8pQMiDpxHlv-81snMeCeM/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-011",
+      "spreadsheet_id": "11RQ6-lZkbARJuTvxAIlVa201MAsH1yyqLwqOXCa8q2c",
+      "name": "SDN KEBON KOSONG 01 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/11RQ6-lZkbARJuTvxAIlVa201MAsH1yyqLwqOXCa8q2c/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-012",
+      "spreadsheet_id": "17mWdR3QqIp7G5tV6Gg684-xP_0b-P3ed_H5h1dvDQkU",
+      "name": "SDN KEBON KOSONG 02 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17mWdR3QqIp7G5tV6Gg684-xP_0b-P3ed_H5h1dvDQkU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-013",
+      "spreadsheet_id": "136Ch10HD7fJtbLcj4bYYCMA9YVnsHYWyqzdAy0rhNtI",
+      "name": "SDN KEBON KOSONG 03 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/136Ch10HD7fJtbLcj4bYYCMA9YVnsHYWyqzdAy0rhNtI/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-014",
+      "spreadsheet_id": "1ckXg8ffIPyDamGPmTCP7QoEIfURXJQ0LASVAbnUGAIU",
+      "name": "SDN KEBON KOSONG 05 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ckXg8ffIPyDamGPmTCP7QoEIfURXJQ0LASVAbnUGAIU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-015",
+      "spreadsheet_id": "18RZXjgh-f1FNNMnvfvBaYLaqCW9Mp4wGna_U4_AGfjk",
+      "name": "SDN KEBON KOSONG 09",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/18RZXjgh-f1FNNMnvfvBaYLaqCW9Mp4wGna_U4_AGfjk/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-016",
+      "spreadsheet_id": "1ZZM5lwMGHMAntV3U0AOtVaj2vzm0ZOlxewNFIq62O48",
+      "name": "SDN KEBON KOSONG 13",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZZM5lwMGHMAntV3U0AOtVaj2vzm0ZOlxewNFIq62O48/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-017",
+      "spreadsheet_id": "14nowrgh-cHUWjHdJsvFUyCFyKBIbNRS3Lo_GcgNb7hU",
+      "name": "SDN KEBON KOSONG 15 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/14nowrgh-cHUWjHdJsvFUyCFyKBIbNRS3Lo_GcgNb7hU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-018",
+      "spreadsheet_id": "1YuRHgh108kPXaCyKAN15lj5JjMA8suOmQ7_XTJpdW54",
+      "name": "SDN KEBON KOSONG 16 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1YuRHgh108kPXaCyKAN15lj5JjMA8suOmQ7_XTJpdW54/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-019",
+      "spreadsheet_id": "1AEzS9qqvxVAzoeS1moYsv1bJBDhv014ikeq2sSx4TGc",
+      "name": "SDN KEBON KOSONG 17 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1AEzS9qqvxVAzoeS1moYsv1bJBDhv014ikeq2sSx4TGc/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-020",
+      "spreadsheet_id": "1WEu5HSlslCMkwmW9WzixfP7VJmfDjSvreLjqjc6hfmU",
+      "name": "SDN SERDANG 01 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1WEu5HSlslCMkwmW9WzixfP7VJmfDjSvreLjqjc6hfmU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-021",
+      "spreadsheet_id": "1snPvP0FjGY26VEWey7FsjbFFXzRRX_3EBFotFNDJjrs",
+      "name": "SDN SERDANG 05 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1snPvP0FjGY26VEWey7FsjbFFXzRRX_3EBFotFNDJjrs/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-022",
+      "spreadsheet_id": "1yXRfunGwtfGyVmYBYUXAVgmr4-1vyaC8qj3qmPlXmZQ",
+      "name": "SDN SERDANG 07",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1yXRfunGwtfGyVmYBYUXAVgmr4-1vyaC8qj3qmPlXmZQ/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-023",
+      "spreadsheet_id": "1lfvlSGfDoIjBMKY345U5gLFnGu7HH32q8qdz71g0CCE",
+      "name": "SDN SERDANG 11",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1lfvlSGfDoIjBMKY345U5gLFnGu7HH32q8qdz71g0CCE/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-024",
+      "spreadsheet_id": "14kgjQSuZTTq0eL4QEEpb4mE37DPYWuG4rDdltaWQbkk",
+      "name": "SDN SERDANG 13 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/14kgjQSuZTTq0eL4QEEpb4mE37DPYWuG4rDdltaWQbkk/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-025",
+      "spreadsheet_id": "1Y302fMvp4L2fTpMOaF28rfoaegLz2_wgCbA2X21CAlE",
+      "name": "SDN CEMPAKA BARU 03 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1Y302fMvp4L2fTpMOaF28rfoaegLz2_wgCbA2X21CAlE/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-026",
+      "spreadsheet_id": "1HAwqiqzT8tPlEc9ezaA__pQQ8nlVzIXd66FiTqBeuSE",
+      "name": "SDN CEMPAKA BARU 05 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1HAwqiqzT8tPlEc9ezaA__pQQ8nlVzIXd66FiTqBeuSE/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-027",
+      "spreadsheet_id": "1MsirC5-JfK6ZcPwalX-Hns0gvCCl9zzEBiCduLjWMFo",
+      "name": "SDN CEMPAKA BARU 07 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1MsirC5-JfK6ZcPwalX-Hns0gvCCl9zzEBiCduLjWMFo/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-028",
+      "spreadsheet_id": "10l4MDjRt_y-NEp0Q3_UFs7iCsPV7cC5190kzv3WRQO4",
+      "name": "SDN CEMPAKA BARU 12 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/10l4MDjRt_y-NEp0Q3_UFs7iCsPV7cC5190kzv3WRQO4/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-029",
+      "spreadsheet_id": "1OsqZn9d07a47YixX2LZrshuQkba1sw9c0uAxTX9f0Y0",
+      "name": "SDN SUMUR BATU 01 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1OsqZn9d07a47YixX2LZrshuQkba1sw9c0uAxTX9f0Y0/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-030",
+      "spreadsheet_id": "1-ApawL3ZFR5G19fqc3aL1kgKi4U5Kfo3Z_3ByXyqxh4",
+      "name": "SDN SUMUR BATU 03 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1-ApawL3ZFR5G19fqc3aL1kgKi4U5Kfo3Z_3ByXyqxh4/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-031",
+      "spreadsheet_id": "1H1-p9ERMYcdXA9Ypc0h3eerxsCa4P5Dw5i2t3a0Bc_U",
+      "name": "SDN SUMUR BATU 06",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1H1-p9ERMYcdXA9Ypc0h3eerxsCa4P5Dw5i2t3a0Bc_U/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-032",
+      "spreadsheet_id": "13xTne0q4CKh6rcMlUWijsQOwZR0LHqtbn8rQC1Ib6ao",
+      "name": "SDN SUMUR BATU 08",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/13xTne0q4CKh6rcMlUWijsQOwZR0LHqtbn8rQC1Ib6ao/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-033",
+      "spreadsheet_id": "1p9sPzlZxY9pYUgmbFH2meruzfa5ubOYzqv3hJ4Jkjek",
+      "name": "SDN SUMUR BATU 12 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1p9sPzlZxY9pYUgmbFH2meruzfa5ubOYzqv3hJ4Jkjek/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-034",
+      "spreadsheet_id": "1DTWzc65sLGhCd-CM-jyg0gxuL5KHMrqFybsnci7y4Wc",
+      "name": "SDN SUMUR BATU 14 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1DTWzc65sLGhCd-CM-jyg0gxuL5KHMrqFybsnci7y4Wc/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-035",
+      "spreadsheet_id": "1gcA76HEszSxccjhP2E0fH-ud2JdHCVzQUR6i35SKeAw",
+      "name": "SDN CEMPAKA BARU 01",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1gcA76HEszSxccjhP2E0fH-ud2JdHCVzQUR6i35SKeAw/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-036",
+      "spreadsheet_id": "15BxDy3t5L3_gT6euZuz1fXuK3ptuOjW-8R9GfD0NlNU",
+      "name": "SDN CEMPAKA BARU 09 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/15BxDy3t5L3_gT6euZuz1fXuK3ptuOjW-8R9GfD0NlNU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-037",
+      "spreadsheet_id": "1IsFbTwoMOoVqfl5g6zyTkq0ydPnJS0KpEiFJxsvrvMQ",
+      "name": "SDN CEMPAKA BARU 11 PG",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1IsFbTwoMOoVqfl5g6zyTkq0ydPnJS0KpEiFJxsvrvMQ/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-038",
+      "spreadsheet_id": "1FwsYEJE3bwdkOJFKBjJXILtOOtW2Kauc3ZL5IyWQDUw",
+      "name": "SD AL-MARHAMAH",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1FwsYEJE3bwdkOJFKBjJXILtOOtW2Kauc3ZL5IyWQDUw/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-039",
+      "spreadsheet_id": "1SwNNZ0FMjl8jRTwNTnWy_SpoBTCiIzsHApr4GS32jhk",
+      "name": "SDS AL-MUDDATSIRIYAH",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1SwNNZ0FMjl8jRTwNTnWy_SpoBTCiIzsHApr4GS32jhk/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-040",
+      "spreadsheet_id": "1qQrEofJhw3I2Umo-5JufjzndCIqhAepTCXd6wFYkiPU",
+      "name": "SDS AS-SALAM",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1qQrEofJhw3I2Umo-5JufjzndCIqhAepTCXd6wFYkiPU/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-041",
+      "spreadsheet_id": "17Rdw8bnqqzzqTf8SMIZs5awIv9x6-IbKd7PEOmU98Tc",
+      "name": "SDS BUDI MULIA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/17Rdw8bnqqzzqTf8SMIZs5awIv9x6-IbKd7PEOmU98Tc/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-042",
+      "spreadsheet_id": "1ZD7Oxav2Y7g_m21BLr62i53iTtv4R7fsNAbRC23ceF4",
+      "name": "SDS KARTINI",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZD7Oxav2Y7g_m21BLr62i53iTtv4R7fsNAbRC23ceF4/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-043",
+      "spreadsheet_id": "1w1gk4jKHudi7BFGPi147IC5b0scqvMbR9C14TSmWR2o",
+      "name": "SDS KARMEL",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1w1gk4jKHudi7BFGPi147IC5b0scqvMbR9C14TSmWR2o/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-044",
+      "spreadsheet_id": "1rpz3aAziENOwX7HeAJVPspn9Zb2TEqyU9-4XJ8jEPDw",
+      "name": "SDS KRISTEN KANAAN",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1rpz3aAziENOwX7HeAJVPspn9Zb2TEqyU9-4XJ8jEPDw/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-045",
+      "spreadsheet_id": "1f_U14XLRBfc7ppdLAqS6jlvgEi4VO_AS2mVX6Xf1p30",
+      "name": "SDS MUHAMMADIYAH I",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1f_U14XLRBfc7ppdLAqS6jlvgEi4VO_AS2mVX6Xf1p30/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-046",
+      "spreadsheet_id": "1ynjJhvPMeQR4Eh-Sz0doBNbn77pqNYo6aK6psskhxS0",
+      "name": "SDS NURANI",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ynjJhvPMeQR4Eh-Sz0doBNbn77pqNYo6aK6psskhxS0/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-047",
+      "spreadsheet_id": "1pdWp7i63yFdo-PRI_05ugunHn98N0O-vhMfGg0t9mJE",
+      "name": "SDS TAMAN SISWA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1pdWp7i63yFdo-PRI_05ugunHn98N0O-vhMfGg0t9mJE/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-048",
+      "spreadsheet_id": "1GtrD-CQP67RqMWwuYu-6_rHA1AJ2O5zcfNrFAImg6ag",
+      "name": "SDS TP KENCANA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1GtrD-CQP67RqMWwuYu-6_rHA1AJ2O5zcfNrFAImg6ag/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-049",
+      "spreadsheet_id": "19tIj2eaNSoYni4HLGzVJa2JmPxXDfzQesY3ttd-RFJM",
+      "name": "SD ISLAM SUKAMULYA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/19tIj2eaNSoYni4HLGzVJa2JmPxXDfzQesY3ttd-RFJM/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-050",
+      "spreadsheet_id": "1ZQ09pe1Ed41-8tddDViA6CEVFv-lDWi5OyFFzH2arrY",
+      "name": "SDIT INSAN MULIA JAKARTA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ZQ09pe1Ed41-8tddDViA6CEVFv-lDWi5OyFFzH2arrY/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-051",
+      "spreadsheet_id": "1XoRz9RJojjjd76B5b99gApwBKBUDFGBUV8ierEbhLr0",
+      "name": "SDIT QATRUNNADA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1XoRz9RJojjjd76B5b99gApwBKBUDFGBUV8ierEbhLr0/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-052",
+      "spreadsheet_id": "1LgVGnWPuVC4gqwaWH3b5ygb_9M7iAP2rc3WXCP-3o-c",
+      "name": "SD KRISTEN PENABUR 3",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1LgVGnWPuVC4gqwaWH3b5ygb_9M7iAP2rc3WXCP-3o-c/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-053",
+      "spreadsheet_id": "1zuH8YKhdOplCGcOO5xQCmbE5JFEiQ417iUs48ZaMCNQ",
+      "name": "SD KRISTEN SAINT JOHN",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1zuH8YKhdOplCGcOO5xQCmbE5JFEiQ417iUs48ZaMCNQ/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-054",
+      "spreadsheet_id": "1DcMqUSaFw49zsX3DUpNA-4Gd27HB9StjR7uapQcZUco",
+      "name": "SD MUHAMMADIYAH 50",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1DcMqUSaFw49zsX3DUpNA-4Gd27HB9StjR7uapQcZUco/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-055",
+      "spreadsheet_id": "1QtL8uJxHsD6pPYbVRX-87vOLCHBvM4YXd36x_JASI3E",
+      "name": "SD SANDIKA",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1QtL8uJxHsD6pPYbVRX-87vOLCHBvM4YXd36x_JASI3E/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-056",
+      "spreadsheet_id": "1kSeE96owmk6ncqtmrfWBpSKZRbe2O-8T5MiP2_M1A_w",
+      "name": "SD SANTO MIKAEL",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1kSeE96owmk6ncqtmrfWBpSKZRbe2O-8T5MiP2_M1A_w/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-057",
+      "spreadsheet_id": "1TT6sR4yqNT1uasPGmxSKx88EHsmUxUbBaeVkLvVBn1s",
+      "name": "SD STRADA VAN LITH I",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1TT6sR4yqNT1uasPGmxSKx88EHsmUxUbBaeVkLvVBn1s/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    },
+    {
+      "school": "SCH-058",
+      "spreadsheet_id": "1H7QQCe4SK47ejWG_WTPkqycwNRoVOvjhJMfPTtcNuS4",
+      "name": "SEKOLAH DASAR UNIVERSAL",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1H7QQCe4SK47ejWG_WTPkqycwNRoVOvjhJMfPTtcNuS4/edit?usp=drivesdk",
+      "name_matches": true,
+      "public_editor": true,
+      "discoverable": false
+    }
+  ]
+}

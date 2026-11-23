@@ -35,6 +35,7 @@ function issueAdminSession_(passwordHash) {
 
 function verifyAdminCredential_(token) {
   if (typeof token !== 'string') return false;
+  if (token.startsWith('CENTRAL:')) return verifyCentralSchoolSession_(token);
   if (token.startsWith('OWNER:')) return isGoogleSchoolOwner_() && CacheService.getScriptCache().get('GOOGLE_' + token) === 'valid';
   if (!/^ADMIN:[0-9a-f-]{72}$/i.test(token)) return false;
   try {

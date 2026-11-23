@@ -262,7 +262,8 @@ class AdminAuthenticationService {
   executeSuperadminRecovery(providedPasswordString) {
     return {
       success: false,
-      message: 'Pemulihan melalui password bawaan dinonaktifkan. Admin harus melakukan reset aman via Apps Script.'
+      centralLoginRequired: true,
+      message: 'Akun superadmin masuk melalui Panel Super Admin pusat. Pilih sekolah dan tombol Kelola; form ini untuk admin sekolah.'
     };
   }
 
@@ -327,7 +328,7 @@ function checkAdminLoginStatus() {
 }
 
 function loginAdmin(password, username) {
-  if (/^(OWNER|ADMIN):/.test(String(password || ''))) {
+  if (/^(OWNER|ADMIN|CENTRAL):/.test(String(password || ''))) {
     const valid = verifyAdminCredential_(password);
     return { success: !!valid, message: valid ? '' : 'Sesi pemilik berakhir. Silakan masuk kembali.' };
   }

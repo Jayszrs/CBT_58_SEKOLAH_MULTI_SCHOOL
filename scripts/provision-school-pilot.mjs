@@ -72,6 +72,10 @@ try {
       type: name.endsWith('.html') ? 'HTML' : name.endsWith('.json') ? 'JSON' : 'SERVER_JS',
       source: fs.readFileSync(path.join(directory, name), 'utf8'),
     }));
+    // Retain the per-school private central key across ordinary source updates.
+    const priorContent = await request(`${api}/${school.script_id}/content`);
+    const centralPrivate = priorContent.files?.find(file => file.name === 'CentralAccessPrivate');
+    if (centralPrivate) files.push(centralPrivate);
     await request(`${api}/${school.script_id}/content`, 'PUT', { files });
     school.status = 'UPLOADED_NOT_DEPLOYED'; save();
     const access = JSON.parse(files.find(file=>file.name==='appsscript').source).webapp.access;

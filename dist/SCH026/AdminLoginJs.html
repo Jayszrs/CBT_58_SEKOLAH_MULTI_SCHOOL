@@ -1,6 +1,11 @@
 <script>
 function initAdminLogin() {
   document.querySelector('[data-school-name]').textContent = APP_GLOBAL_CONFIG.schoolName;
+  const centralLink = document.getElementById('central-admin-link');
+  if (centralLink && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(APP_GLOBAL_CONFIG.centralAdminUrl || '')) {
+    centralLink.href = APP_GLOBAL_CONFIG.centralAdminUrl;
+    centralLink.style.display = 'inline-block';
+  }
   document.getElementById('btn-google-owner').style.display = APP_GLOBAL_CONFIG.ownerGoogleLoginAvailable ? 'block' : 'none';
   AppStore.user = null;
   localStorage.removeItem('CBT_SESSION');
@@ -28,7 +33,7 @@ function initAdminLogin() {
       document.getElementById('admin-rate-limit-alert').style.display = 'block';
       let min = Math.ceil(res.remaining / 60);
       document.getElementById('admin-rate-limit-msg').innerText = `Terlalu banyak percobaan gagal. Form diblokir sementara. Coba lagi dalam ${min} menit.`;
-      // Form tetap terlihat agar jalur pemulihan Superadmin masih dapat digunakan.
+      // Keep the form and central-panel link available during school cooldown.
       document.getElementById('admin-login-inputs').style.display = 'block';
     }
   }).catch(e => console.error(e));
@@ -49,6 +54,13 @@ function doGoogleOwnerLogin() {
 function doAdminLogin() {
   const pw = document.getElementById('admin-password').value;
   const username = (document.getElementById('admin-username') && document.getElementById('admin-username').value || '').trim();
+  if (username.toLowerCase() === 'superadmin') {
+    document.getElementById('admin-password').value = '';
+    showToast('Masuk superadmin melalui Panel Super Admin, lalu pilih sekolah dan tombol Kelola.', 'info');
+    const centralLink = document.getElementById('central-admin-link');
+    if (centralLink && centralLink.href) centralLink.focus();
+    return;
+  }
   if (!pw) return;
   
   
