@@ -45,6 +45,26 @@ test('only the verified Google owner can initialize the first administrator pass
   assert.equal(change().success,false);
 });
 
+test('school-name password setup requires a central session or verified owner and revokes old school-admin sessions',()=>{
+  const f=fixture();const oldPassword='test-old-school-password';const newPassword='sdujicoba123';
+  f.props.set('ADMIN_PASSWORD',f.context.credentialHash_(oldPassword));
+  const oldSession=f.context.loginAdmin(oldPassword,'admin').sessionToken;
+  assert.equal(f.context.executeAdminAction(oldSession,'setSchoolAdminPassword',{newPassword}).success,false);
+  assert.equal(f.context.loginAdmin(newPassword,'admin').success,false);
+  assert.equal(f.context.executeAdminAction('invalid','setSchoolAdminPassword',{newPassword}).success,false);
+  f.context.verifyCentralSchoolSession_=token=>token==='CENTRAL:verified-test';
+  f.cache.set('ADMIN_LOGIN_COOLDOWN',String(Date.now()+180000));
+  assert.equal(f.context.executeAdminAction('CENTRAL:verified-test','setSchoolAdminPassword',{newPassword:'short'}).success,false);
+  assert.equal(f.context.executeAdminAction('CENTRAL:verified-test','setSchoolAdminPassword',{newPassword}).success,true);
+  assert.equal(f.cache.has('ADMIN_LOGIN_COOLDOWN'),false);
+  assert.equal(f.props.get('ADMIN_PASSWORD'),f.context.credentialHash_(newPassword));
+  assert.notEqual(f.props.get('ADMIN_PASSWORD'),newPassword);
+  assert.equal(f.context.verifyAdminCredential_(oldSession),false);
+  const newSession=f.context.loginAdmin(newPassword,'admin');assert.equal(newSession.success,true);
+  assert.equal(f.context.executeAdminAction(newSession.sessionToken,'ping',{}).success,true);
+  assert.equal(f.context.loginAdmin(newPassword,'unknown').success,false);
+});
+
 test('a central password submitted to a school cannot authenticate or reset its administrator',()=>{
   const f=fixture();f.props.set('ADMIN_PASSWORD','unchanged-school-password-hash');
   const result=f.context.loginAdmin('central-password-for-routing-test','superadmin');

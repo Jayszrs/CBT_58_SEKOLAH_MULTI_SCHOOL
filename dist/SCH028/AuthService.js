@@ -214,7 +214,7 @@ class AdminAuthenticationService {
   }
 
   executeLogin(providedPasswordString) {
-    if (typeof providedPasswordString !== 'string' || providedPasswordString.length < 14 || providedPasswordString.length > 256) return {success:false,message:'Password admin minimal 14 karakter. Pemilik dapat melakukan reset melalui Apps Script.'};
+    if (typeof providedPasswordString !== 'string' || providedPasswordString.length < 8 || providedPasswordString.length > 256) return {success:false,message:'Password admin harus 8–256 karakter.'};
     const rateLimitVerificationStatus = this.checkLoginRateLimitStatus();
     if (!rateLimitVerificationStatus.success && rateLimitVerificationStatus.status === 'rate_limited') {
       const remainingMinutesBlock = Math.ceil(rateLimitVerificationStatus.remaining / 60);
@@ -359,6 +359,20 @@ function loginGoogleSchoolOwner() {
 function changeAdminPassword_(oldPassword, newPassword) {
   const adminAuthenticationManagerInstance = new AdminAuthenticationService();
   return adminAuthenticationManagerInstance.executePasswordChange(oldPassword, newPassword);
+}
+
+function setSchoolAdminPassword_(actorToken, newPassword) {
+  if (!verifyCentralSchoolSession_(actorToken) && !isGoogleSchoolOwner_()) {
+    return {success: false, message: 'Hanya superadmin pusat atau pemilik Google yang dapat mengatur akun admin sekolah.'};
+  }
+  if (typeof newPassword !== 'string' || newPassword.length < 8 || newPassword.length > 256) {
+    return {success: false, message: 'Password admin harus 8–256 karakter.'};
+  }
+  PropertiesService.getScriptProperties().setProperty('ADMIN_PASSWORD', credentialHash_(newPassword));
+  const cache = CacheService.getScriptCache();
+  cache.remove('ADMIN_LOGIN_FAILED_ATTEMPTS');
+  cache.remove('ADMIN_LOGIN_COOLDOWN');
+  return {success: true, username: 'admin'};
 }
 
 function logoutSiswa_(nisn) {

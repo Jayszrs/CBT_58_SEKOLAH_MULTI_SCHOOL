@@ -127,6 +127,9 @@ function executeAdminAction(password, actionName, args) {
     case 'changePassword':
       result = changeAdminPassword_(args.oldPassword, args.newPassword);
       break;
+    case 'setSchoolAdminPassword':
+      result = setSchoolAdminPassword_(password, args.newPassword);
+      break;
     case 'uploadLogoApp':
       result = uploadLogoApp_(args);
       break;
