@@ -14,13 +14,13 @@ try{
  for(let i=0;i<60&&!frame;i++){for(const f of page.frames())if(await f.locator('#admin-username').count()){frame=f;break;}if(!frame)await page.waitForTimeout(300);}
  assert.ok(frame,'Form admin sekolah belum terbuka.');
  const link=frame.locator('#central-admin-link');await link.waitFor({state:'visible',timeout:30000});
- assert.equal(await link.getAttribute('href'),central.webapp_url);
+ assert.equal(await link.getAttribute('href'),new URL(central.public_panel_url||central.webapp_url).href);
  await frame.evaluate(()=>{window.schoolLoginRpcCalls=[];const original=api.call;api.call=function(name,...args){window.schoolLoginRpcCalls.push(name);return original.call(this,name,...args);};});
  await frame.locator('#admin-username').fill('superadmin');await frame.locator('#admin-password').fill('Routing-Only-Test-Password');await frame.locator('#btn-admin-login').click();
  assert.equal(await frame.locator('#admin-password').inputValue(),'');
  assert.equal(await frame.evaluate(()=>window.schoolLoginRpcCalls.includes('loginAdmin')),false);
  assert.equal(await frame.evaluate(()=>document.activeElement?.id),'central-admin-link');
- result.central_link=central.webapp_url;result.central_password_not_sent=true;result.password_cleared=true;result.passed=true;
+ result.central_link=central.public_panel_url||central.webapp_url;result.central_password_not_sent=true;result.password_cleared=true;result.passed=true;
 }catch(error){result.error=error.message;process.exitCode=1;}
 finally{await browser.close();fs.writeFileSync(new URL('../reports/school-login-guidance-live.json',import.meta.url),JSON.stringify(result,null,2)+'\n');}
 console.log(JSON.stringify(result));

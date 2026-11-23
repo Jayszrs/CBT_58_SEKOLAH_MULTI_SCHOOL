@@ -1,0 +1,12 @@
+{
+  "project_id": "appgprj_6b03b7b5bb088191aca1ced12686a7d2",
+  "expected_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
+  "status": "ACTIVE_PUBLIC_VERIFIED",
+  "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
+  "access_mode": "public",
+  "deployment_id": "appgdep_6b03b9e6de708191b43f5a70ac60b828",
+  "version_id": "appgprj_6b03b7b5bb088191aca1ced12686a7d2~appgver_b68ef6829d24819187d192c21a7b5282",
+  "source_commit": "02d0bbc9d6102b8d3c219e0380d39b1020996e51",
+  "verified_at": "2026-11-23T03:59:42.018Z",
+  "user_access_verified": null
+}

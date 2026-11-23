@@ -22,7 +22,7 @@ for (const school of schools) {
     schoolCode:school.school_code, firebaseGroup:school.firebase_group, themePrimary:school.theme_primary,
     themeHover:school.theme_hover, themeAccent:school.theme_accent, themeBackground:school.theme_background,
     themeOnPrimary:school.theme_on_primary, ownerEmail:school.account_email, firebaseDatabaseUrl:school.firebase_database_url,
-    spreadsheetId:school.spreadsheet_id, driveFolderId:school.drive_folder_id, centralAdminUrl:central.webapp_url };
+    spreadsheetId:school.spreadsheet_id, driveFolderId:school.drive_folder_id, centralAdminUrl:central.public_panel_url || central.webapp_url };
   fs.writeFileSync(path.join(dest,'SchoolDeploymentConfig.js'),
     '// Generated public identity; contains NO secrets.\n'+
     'function getSchoolMetadata_() { return '+JSON.stringify(metadata)+'; }\n');

@@ -80,6 +80,8 @@ Jangan simpan `.clasprc.json`, private key, token, atau password di repository m
 
 ## Kelanjutan akses dan super admin (23 November 2026)
 
+Panel pusat publik: **https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site**. Halaman login tersedia tanpa akun Google/ChatGPT; data tetap memerlukan login CBT `superadmin`. URL ini menggantikan pintu masuk browser Apps Script yang gagal pada pengguna. Backend autentikasi Apps Script tetap dipakai melalui API yang dibatasi operasi dan sesi. Identitas Site, source commit, dan izin publik tercatat di `config/public-admin-site.json`; bukti alur produksi ada di `reports/public-admin-live-qa.json`.
+
 58 spreadsheet sudah bernama sesuai sekolah dan izin editor publik telah dibaca ulang dari Google. Seluruh 58 halaman web app juga berhasil dibuka ulang anonim. Tab **LINK SEKOLAH** pada spreadsheet monitoring dan `docs/LINK-58-SEKOLAH.html` menyediakan daftar tautannya.
 
 Panel super admin, username `superadmin`, sudah dipasang pada **dimazunj14@gmail.com**. Login password, penolakan password salah, keluar, dan akses Kelola sampai panggilan admin lulus melalui browser anonim pada **SCH-051–058 (8/58)**. Delapan folder tersebut juga terverifikasi publik tanpa login. Sebanyak 50 sekolah lain menunggu login 10 pemilik. Password awal tersimpan privat di luar repository. Jalankan `scripts/lanjutkan-super-admin.ps1` untuk login dan melanjutkan pemasangan; halaman login lokal dapat dijalankan dengan `node scripts/owner-login-portal.mjs`. Rincian status dan penyimpanan kredensial ada di [docs/SUPER-ADMIN.md](docs/SUPER-ADMIN.md).

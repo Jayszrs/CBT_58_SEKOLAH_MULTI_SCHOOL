@@ -8,3 +8,4 @@ node_modules/
 **/CentralAccessPrivate.js
 **/CentralPrivateConfig.js
 **/AKSES-SUPER-ADMIN.txt
+/public-admin/

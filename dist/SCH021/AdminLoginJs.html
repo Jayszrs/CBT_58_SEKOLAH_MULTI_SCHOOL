@@ -2,10 +2,13 @@
 function initAdminLogin() {
   document.querySelector('[data-school-name]').textContent = APP_GLOBAL_CONFIG.schoolName;
   const centralLink = document.getElementById('central-admin-link');
-  if (centralLink && /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(APP_GLOBAL_CONFIG.centralAdminUrl || '')) {
-    centralLink.href = APP_GLOBAL_CONFIG.centralAdminUrl;
-    centralLink.style.display = 'inline-block';
-  }
+  try {
+    const centralUrl = new URL(APP_GLOBAL_CONFIG.centralAdminUrl || '');
+    if (centralLink && centralUrl.protocol === 'https:' && !centralUrl.username && !centralUrl.password) {
+      centralLink.href = centralUrl.href;
+      centralLink.style.display = 'inline-block';
+    }
+  } catch (error) { /* Keep the link hidden when no valid panel URL is configured. */ }
   document.getElementById('btn-google-owner').style.display = APP_GLOBAL_CONFIG.ownerGoogleLoginAvailable ? 'block' : 'none';
   AppStore.user = null;
   localStorage.removeItem('CBT_SESSION');

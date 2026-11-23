@@ -160,7 +160,7 @@ try {
   Object.assign(config, deployed, {status: installed === schools.length ? 'DEPLOYED_REQUIRES_LIVE_ACCEPTANCE' : 'PARTIALLY_DEPLOYED_REQUIRES_LIVE_ACCEPTANCE', installed_schools: installed}); save();
   report.deployment_complete = installed === schools.length; report.installed_schools = installed;
   report.live_acceptance = false; report.webapp_url = config.webapp_url; checkpoint();
-  console.log('Panel: ' + config.webapp_url);
+  console.log('Panel: ' + (config.public_panel_url || config.webapp_url));
   console.log('Kredensial tersimpan privat: ' + credentialPath);
   console.log('Buka panel sebagai dimazunj14@gmail.com untuk menyelesaikan izin Google, lalu uji login dan tombol Kelola.');
 } catch (error) {

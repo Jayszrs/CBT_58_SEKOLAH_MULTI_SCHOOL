@@ -28,7 +28,8 @@ function environment() {
       passwordHash:digest('random-salt:Initial-Admin-Password-2026'),schoolKeys:{SCH001:'key-for-SCH001'}}),
     getCentralSeed_:()=>[['SCH-001','SDN KEMAYORAN 01','AKUN-01','owner@example.com','GRUP-01','#123456','https://docs.google.com/spreadsheets/d/id/edit','https://script.google.com/macros/s/id/exec','https://drive.google.com/drive/folders/id','DEPLOYED_PUBLIC']],
   });
-  for(const name of ['backend/SessionSecurity.js','backend/CentralAccess.js','admin-central/CentralAdmin.js'])vm.runInContext(read(name),context);
+  context.ContentService={MimeType:{JSON:'json'},createTextOutput:text=>({setMimeType:()=>JSON.parse(text)})};
+  for(const name of ['backend/SessionSecurity.js','backend/CentralAccess.js','admin-central/CentralAdmin.js','admin-central/CentralApi.js'])vm.runInContext(read(name),context);
   const login=()=>context.centralLogin('superadmin','Initial-Admin-Password-2026');
   const ticket=()=>new URL(context.centralOpenSchool(login().token,'SCH-001').url).searchParams.get('central_ticket');
   return {context,cache,props,login,ticket,advance:ms=>{now+=ms;}};
@@ -76,4 +77,16 @@ test('central logout removes the server session',()=>{
 test('central panel server and client scripts parse',()=>{
   new vm.Script(read('admin-central/CentralAdmin.js'));
   for(const script of read('admin-central/CentralPage.html').matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(script[1]);
+});
+
+test('public API refuses private functions and requires a session to list schools',()=>{
+  const {context:c}=environment();const post=(method,args)=>c.doPost({postData:{contents:JSON.stringify({method,args})}});
+  assert.equal(post('getCentralPrivateConfig_',[]).ok,false);
+  assert.equal(post('constructor',[]).ok,false);
+  assert.equal(post('centralSchools',['']).ok,false);
+  assert.equal(post('health',[]).result.application,'cbt58-central');
+  const login=post('centralLogin',['superadmin','Initial-Admin-Password-2026']);
+  assert.equal(login.result.success,true);
+  const schools=post('centralSchools',[login.result.token]);assert.equal(schools.ok,true);assert.equal(schools.result.schools.length,1);
+  assert.equal(JSON.stringify(schools).includes('key-for-SCH001'),false);
 });
