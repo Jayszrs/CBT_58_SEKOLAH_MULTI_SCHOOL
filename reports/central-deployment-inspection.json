@@ -1,0 +1,75 @@
+{
+  "checked_at": "2026-11-23T03:37:50.129Z",
+  "project": {
+    "scriptId": "1vgmiF36glYleuOyxL2OPFko--QeKwL2VlgztC94QN3kA-6ds0ksBqsTI",
+    "title": "CBT 58 Sekolah - Super Admin Pusat",
+    "creator": "dimazunj14@gmail.com",
+    "last_modified_user": "dimazunj14@gmail.com"
+  },
+  "deployments": [
+    {
+      "id": "AKfycbys-wsU_KZdlcVJ3qDLAqTXvFAWZ7p62KUsqqP7ULZM",
+      "entrypoints": [
+        {
+          "entryPointType": "WEB_APP",
+          "webApp": {
+            "url": "https://script.google.com/macros/s/AKfycbys-wsU_KZdlcVJ3qDLAqTXvFAWZ7p62KUsqqP7ULZM/exec",
+            "entryPointConfig": {
+              "access": "ANYONE_ANONYMOUS",
+              "executeAs": "USER_DEPLOYING"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw",
+      "version": 2,
+      "description": "CBT58 Super Admin Pusat",
+      "entrypoints": [
+        {
+          "entryPointType": "WEB_APP",
+          "webApp": {
+            "url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+            "entryPointConfig": {
+              "access": "ANYONE_ANONYMOUS",
+              "executeAs": "USER_DEPLOYING"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "name": "AdminRegistry",
+      "type": "SERVER_JS",
+      "size": 23850,
+      "sha256": "50060dfbc91880e5d06a126d001d6a3cd412a28a4e371a9e1af083ad73c2d9f4"
+    },
+    {
+      "name": "appsscript",
+      "type": "JSON",
+      "size": 290,
+      "sha256": "f03b1eee36acd9b484b395ad9e410d8d74b954bfd1418741a0550435390700c6"
+    },
+    {
+      "name": "CentralAdmin",
+      "type": "SERVER_JS",
+      "size": 5508,
+      "sha256": "3120d86763a2c12f1d4c6f240b157a90281f33b6096d2090a8ccda1a104fa7ba"
+    },
+    {
+      "name": "CentralPage",
+      "type": "HTML",
+      "size": 11597,
+      "sha256": "c1016334760a7259554688ed09ecf927003ad5c6038d456d5873c3e7bcbfe08f"
+    },
+    {
+      "name": "CentralPrivateConfig",
+      "type": "SERVER_JS",
+      "size": 889,
+      "sha256": "f94c8c306ab42b74dc660a01bc22582ef0c92356cfb436307908cb3f65a4f979"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "client_date": "2026-11-23",
+  "status": "AWAITING_USER_VERIFICATION_OF_RECOVERY_URL",
+  "reported_problem": "Google Drive unable-to-open page before central login, both normal Chrome and Incognito",
+  "multiple_account_cause_confirmed": false,
+  "canonical_url_user_access_verified": false,
+  "exact_failed_url_text_requested": true,
+  "automated_canonical_checks": "HTTP 200, public deployment, anonymous login and eight school handoffs pass",
+  "recovery_url": "https://script.google.com/macros/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec",
+  "recovery_automated_login_verified": true,
+  "recovery_automated_handoffs_verified": 8,
+  "recovery_user_access_verified": null,
+  "evidence": [
+    "reports/central-deployment-inspection.json",
+    "reports/central-access-routes.json",
+    "reports/central-admin-recovery-live-qa.json",
+    "reports/central-recovery-browser-access.json",
+    "reports/central-recovery-login-id.png"
+  ]
+}

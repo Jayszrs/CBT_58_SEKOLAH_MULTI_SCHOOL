@@ -10,6 +10,8 @@ Jika muncul halaman Google Drive dengan pesan **Sorry, unable to open the file a
 
 Untuk memisahkan sesi, buka jendela Incognito dengan **Ctrl+Shift+N**, tempel URL panel pusat yang berbentuk `/macros/s/…/exec`, lalu masuk menggunakan akun CBT `superadmin`. Panel menggunakan akses publik sehingga login Google tidak diperlukan untuk login password ini. Alternatif penggunaan rutin adalah profil Chrome terpisah. Jangan menyalin kembali URL yang sudah mengandung `/u/3/` dari tab yang gagal.
 
+**Insiden akses 23 November 2026:** pengguna melaporkan URL asli juga gagal pada Incognito. Karena itu konflik multi-login belum terbukti sebagai penyebab insiden ini, dan Incognito belum menjadi solusi yang terverifikasi pada browser pengguna. Pemeriksaan API, akses tanpa cookie, serta login otomatis tetap berhasil. Satu deployment pemulihan dibuat pada proyek yang sama; URL dan statusnya ada di `config/central-admin-recovery.json`. Login anonim dan delapan handoff sekolah pada deployment pemulihan lulus otomatis, tetapi keberhasilan akses pengguna masih menunggu konfirmasi. Jangan menyatakan insiden selesai hanya berdasarkan hasil otomatis tersebut.
+
 Status pada 23 November 2026: **panel dan akun superadmin telah dipasang** pada dimazunj14@gmail.com. Halaman panel pusat telah diverifikasi publik dan izin Google pertamanya sudah selesai. Akses Kelola serta folder publik telah dipasang dan diuji pada **SCH-051–058 (8/58)**. Sebanyak 50 sekolah lain masih memerlukan login 10 pemilik. URL aktual tersedia di `config/central-admin.json` dan spreadsheet monitoring, tab RINGKASAN.
 
 ## Yang sudah diselesaikan langsung

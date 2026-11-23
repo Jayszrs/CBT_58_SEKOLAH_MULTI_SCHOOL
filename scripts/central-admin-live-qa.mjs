@@ -4,7 +4,9 @@ import {pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
 import {findGoogleOwnerCredentials} from './google-owner-api.mjs';
 const {chromium}=await import(pathToFileURL(path.join(process.env.LOCALAPPDATA,'CBT58-Tools/browser-qa/node_modules/playwright-core/index.mjs')));
+const recovery=process.argv.includes('--recovery');
 const config=JSON.parse(fs.readFileSync(new URL('../config/central-admin.json',import.meta.url)));
+if(recovery)Object.assign(config,JSON.parse(fs.readFileSync(new URL('../config/central-admin-recovery.json',import.meta.url))));
 const schools=JSON.parse(fs.readFileSync(new URL('../config/schools.json',import.meta.url)));
 const privateConfig=JSON.parse(fs.readFileSync(path.join(process.env.LOCALAPPDATA,'CBT58-Private/central-admin.json')));
 const text=fs.readFileSync(path.join(process.env.LOCALAPPDATA,'CBT58-Private/AKSES-SUPER-ADMIN.txt'),'utf8');
@@ -45,8 +47,8 @@ try{
 }catch(error){result.error=error.message;process.exitCode=1;}
 finally{
  await browser.close();
- fs.writeFileSync(new URL('../reports/central-admin-live-qa.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
- if(result.passed){
+ fs.writeFileSync(new URL(recovery?'../reports/central-admin-recovery-live-qa.json':'../reports/central-admin-live-qa.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+ if(result.passed&&!recovery){
   config.status=result.enabled_schools===schools.length?'ACTIVE':'PARTIALLY_ACTIVE_AUTH_REQUIRED';
   config.live_verified_schools=result.schools.length;config.live_verified_at=result.checked_at;
   fs.writeFileSync(new URL('../config/central-admin.json',import.meta.url),JSON.stringify(config,null,2)+'\n');
