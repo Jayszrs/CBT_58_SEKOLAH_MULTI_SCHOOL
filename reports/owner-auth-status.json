@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-23T09:48:41.009Z",
+  "updated_at": "2026-11-23T09:51:51.013Z",
   "order": "BOTTOM_TO_TOP",
   "active_school_count": 18,
   "pending_school_count": 40,
-  "awaiting_login": null,
+  "awaiting_login": "umiexchanger@gmail.com",
   "accounts": [
     {
       "account_id": "AKUN-12",
@@ -33,7 +33,9 @@
       "account_id": "AKUN-08",
       "email": "umiexchanger@gmail.com",
       "schools": "SCH-036, SCH-037, SCH-038, SCH-039, SCH-040",
-      "status": "SKIPPED_USER_REPORTED_2FA"
+      "status": "AWAITING_USER_LOGIN_RETRY",
+      "last_reported_blocker": "GOOGLE_2FA",
+      "retry_requested_at": "2026-11-23T09:51:51.013Z"
     },
     {
       "account_id": "AKUN-07",
@@ -78,6 +80,7 @@
       "status": "SKIPPED_USER_REPORTED_2FA"
     }
   ],
-  "status": "REMAINING_OWNERS_REQUIRE_GOOGLE_2FA",
-  "blocked_owner_count": 8
+  "status": "AWAITING_RETRIED_OWNER_LOGIN",
+  "blocked_owner_count": 7,
+  "auth_rechecked_at": "2026-11-23T09:51:51.013Z"
 }
