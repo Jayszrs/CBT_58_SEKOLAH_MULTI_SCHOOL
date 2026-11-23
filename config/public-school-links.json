@@ -726,7 +726,7 @@
     "slug": "sds-budi-mulia",
     "backend": "https://script.google.com/macros/s/AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/17Rdw8bnqqzzqTf8SMIZs5awIv9x6-IbKd7PEOmU98Tc/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-budi-mulia",
     "theme": {
@@ -744,7 +744,7 @@
     "slug": "sds-kartini",
     "backend": "https://script.google.com/macros/s/AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1ZD7Oxav2Y7g_m21BLr62i53iTtv4R7fsNAbRC23ceF4/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-kartini",
     "theme": {
@@ -762,7 +762,7 @@
     "slug": "sds-karmel",
     "backend": "https://script.google.com/macros/s/AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1w1gk4jKHudi7BFGPi147IC5b0scqvMbR9C14TSmWR2o/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-karmel",
     "theme": {
@@ -780,7 +780,7 @@
     "slug": "sds-kristen-kanaan",
     "backend": "https://script.google.com/macros/s/AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1rpz3aAziENOwX7HeAJVPspn9Zb2TEqyU9-4XJ8jEPDw/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-kristen-kanaan",
     "theme": {
@@ -798,7 +798,7 @@
     "slug": "sds-muhammadiyah-i",
     "backend": "https://script.google.com/macros/s/AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1f_U14XLRBfc7ppdLAqS6jlvgEi4VO_AS2mVX6Xf1p30/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-muhammadiyah-i",
     "theme": {
@@ -816,7 +816,7 @@
     "slug": "sds-nurani",
     "backend": "https://script.google.com/macros/s/AKfycbw9tXGjnRE_u2DRzgqUgXAmjtdsDuTOAqt4PcvnVDN47FB7TeBmwc47k5tCmSa8cgGb/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1ynjJhvPMeQR4Eh-Sz0doBNbn77pqNYo6aK6psskhxS0/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-nurani",
     "theme": {
@@ -834,7 +834,7 @@
     "slug": "sds-taman-siswa",
     "backend": "https://script.google.com/macros/s/AKfycbycKsp8haZkD5ZKq4yENO8wu597zjjsVl7OV-hFk4pYzw5XoayuLBwNW-8sz2JP2N7nmQ/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1pdWp7i63yFdo-PRI_05ugunHn98N0O-vhMfGg0t9mJE/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-taman-siswa",
     "theme": {
@@ -852,7 +852,7 @@
     "slug": "sds-tp-kencana",
     "backend": "https://script.google.com/macros/s/AKfycbyuzfiQf3PtdR_4gaXFD8H3uxPUJ9090ETV0zSZIb3kUw26B1L5KGwVbQtbzfQJ6_hzCg/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1GtrD-CQP67RqMWwuYu-6_rHA1AJ2O5zcfNrFAImg6ag/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sds-tp-kencana",
     "theme": {
@@ -870,7 +870,7 @@
     "slug": "sd-islam-sukamulya",
     "backend": "https://script.google.com/macros/s/AKfycbx-sPaTejiX9iLYWbdmzf5D92pB2gyjARIFeISMjOP7Ez2HZ0nTIrtCDl4F_3E0EG9Ssg/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/19tIj2eaNSoYni4HLGzVJa2JmPxXDfzQesY3ttd-RFJM/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sd-islam-sukamulya",
     "theme": {
@@ -888,7 +888,7 @@
     "slug": "sdit-insan-mulia-jakarta",
     "backend": "https://script.google.com/macros/s/AKfycbz20MnGCMqp1_cnO6IP7Chz2gC_vsh3TS7W7vog5EgjxP9xuDLhmVf2yXjyzpd9wix7JQ/exec",
     "spreadsheet": "https://docs.google.com/spreadsheets/d/1ZQ09pe1Ed41-8tddDViA6CEVFv-lDWi5OyFFzH2arrY/edit",
-    "enabled": false,
+    "enabled": true,
     "publicUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta",
     "dataUrl": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/data/sdit-insan-mulia-jakarta",
     "theme": {

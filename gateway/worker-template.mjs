@@ -4,6 +4,7 @@ const BACKEND_URL = __BACKEND_URL__;
 const PUBLIC_ORIGIN = __PUBLIC_ORIGIN__;
 const SCHOOLS = __SCHOOL_RECORDS__;
 const SCHOOL_HTML = __SCHOOL_HTML__;
+const DEMO_WORKBOOKS = __DEMO_WORKBOOKS__;
 const METHODS = new Set(['centralLogin','centralSchools','centralOpenSchool','centralLogout','centralChangePassword']);
 const SCHOOL_METHODS = new Set(['loginAdmin','checkAdminLoginStatus','loginSiswa','executeAdminAction','startUjian','pingSimpanJawaban','submitUjian','getImageBase64','getMultipleImageBase64']);
 
@@ -55,6 +56,11 @@ function rewriteCentralResult(wire,method,args,url){
 
 export async function handleRequest(request,{upstreamFetch=fetch}={}){
   const url=new URL(request.url);
+  if(DEMO_WORKBOOKS[url.pathname]&&['GET','HEAD'].includes(request.method)){
+    const entry=DEMO_WORKBOOKS[url.pathname];
+    const bytes=request.method==='HEAD'?null:Uint8Array.from(atob(entry.base64),c=>c.charCodeAt(0));
+    return new Response(bytes,{headers:{'Content-Type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','Content-Disposition':'attachment; filename="'+entry.filename+'"','Cache-Control':'public, max-age=300','X-Content-Type-Options':'nosniff'}});
+  }
   if(url.pathname==='/favicon.ico')return new Response(null,{status:204});
   const shortcut=url.pathname.match(/^\/(sekolah|data)\/([a-z0-9-]+)$/);
   if(shortcut&&['GET','HEAD'].includes(request.method)){

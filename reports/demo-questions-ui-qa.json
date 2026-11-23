@@ -1,0 +1,45 @@
+{
+  "checked_at": "2026-11-23T06:59:34.083Z",
+  "passed": true,
+  "schools": [
+    {
+      "school": "SCH-058",
+      "bank_visible": true,
+      "packages_visible": 2,
+      "excel_previews": [
+        {
+          "file": "CONTOH-KELAS-6-SEMUA-MAPEL.xlsx",
+          "valid": 20
+        },
+        {
+          "file": "CONTOH-KELAS-6-MATEMATIKA.xlsx",
+          "valid": 10
+        },
+        {
+          "file": "CONTOH-KELAS-6-BAHASA-INDONESIA.xlsx",
+          "valid": 10
+        }
+      ]
+    },
+    {
+      "school": "SCH-057",
+      "bank_visible": true,
+      "packages_visible": 2,
+      "excel_previews": [
+        {
+          "file": "CONTOH-KELAS-6-SEMUA-MAPEL.xlsx",
+          "valid": 20
+        },
+        {
+          "file": "CONTOH-KELAS-6-MATEMATIKA.xlsx",
+          "valid": 10
+        },
+        {
+          "file": "CONTOH-KELAS-6-BAHASA-INDONESIA.xlsx",
+          "valid": 10
+        }
+      ]
+    }
+  ],
+  "page_errors": []
+}

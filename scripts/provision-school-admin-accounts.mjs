@@ -61,6 +61,10 @@ try{
  for(let i=0;i<schools.length;i++){
   const school=schools[i],link=links.find(l=>l.id===school.school_id);
   if(!link?.enabled){report.results.push({school:school.school_code,name:school.school_name,status:'OWNER_AUTH_REQUIRED',url:link?.publicUrl});saveReport();continue;}
+  const prior=checkpoint.schools[school.school_id];
+  if(process.argv.includes('--only-new')&&prior?.verified_at&&prior.password_hash===hash(passwords[i])){
+   report.results.push({school:school.school_code,name:school.school_name,status:'ACTIVE_VERIFIED',url:link.publicUrl,login_verified:true,verified_at:prior.verified_at,reused_verified_account:true});saveReport();continue;
+  }
   const record={school:school.school_code,name:school.school_name,status:'STARTED',url:link.publicUrl};report.results.push(record);saveReport();
   try{
    const opened=await rpc(central.public_panel_url+'/api/central','centralOpenSchool',[centralToken,school.school_code]);

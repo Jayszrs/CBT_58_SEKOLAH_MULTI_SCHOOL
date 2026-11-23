@@ -1,8 +1,78 @@
 {
-  "checked_at": "2026-11-23T04:45:27.562Z",
+  "checked_at": "2026-11-23T07:00:31.396Z",
   "mode": "LIVE_PUBLIC_SCHOOL",
   "passed": true,
   "schools": [
+    {
+      "school": "SCH-041",
+      "name": "SDS BUDI MULIA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-042",
+      "name": "SDS KARTINI",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-043",
+      "name": "SDS KARMEL",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-044",
+      "name": "SDS KRISTEN KANAAN",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-045",
+      "name": "SDS MUHAMMADIYAH I",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-046",
+      "name": "SDS NURANI",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-047",
+      "name": "SDS TAMAN SISWA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-048",
+      "name": "SDS TP KENCANA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-049",
+      "name": "SD ISLAM SUKAMULYA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
+    {
+      "school": "SCH-050",
+      "name": "SDIT INSAN MULIA JAKARTA",
+      "public_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta",
+      "direct_superadmin_login": true,
+      "guarded_admin_ping": true
+    },
     {
       "school": "SCH-051",
       "name": "SDIT QATRUNNADA",

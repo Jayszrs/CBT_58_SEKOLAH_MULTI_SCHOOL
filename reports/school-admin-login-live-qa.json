@@ -1,8 +1,78 @@
 {
-  "checked_at": "2026-11-23T06:08:08.187Z",
+  "checked_at": "2026-11-23T06:59:46.305Z",
   "mode": "ANONYMOUS_BROWSER_SCHOOL_ADMIN",
   "passed": true,
   "schools": [
+    {
+      "school": "SCH-041",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-042",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-043",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-044",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-045",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-046",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-047",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-048",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-049",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-050",
+      "login": true,
+      "stats_loaded": true,
+      "admin_session": true,
+      "logout": true
+    },
     {
       "school": "SCH-051",
       "login": true,

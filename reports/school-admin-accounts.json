@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-23T06:06:29.453Z",
+  "checked_at": "2026-11-23T06:54:59.158Z",
   "username": "admin",
   "password_pattern": "lowercase school name without spaces/punctuation + 123",
   "results": [
@@ -246,121 +246,147 @@
     {
       "school": "SCH-041",
       "name": "SDS BUDI MULIA",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia",
+      "login_verified": true
     },
     {
       "school": "SCH-042",
       "name": "SDS KARTINI",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini",
+      "login_verified": true
     },
     {
       "school": "SCH-043",
       "name": "SDS KARMEL",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel",
+      "login_verified": true
     },
     {
       "school": "SCH-044",
       "name": "SDS KRISTEN KANAAN",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan",
+      "login_verified": true
     },
     {
       "school": "SCH-045",
       "name": "SDS MUHAMMADIYAH I",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i",
+      "login_verified": true
     },
     {
       "school": "SCH-046",
       "name": "SDS NURANI",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani",
+      "login_verified": true
     },
     {
       "school": "SCH-047",
       "name": "SDS TAMAN SISWA",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa",
+      "login_verified": true
     },
     {
       "school": "SCH-048",
       "name": "SDS TP KENCANA",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana",
+      "login_verified": true
     },
     {
       "school": "SCH-049",
       "name": "SD ISLAM SUKAMULYA",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya",
+      "login_verified": true
     },
     {
       "school": "SCH-050",
       "name": "SDIT INSAN MULIA JAKARTA",
-      "status": "OWNER_AUTH_REQUIRED",
-      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta"
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta",
+      "login_verified": true
     },
     {
       "school": "SCH-051",
       "name": "SDIT QATRUNNADA",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-qatrunnada",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:06:41.851Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-052",
       "name": "SD KRISTEN PENABUR 3",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-penabur-3",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:06:51.328Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-053",
       "name": "SD KRISTEN SAINT JOHN",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-saint-john",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:01.366Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-054",
       "name": "SD MUHAMMADIYAH 50",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-muhammadiyah-50",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:09.758Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-055",
       "name": "SD SANDIKA",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-sandika",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:19.096Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-056",
       "name": "SD SANTO MIKAEL",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-santo-mikael",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:27.799Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-057",
       "name": "SD STRADA VAN LITH I",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:37.366Z",
+      "reused_verified_account": true
     },
     {
       "school": "SCH-058",
       "name": "SEKOLAH DASAR UNIVERSAL",
       "status": "ACTIVE_VERIFIED",
       "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal",
-      "login_verified": true
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:47.467Z",
+      "reused_verified_account": true
     }
   ],
-  "active": 8,
-  "pending": 50,
+  "active": 18,
+  "pending": 40,
   "failed": 0
 }

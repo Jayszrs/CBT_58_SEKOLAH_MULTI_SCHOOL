@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-23T02:32:14.229Z",
+  "checked_at": "2026-11-23T06:46:34.149Z",
   "owner": "dimazunj14@gmail.com",
   "schools": [
     {
@@ -204,168 +204,111 @@
     },
     {
       "school": "SCH-041",
-      "status": "AUTH_REQUIRED",
-      "owner": "dimazunj10@gmail.com"
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ/exec"
     },
     {
       "school": "SCH-042",
-      "status": "AUTH_REQUIRED",
-      "owner": "dimazunj10@gmail.com"
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv/exec"
     },
     {
       "school": "SCH-043",
-      "status": "AUTH_REQUIRED",
-      "owner": "dimazunj10@gmail.com"
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l/exec"
     },
     {
       "school": "SCH-044",
-      "status": "AUTH_REQUIRED",
-      "owner": "dimazunj10@gmail.com"
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg/exec"
     },
     {
       "school": "SCH-045",
-      "status": "AUTH_REQUIRED",
-      "owner": "dimazunj10@gmail.com"
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp/exec"
     },
     {
       "school": "SCH-046",
-      "status": "AUTH_REQUIRED",
+      "status": "DEPLOYED_PREVIOUSLY",
       "owner": "dimazunj12@gmail.com"
     },
     {
       "school": "SCH-047",
-      "status": "AUTH_REQUIRED",
+      "status": "DEPLOYED_PREVIOUSLY",
       "owner": "dimazunj12@gmail.com"
     },
     {
       "school": "SCH-048",
-      "status": "AUTH_REQUIRED",
+      "status": "DEPLOYED_PREVIOUSLY",
       "owner": "dimazunj12@gmail.com"
     },
     {
       "school": "SCH-049",
-      "status": "AUTH_REQUIRED",
+      "status": "DEPLOYED_PREVIOUSLY",
       "owner": "dimazunj12@gmail.com"
     },
     {
       "school": "SCH-050",
-      "status": "AUTH_REQUIRED",
+      "status": "DEPLOYED_PREVIOUSLY",
       "owner": "dimazunj12@gmail.com"
     },
     {
       "school": "SCH-051",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "version": 4,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbw-2Xi9c5wwEIMqP319-xTWz9Bp-vX_svJbm6ng3Hr_rzpt9n0IGw-zXFqFOu4Fa-Y7/exec"
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
     },
     {
       "school": "SCH-052",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "version": 4,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbyMphGjCvgxjiOKyNP-Nw-2yU9mzN5y764MyxrTGNjxDsOzafw203zumAcN4AxYH1A7qw/exec"
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
     },
     {
       "school": "SCH-053",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "version": 4,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbyAI3m_VxzF9G37LxfIm0CPZRMdrGXrEkFqiCvVJzVbVLpVHQjg6tN1W2elaEqa5pOS/exec"
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
     },
     {
       "school": "SCH-054",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "version": 4,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbw4N4OBNDXX8U8JOD8sbNVUiBCdWKXbeK2CHiQ8WUFtDiWKRmGoArs2C-Sa-23wkYQ6/exec"
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
     },
     {
       "school": "SCH-055",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "version": 4,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbzushk82OxqXAftNGsv591dL4W0qrIWHSdtZFBFQ01tkvfRtKoL25-uLdqSEMeytjp1/exec"
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
     },
     {
       "school": "SCH-056",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbyqHhytBO6GLnGiFCEqK1TBAZWmUjMZ7zUFQ090UBvFj-SuYxBf61IJix-AYxf1y2fxew/exec",
-      "version": 4
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
     },
     {
       "school": "SCH-057",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbxR2o6p30CyTRiyXVLjfi8oJaIU0agv2dj2JhY2u6s0OaAietADaikcTZq34QjrRx1-/exec",
-      "version": 4
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
     },
     {
       "school": "SCH-058",
-      "status": "DEPLOYED",
-      "drive_public": true,
-      "webapp_url": "https://script.google.com/macros/s/AKfycbxnAUA7VkCDNawfNWctbDZ-X3aj2HrIYy4uFlYZ8KNtIzkltQDPCt7APpX12W_cnh0b/exec",
-      "version": 4
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
     }
   ],
   "complete": false,
-  "auth_required": [
-    {
-      "owner": "dimazunj2@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimazunj2@gmail.com belum tersedia. Jalankan clasp login --user dimazunj2@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "dimazunj1@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimazunj1@gmail.com belum tersedia. Jalankan clasp login --user dimazunj1@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "usmatematika2021@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp usmatematika2021@gmail.com belum tersedia. Jalankan clasp login --user usmatematika2021@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "ranokelvi@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp ranokelvi@gmail.com belum tersedia. Jalankan clasp login --user ranokelvi@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "uskebonkosong17@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp uskebonkosong17@gmail.com belum tersedia. Jalankan clasp login --user uskebonkosong17@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "dimazkampreto@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimazkampreto@gmail.com belum tersedia. Jalankan clasp login --user dimazkampreto@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "dimaszulfika@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimaszulfika@gmail.com belum tersedia. Jalankan clasp login --user dimaszulfika@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "umiexchanger@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp umiexchanger@gmail.com belum tersedia. Jalankan clasp login --user umiexchanger@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "dimazunj10@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimazunj10@gmail.com belum tersedia. Jalankan clasp login --user dimazunj10@gmail.com dan pilih email yang sama."
-    },
-    {
-      "owner": "dimazunj12@gmail.com",
-      "status": "AUTH_REQUIRED",
-      "message": "Akun clasp dimazunj12@gmail.com belum tersedia. Jalankan clasp login --user dimazunj12@gmail.com dan pilih email yang sama."
-    }
-  ],
+  "auth_required": [],
   "deployment_complete": false,
-  "installed_schools": 8,
+  "installed_schools": 18,
   "live_acceptance": false,
   "webapp_url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
   "live_acceptance_for_installed": true,
-  "live_verified_schools": 8
+  "live_verified_schools": 18
 }

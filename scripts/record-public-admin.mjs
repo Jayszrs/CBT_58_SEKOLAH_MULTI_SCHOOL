@@ -16,6 +16,12 @@ if(fs.existsSync(schoolQaPath)){
   site.public_school_frontend=true;site.public_school_verified=schoolQa.schools.length;site.school_verified_at=schoolQa.checked_at;save('config/public-admin-site.json',site);
   incident.status='PUBLIC_SCHOOL_FRONTEND_DEPLOYED_AWAITING_USER_CONFIRMATION';incident.school_google_route_bypassed=true;incident.direct_school_superadmin_verified=schoolQa.schools.length;
   incident.school_evidence=['reports/school-public-live-qa.json','reports/public-school-functional-qa.json','reports/monitoring-shortcuts-verified.json'];save('reports/central-access-incident.json',incident);
+  const enabled=read('config/public-school-links.json').filter(s=>s.enabled);
+  const verified=new Set(schoolQa.schools.map(s=>s.school));
+  if(enabled.length===verified.size&&enabled.every(s=>verified.has(s.code))){
+   central.status=enabled.length===58?'ACTIVE':'PARTIALLY_ACTIVE_AUTH_REQUIRED';central.live_verified_schools=verified.size;central.live_verified_at=schoolQa.checked_at;save('config/central-admin.json',central);
+   const provisioning=read('reports/central-admin-provisioning.json');provisioning.live_acceptance_for_installed=true;provisioning.live_verified_schools=verified.size;provisioning.complete=verified.size===58;save('reports/central-admin-provisioning.json',provisioning);
+  }
  }
 }
 const privatePath=path.join(process.env.LOCALAPPDATA,'CBT58-Private/AKSES-SUPER-ADMIN.txt');let privateText=fs.readFileSync(privatePath,'utf8');

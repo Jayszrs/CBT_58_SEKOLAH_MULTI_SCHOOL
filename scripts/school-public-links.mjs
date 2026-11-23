@@ -12,7 +12,9 @@ export function schoolPublicRecords(schools, origin, enabled = new Set()) {
 if(process.argv[1]?.endsWith('school-public-links.mjs')){
   const schools=JSON.parse(fs.readFileSync(new URL('../config/schools.json',import.meta.url)));
   const site=JSON.parse(fs.readFileSync(new URL('../config/public-admin-site.json',import.meta.url)));
-  const enabled=new Set(JSON.parse(fs.readFileSync(new URL('../reports/central-admin-live-qa.json',import.meta.url))).schools.map(s=>s.school.replace('-','')));
+  const verifiedPath=new URL('../reports/school-public-backends.json',import.meta.url);
+  const verified=fs.existsSync(verifiedPath)?JSON.parse(fs.readFileSync(verifiedPath)):null;
+  const enabled=new Set((verified?.passed?verified:JSON.parse(fs.readFileSync(new URL('../reports/central-admin-live-qa.json',import.meta.url)))).schools.map(s=>s.school.replace('-','')));
   const records=schoolPublicRecords(schools,site.public_url,enabled);
   fs.writeFileSync(new URL('../config/public-school-links.json',import.meta.url),JSON.stringify(records,null,2)+'\n');
   console.log('Tautan sekolah bernama dibuat: '+records.length);

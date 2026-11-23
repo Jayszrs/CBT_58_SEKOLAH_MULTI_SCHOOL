@@ -6,10 +6,10 @@
   "deployment_id": "AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw",
   "webapp_url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
   "monitoring_spreadsheet_id": "1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns",
-  "version": 4,
-  "installed_schools": 8,
-  "live_verified_schools": 8,
-  "live_verified_at": "2026-11-23T03:09:55.086Z",
+  "version": 8,
+  "installed_schools": 18,
+  "live_verified_schools": 18,
+  "live_verified_at": "2026-11-23T07:00:31.396Z",
   "public_panel_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
   "public_panel_access": "public"
 }

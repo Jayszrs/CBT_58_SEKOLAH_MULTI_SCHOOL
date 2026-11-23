@@ -1,0 +1,133 @@
+{
+  "checked_at": "2026-11-23T06:50:45.485Z",
+  "mode": "LIVE_ANONYMOUS_SCHOOL_BACKEND",
+  "passed": true,
+  "schools": [
+    {
+      "school": "SCH-041",
+      "school_id": "SCH041",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-042",
+      "school_id": "SCH042",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-043",
+      "school_id": "SCH043",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-044",
+      "school_id": "SCH044",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-045",
+      "school_id": "SCH045",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-046",
+      "school_id": "SCH046",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-047",
+      "school_id": "SCH047",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-048",
+      "school_id": "SCH048",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-049",
+      "school_id": "SCH049",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-050",
+      "school_id": "SCH050",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-051",
+      "school_id": "SCH051",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-052",
+      "school_id": "SCH052",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-053",
+      "school_id": "SCH053",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-054",
+      "school_id": "SCH054",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-055",
+      "school_id": "SCH055",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-056",
+      "school_id": "SCH056",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-057",
+      "school_id": "SCH057",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-058",
+      "school_id": "SCH058",
+      "bootstrap": true,
+      "admin_handoff": true,
+      "admin_ping": true
+    }
+  ]
+}

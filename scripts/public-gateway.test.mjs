@@ -29,6 +29,14 @@ test('Kelola returns a named public school URL instead of a Google page',async()
  const wire=await r.json();assert.equal(new URL(wire.result.url).pathname,'/sekolah/'+school.slug);assert.equal(new URL(wire.result.url).searchParams.get('central_ticket'),'test-ticket');
 });
 
+test('the reusable example Excel workbook downloads as an attachment',async()=>{
+ const r=await handleRequest(new Request('https://panel.test/contoh-soal/kelas-6-semua-mapel.xlsx'));
+ assert.equal(r.status,200);assert.match(r.headers.get('content-type'),/spreadsheetml/);assert.match(r.headers.get('content-disposition'),/attachment/);
+ const bytes=new Uint8Array(await r.arrayBuffer());assert.equal(String.fromCharCode(...bytes.slice(0,2)),'PK');
+ const head=await handleRequest(new Request('https://panel.test/contoh-soal/kelas-6-semua-mapel.xlsx',{method:'HEAD'}));assert.equal((await head.arrayBuffer()).byteLength,0);
+ assert.equal((await handleRequest(new Request('https://panel.test/contoh-soal/not-a-file.xlsx'))).status,404);
+});
+
 test('spreadsheet shortcuts preserve the correct destination and inactive schools do not pretend to be activated',async()=>{
  const school=records[0];const shortcut=await handleRequest(new Request('https://panel.test/data/'+school.slug));assert.equal(shortcut.status,302);assert.equal(shortcut.headers.get('location'),school.spreadsheet);
  if(!school.enabled){const page=await handleRequest(new Request('https://panel.test/sekolah/'+school.slug));assert.match(await page.text(),/menunggu aktivasi/);}

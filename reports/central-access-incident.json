@@ -21,7 +21,7 @@
   "public_gateway_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
   "public_gateway_automated_verified": true,
   "school_google_route_bypassed": true,
-  "direct_school_superadmin_verified": 8,
+  "direct_school_superadmin_verified": 18,
   "school_evidence": [
     "reports/school-public-live-qa.json",
     "reports/public-school-functional-qa.json",

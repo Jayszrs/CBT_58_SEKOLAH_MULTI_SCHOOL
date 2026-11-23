@@ -18,6 +18,9 @@ const hash = value => createHash('sha256').update(value).digest('hex');
 const execute = process.argv.includes('--execute');
 const inspectOnly = process.argv.includes('--check-auth');
 const availableOnly = process.argv.includes('--available-accounts');
+const accountFlag = process.argv.indexOf('--account');
+const selectedAccount = accountFlag < 0 ? null : process.argv[accountFlag + 1];
+if (accountFlag >= 0 && !schools.some(s => s.account_id === selectedAccount)) throw Error('--account memerlukan kode akun operasional yang valid.');
 const report = {checked_at: new Date().toISOString(), owner: config.owner_email, schools: [], complete: false};
 const reportPath = path.join(root, 'reports', 'central-admin-provisioning.json');
 const checkpoint = () => fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
@@ -30,7 +33,7 @@ if (!execute && !inspectOnly) {
 }
 
 const clients = new Map();
-for (const email of [...new Set([config.owner_email, ...schools.map(s => s.account_email)])]) {
+for (const email of [...new Set([config.owner_email, ...schools.filter(s => !selectedAccount || s.account_id === selectedAccount).map(s => s.account_email)])]) {
   try { clients.set(email, await googleOwnerApi(email)); }
   catch (error) { report.schools.push({owner: email, status: 'AUTH_REQUIRED', message: error.message}); }
 }
@@ -90,6 +93,10 @@ async function versionAndDeploy(request, scriptId, deploymentId, description) {
 
 try {
   for (const school of schools) {
+    if (selectedAccount && school.account_id !== selectedAccount) {
+      report.schools.push({school: school.school_code, status: secrets.deployed[school.school_id] ? 'DEPLOYED_PREVIOUSLY' : 'AUTH_REQUIRED', owner: school.account_email});
+      continue;
+    }
     if (!clients.has(school.account_email)) {
       report.schools.push({school: school.school_code, status: 'AUTH_REQUIRED', owner: school.account_email}); checkpoint(); continue;
     }
