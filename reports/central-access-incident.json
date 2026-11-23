@@ -1,0 +1,30 @@
+{
+  "client_date": "2026-11-23",
+  "status": "PUBLIC_SCHOOL_FRONTEND_DEPLOYED_AWAITING_USER_CONFIRMATION",
+  "reported_problem": "Google Drive unable-to-open page before central login, both normal Chrome and Incognito",
+  "multiple_account_cause_confirmed": false,
+  "canonical_url_user_access_verified": false,
+  "exact_failed_url_text_requested": false,
+  "automated_canonical_checks": "HTTP 200, public deployment, anonymous login and eight school handoffs pass",
+  "recovery_url": "https://script.google.com/macros/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec",
+  "recovery_automated_login_verified": true,
+  "recovery_automated_handoffs_verified": 8,
+  "recovery_user_access_verified": false,
+  "evidence": [
+    "reports/central-deployment-inspection.json",
+    "reports/central-access-routes.json",
+    "reports/central-admin-recovery-live-qa.json",
+    "reports/central-recovery-browser-access.json",
+    "reports/central-recovery-login-id.png"
+  ],
+  "user_supplied_failed_url": "https://script.google.com/macros/u/3/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec",
+  "public_gateway_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
+  "public_gateway_automated_verified": true,
+  "school_google_route_bypassed": true,
+  "direct_school_superadmin_verified": 18,
+  "school_evidence": [
+    "reports/school-public-live-qa.json",
+    "reports/public-school-functional-qa.json",
+    "reports/monitoring-shortcuts-verified.json"
+  ]
+}

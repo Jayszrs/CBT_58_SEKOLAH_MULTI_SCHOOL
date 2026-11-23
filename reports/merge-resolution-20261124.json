@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-24",
+  "parents": [
+    "effcf1177a810d5ebb027edfe34bdcbb3a4f3887",
+    "942680c0affec54fcfd5917055736b02a04eec88"
+  ],
+  "resolved_files": [
+    ".gitignore",
+    "config/accounts.csv",
+    "config/central-admin.json",
+    "config/schools.csv",
+    "config/schools.json",
+    "scripts/build.mjs",
+    "scripts/provision-school-pilot.mjs",
+    "scripts/sync-school-config.mjs"
+  ],
+  "school_identities_preserved": 58,
+  "school_links_active": 58,
+  "build_school_packages": 58,
+  "main_tests_passed": 83,
+  "private_key_regression_tests_passed": 3,
+  "tests_failed": 0,
+  "credentials_committed": false,
+  "notes": [
+    "Union of ignore rules from both branches.",
+    "Latest deployed school versions retained; CSVs rebuilt from canonical JSON.",
+    "Remote school signing key preserved during provisioning; local backup used only for initialization.",
+    "Current access documentation replaces stale 18/58 status."
+  ]
+}

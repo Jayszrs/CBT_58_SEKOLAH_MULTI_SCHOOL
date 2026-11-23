@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "school": "SCH-001",
+      "http_status": 200,
+      "public_view_verified": true,
+      "title": "SDN KEMAYORAN 01 - Google Drive"
+    },
+    {
+      "school": "SCH-029",
+      "http_status": 200,
+      "public_view_verified": true,
+      "title": "SDN SUMUR BATU 01 PG - Google Drive"
+    },
+    {
+      "school": "SCH-058",
+      "http_status": 200,
+      "public_view_verified": true,
+      "title": "SEKOLAH DASAR UNIVERSAL - Google Drive"
+    }
+  ]
+}

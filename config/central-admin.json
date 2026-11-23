@@ -1,7 +1,15 @@
 {
+  "owner_email": "dimazunj14@gmail.com",
+  "username": "superadmin",
+  "status": "ACTIVE",
   "script_id": "1vgmiF36glYleuOyxL2OPFko--QeKwL2VlgztC94QN3kA-6ds0ksBqsTI",
   "deployment_id": "AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A",
   "webapp_url": "https://script.google.com/macros/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec",
-  "owner_email": "dimazunj14@gmail.com",
+  "monitoring_spreadsheet_id": "1ctiUbPqLGSxsRsM79SPRIrwucJ9aTeR0wM9UrjR92Ns",
+  "installed_schools": 58,
+  "live_verified_schools": 58,
+  "live_verified_at": "2026-11-23T14:21:43.428Z",
+  "public_panel_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site",
+  "public_panel_access": "public",
   "public_portal_url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site"
 }

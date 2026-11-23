@@ -1,0 +1,392 @@
+{
+  "checked_at": "2026-11-23T06:54:59.158Z",
+  "username": "admin",
+  "password_pattern": "lowercase school name without spaces/punctuation + 123",
+  "results": [
+    {
+      "school": "SCH-001",
+      "name": "SDN KEMAYORAN 01",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-01"
+    },
+    {
+      "school": "SCH-002",
+      "name": "SDN KEMAYORAN 07 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-07-pg"
+    },
+    {
+      "school": "SCH-003",
+      "name": "SDN KEMAYORAN 09 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-09-pg"
+    },
+    {
+      "school": "SCH-004",
+      "name": "SDN KEMAYORAN 13 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-13-pg"
+    },
+    {
+      "school": "SCH-005",
+      "name": "SDN KEMAYORAN 15",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kemayoran-15"
+    },
+    {
+      "school": "SCH-006",
+      "name": "SDN UTAN PANJANG 01",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-01"
+    },
+    {
+      "school": "SCH-007",
+      "name": "SDN UTAN PANJANG 03",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-utan-panjang-03"
+    },
+    {
+      "school": "SCH-008",
+      "name": "SDN GUNUNG SAHARI SELATAN 01",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-gunung-sahari-selatan-01"
+    },
+    {
+      "school": "SCH-009",
+      "name": "SDN HARAPAN MULIA 01",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-01"
+    },
+    {
+      "school": "SCH-010",
+      "name": "SDN HARAPAN MULIA 03",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-harapan-mulia-03"
+    },
+    {
+      "school": "SCH-011",
+      "name": "SDN KEBON KOSONG 01 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-01-pg"
+    },
+    {
+      "school": "SCH-012",
+      "name": "SDN KEBON KOSONG 02 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-02-pg"
+    },
+    {
+      "school": "SCH-013",
+      "name": "SDN KEBON KOSONG 03 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-03-pg"
+    },
+    {
+      "school": "SCH-014",
+      "name": "SDN KEBON KOSONG 05 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-05-pg"
+    },
+    {
+      "school": "SCH-015",
+      "name": "SDN KEBON KOSONG 09",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-09"
+    },
+    {
+      "school": "SCH-016",
+      "name": "SDN KEBON KOSONG 13",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-13"
+    },
+    {
+      "school": "SCH-017",
+      "name": "SDN KEBON KOSONG 15 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-15-pg"
+    },
+    {
+      "school": "SCH-018",
+      "name": "SDN KEBON KOSONG 16 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-16-pg"
+    },
+    {
+      "school": "SCH-019",
+      "name": "SDN KEBON KOSONG 17 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-kebon-kosong-17-pg"
+    },
+    {
+      "school": "SCH-020",
+      "name": "SDN SERDANG 01 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-01-pg"
+    },
+    {
+      "school": "SCH-021",
+      "name": "SDN SERDANG 05 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-05-pg"
+    },
+    {
+      "school": "SCH-022",
+      "name": "SDN SERDANG 07",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-07"
+    },
+    {
+      "school": "SCH-023",
+      "name": "SDN SERDANG 11",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-11"
+    },
+    {
+      "school": "SCH-024",
+      "name": "SDN SERDANG 13 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-serdang-13-pg"
+    },
+    {
+      "school": "SCH-025",
+      "name": "SDN CEMPAKA BARU 03 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-03-pg"
+    },
+    {
+      "school": "SCH-026",
+      "name": "SDN CEMPAKA BARU 05 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-05-pg"
+    },
+    {
+      "school": "SCH-027",
+      "name": "SDN CEMPAKA BARU 07 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-07-pg"
+    },
+    {
+      "school": "SCH-028",
+      "name": "SDN CEMPAKA BARU 12 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-12-pg"
+    },
+    {
+      "school": "SCH-029",
+      "name": "SDN SUMUR BATU 01 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-01-pg"
+    },
+    {
+      "school": "SCH-030",
+      "name": "SDN SUMUR BATU 03 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-03-pg"
+    },
+    {
+      "school": "SCH-031",
+      "name": "SDN SUMUR BATU 06",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-06"
+    },
+    {
+      "school": "SCH-032",
+      "name": "SDN SUMUR BATU 08",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-08"
+    },
+    {
+      "school": "SCH-033",
+      "name": "SDN SUMUR BATU 12 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-12-pg"
+    },
+    {
+      "school": "SCH-034",
+      "name": "SDN SUMUR BATU 14 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-sumur-batu-14-pg"
+    },
+    {
+      "school": "SCH-035",
+      "name": "SDN CEMPAKA BARU 01",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-01"
+    },
+    {
+      "school": "SCH-036",
+      "name": "SDN CEMPAKA BARU 09 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-09-pg"
+    },
+    {
+      "school": "SCH-037",
+      "name": "SDN CEMPAKA BARU 11 PG",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdn-cempaka-baru-11-pg"
+    },
+    {
+      "school": "SCH-038",
+      "name": "SD AL-MARHAMAH",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-al-marhamah"
+    },
+    {
+      "school": "SCH-039",
+      "name": "SDS AL-MUDDATSIRIYAH",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-al-muddatsiriyah"
+    },
+    {
+      "school": "SCH-040",
+      "name": "SDS AS-SALAM",
+      "status": "OWNER_AUTH_REQUIRED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-as-salam"
+    },
+    {
+      "school": "SCH-041",
+      "name": "SDS BUDI MULIA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-budi-mulia",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-042",
+      "name": "SDS KARTINI",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kartini",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-043",
+      "name": "SDS KARMEL",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-karmel",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-044",
+      "name": "SDS KRISTEN KANAAN",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-kristen-kanaan",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-045",
+      "name": "SDS MUHAMMADIYAH I",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-muhammadiyah-i",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-046",
+      "name": "SDS NURANI",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-nurani",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-047",
+      "name": "SDS TAMAN SISWA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-taman-siswa",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-048",
+      "name": "SDS TP KENCANA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sds-tp-kencana",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-049",
+      "name": "SD ISLAM SUKAMULYA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-islam-sukamulya",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-050",
+      "name": "SDIT INSAN MULIA JAKARTA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-insan-mulia-jakarta",
+      "login_verified": true
+    },
+    {
+      "school": "SCH-051",
+      "name": "SDIT QATRUNNADA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sdit-qatrunnada",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:06:41.851Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-052",
+      "name": "SD KRISTEN PENABUR 3",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-penabur-3",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:06:51.328Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-053",
+      "name": "SD KRISTEN SAINT JOHN",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-kristen-saint-john",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:01.366Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-054",
+      "name": "SD MUHAMMADIYAH 50",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-muhammadiyah-50",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:09.758Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-055",
+      "name": "SD SANDIKA",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-sandika",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:19.096Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-056",
+      "name": "SD SANTO MIKAEL",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-santo-mikael",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:27.799Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-057",
+      "name": "SD STRADA VAN LITH I",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:37.366Z",
+      "reused_verified_account": true
+    },
+    {
+      "school": "SCH-058",
+      "name": "SEKOLAH DASAR UNIVERSAL",
+      "status": "ACTIVE_VERIFIED",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal",
+      "login_verified": true,
+      "verified_at": "2026-11-23T06:07:47.467Z",
+      "reused_verified_account": true
+    }
+  ],
+  "active": 18,
+  "pending": 40,
+  "failed": 0
+}

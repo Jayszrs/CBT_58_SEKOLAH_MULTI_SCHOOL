@@ -55,8 +55,8 @@ function getOrCreateDriveFolder_() {
     scriptPropertiesObject.setProperty('DRIVE_FOLDER_ID', folderInstance.getId());
   }
 
-  // Folder dan file media tetap private. Siswa melihat gambar melalui fungsi
-  // server-side Apps Script yang memeriksa referensi gambar pada Bank_Soal.
+  // Pertahankan izin berbagi yang ditetapkan pemilik. Folder baru memakai izin
+  // default Drive; akses gambar melalui server memeriksa referensi Bank_Soal.
   return folderInstance;
 }
 

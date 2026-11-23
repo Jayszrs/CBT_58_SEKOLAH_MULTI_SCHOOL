@@ -6,11 +6,11 @@ Konfigurasi sekolah mengikuti spreadsheet monitoring yang diberikan pengguna. Pe
 
 Panel super admin publik: https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site . Tombol Kelola memakai tiket bertanda tangan yang berlaku singkat dan hanya sekali pakai untuk sekolah tujuan; login super admin tetap diperlukan. Akun pemilik pusat adalah dimazunj14@gmail.com.
 
-Soal contoh berada pada mapel **Contoh Latihan SD** dan paket **Contoh 20 Soal SD — Latihan** (20 PG campuran Matematika, Bahasa Indonesia, dan IPA). Pilih paket tersebut di Pengaturan Ujian bila ingin memakainya. Penambahan contoh tidak mengaktifkan ujian dan tidak menimpa bank soal sekolah. Laporan aktual penambahan dan QA per sekolah ada di `reports/sample-question-seeding.json` dan `reports/per-school-functional-qa.json`.
+Soal contoh berada pada mapel **Contoh Latihan SD** dan paket **Contoh 20 Soal SD â€” Latihan** (20 PG campuran Matematika, Bahasa Indonesia, dan IPA). Pilih paket tersebut di Pengaturan Ujian bila ingin memakainya. Penambahan contoh tidak mengaktifkan ujian dan tidak menimpa bank soal sekolah. Laporan aktual penambahan dan QA per sekolah ada di `reports/sample-question-seeding.json` dan `reports/per-school-functional-qa.json`.
 
 - `config/spreadsheet-source.json`: snapshot nama sekolah, palet, tautan yang sudah ada, dan email dari LIST AKUN. Tidak menyimpan password akun Google.
 - `config/schools.json` dan `schools.csv`: konfigurasi 58 sekolah beserta ID dan URL aktual.
-- `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Email admin pusat belum ditentukan.
+- `config/accounts.json` dan `accounts.csv`: 12 akun operasional dengan email sesuai LIST AKUN. Pemilik admin pusat ditetapkan pengguna menjadi **dimazunj14@gmail.com**; panel aktif dengan akses Kelola pada 18 sekolah.
 - Kode pada spreadsheet berbentuk `SCH-001`; ID internal dan namespace Firebase tetap `SCH001` agar resource lama tidak berpindah.
 - `backend/` dan `frontend/`: sumber bersama. `scripts/build.mjs` menghasilkan paket datar `dist/SCH001` sampai `dist/SCH058` dan memperbarui seed inventaris admin pusat.
 
@@ -24,7 +24,7 @@ Akun pemilik: **dimazunj2@gmail.com**. Lima sekolah pertama:
 4. SDN KEMAYORAN 13 PG
 5. SDN KEMAYORAN 15
 
-Kelima sekolah memiliki spreadsheet, folder media privat, Apps Script, serta deployment Web App berbeda. Resource SCH001 yang sudah ada dipakai kembali. Semua memakai Firebase project `cbt-grup-01` dan RTDB `asia-southeast1` yang sama, dengan path server `schools/SCHxxx`.
+Kelima sekolah memiliki spreadsheet, folder media, Apps Script, serta deployment Web App berbeda. Resource SCH001 yang sudah ada dipakai kembali. Semua memakai Firebase project `cbt-grup-01` dan RTDB `asia-southeast1` yang sama, dengan path server `schools/SCHxxx`.
 
 URL aktual ada di `config/schools.json`, tab MASTER SEKOLAH dan DEPLOY & URL. `reports/pilot-verification.json` merekam pemeriksaan identitas, palet, kepemilikan resource, dan deployment dari API Google.
 
@@ -74,10 +74,20 @@ Pilih `dimazunj1@gmail.com` pada kedua login untuk contoh AKUN-02. Gunakan email
 
 - 58 sekolah dan pembagian 5 sekolah/akun telah divalidasi.
 - Seluruh 58 deployment publik, versi sumber, nama, palet, URL dan pemilik resource telah diverifikasi lewat API. Rincian ada dalam laporan per akun dan spreadsheet monitoring.
-- Halaman publik SCH-001–058 berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah lulus WRITE/READ. Semua 12 RTDB menolak akses publik langsung (HTTP 401).
+- Halaman publik SCH-001â€“058 berhasil dibuka tanpa akun Google dan Firebase masing-masing sekolah lulus WRITE/READ. Semua 12 RTDB menolak akses publik langsung (HTTP 401).
 - Di SCH001, uji nyata meliputi CRUD kelas/mapel/siswa/soal, impor/ekspor Excel, gambar privat, paket, ujian HP enam tipe soal, autosave, submit, koreksi nilai 100, ekspor/cetak, serta arsip/restore.
-- 52 tes backend dan 2 tes routing portal lulus, termasuk tiket superadmin, penolakan akses salah sekolah, cache besar dan pembacaan Firebase saat gangguan sementara. Rincian ada di `reports/WEBAPP-FUNCTIONAL-QA.md` dan tab QA FUNGSIONAL.
-- Data QA siswa, kelas, mapel, paket, soal dan sesi Firebase sudah dibersihkan. Dua hasil QA diarsipkan; ujian kembali tidak aktif. Kredensial admin dan logo aktif dipertahankan; penyimpanannya juga diperiksa lewat pengujian terisolasi.
-- UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. Alur lengkap data QA dijalankan di SCH001; sekolah lain menggunakan sumber yang sama dan verifikasi resource masing-masing.
+- 86 tes otomatis backend, sesi, routing, gateway, antarmuka dan pemeliharaan kunci privat lulus setelah penggabungan branch. QA API login admin/superadmin/siswa, ujian dan nilai lulus pada 58 sekolah; rincian ada di `reports/per-school-functional-qa.json` dan tab QA FUNGSIONAL.
+- Data aktif QA dibersihkan dan pengaturan sekolah dipulihkan. SCH-056 mempertahankan ujian TKA Matematika 1 serta data asli; contoh 20 soal/paket per sekolah tersedia. Kredensial admin mengikuti lampiran pengguna dan logo aktif dipertahankan.
+- UAT memakai data peserta asli dan pengujian kapasitas banyak siswa serentak belum dilakukan. UI rinci diuji di SCH001; login/keluar admin browser juga diuji di SCH029/058. QA API login, ujian dan nilai telah dilakukan untuk seluruh 58 sekolah.
 
 Jangan simpan `.clasprc.json`, private key, token, atau password di repository maupun kolom progress spreadsheet.
+
+## Akses sekolah dan superadmin (24 November 2026)
+
+Panel pusat publik: **https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site**. Masuk sebagai `superadmin`, lalu pilih **Kelola**. Akses pusat telah dipasang dan diuji pada **58/58 sekolah**, dengan akun pemilik pusat **dimazunj14@gmail.com**. Halaman aplikasi tersedia tanpa login Google/ChatGPT; data admin tetap memerlukan sesi CBT yang sah.
+
+Admin sekolah masuk dengan username **admin** dan password persis sesuai lampiran pengguna. Seluruh **58 akun aktif dan teruji**. Tautan login serta hasil QA ada pada MASTER SEKOLAH dan AKUN ADMIN SEKOLAH; kolom password mengarah ke daftar privat. Password/token tidak disimpan di repository.
+
+58 spreadsheet dan 58 folder Drive memakai nama sekolah masing-masing. Spreadsheet serta folder sekolah dibuka sebagai **editor melalui tautan** sesuai permintaan pengguna; RTDB tetap menolak akses publik langsung. Bukti pembacaan ulang izin folder ada di `reports/public-drive-folder-editing.json`.
+
+Shortcut, ID resource dan tautan tersimpan di `config/public-school-links.json`, `docs/LINK-58-SEKOLAH.html`, serta spreadsheet monitoring. QA teknis lulus; UAT peserta asli dan uji kapasitas belum dilakukan. Lihat [panduan superadmin](docs/SUPER-ADMIN.md) dan [contoh soal/import](docs/contoh-soal/README.md).

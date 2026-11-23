@@ -7,3 +7,12 @@
 node_modules/
 portal-source/
 reports/portal-58-schools.zip
+
+**/CentralAccessPrivate.js
+**/CentralPrivateConfig.js
+**/AKSES-SUPER-ADMIN.txt
+**/AKUN-ADMIN-58-SEKOLAH.txt
+**/school-admin-accounts-private.json
+/public-admin/
+/reports/demo-ui-debug.png
+/.playwright-mcp/

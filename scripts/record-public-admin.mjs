@@ -1,0 +1,31 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const read=name=>JSON.parse(fs.readFileSync(new URL('../'+name,import.meta.url)));
+const save=(name,data)=>fs.writeFileSync(new URL('../'+name,import.meta.url),JSON.stringify(data,null,2)+'\n');
+const site=read('config/public-admin-site.json');const qa=read('reports/public-admin-live-qa.json');
+if(!qa.passed||qa.mode!=='PUBLIC_HOSTED_REAL_GOOGLE_API'||qa.url!==site.public_url||site.access_mode!=='public')throw Error('Akses panel publik belum terverifikasi.');
+site.status='ACTIVE_PUBLIC_VERIFIED';site.verified_at=qa.checked_at;site.user_access_verified=null;save('config/public-admin-site.json',site);
+const central=read('config/central-admin.json');central.public_panel_url=site.public_url;central.public_panel_access='public';save('config/central-admin.json',central);
+const incident=read('reports/central-access-incident.json');incident.status='PUBLIC_GATEWAY_DEPLOYED_AWAITING_USER_CONFIRMATION';incident.exact_failed_url_text_requested=false;
+incident.user_supplied_failed_url='https://script.google.com/macros/u/3/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec';
+incident.recovery_user_access_verified=false;incident.public_gateway_url=site.public_url;incident.public_gateway_automated_verified=true;save('reports/central-access-incident.json',incident);
+const schoolQaPath=new URL('../reports/school-public-live-qa.json',import.meta.url);
+if(fs.existsSync(schoolQaPath)){
+ const schoolQa=read('reports/school-public-live-qa.json');
+ if(schoolQa.passed&&schoolQa.mode==='LIVE_PUBLIC_SCHOOL'){
+  site.public_school_frontend=true;site.public_school_verified=schoolQa.schools.length;site.school_verified_at=schoolQa.checked_at;save('config/public-admin-site.json',site);
+  incident.status='PUBLIC_SCHOOL_FRONTEND_DEPLOYED_AWAITING_USER_CONFIRMATION';incident.school_google_route_bypassed=true;incident.direct_school_superadmin_verified=schoolQa.schools.length;
+  incident.school_evidence=['reports/school-public-live-qa.json','reports/public-school-functional-qa.json','reports/monitoring-shortcuts-verified.json'];save('reports/central-access-incident.json',incident);
+  const enabled=read('config/public-school-links.json').filter(s=>s.enabled);
+  const verified=new Set(schoolQa.schools.map(s=>s.school));
+  if(enabled.length===verified.size&&enabled.every(s=>verified.has(s.code))){
+   central.status=enabled.length===58?'ACTIVE':'PARTIALLY_ACTIVE_AUTH_REQUIRED';central.live_verified_schools=verified.size;central.live_verified_at=schoolQa.checked_at;save('config/central-admin.json',central);
+   const provisioning=read('reports/central-admin-provisioning.json');provisioning.live_acceptance_for_installed=true;provisioning.live_verified_schools=verified.size;provisioning.complete=verified.size===58;save('reports/central-admin-provisioning.json',provisioning);
+  }
+ }
+}
+const privatePath=path.join(process.env.LOCALAPPDATA,'CBT58-Private/AKSES-SUPER-ADMIN.txt');let privateText=fs.readFileSync(privatePath,'utf8');
+if(/^Panel publik: /m.test(privateText))privateText=privateText.replace(/^Panel publik: .*$/m,'Panel publik: '+site.public_url);
+else privateText=privateText.trimEnd()+'\n\nPanel publik: '+site.public_url+'\n';
+fs.writeFileSync(privatePath,privateText,{mode:0o600});
+console.log('Panel publik terverifikasi: '+site.public_url);

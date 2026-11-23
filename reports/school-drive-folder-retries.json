@@ -1,0 +1,53 @@
+{
+  "executed": true,
+  "results": [
+    {
+      "school": "SCH-035",
+      "folder_id": "1P_ZBsjuuR0LDFXDFSLJXl79daV_oLOo-",
+      "school_name": "SDN CEMPAKA BARU 01",
+      "previous_name": "CBT SCH-035 - SDN CEMPAKA BARU 01 Media",
+      "passed": true,
+      "name": "SDN CEMPAKA BARU 01",
+      "renamed": true,
+      "public_role": "private",
+      "checked_at": "2026-11-23T22:00:59.656Z",
+      "editor_head_restored": true
+    },
+    {
+      "school": "SCH-010",
+      "folder_id": "12U_Z-mAGMutbGxl9r08pmYRyqIxD5Qi1",
+      "school_name": "SDN HARAPAN MULIA 03",
+      "previous_name": "CBT SCH-010 - SDN HARAPAN MULIA 03 Media",
+      "passed": true,
+      "name": "SDN HARAPAN MULIA 03",
+      "renamed": true,
+      "public_role": "private",
+      "checked_at": "2026-11-23T22:01:00.615Z",
+      "editor_head_restored": true
+    },
+    {
+      "school": "SCH-036",
+      "folder_id": "1X4YGVy3ADNVYE-t46KUcmnVYRjEPTu7Q",
+      "school_name": "SDN CEMPAKA BARU 09 PG",
+      "previous_name": "CBT SCH-036 - SDN CEMPAKA BARU 09 PG Media",
+      "passed": true,
+      "name": "SDN CEMPAKA BARU 09 PG",
+      "renamed": true,
+      "public_role": "private",
+      "checked_at": "2026-11-23T22:01:33.280Z",
+      "editor_head_restored": true
+    },
+    {
+      "school": "SCH-056",
+      "folder_id": "1PIs5pZtuN_Fm45bb8HE2JM34_1Jh8ikh",
+      "school_name": "SD SANTO MIKAEL",
+      "previous_name": "CBT SCH-056 - SD SANTO MIKAEL Media",
+      "passed": true,
+      "name": "SD SANTO MIKAEL",
+      "renamed": true,
+      "public_role": "reader",
+      "checked_at": "2026-11-23T22:02:18.119Z",
+      "editor_head_restored": true
+    }
+  ]
+}

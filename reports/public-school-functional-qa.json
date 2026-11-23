@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-11-23T04:50:18.485Z",
+  "passed": true,
+  "schools": [
+    {
+      "school": "SCH-051",
+      "anonymous_admin_denied": true,
+      "stats_loaded": true,
+      "classes_loaded": true,
+      "session_survives_reload": true,
+      "logout": true
+    },
+    {
+      "school": "SCH-056",
+      "anonymous_admin_denied": true,
+      "stats_loaded": true,
+      "classes_loaded": true,
+      "session_survives_reload": true,
+      "logout": true
+    }
+  ],
+  "pending_school_notice": true
+}

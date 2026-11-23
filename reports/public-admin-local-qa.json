@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-11-23T04:40:12.171Z",
+  "url": "http://127.0.0.1:8770",
+  "mode": "LOCAL_FRONTEND_REAL_GOOGLE_API",
+  "passed": true,
+  "public_login_visible": true,
+  "wrong_password_rejected": true,
+  "school_rows": 58,
+  "enabled_schools": 8,
+  "school_admin_handoff": true,
+  "school_stays_on_public_host": true,
+  "logout": true
+}

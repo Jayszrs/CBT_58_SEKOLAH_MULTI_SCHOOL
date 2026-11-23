@@ -1,0 +1,314 @@
+{
+  "checked_at": "2026-11-23T06:46:34.149Z",
+  "owner": "dimazunj14@gmail.com",
+  "schools": [
+    {
+      "school": "SCH-001",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj2@gmail.com"
+    },
+    {
+      "school": "SCH-002",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj2@gmail.com"
+    },
+    {
+      "school": "SCH-003",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj2@gmail.com"
+    },
+    {
+      "school": "SCH-004",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj2@gmail.com"
+    },
+    {
+      "school": "SCH-005",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj2@gmail.com"
+    },
+    {
+      "school": "SCH-006",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj1@gmail.com"
+    },
+    {
+      "school": "SCH-007",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj1@gmail.com"
+    },
+    {
+      "school": "SCH-008",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj1@gmail.com"
+    },
+    {
+      "school": "SCH-009",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj1@gmail.com"
+    },
+    {
+      "school": "SCH-010",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazunj1@gmail.com"
+    },
+    {
+      "school": "SCH-011",
+      "status": "AUTH_REQUIRED",
+      "owner": "usmatematika2021@gmail.com"
+    },
+    {
+      "school": "SCH-012",
+      "status": "AUTH_REQUIRED",
+      "owner": "usmatematika2021@gmail.com"
+    },
+    {
+      "school": "SCH-013",
+      "status": "AUTH_REQUIRED",
+      "owner": "usmatematika2021@gmail.com"
+    },
+    {
+      "school": "SCH-014",
+      "status": "AUTH_REQUIRED",
+      "owner": "usmatematika2021@gmail.com"
+    },
+    {
+      "school": "SCH-015",
+      "status": "AUTH_REQUIRED",
+      "owner": "usmatematika2021@gmail.com"
+    },
+    {
+      "school": "SCH-016",
+      "status": "AUTH_REQUIRED",
+      "owner": "ranokelvi@gmail.com"
+    },
+    {
+      "school": "SCH-017",
+      "status": "AUTH_REQUIRED",
+      "owner": "ranokelvi@gmail.com"
+    },
+    {
+      "school": "SCH-018",
+      "status": "AUTH_REQUIRED",
+      "owner": "ranokelvi@gmail.com"
+    },
+    {
+      "school": "SCH-019",
+      "status": "AUTH_REQUIRED",
+      "owner": "ranokelvi@gmail.com"
+    },
+    {
+      "school": "SCH-020",
+      "status": "AUTH_REQUIRED",
+      "owner": "ranokelvi@gmail.com"
+    },
+    {
+      "school": "SCH-021",
+      "status": "AUTH_REQUIRED",
+      "owner": "uskebonkosong17@gmail.com"
+    },
+    {
+      "school": "SCH-022",
+      "status": "AUTH_REQUIRED",
+      "owner": "uskebonkosong17@gmail.com"
+    },
+    {
+      "school": "SCH-023",
+      "status": "AUTH_REQUIRED",
+      "owner": "uskebonkosong17@gmail.com"
+    },
+    {
+      "school": "SCH-024",
+      "status": "AUTH_REQUIRED",
+      "owner": "uskebonkosong17@gmail.com"
+    },
+    {
+      "school": "SCH-025",
+      "status": "AUTH_REQUIRED",
+      "owner": "uskebonkosong17@gmail.com"
+    },
+    {
+      "school": "SCH-026",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazkampreto@gmail.com"
+    },
+    {
+      "school": "SCH-027",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazkampreto@gmail.com"
+    },
+    {
+      "school": "SCH-028",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazkampreto@gmail.com"
+    },
+    {
+      "school": "SCH-029",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazkampreto@gmail.com"
+    },
+    {
+      "school": "SCH-030",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimazkampreto@gmail.com"
+    },
+    {
+      "school": "SCH-031",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimaszulfika@gmail.com"
+    },
+    {
+      "school": "SCH-032",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimaszulfika@gmail.com"
+    },
+    {
+      "school": "SCH-033",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimaszulfika@gmail.com"
+    },
+    {
+      "school": "SCH-034",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimaszulfika@gmail.com"
+    },
+    {
+      "school": "SCH-035",
+      "status": "AUTH_REQUIRED",
+      "owner": "dimaszulfika@gmail.com"
+    },
+    {
+      "school": "SCH-036",
+      "status": "AUTH_REQUIRED",
+      "owner": "umiexchanger@gmail.com"
+    },
+    {
+      "school": "SCH-037",
+      "status": "AUTH_REQUIRED",
+      "owner": "umiexchanger@gmail.com"
+    },
+    {
+      "school": "SCH-038",
+      "status": "AUTH_REQUIRED",
+      "owner": "umiexchanger@gmail.com"
+    },
+    {
+      "school": "SCH-039",
+      "status": "AUTH_REQUIRED",
+      "owner": "umiexchanger@gmail.com"
+    },
+    {
+      "school": "SCH-040",
+      "status": "AUTH_REQUIRED",
+      "owner": "umiexchanger@gmail.com"
+    },
+    {
+      "school": "SCH-041",
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbzNYf9x_TpzRKBCBl21QyXxfAp8ye4MepR_jT4-UWr1mWDl8U-ovRMnI0xT5VaAJBnCdQ/exec"
+    },
+    {
+      "school": "SCH-042",
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbxtBOjmM_3AiUObKYLZr7Tk8GMDX8vbksTbj_7JQAvyJGZSpGpNAoopD3bXxwEVfBDv/exec"
+    },
+    {
+      "school": "SCH-043",
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbwWxmDbdNFlHDOndy4XzUbgL4BtXj7T5yI2GqpEqmi5kLOOW6WGG3iXBPmYCUQasU9l/exec"
+    },
+    {
+      "school": "SCH-044",
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycbwKs8Fuf_sVO19ow9cBLAUwUNWjgGBzOkNZWycs9ajqM4XOBWiOWr6KKU3dCqbDVGwTDg/exec"
+    },
+    {
+      "school": "SCH-045",
+      "status": "DEPLOYED",
+      "drive_public": true,
+      "version": 4,
+      "webapp_url": "https://script.google.com/macros/s/AKfycby4R29RHk-Ob7JxqsyW7BOxR7NfaByx3SPB3U4Jt0Ol_7SPxTkt_VSleEJ4VLC9aLmp/exec"
+    },
+    {
+      "school": "SCH-046",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj12@gmail.com"
+    },
+    {
+      "school": "SCH-047",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj12@gmail.com"
+    },
+    {
+      "school": "SCH-048",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj12@gmail.com"
+    },
+    {
+      "school": "SCH-049",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj12@gmail.com"
+    },
+    {
+      "school": "SCH-050",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj12@gmail.com"
+    },
+    {
+      "school": "SCH-051",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
+    },
+    {
+      "school": "SCH-052",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
+    },
+    {
+      "school": "SCH-053",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
+    },
+    {
+      "school": "SCH-054",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
+    },
+    {
+      "school": "SCH-055",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj13@gmail.com"
+    },
+    {
+      "school": "SCH-056",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
+    },
+    {
+      "school": "SCH-057",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
+    },
+    {
+      "school": "SCH-058",
+      "status": "DEPLOYED_PREVIOUSLY",
+      "owner": "dimazunj14@gmail.com"
+    }
+  ],
+  "complete": false,
+  "auth_required": [],
+  "deployment_complete": false,
+  "installed_schools": 18,
+  "live_acceptance": false,
+  "webapp_url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+  "live_acceptance_for_installed": true,
+  "live_verified_schools": 18
+}

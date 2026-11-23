@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-11-23T07:00:42.953Z",
+  "passed": true,
+  "files": [
+    {
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/contoh-soal/kelas-6-semua-mapel.xlsx",
+      "bytes": 29534,
+      "checksum_matches_local": true
+    },
+    {
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/contoh-soal/kelas-6-matematika.xlsx",
+      "bytes": 23301,
+      "checksum_matches_local": true
+    },
+    {
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/contoh-soal/kelas-6-bahasa-indonesia.xlsx",
+      "bytes": 24671,
+      "checksum_matches_local": true
+    },
+    {
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/contoh-soal/template-kosong.xlsx",
+      "bytes": 25045,
+      "checksum_matches_local": true
+    }
+  ]
+}

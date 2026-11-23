@@ -1,0 +1,58 @@
+{
+  "checked_at": "2026-11-23T06:48:11.547Z",
+  "grade": 6,
+  "questions_per_school": 20,
+  "schools": [
+    {
+      "school": "SCH-058",
+      "name": "SEKOLAH DASAR UNIVERSAL",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sekolah-dasar-universal",
+      "imported": 0,
+      "questions": 20,
+      "subjects": [
+        "Matematika",
+        "Bahasa Indonesia"
+      ],
+      "types": [
+        "PG",
+        "PG Kompleks",
+        "Isian Singkat",
+        "Menjodohkan",
+        "Benar Salah",
+        "Sesuai Tidak Sesuai"
+      ],
+      "total_bank": 20,
+      "excel_import_ui": true,
+      "answer_keys_verified": true
+    },
+    {
+      "school": "SCH-057",
+      "name": "SD STRADA VAN LITH I",
+      "url": "https://cbt58-admin-pusat-publik.closedmyna32.chatgpt.site/sekolah/sd-strada-van-lith-i",
+      "imported": 20,
+      "questions": 20,
+      "subjects": [
+        "Matematika",
+        "Bahasa Indonesia"
+      ],
+      "types": [
+        "PG",
+        "PG Kompleks",
+        "Isian Singkat",
+        "Menjodohkan",
+        "Benar Salah",
+        "Sesuai Tidak Sesuai"
+      ],
+      "total_bank": 20,
+      "excel_import_ui": true,
+      "answer_keys_verified": true
+    }
+  ],
+  "files": [
+    "docs/contoh-soal/CONTOH-KELAS-6-SEMUA-MAPEL.xlsx",
+    "docs/contoh-soal/CONTOH-KELAS-6-MATEMATIKA.xlsx",
+    "docs/contoh-soal/CONTOH-KELAS-6-BAHASA-INDONESIA.xlsx",
+    "docs/contoh-soal/Template-Import-Kosong.xlsx"
+  ],
+  "passed": true
+}

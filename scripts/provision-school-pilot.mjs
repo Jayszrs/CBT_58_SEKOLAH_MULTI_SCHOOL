@@ -73,10 +73,19 @@ try {
       source: fs.readFileSync(path.join(directory, name), 'utf8'),
     }));
     if(files.some(file=>file.name==='CentralAccess')){
-      const privateFile=path.join(process.env.LOCALAPPDATA,'CBT58-QA','remote-baseline-20261123','central-config-next.json');
-      const key=JSON.parse(fs.readFileSync(privateFile,'utf8')).schoolKeys[school.school_id];
-      if(typeof key!=='string'||key.length<32)throw Error('Kunci pusat privat untuk sekolah belum tersedia.');
-      files.push({name:'CentralAccessPrivate',type:'SERVER_JS',source:'function getSchoolCentralKey_() { return '+JSON.stringify(key)+'; }\n'});
+      // Preserve the cloud key when updating an existing school; local backup
+      // is only needed when initializing a project without a private key.
+      const priorContent = await request(`${api}/${school.script_id}/content`);
+      let centralPrivate = priorContent.files?.find(file => file.name === 'CentralAccessPrivate');
+      if (!centralPrivate) {
+        const privateFile=path.join(process.env.LOCALAPPDATA,'CBT58-QA','remote-baseline-20261123','central-config-next.json');
+        const key=JSON.parse(fs.readFileSync(privateFile,'utf8')).schoolKeys[school.school_id];
+        if(typeof key!=='string'||key.length<32)throw Error('Kunci pusat privat untuk sekolah belum tersedia.');
+        centralPrivate={name:'CentralAccessPrivate',type:'SERVER_JS',source:'function getSchoolCentralKey_() { return '+JSON.stringify(key)+'; }\n'};
+      }
+      const localPrivateIndex=files.findIndex(file=>file.name==='CentralAccessPrivate');
+      if(localPrivateIndex>=0)files.splice(localPrivateIndex,1);
+      files.push({name:centralPrivate.name,type:centralPrivate.type,source:centralPrivate.source});
     }
     await request(`${api}/${school.script_id}/content`, 'PUT', { files });
     school.status = 'UPLOADED_NOT_DEPLOYED'; save();

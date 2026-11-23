@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-11-23T06:49:48.836Z",
+  "deployments": [
+    {
+      "deployment_id": "AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw",
+      "url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 8
+    },
+    {
+      "deployment_id": "AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A",
+      "url": "https://script.google.com/macros/s/AKfycbwZ6vDz9Czb1Pyo0Z63NuOJAbGg3oqRb4BZrDIZ9DFI9ngBC36GehCaUY3_iHDqtDlL6A/exec",
+      "access": "ANYONE_ANONYMOUS",
+      "version": 8
+    }
+  ],
+  "health": {
+    "ok": true,
+    "result": {
+      "application": "cbt58-central",
+      "public": true
+    }
+  }
+}

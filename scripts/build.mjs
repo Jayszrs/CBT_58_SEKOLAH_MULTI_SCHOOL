@@ -34,3 +34,8 @@ const registryFile=path.join(root,'admin-central','AdminRegistry.js');
 const registry=fs.readFileSync(registryFile,'utf8');
 const seed=schools.map(s=>[s.school_code,s.school_name,s.account_id,s.account_email,s.spreadsheet_group,s.theme_primary,s.spreadsheet_url,s.webapp_url,s.drive_folder_url,s.status]);
 fs.writeFileSync(registryFile,registry.replace(/^const SEED_58_SEKOLAH = .*;$/m,'const SEED_58_SEKOLAH = '+JSON.stringify(seed)+';'));
+const centralDist=path.join(dist,'ADMIN_PUSAT');
+fs.mkdirSync(centralDist,{recursive:true});
+for(const name of fs.readdirSync(path.dirname(registryFile)).filter(name=>/\.(js|html|json)$/.test(name))){
+  fs.copyFileSync(path.join(path.dirname(registryFile),name),path.join(centralDist,name));
+}

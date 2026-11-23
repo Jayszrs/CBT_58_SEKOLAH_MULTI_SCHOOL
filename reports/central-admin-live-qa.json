@@ -1,0 +1,52 @@
+{
+  "checked_at": "2026-11-23T03:09:55.086Z",
+  "webapp_url": "https://script.google.com/macros/s/AKfycbw_dH95FP7iCBiE4X1DZ_HLiOLCEmDsEshutMFmaQElz_U-zaDTVY7mFzfaAY_Ha0qZOw/exec",
+  "mode": "LIVE_GOOGLE_RPC_ANONYMOUS_BROWSER",
+  "schools": [
+    {
+      "school": "SCH-051",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-052",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-053",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-054",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-055",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-056",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-057",
+      "admin_handoff": true,
+      "admin_ping": true
+    },
+    {
+      "school": "SCH-058",
+      "admin_handoff": true,
+      "admin_ping": true
+    }
+  ],
+  "passed": true,
+  "wrong_password_rejected": true,
+  "school_rows": 58,
+  "enabled_schools": 8,
+  "logout": true
+}

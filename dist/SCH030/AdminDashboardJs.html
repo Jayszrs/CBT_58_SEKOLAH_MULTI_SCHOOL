@@ -27,11 +27,13 @@ function checkOwnerFirebasePermission() {
 
 function loadStatistik() {
   api.call('executeAdminAction', AppStore.user.data.token, 'getStatistik', {}).then(res => {
+    if (AppStore.activeComponent !== 'admin-dashboard') return;
     document.getElementById('stat-siswa').innerText = res.totalSiswa || 0;
     document.getElementById('stat-soal').innerText = res.totalSoal || 0;
     document.getElementById('stat-ujian').innerText = res.sudahUjian || 0;
     document.getElementById('stat-koreksi').innerText = res.belumKoreksi || 0;
   }).catch(() => {
+    if (AppStore.activeComponent !== 'admin-dashboard') return;
     showToast('Gagal memuat statistik. Sesi mungkin berakhir.', 'error');
     navigateTo('admin-login');
   });

@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-24",
+  "timezone": "Asia/Jakarta",
+  "sheets_reviewed": [
+    "RINGKASAN",
+    "MASTER SEKOLAH",
+    "LIST AKUN",
+    "AKUN FIREBASE",
+    "DEPLOY & URL",
+    "PALET WARNA",
+    "CHECKLIST",
+    "PANDUAN",
+    "QA FUNGSIONAL",
+    "LINK SEKOLAH",
+    "AKUN ADMIN SEKOLAH"
+  ],
+  "admin_accounts_active": 58,
+  "technical_login_exam_grade_passed": 58,
+  "folders_renamed_verified": 58,
+  "folder_ids_and_links_preserved": 58,
+  "folder_access": {
+    "private": 0,
+    "public_reader": 0,
+    "public_writer": 58
+  },
+  "uat_real_participants": "Belum Diuji",
+  "mfa": "Belum diverifikasi",
+  "quota_monitoring": "Belum Mulai",
+  "handover_backup": "Proses",
+  "assigned_schools": 58,
+  "errors": [],
+  "visual_review": "Native Google Sheets: seluruh 11 tab diperiksa; catatan dibungkus agar terbaca.",
+  "source": "Laporan QA terakhir dan metadata rename folder yang dibaca ulang.",
+  "public_passwords_in_master": false,
+  "folder_public_editor_verified": 58,
+  "merge_conflicts_resolved": 8,
+  "tests_passed": 86
+}
